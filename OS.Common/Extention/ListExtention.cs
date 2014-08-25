@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OS.Common.Extention
+{
+    public static class ListExtention
+    {
+        /// <summary>
+        /// List合并
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="target">目标对象</param>
+        /// <param name="source">来源对象</param>
+        /// <param name="func">重复项依据方法 true-没有重复项，可以合并，fale-有重复项，不能合并</param>
+        /// <returns>返回合并后的目标对象 - 排除重复项</returns>
+        public static IList<T> Merged<T>(this IList<T> target, IList<T> source, Func<IList<T>, T, bool> func)
+        {
+            foreach (T t in source)
+            {
+                if (func(target, t))
+                {
+                    target.Add(t);
+                }
+            }
+            return target;
+        }
+
+
+    }
+}
