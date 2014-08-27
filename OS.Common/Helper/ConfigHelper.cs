@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace OS.Framework.Helper
+namespace OS.Common.Helper
 {
     public static class ConfigHelper
     {
@@ -35,19 +35,10 @@ namespace OS.Framework.Helper
         {
             StringDictionary reval = new StringDictionary();
             ConnectionStringSettingsCollection StrConnColl = ConfigurationManager.ConnectionStrings;
-            //#if DEBUG
             for (int i = 0; i < StrConnColl.Count; i++)
             {
                 reval.Add(StrConnColl[i].Name, StrConnColl[i].ConnectionString);
-
             }
-            //#else
-            //            for (int i = 0; i < StrConnColl.Count; i++)
-            //            {
-            //               reval.Add(StrConnColl[i].Name,CryptoHelper.Decrypt(StrConnColl[i].ConnectionString,StrConnColl[i].Name));
-            //            }
-            //#endif
-
             return reval;
 
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OS.Common.Models.Enums;
 
 namespace OS.Common.Models
@@ -70,6 +71,14 @@ namespace OS.Common.Models
         /// 总数
         /// </summary>
         public long Total { get; set; }
+
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        public int TotalPage
+        {
+            get { return (int)Math.Ceiling((double)Total/PageSize); }
+        }
 
         /// <summary>
         /// 过滤条件

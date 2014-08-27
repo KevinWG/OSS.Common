@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace OS.Common.Serialize
 {
-    public class XMLSerializeHelper
+    public static class XmlSerialize
     {
         /// <summary>
         /// 从文件中获取
