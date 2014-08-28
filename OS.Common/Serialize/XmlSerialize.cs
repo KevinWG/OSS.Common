@@ -12,14 +12,14 @@ namespace OS.Common.Serialize
         /// <typeparam name="T"></typeparam>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static T Get<T>(string path)
+        public static T Get<T>(string path) where T:class ,new()
         {
             T t = default(T);
             FileStream fs = null;
             try
             {
                 XmlSerializer xmlSer = new XmlSerializer(typeof(T));
-                fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                fs = new FileStream(string.Concat(path, typeof(T).Name, ".xml"), FileMode.Open, FileAccess.Read, FileShare.Read);
                 t = (T)xmlSer.Deserialize(fs);
             }
             catch
@@ -30,7 +30,8 @@ namespace OS.Common.Serialize
                 if (fs != null)
                     fs.Close();
             }
-            if (t == null) t = (T)Activator.CreateInstance(typeof(T));
+            if (t == null) 
+                t = new T();
             return t;
         }
 
@@ -41,14 +42,14 @@ namespace OS.Common.Serialize
         /// <param name="path"></param>
         /// <param name="t">对象必须可以被序列化</param>
         /// <returns>true-成功   false-失败（对象是否能被序列化，文件是否有权限）</returns>
-        public static bool Save<T>(string path, T t)
+        public static bool Save<T>(string path, T t) where T : class ,new()
         {
             bool isOk = true;
             FileStream fs = null;
             try
             {
                 XmlSerializer xmlSer = new XmlSerializer(typeof(T));
-                fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+                fs = new FileStream(string.Concat(path, typeof(T).Name,".xml"), FileMode.Create, FileAccess.Write);
                 xmlSer.Serialize(fs, t);
                 fs.Close();
             }
