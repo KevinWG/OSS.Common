@@ -8,12 +8,10 @@ namespace OS.Common.Models
         /// </summary>
         public long Id { get; set; }
 
-
         /// <summary>
         /// 创建时间
         /// </summary>
         public long create_time { get; set; }
-
 
         private int _ret = 200;
         /// <summary>
