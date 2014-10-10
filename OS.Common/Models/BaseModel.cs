@@ -22,7 +22,6 @@ namespace OS.Common.Models
             set { _ret = value; }
         }
 
-
         /// <summary>
         /// 结果状态描述
         /// </summary>
