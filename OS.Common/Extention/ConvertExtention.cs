@@ -160,20 +160,8 @@ namespace OS.Common.Extention
             {
                 return default(Type);
             }
-            if (type.IsEnum)
-            {
-                object result;
-                try
-                {
-                    result = Enum.ToObject( type, obj.ToInt64() );
-                }
-                catch(Exception)
-                {
-                    result = default(Type);
-                }
-                return result;
-            }
-            return obj.ChangeToType( type );
+          
+            return ((object)obj).ChangeToType( type );
         }
 
 
@@ -193,13 +181,17 @@ namespace OS.Common.Extention
             object result;
             try
             {
-                result = Convert.ChangeType( obj, type );
+                if (type.IsEnum)
+                {
+                    return Enum.ToObject(type, obj.ToInt64());
+                }
+                return Convert.ChangeType( obj, type );
             }
             catch (Exception)
             {
                 result = default(Type);
             }
-            return result;
+            return default(Type);
         }
     }
 }
