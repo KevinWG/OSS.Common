@@ -1,8 +1,44 @@
 ﻿
+using OS.Common.Models.Enums;
+
 namespace OS.Common.Models
 {
     public class ResultModel
     {
+        /// <summary>
+        /// 空构造函数
+        /// </summary>
+        public ResultModel()
+        {
+
+        }
+
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultModel(int ret=200, string message = "")
+        {
+            this._ret = ret;
+            this.message = message;
+        }
+
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultModel(ResultTypes ret = ResultTypes.Success, string message = "")
+        {
+            this._ret = (int) ret;
+            this.message = message;
+        }
+
+
+
         private int _ret = 200;
         /// <summary>
         /// 返回结果

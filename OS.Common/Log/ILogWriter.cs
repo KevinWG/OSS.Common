@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OS.Common.Models.Enums;
 
 namespace OS.Common.Log
 {
-    interface ILogWriter
+    /// <summary>
+    /// 日志写实现接口
+    /// </summary>
+    public interface ILogWriter
     {
-        void WriteAccessLog(string causer, string msg);
-        void WriteAccessLog(string msg);
-        void WriteErrLog(string causer, string msg);
-        void WriteErrLog(string msg);
-        void WriteWarningLog(string causer, string msg);
-        void WriteWarningLog(string msg);
+        /// <summary>
+        ///   日志写功能
+        /// </summary>
+        ///<param name="info">日志实体</param>
+        void WriteLog(LogInfo info);
     }
 }

@@ -2,13 +2,13 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace OS.Common.Helper
+namespace OS.Common.Utils
 {
-    public static class ConfigHelper
+    public static class ConfigUtil
     {
         public static NameValueCollection AppSettings { get; private set; }
 
-        static ConfigHelper()
+        static ConfigUtil()
         {
             AppSettings = ConfigurationManager.AppSettings;
         }

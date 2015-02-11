@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace OS.Common.Helper
+namespace OS.Common.Utils
 {
-    internal static class TypeHelper
+    internal static class TypeUtil
     {
 
         private static ConcurrentDictionary<string, object[]> attrDirs = new ConcurrentDictionary<string, object[]>();

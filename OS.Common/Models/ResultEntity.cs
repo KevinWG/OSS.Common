@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OS.Common.Models
+﻿namespace OS.Common.Models
 {
     public class ResultEntity
     {
@@ -15,6 +9,6 @@ namespace OS.Common.Models
         /// <summary>
         /// 错误或者状态
         /// </summary>
-        public string Message { get; set; }
+        public string message { get; set; }
     }
 }

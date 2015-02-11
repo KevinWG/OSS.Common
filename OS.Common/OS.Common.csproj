@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OS.Common</RootNamespace>
     <AssemblyName>OS.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -36,6 +36,11 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OS.Enjoyurt\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
@@ -44,13 +49,16 @@
     <Compile Include="Extention\DateTimeExtention.cs" />
     <Compile Include="Extention\DTO\ColumnAliasAttribute.cs" />
     <Compile Include="Extention\DTO\DTOExtetion.cs" />
+    <Compile Include="Extention\EnumExtention.cs" />
     <Compile Include="Extention\ListExtention.cs" />
-    <Compile Include="Helper\ChineseHelper.cs" />
-    <Compile Include="Helper\ConfigHelper.cs" />
-    <Compile Include="Helper\TypeHelper.cs" />
-    <Compile Include="Log\LogHelper.cs" />
-    <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Log\ILogWriter.cs" />
+    <Compile Include="Models\Enums\LogLevelEnum.cs" />
+    <Compile Include="Utils\ChineseUtil.cs" />
+    <Compile Include="Utils\ConfigUtil.cs" />
+    <Compile Include="Utils\ImageUtil.cs" />
+    <Compile Include="Utils\TypeUtil.cs" />
+    <Compile Include="Log\LogHelper.cs" />
+    <Compile Include="Utils\StringUtil.cs" />
     <Compile Include="Log\LogWriter.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Enums\SortType.cs" />
@@ -62,7 +70,9 @@
     <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
     <Compile Include="Extention\Volidate\VolidateExtention.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

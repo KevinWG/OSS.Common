@@ -75,6 +75,7 @@ namespace OS.Common.Models
             set { _pageSize = value; }
         }
         
+
         public int StartRow
         {
             get { return (CurrentPage - 1)*PageSize; }

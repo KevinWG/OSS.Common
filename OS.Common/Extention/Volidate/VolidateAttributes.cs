@@ -1,8 +1,24 @@
 ﻿using System;
 
-namespace OS.Common.Volidate
+
+#region Copyright (C) 2014 北京金色世纪商旅网络科技股份有限公司
+
+/*
+　　	文件功能描述：验证属性attribute
+
+　　	创建人：王超
+　　	创建人Email：wangchao@jsj.com.cn
+    	创建日期：2014.08.25
+
+　　	修改描述：
+	*/
+
+#endregion
+
+
+namespace OS.Common.Extention
 {
-     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = true)]
+     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
     public abstract class BaseValidateAttribute : Attribute
     {
         protected string errorMessage;
@@ -55,17 +71,24 @@ namespace OS.Common.Volidate
         /// <returns></returns>
         internal override bool Validate(string propertyName, object propertyValue)
         {
-            errorMessage = errorMessage ??string.Format("{0} 的值 必须介于 {1}~{2} 的数值", propertyName, min, max);
             if (propertyValue==null)
             {
+                 errorMessage = errorMessage ?? string.Format("{0} 的值 不能为空！", propertyName);
                 return false;
             }
+            bool isOkay = false;
             long longValue = 0;
             if (long.TryParse(propertyValue.ToString(), out longValue))
             {
-                return min <= longValue&& longValue <= max;
+                isOkay= min <= longValue&& longValue <= max;
+                errorMessage = isOkay
+                    ? string.Empty:(errorMessage ?? string.Format("{0} 的值 必须介于 {1}~{2} 的数值", propertyName, min, max));
             }
-            return false;
+            else
+            {
+                errorMessage = (errorMessage ?? string.Format("{0} 的值 必须是数字类型", propertyName));
+            }
+            return isOkay;
         }
     }
 

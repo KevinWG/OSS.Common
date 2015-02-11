@@ -2,9 +2,9 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OS.Common.Helper
+namespace OS.Common.Utils
 {
-    public class ChineseHelper
+    public class ChineseUtil
     {
         #region 汉字转首字母 
 
