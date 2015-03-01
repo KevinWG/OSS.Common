@@ -18,7 +18,6 @@ using System.Reflection;
 
 namespace OS.Common.Extention
 {
-
     #region   类型属性的自定义属性处理
 
     /// <summary>
@@ -129,8 +128,4 @@ namespace OS.Common.Extention
     }
 
     #endregion
-
-
-
-
 }

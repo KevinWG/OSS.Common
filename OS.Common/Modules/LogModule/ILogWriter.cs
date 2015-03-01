@@ -1,6 +1,6 @@
-﻿using OS.Common.Models.Enums;
+﻿using OS.Common.ComModels.Enums;
 
-namespace OS.Common.Log
+namespace OS.Common.LogModule
 {
     /// <summary>
     /// 日志写实现接口

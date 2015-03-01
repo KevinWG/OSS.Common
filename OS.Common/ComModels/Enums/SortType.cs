@@ -1,5 +1,5 @@
 ﻿
-namespace OS.Common.Models.Enums
+namespace OS.Common.ComModels.Enums
 {
     public enum SortType
     {

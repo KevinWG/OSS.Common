@@ -12,8 +12,9 @@ namespace OS.Common.Serialize
         /// <typeparam name="T"></typeparam>
         /// <param name="path">文件夹路径 - 不要带文件名,不带后缀（\\）</param>
         /// <param name="fileName">等于空则为 类型名称  </param>
+        /// <param name="fileSuffix">  文件后缀  </param>  
         /// <returns></returns>
-        public static T Get<T>(string path=null, string fileName=null) where T : class ,new()
+        public static T Get<T>(string path=null, string fileName=null,string fileSuffix=null) where T : class ,new()
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -23,13 +24,17 @@ namespace OS.Common.Serialize
             {
                 fileName = typeof(T).Name;
             }
+            if (string.IsNullOrEmpty(fileSuffix))
+            {
+                fileSuffix = ".xml";
+            }
 
             T t = default(T);
             FileStream fs = null;
             try
             {
                 XmlSerializer xmlSer = new XmlSerializer(typeof(T));
-                fs = new FileStream(string.Concat(path, "\\", fileName, ".xml"), FileMode.Open, FileAccess.Read, FileShare.Read);
+                fs = new FileStream(string.Concat(path, "\\", fileName, fileSuffix), FileMode.Open, FileAccess.Read, FileShare.Read);
                 t = (T)xmlSer.Deserialize(fs);
             }
             catch

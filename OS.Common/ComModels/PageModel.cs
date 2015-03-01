@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using OS.Common.Models.Enums;
+using OS.Common.ComModels.Enums;
 
-namespace OS.Common.Models
+namespace OS.Common.ComModels
 {
 
     public static class SearchModelExtention

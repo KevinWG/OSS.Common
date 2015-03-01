@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Collections;
 
-namespace OS.Common.Utils
+namespace OS.Common.ComUtils
 {
 
     //public static class ImageHelper

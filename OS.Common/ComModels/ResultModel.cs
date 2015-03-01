@@ -1,7 +1,7 @@
 ﻿
-using OS.Common.Models.Enums;
+using OS.Common.ComModels.Enums;
 
-namespace OS.Common.Models
+namespace OS.Common.ComModels
 {
     public class ResultModel
     {
@@ -10,7 +10,6 @@ namespace OS.Common.Models
         /// </summary>
         public ResultModel()
         {
-
         }
 
 
@@ -21,8 +20,8 @@ namespace OS.Common.Models
         /// <param name="message"></param>
         public ResultModel(int ret=200, string message = "")
         {
-            this._ret = ret;
-            this.message = message;
+            Ret = ret;
+            Message = message;
         }
 
 
@@ -33,13 +32,11 @@ namespace OS.Common.Models
         /// <param name="message"></param>
         public ResultModel(ResultTypes ret = ResultTypes.Success, string message = "")
         {
-            this._ret = (int) ret;
-            this.message = message;
+            this.Ret = (int) ret;
+            this.Message = message;
         }
 
 
-
-        private int _ret = 200;
         /// <summary>
         /// 返回结果
         ///  2xx   成功相关状态（如： 200）
@@ -48,15 +45,11 @@ namespace OS.Common.Models
         ///  5xx   服务器内部相关错误信息
         ///  6xx   系统级定制错误信息，如升级维护等
         /// </summary>
-        public int ret
-        {
-            get { return _ret; }
-            set { _ret = value; }
-        }
+        public int Ret { get; set; }
 
         /// <summary>
         /// 错误或者状态
         /// </summary>
-        public string message { get; set; }
+        public string Message { get; set; }
     }
 }

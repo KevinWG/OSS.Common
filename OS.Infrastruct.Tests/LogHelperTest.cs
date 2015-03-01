@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OS.Common.Log;
+using OS.Common.LogModule;
 
 namespace OS.Infrastruct.Tests
 {
@@ -10,7 +10,7 @@ namespace OS.Infrastruct.Tests
         [TestMethod]
         public void WriteInfoLogTest()
         {
-            LogHelper.Info("test","testtstetsets");
+            LogUtil.Info("test","testtstetsets");
         }
     }
 }

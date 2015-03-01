@@ -2,11 +2,13 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace OS.Common.Utils
+namespace OS.Common.ComUtils
 {
+    /// <summary>
+    /// 内部使用获取属性相关信息
+    /// </summary>
     internal static class TypeUtil
     {
-
         private static ConcurrentDictionary<string, object[]> attrDirs = new ConcurrentDictionary<string, object[]>();
 
         public static object[] GetPropertiAttributes( string typeName, PropertyInfo fd, Type attributeType )

@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OS.Common.Utils
+namespace OS.Common.ComUtils
 {
     public class ChineseUtil
     {

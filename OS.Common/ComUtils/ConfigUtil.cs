@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace OS.Common.Utils
+namespace OS.Common.ComUtils
 {
     public static class ConfigUtil
     {
