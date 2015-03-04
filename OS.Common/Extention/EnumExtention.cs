@@ -9,39 +9,15 @@ namespace OS.Common.Extention
 {
     public static class EnumExtention
     {
-
-        ///// <summary>
-        ///// 获取描述
-        ///// </summary>
-        ///// <param name="en"></param>
-        ///// <returns></returns>
-        //public static string GetDesp(this Enum en,bool isFlag=false)
-        //{
-        //    Type enType = en.GetType();
-
-        //    var field = enType.GetField(en.ToString());
-        //    if (field==null)
-        //    {
-        //        return "不存在的枚举值";
-        //    }
-        //    var attrList =field.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-        //    if (attrList.Length > 0)
-        //    {
-        //        return attrList[0].Description;
-        //    }
-        //    return en.ToString();
-        //}
-
-
         /// <summary>
         /// 获取描述
         /// </summary>
         /// <param name="en"></param>
         /// <returns></returns>
-        public static string GetDesp(this Enum en, bool isFlag=false,string operate=",")
+        public static string GetDesp(this Enum en, bool isFlag=false, string operate=",")
         {
             var values = en.GetType().ToEnumDirs();
-            int current = (int)Enum.Parse(en.GetType(),en.ToString());
+            int current = (int)Enum.Parse(en.GetType(), en.ToString());
 
 
             if (isFlag)
@@ -80,28 +56,28 @@ namespace OS.Common.Extention
         /// <param name="enType">枚举类型</param>
         /// <param name="isIntValue">返回枚举值是否是int类型</param>
         /// <returns></returns>
-        public static Dictionary<string, string> ToEnumDirs(this Type enType,bool isIntValue=true)
+        public static Dictionary<string, string> ToEnumDirs(this Type enType, bool isIntValue=true)
         {
             if (!enType.IsEnum)
             {
-               throw new ArgumentException("获取枚举字典，参数必须是枚举类型！");
+                throw new ArgumentException("获取枚举字典，参数必须是枚举类型！");
             }
             string key = string.Concat(enType.FullName, isIntValue);
-             Dictionary<string, string> dirs;
-             enumDirs.TryGetValue(key, out dirs);
+            Dictionary<string, string> dirs;
+            enumDirs.TryGetValue(key, out dirs);
 
-             if (dirs != null)
-                 return dirs.Copy() ;
+            if (dirs != null)
+                return dirs.Copy();
 
             dirs=new Dictionary<string, string>();
 
             var values = Enum.GetValues(enType);
-    
+
             foreach (var value in values)
             {
                 var name = Enum.GetName(enType, value);
-                string resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
-                var attrList = enType.GetField(name).GetCustomAttributes(typeof (DescriptionAttribute), false) as DescriptionAttribute[];
+                string resultValue = isIntValue ? ((int)value).ToString() : value.ToString();
+                var attrList = enType.GetField(name).GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
                 if (attrList.Length > 0)
                 {
                     dirs.Add(resultValue, attrList[0].Description);
@@ -125,7 +101,7 @@ namespace OS.Common.Extention
             Dictionary<string, string> results=new Dictionary<string, string>();
             foreach (var sou in source)
             {
-                results.Add(sou.Key,sou.Value);
+                results.Add(sou.Key, sou.Value);
             }
 
             return results;

@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Text;
 
-namespace OS.Common.Utilss
+namespace OS.Common.ComUtils
 {
     public static class StringUtil
     {
@@ -57,17 +56,37 @@ namespace OS.Common.Utilss
         /// <summary>
         ///    从base64编码解码出正常的值
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="baseString"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string FromBase64(this string source, Encoding encoding)
+        public static string FromBase64(this string baseString, Encoding encoding)
         {
-            if (string.IsNullOrEmpty(source))
+            if (string.IsNullOrEmpty(baseString))
             {
-                throw new ArgumentNullException("source", "解码Base64字符串不能为空");
+                throw new ArgumentNullException("baseString", "解码Base64字符串不能为空");
             }
-            byte[] bytes = encoding.GetBytes(source);
+            byte[] bytes = Convert.FromBase64String(baseString);
             return encoding.GetString(bytes);
+        }
+
+        /// <summary>
+        ///   替换base64位字符串中的特殊符号 Url友好
+        /// </summary>
+        /// <param name="baseString"></param>
+        /// <returns></returns>
+        public static string Base64UrlEncode(this string baseString)
+        {
+            return baseString.Replace('+', '-').Replace('/', '_');
+        }
+
+        /// <summary>
+        ///   还原 base64 字符串中的特殊字符  Url不友好
+        /// </summary>
+        /// <param name="baseString"></param>
+        /// <returns></returns>
+        public static string Base64UrlDecode(this string baseString)
+        {
+            return baseString.Replace('-', '+').Replace( '_','/');
         }
 
         #endregion

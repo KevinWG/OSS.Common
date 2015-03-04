@@ -32,6 +32,10 @@ namespace OS.Common.Extention
         /// <returns></returns>
         public static bool IsValidate<T>(this T t) where T : class ,new()
         {
+            if (t==null)
+                return false;
+            
+
             Type type = typeof(T);
             var files =TypeHelper.GetProperties(type);
 
@@ -41,7 +45,7 @@ namespace OS.Common.Extention
 
                 object[] attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof(BaseValidateAttribute));
 
-                if (attrs.OfType<BaseValidateAttribute>().Any(requireAttr => !requireAttr.Validate(fd.Name, fd.GetValue(t,null))))
+                if (attrs.OfType<BaseValidateAttribute>().Any(requireAttr => !requireAttr.Validate(fd.Name, fd.GetValue(t, null))))
                 {
                     return false;
                 }
@@ -57,6 +61,11 @@ namespace OS.Common.Extention
         public static List<string> ValidateMessage<T>(this T t) where T : class ,new()
         {
             List<string> resultList=new List<string>();
+            if (t==null)
+            {
+                resultList.Add("对象不能为空！");
+                return resultList;
+            }
 
             var type = typeof(T);
 
@@ -67,9 +76,10 @@ namespace OS.Common.Extention
                 var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof(BaseValidateAttribute));
 
                 var fd1 = fd;
-                foreach (var requireAttr in from requireAttr in attrs.OfType<BaseValidateAttribute>() 
-                    let result = requireAttr.Validate(fd1.Name, fd1.GetValue(t,null)) 
-                    where !result select requireAttr)
+                foreach (var requireAttr in from requireAttr in attrs.OfType<BaseValidateAttribute>()
+                                            let result = requireAttr.Validate(fd1.Name, fd1.GetValue(t, null))
+                                            where !result
+                                            select requireAttr)
                 {
                     resultList.Add(requireAttr.ErrorMessage);
                     break;

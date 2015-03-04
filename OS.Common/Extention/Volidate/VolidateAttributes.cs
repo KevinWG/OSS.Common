@@ -35,9 +35,9 @@ namespace OS.Common.Extention
     /// <summary>
     /// 必填验证属性
     /// </summary>
-    public class RequireAttribute : BaseValidateAttribute
+    public class OSRequiredAttribute : BaseValidateAttribute
     {
-        public RequireAttribute(string _errorMessage=null)
+        public OSRequiredAttribute(string _errorMessage=null)
         {
             errorMessage = _errorMessage;
         }
@@ -54,10 +54,10 @@ namespace OS.Common.Extention
     /// <summary>
     /// 数字验证属性
     /// </summary>
-    public class NumberAttribute : BaseValidateAttribute
+    public class OSNumberAttribute : BaseValidateAttribute
     {
         private long min, max;
-        public NumberAttribute(long _min=long.MinValue, long _max=long.MaxValue, string _errorMessage=null)
+        public OSNumberAttribute(long _min=long.MinValue, long _max=long.MaxValue, string _errorMessage=null)
         {
             min          = _min;
             max          = _max;
@@ -73,7 +73,7 @@ namespace OS.Common.Extention
         {
             if (propertyValue==null)
             {
-                 errorMessage = errorMessage ?? string.Format("{0} 的值 不能为空！", propertyName);
+                errorMessage = errorMessage ?? string.Format("{0} 的值 不能为空！", propertyName);
                 return false;
             }
             bool isOkay = false;

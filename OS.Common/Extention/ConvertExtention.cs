@@ -241,6 +241,32 @@ namespace OS.Common.Extention
 
 
 
+
+        /// <summary>
+        /// 字符串转化成数字
+        /// </summary>
+        /// <param name="obj">要转化的值</param>
+        /// <param name="defaultValue">如果转化失败，返回的默认值</param>
+        /// <returns></returns>
+        public static long ToInt64(this string obj, int defaultValue=0)
+        {
+            try
+            {
+                long returnValue = 0;
+                if (long.TryParse(obj, out returnValue))
+                {
+                    return returnValue;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return defaultValue;
+        }
+
+
+
         /// <summary>
         /// 字符串转化成数字
         /// </summary>

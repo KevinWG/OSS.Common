@@ -40,6 +40,9 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComModels\AppAuthorizeInfo.cs" />
+    <Compile Include="Encrypt\AESRijndael.cs" />
+    <Compile Include="Encrypt\HMACSHA1Encrypt.cs" />
     <Compile Include="Modules\CacheModule\Cache.cs" />
     <Compile Include="Modules\CacheModule\CacheUtil.cs" />
     <Compile Include="Modules\CacheModule\ICache.cs" />
@@ -65,7 +68,6 @@
     <Compile Include="Modules\LogModule\LogUtil.cs" />
     <Compile Include="ComUtils\StringUtil.cs" />
     <Compile Include="Modules\LogModule\LogWriter.cs" />
-    <Compile Include="ComModels\BaseModel.cs" />
     <Compile Include="ComModels\Enums\SortType.cs" />
     <Compile Include="ComModels\PageModel.cs" />
     <Compile Include="ComModels\ResultModel.cs" />

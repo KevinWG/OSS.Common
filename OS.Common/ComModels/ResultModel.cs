@@ -1,4 +1,5 @@
 ﻿
+
 using OS.Common.ComModels.Enums;
 
 namespace OS.Common.ComModels
@@ -10,15 +11,15 @@ namespace OS.Common.ComModels
         /// </summary>
         public ResultModel()
         {
+            Ret = 200;
         }
-
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultModel(int ret=200, string message = "")
+        public ResultModel(int ret, string message = "")
         {
             Ret = ret;
             Message = message;
@@ -30,7 +31,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultModel(ResultTypes ret = ResultTypes.Success, string message = "")
+        public ResultModel(ResultTypes ret, string message = "")
         {
             this.Ret = (int) ret;
             this.Message = message;
@@ -51,5 +52,45 @@ namespace OS.Common.ComModels
         /// 错误或者状态
         /// </summary>
         public string Message { get; set; }
+    }
+
+
+    public class ResultIdModel : ResultModel
+    {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="id"></param>
+        public ResultIdModel(long id)
+            : base(200, null)
+        {
+            Id = id;
+        }
+
+
+           /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultIdModel(int ret=200, string message = ""):base(ret,message)
+        {
+        }
+
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultIdModel(ResultTypes ret = ResultTypes.Success, string message = "")
+            : base(ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 返回的关键值，如返回添加是否成功并返回id
+        /// </summary>
+        public long Id { get; set; }
     }
 }
