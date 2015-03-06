@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComModels\AppAuthorizeInfo.cs" />
+    <Compile Include="ComModels\Enums\AppClient.cs" />
+    <Compile Include="ComModels\Enums\MobileCountry.cs" />
     <Compile Include="Encrypt\AESRijndael.cs" />
     <Compile Include="Encrypt\HMACSHA1Encrypt.cs" />
     <Compile Include="Modules\CacheModule\Cache.cs" />

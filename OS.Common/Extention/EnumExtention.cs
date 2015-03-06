@@ -14,22 +14,22 @@ namespace OS.Common.Extention
         /// </summary>
         /// <param name="en"></param>
         /// <returns></returns>
-        public static string GetDesp(this Enum en, bool isFlag=false, string operate=",")
+        public static string GetDesp(this Enum en, bool isFlag = false, string operate = ",")
         {
             var values = en.GetType().ToEnumDirs();
-            int current = (int)Enum.Parse(en.GetType(), en.ToString());
+            int current = (int) Enum.Parse(en.GetType(), en.ToString());
 
 
             if (isFlag)
             {
-                StringBuilder strResult=new StringBuilder();
+                StringBuilder strResult = new StringBuilder();
 
                 foreach (var value in values)
                 {
                     int tempKey = value.Key.ToInt32();
-                    if ((tempKey&current)==tempKey)
+                    if ((tempKey & current) == tempKey)
                     {
-                        if (strResult.Length!=0)
+                        if (strResult.Length != 0)
                         {
                             strResult.Append(operate);
                         }
@@ -38,11 +38,9 @@ namespace OS.Common.Extention
                 }
                 return strResult.ToString();
             }
-            else
-            {
-                KeyValuePair<string, string> keypair = values.FirstOrDefault(e => e.Key == current.ToString());
-                return keypair.Key==null ? "不存在的枚举值" : keypair.Value;
-            }
+
+            KeyValuePair<string, string> keypair = values.FirstOrDefault(e => e.Key == current.ToString());
+            return keypair.Key == null ? "不存在的枚举值" : keypair.Value;
         }
 
 
@@ -78,7 +76,7 @@ namespace OS.Common.Extention
                 var name = Enum.GetName(enType, value);
                 string resultValue = isIntValue ? ((int)value).ToString() : value.ToString();
                 var attrList = enType.GetField(name).GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-                if (attrList.Length > 0)
+                if (attrList != null && attrList.Length > 0)
                 {
                     dirs.Add(resultValue, attrList[0].Description);
                     continue;

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using OS.Common.Modules;
 using OS.Common.Modules.AsynModule;
@@ -26,8 +27,6 @@ namespace OS.Common.LogModule
         /// 警告
         /// </summary>
         Warning,
-
-
     }
 
     public class LogInfo
@@ -38,6 +37,8 @@ namespace OS.Common.LogModule
         public LogInfo()
         {
         }
+
+        
 
         /// <summary>
         /// 日志构造函数
@@ -63,6 +64,7 @@ namespace OS.Common.LogModule
         /// 日志类型
         /// </summary>
         public string ModuleName { get; set; }
+
         /// <summary>
         ///   key值  可以是id等
         /// </summary>
@@ -72,6 +74,11 @@ namespace OS.Common.LogModule
         /// 日志信息
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// 错误编号
+        /// </summary>
+        public string ErrorCode { get; internal set; }
     }
 
     /// <summary>
@@ -122,9 +129,9 @@ namespace OS.Common.LogModule
         /// <param name="msg"> 日志信息  </param>
         /// <param name="key">  关键值  </param>
         /// <param name="moduleName"> 模块名称 </param>
-        public static void Info(string msg,object key=null,string moduleName=ModuleCacheKeys.Default)
+        public static string Info(string msg, object key=null, string moduleName=ModuleCacheKeys.Default)
         {
-            Log(new LogInfo(LogLevelEnum.Info, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Info, msg, key, moduleName));
         }
 
         /// <summary>
@@ -133,9 +140,9 @@ namespace OS.Common.LogModule
         /// <param name="msg"> 日志信息  </param>
         /// <param name="key">  关键值  </param>
         /// <param name="moduleName">模块名称</param>
-        public static void Warning( string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
+        public static string Warning(string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
         {
-            Log(new LogInfo(LogLevelEnum.Warning, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Warning, msg, key, moduleName));
         }
 
         /// <summary>
@@ -144,31 +151,46 @@ namespace OS.Common.LogModule
         /// <param name="msg"> 日志信息  </param>
         /// <param name="key">  关键值  </param>
         /// <param name="moduleName">模块名称</param>
-        public static void Error( string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
+        public static string Error(string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
         {
-            Log(new LogInfo(LogLevelEnum.Error, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Error, msg, key, moduleName));
         }
 
         /// <summary>
         /// 记录错误，用于捕获到的异常信息记录
         /// </summary>
-        /// <param name="category">  分类  </param>
         /// <param name="msg"> 日志信息  </param>
         /// <param name="key">  关键值  </param>
         /// <param name="moduleName">模块名称</param>
-        public static void Trace(string category, string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
+        public static string Trace(string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
         {
-            Log(new LogInfo(LogLevelEnum.Trace, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Trace, msg, key, moduleName));
         }
+
 
         /// <summary>
         ///   记录日志
         /// </summary>
         /// <param name="info"></param>
-        public static void Log(LogInfo info)
+        public static string Log(LogInfo info)
         {
+            info.ErrorCode = GetErrorCode();
             var logWrite = GetLogWrite(info.ModuleName);
+         
             AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName);  // logActionList.Post(info);
+            return info.ErrorCode;
+        }
+
+
+
+
+        /// <summary>
+        /// 生成错误编号
+        /// </summary>
+        /// <returns></returns>
+        private static string GetErrorCode()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
     }
 }

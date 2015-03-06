@@ -31,5 +31,11 @@
         /// 默认本地文件日志
         /// </summary>
         public const string Default = "default";
+
+
+        /// <summary>
+        /// 记录sql语句log模块
+        /// </summary>
+        public const string SqlLog = "SQLLog";
     }
 }

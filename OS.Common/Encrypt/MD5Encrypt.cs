@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string GetMD5_16(string input)
+        public static string GetMD5_16(this string input)
         {
             string result = GetMD5(input);
             if (!string.IsNullOrEmpty(result))
@@ -28,7 +28,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string GetMD5(string input)
+        public static string GetMD5(this string input)
         {
             if (string.IsNullOrEmpty(input))
             {
