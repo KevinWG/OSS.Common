@@ -20,7 +20,7 @@ namespace OS.Common
         /// <param name="logModules"></param>
         public static void RegLogModule(IDictionary<string, ILogWriter> logModules)
         {
-            RegisterModule<ILogWriter, LogWriter>(LogUtil.logModules, logModules, ModuleLogKeys.Default);
+            RegisterModule<ILogWriter, LogWriter>(LogUtil.LogModules, logModules, ModuleLogKeys.Default);
         }
 
         /// <summary>
@@ -49,8 +49,6 @@ namespace OS.Common
         }
 
         #endregion
-
-
 
         #region  缓存模块
 

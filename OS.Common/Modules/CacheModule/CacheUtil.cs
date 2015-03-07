@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Caching;
 
 namespace OS.Common.Modules.CacheModule
 {
@@ -9,6 +8,13 @@ namespace OS.Common.Modules.CacheModule
         internal static Dictionary<string, ICache> CacheModules=
             new Dictionary<string, ICache>();
 
+        static CacheUtil()
+        {
+            if (!CacheModules.ContainsKey(ModuleAsynKeys.Default))
+            {
+                CacheModules.Add(ModuleCacheKeys.Default, new Cache());
+            }
+        }
 
         /// <summary>
         /// 通过模块名称获取

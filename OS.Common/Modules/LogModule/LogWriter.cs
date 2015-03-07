@@ -6,24 +6,22 @@ namespace OS.Common.LogModule
 {
     internal class LogWriter : ILogWriter
     {
-        private readonly string logDirPath = null;
-        private const string logFormat = "{0:T}       {1}      {2}:{3}";
+        private readonly string _logBaseDirPath = null;
+        private const string logFormat = "{0:T}       Key:{1}   Detail:{2}";
 
         public LogWriter()
         {
-            logDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"log\");
-            if (!Directory.Exists(logDirPath))
-                Directory.CreateDirectory(logDirPath);
+            _logBaseDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"log");
+            if (!Directory.Exists(_logBaseDirPath))
+                Directory.CreateDirectory(_logBaseDirPath);
         }
 
-        private string getLogFilePath(string type)
+        private string getLogFilePath(string module, LogLevelEnum level)
         {
-            StringBuilder sb = new StringBuilder(logDirPath);
-            sb.Append(DateTime.Now.ToString("yyyyMMdd"));
-            sb.Append("_");
-            sb.Append(type);
-            sb.Append(".txt");
-            return sb.ToString();
+            string dirPath = string.Format(@"{0}\{1}\{2}\",_logBaseDirPath, module, level);
+            if (!Directory.Exists(dirPath))
+                Directory.CreateDirectory(dirPath);
+            return string.Concat(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
         }
 
 
@@ -37,9 +35,11 @@ namespace OS.Common.LogModule
         {
             lock (obj)
             {
-                using (StreamWriter sw = new StreamWriter(getLogFilePath(info.Level.ToString()), true, Encoding.Default))
+                string filePath = getLogFilePath(info.ModuleName, info.Level);
+
+                using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.Default))
                 {
-                    sw.WriteLine(logFormat, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), info.Key, info.ModuleName, info.Message);
+                    sw.WriteLine(format: logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.Key, arg2: info.Message);
                     sw.Close();
                 }
             }

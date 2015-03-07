@@ -62,7 +62,7 @@ namespace OS.Common.Encrypt
             catch { }
             return result;
         }
-        private static string HEX = "0123456789ABCDEF";
+        private static string HEX = "0123456789abcdef";
         private static string ToText(byte[] buf)
         {
             if (buf == null)

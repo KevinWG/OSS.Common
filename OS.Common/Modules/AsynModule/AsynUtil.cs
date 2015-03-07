@@ -12,6 +12,13 @@ namespace OS.Common.Modules.AsynModule
         internal static Dictionary<string, IAsynBlock> AsynModules=
             new Dictionary<string, IAsynBlock>();
 
+        static AsynUtil()
+        {
+            if (!AsynModules.ContainsKey(ModuleAsynKeys.Default))
+            {
+                AsynModules.Add(ModuleAsynKeys.Default,new AsynBlock());
+            }
+        }
 
         /// <summary>
         /// 通过模块名称获取异步处理模块实例

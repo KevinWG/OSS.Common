@@ -38,7 +38,6 @@ namespace OS.Common.LogModule
         {
         }
 
-        
 
         /// <summary>
         /// 日志构造函数
@@ -78,7 +77,7 @@ namespace OS.Common.LogModule
         /// <summary>
         /// 错误编号
         /// </summary>
-        public string ErrorCode { get; internal set; }
+        public string ErrorCode { get;internal set; }
     }
 
     /// <summary>
@@ -105,9 +104,15 @@ namespace OS.Common.LogModule
         }
     
 
-        internal static Dictionary<string, ILogWriter> logModules=
+        internal static Dictionary<string, ILogWriter> LogModules=
             new Dictionary<string, ILogWriter>();
-
+        static LogUtil()
+        {
+            if (!LogModules.ContainsKey(ModuleAsynKeys.Default))
+            {
+                LogModules.Add(ModuleLogKeys.Default, new LogWriter());
+            }
+        }
 
         /// <summary>
         /// 通过模块名称获取日志模块实例
@@ -116,11 +121,11 @@ namespace OS.Common.LogModule
         /// <returns></returns>
         public static ILogWriter GetLogWrite(string logModule)
         {
-            if (!string.IsNullOrEmpty(logModule)&&logModules.ContainsKey(logModule))
+            if (!string.IsNullOrEmpty(logModule)&&LogModules.ContainsKey(logModule))
             {
-                return logModules[logModule];
+                return LogModules[logModule];
             }
-            return logModules[ModuleCacheKeys.Default];
+            return LogModules[ModuleCacheKeys.Default];
         }
 
         /// <summary>
@@ -175,14 +180,14 @@ namespace OS.Common.LogModule
         public static string Log(LogInfo info)
         {
             info.ErrorCode = GetErrorCode();
+            if (string.IsNullOrEmpty(info.ModuleName))
+                info.ModuleName = ModuleCacheKeys.Default;
+            
+
             var logWrite = GetLogWrite(info.ModuleName);
-         
             AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName);  // logActionList.Post(info);
-            return info.ErrorCode;
+             return info.ErrorCode;
         }
-
-
-
 
         /// <summary>
         /// 生成错误编号
