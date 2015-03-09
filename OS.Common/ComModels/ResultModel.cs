@@ -57,6 +57,10 @@ namespace OS.Common.ComModels
 
     public class ResultIdModel : ResultModel
     {
+        public ResultIdModel()
+        {
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>
