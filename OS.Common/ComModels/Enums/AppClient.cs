@@ -1,4 +1,6 @@
-﻿namespace OS.Common.ComModels.Enums
+﻿using System.ComponentModel;
+
+namespace OS.Common.ComModels.Enums
 {
 
     /// <summary>
@@ -9,21 +11,21 @@
         /// <summary>
         /// 网页端
         /// </summary>
-        Web=0,
+        [Description("Web")] Web = 0,
 
         /// <summary>
         /// IOS
         /// </summary>
-        IOS=1,
+        [Description("IOS")] IOS = 1,
 
         /// <summary>
         /// 安卓
         /// </summary>
-        Android=2,
+        [Description("安卓")] Android = 2,
 
         /// <summary>
-        /// 微信公众账号浏览器端
+        /// 微信等公众账号浏览器端
         /// </summary>
-        WinXinPublic=3
+        [Description("公众账号")] PublicAccount = 3
     }
 }

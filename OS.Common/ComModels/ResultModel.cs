@@ -102,6 +102,11 @@ namespace OS.Common.ComModels
 
     public class ResultModel<TType> : ResultModel
     {
+        public ResultModel()
+        {
+        
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>
