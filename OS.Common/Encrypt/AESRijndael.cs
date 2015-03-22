@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OS.Common.Encrypt
 {
-    public class AESRijndael
+    public class AesRijndael
     {
         /// <summary>
         ///    aes 加密

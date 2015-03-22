@@ -201,6 +201,32 @@ namespace OS.Common.Extention
 
         #region  字符串数字转化部分
 
+
+
+        /// <summary>
+        /// 字符串转化成无符号整形
+        /// </summary>
+        /// <param name="obj">要转化的值</param>
+        /// <param name="defaultValue">如果转化失败，返回的默认值</param>
+        /// <returns></returns>
+        public static UInt32 ToUInt32(this string obj, UInt32 defaultValue = 0)
+        {
+            try
+            {
+                UInt32 returnValue = 0;
+                if (UInt32.TryParse(obj, out returnValue))
+                {
+                    return returnValue;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return defaultValue;
+        }
+
+
         /// <summary>
         /// 字符串转化成数字
         /// </summary>
