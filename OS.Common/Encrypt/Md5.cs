@@ -14,7 +14,7 @@ namespace OS.Common.Encrypt
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string HalfEncryptHexString(this string input)
+        public static string HalfEncryptHexString(string input)
         {
             string result = EncryptHexString(input);
 
@@ -32,7 +32,7 @@ namespace OS.Common.Encrypt
         /// <param name="input"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string EncryptHexString(this string input, Encoding encoding = null)
+        public static string EncryptHexString(string input, Encoding encoding = null)
         {
             if (string.IsNullOrEmpty(input))
                 throw new ArgumentNullException("input", "MD5加密的字符串不能为空！");
@@ -59,7 +59,7 @@ namespace OS.Common.Encrypt
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public static byte[] Encrypt(this byte[] bytes)
+        public static byte[] Encrypt(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0)
                 throw new ArgumentNullException("bytes","MD5加密的字节不能为空！");

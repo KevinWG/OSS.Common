@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ComModels\AppAuthorizeInfo.cs" />
     <Compile Include="ComModels\Enums\AppClient.cs" />
+    <Compile Include="ComModels\Enums\AppSource.cs" />
     <Compile Include="ComModels\Enums\MobileCountry.cs" />
     <Compile Include="Encrypt\AesRijndael.cs" />
     <Compile Include="Encrypt\HmacSha1.cs" />
