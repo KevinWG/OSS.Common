@@ -14,11 +14,10 @@ namespace OS.Common.Tests
         public void TestMethod1()
         {
 
-            string key = "ed9d9afe87144d7a982bee451d3b9107";
+            string key = Guid.NewGuid().ToString().Replace("-",string.Empty);
             SysAuthorizeInfo appInfo = new SysAuthorizeInfo();
-            appInfo.FromSignData("timespan=1434372013;appsource=1;sign=p0VEVhcxzOv6u9VN0TDl12qbH_o=;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;",';');
+            appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;",';');
 
-            var mmm = appInfo.CheckSign(key,'&');
 
             var newSignData = appInfo.ToSignData(key);
             appInfo.FromSignData(newSignData);
