@@ -331,6 +331,87 @@ namespace OS.Common.Extention
             return obj.ToString().ToInt32();
         }
 
+
+
+
+
+        /// <summary>
+        /// 字符串转化成数字
+        /// </summary>
+        /// <param name="obj">要转化的值</param>
+        /// <param name="defaultValue">如果转化失败，返回的默认值</param>
+        /// <returns></returns>
+        public static double ToDouble(this string obj, double defaultValue = 0)
+        {
+            try
+            {
+                double returnValue = 0;
+                if (double.TryParse(obj, out returnValue))
+                {
+                    return returnValue;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// 字符串转化成数字
+        /// </summary>
+        /// <param name="obj">要转化的值</param>
+        /// <param name="defaultValue">如果转化失败，返回的默认值</param>
+        /// <returns></returns>
+        public static double ToDouble(this object obj, double defaultValue = 0)
+        {
+            if (obj == null)
+            {
+                return defaultValue;
+            }
+            return obj.ToString().ToDouble();
+        }
+
+
+        /// <summary>
+        /// 字符串转化成数字
+        /// </summary>
+        /// <param name="obj">要转化的值</param>
+        /// <param name="defaultValue">如果转化失败，返回的默认值</param>
+        /// <returns></returns>
+        public static float ToFloat(this string obj, float defaultValue = 0)
+        {
+            try
+            {
+                float returnValue = 0;
+                if (float.TryParse(obj, out returnValue))
+                {
+                    return returnValue;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// 字符串转化成数字
+        /// </summary>
+        /// <param name="obj">要转化的值</param>
+        /// <param name="defaultValue">如果转化失败，返回的默认值</param>
+        /// <returns></returns>
+        public static float ToFloat(this object obj, float defaultValue = 0)
+        {
+            if (obj == null)
+            {
+                return defaultValue;
+            }
+            return obj.ToString().ToFloat();
+        }
+
         /// <summary>
         /// 字符串转化成时间
         /// </summary>
@@ -345,8 +426,6 @@ namespace OS.Common.Extention
             DateTime date;
             return DateTime.TryParse(obj, out date) ? date : default(DateTime?);
         }
-
-
 
         /// <summary>
         /// 转化成布尔类型

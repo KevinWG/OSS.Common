@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using OS.Common.ComModels.Enums;
 
 namespace OS.Common.ComModels
@@ -37,7 +38,6 @@ namespace OS.Common.ComModels
             this.Message = message;
         }
 
-
         /// <summary>
         /// 返回结果
         ///  2xx   成功相关状态（如： 200）
@@ -55,9 +55,15 @@ namespace OS.Common.ComModels
     }
 
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class ResultIdModel : ResultModel
     {
-        public ResultIdModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        public ResultIdModel():base()
         {
         }
 
@@ -77,7 +83,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultIdModel(int ret, string message = ""):base(ret,message)
+        public ResultIdModel(int ret, string message):base(ret,message)
         {
         }
 
@@ -87,7 +93,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultIdModel(ResultTypes ret, string message = "")
+        public ResultIdModel(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
@@ -138,20 +144,43 @@ namespace OS.Common.ComModels
         }
 
         /// <summary>
-        /// 返回指定类型的数据
+        ///  结果类型数据
         /// </summary>
         public TType Data { get; set; }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ResultModelMap
     {
+        /// <summary>
+        ///   将结果实体转换成其他结果实体
+        /// </summary>
+        /// <typeparam name="TResult">输出对象</typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <returns>输出对象</returns>
+        public static ResultModel<TResult> ConvertToResult<TPara, TResult>(this ResultModel<TPara> source,
+            Func<TPara, TResult> func=null)
+        {
+            ResultModel<TResult> ot = new ResultModel<TResult>();
+            ot.Ret = source.Ret;
+            ot.Message = source.Message;
+
+            if (func != null && source.Data!=null)
+            {
+                ot.Data = func(source.Data);
+            }
+            return ot;
+        }
+
+
         /// <summary>
         ///   将结果实体基本属性（ret，message）赋值
         /// </summary>
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <returns>输出对象</returns>
-        public static TResult ConvertBaseTo<TResult>(this ResultModel source)
+        public static TResult ConvertToResult<TResult>(this ResultModel source)
             where TResult : ResultModel, new()
         {
             TResult ot = new TResult();
@@ -159,5 +188,8 @@ namespace OS.Common.ComModels
             ot.Message = source.Message;
             return ot;
         }
+
+
+
     }
 }

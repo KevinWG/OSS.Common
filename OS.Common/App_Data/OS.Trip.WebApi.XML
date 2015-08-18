@@ -1,0 +1,1288 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OS.Common</name>
+    </assembly>
+    <members>
+        <member name="M:OS.Common.Authrization.MemberShiper.SetMemberInfo(OS.Common.Authrization.MemberInfo)">
+            <summary>
+              设置用户信息
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:OS.Common.Authrization.MemberShiper.SetAppAuthrizeInfo(OS.Common.ComModels.AppAuthorizeInfo)">
+            <summary>
+              设置应用授权信息
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:OS.Common.Authrization.MemberShiper.GetToken(System.Int64,System.Boolean)">
+            <summary>
+            通过 ID 生成对应的Token
+            </summary>
+            <param name="id"></param>
+            <param name="isEmployee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Authrization.MemberShiper.GetTokenDetail(System.String)">
+            <summary>
+            通过 ID 生成对应的Token
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="P:OS.Common.Authrization.MemberShiper.AppAuthorize">
+            <summary>
+              应用授权信息
+            </summary>
+        </member>
+        <member name="P:OS.Common.Authrization.MemberShiper.MemberInfo">
+            <summary>
+              登陆用户信息
+            </summary>
+        </member>
+        <member name="P:OS.Common.Authrization.MemberShiper.IsMemberAuthorized">
+            <summary>
+            是否已经验证
+            </summary>
+        </member>
+        <member name="P:OS.Common.Authrization.MemberInfo.Id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:OS.Common.Authrization.MemberInfo.Name">
+            <summary>
+              用户姓名
+            </summary>
+        </member>
+        <member name="P:OS.Common.Authrization.MemberInfo.IsEmployee">
+            <summary>
+              是否是后台员工
+            </summary>
+        </member>
+        <member name="T:OS.Common.ComModels.AppAuthorizeInfo">
+            <summary>
+            用户验证model
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.AppAuthorizeInfo.AppVersion">
+            <summary>
+              应用版本
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.AppAuthorizeInfo.AppSource">
+            <summary>
+              应用来源
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.AppAuthorizeInfo.AppClient">
+            <summary>
+            应用客户端类型
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.AppAuthorizeInfo.DeviceID">
+            <summary>
+            设备ID
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.AppAuthorizeInfo.Token">
+            <summary>
+             Token
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.AppAuthorizeInfo.Sign">
+            <summary>
+             sign标识
+            </summary>
+        </member>
+        <member name="T:OS.Common.ComModels.Enums.AppClient">
+            <summary>
+              应用客户端类型
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.AppClient.Web">
+            <summary>
+            网页端
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.AppClient.IOS">
+            <summary>
+            IOS
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.AppClient.Android">
+            <summary>
+            安卓
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.AppClient.PublicAccount">
+            <summary>
+            微信等公众账号浏览器端
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.AppSource.Enjoyurt">
+            <summary>
+               初趣旅行
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.MobileCountry.China">
+            <summary>
+            中国
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.MobileCountry.Japan">
+            <summary>
+            日本
+            </summary>
+        </member>
+        <member name="M:OS.Common.Encrypt.AesRijndael.Encrypt(System.String,System.String,System.Text.Encoding)">
+            <summary>
+               aes 加密
+            </summary>
+            <param name="toEncrypt"></param>
+            <param name="key"></param>
+            <param name="encoding">加密编码方式    默认为   utf-8  </param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Encrypt.AesRijndael.Encrypt(System.Byte[],System.Byte[])">
+            <summary>
+              加密
+            </summary>
+            <param name="keyArray"></param>
+            <param name="toEncryptArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Encrypt.AesRijndael.Decrypt(System.String,System.String,System.Text.Encoding)">
+            <summary>
+               解密
+            </summary>
+            <param name="toDecrypt"></param>
+            <param name="key"></param>
+            <param name="encoding"> 编码方式 不传值默认为  utf-8 </param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Encrypt.AesRijndael.Decrypt(System.Byte[],System.Byte[])">
+            <summary>
+            解密
+            </summary>
+            <param name="keyArray">key的字节流</param>
+            <param name="toEncryptArray">加密串的字节流</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Encrypt.HmacSha1.EncryptBase64(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            返回加密后的
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <param name="encoding">如果为空，则默认Utf-8</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.ICache.Add``1(System.String,``0,System.TimeSpan,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            添加缓存，已存在不更新
+            </summary>
+            <typeparam name="T">添加缓存对象类型</typeparam>
+            <param name="key">添加对象的key</param>
+            <param name="obj">值</param>
+            <param name="slidingExpiration">相对过期的TimeSpan</param>
+            <param name="absoluteExpiration"> 绝对过期时间 </param>
+            <param name="db"> 缓存分区db </param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.ICache.AddOrUpdate``1(System.String,``0,System.TimeSpan,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            添加缓存,如果存在则更新
+            </summary>
+            <typeparam name="T">添加缓存对象类型</typeparam>
+            <param name="key">添加对象的key</param>
+            <param name="obj">值</param>
+            <param name="slidingExpiration">相对过期的TimeSpan</param>
+            <param name="absoluteExpiration"> 绝对过期时间 </param>
+            <param name="regionName"> 缓存分区db </param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.ICache.Get``1(System.String,System.Int32)">
+            <summary>
+            获取缓存对象
+            </summary>
+            <typeparam name="T">获取缓存对象类型</typeparam>
+            <param name="key">key</param>
+            <param name="db">缓存分区db</param>
+            <returns>获取指定key对应的值 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.ICache.Get``1(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
+            <summary>
+            获取缓存对象
+            </summary>
+            <typeparam name="T">获取缓存对象类型</typeparam>
+            <param name="keys">  key列表   </param>
+            <param name="db">缓存分区db</param>
+            <returns> 获取多个不同类型key对应的不同值 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.ICache.Remove(System.String,System.Int32)">
+            <summary>
+            移除缓存对象
+            </summary>
+            <param name="key"></param>
+            <param name="db"></param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.ICache.Contains(System.String,System.Int32)">
+            <summary>
+              判断是否存在缓存对象
+            </summary>
+            <param name="key">  key值  </param>
+            <param name="db"> 缓存分区db </param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.Cache.Add``1(System.String,``0,System.TimeSpan,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            添加缓存，已存在不更新
+            </summary>
+            <typeparam name="T">添加缓存对象类型</typeparam>
+            <param name="key">添加对象的key</param>
+            <param name="obj">值</param>
+            <param name="slidingExpiration">相对过期的TimeSpan</param>
+            <param name="absoluteExpiration"> 绝对过期时间 </param>
+            <param name="db"> 缓存分区db </param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.Cache.AddOrUpdate``1(System.String,``0,System.TimeSpan,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            添加缓存,如果存在则更新
+            </summary>
+            <typeparam name="T">添加缓存对象类型</typeparam>
+            <param name="key">添加对象的key</param>
+            <param name="obj">值</param>
+            <param name="slidingExpiration">相对过期的TimeSpan</param>
+            <param name="absoluteExpiration"> 绝对过期时间 </param>
+            <param name="regionName"> 缓存分区db </param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.Cache.Get``1(System.String,System.Int32)">
+            <summary>
+            获取缓存对象
+            </summary>
+            <typeparam name="T">获取缓存对象类型</typeparam>
+            <param name="key">key</param>
+            <param name="db">缓存分区db</param>
+            <returns>获取指定key对应的值 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.Cache.Get``1(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
+            <summary>
+            获取缓存对象
+            </summary>
+            <typeparam name="T">获取缓存对象类型</typeparam>
+            <param name="keys">  key列表   </param>
+            <param name="db">缓存分区db</param>
+            <returns> 获取多个不同类型key对应的不同值 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.Cache.Remove(System.String,System.Int32)">
+            <summary>
+            移除缓存对象
+            </summary>
+            <param name="key"></param>
+            <param name="db"></param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.Cache.Contains(System.String,System.Int32)">
+            <summary>
+              判断是否存在缓存对象
+            </summary>
+            <param name="key">  key值  </param>
+            <param name="db"> 缓存分区db </param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.GetCache(System.String)">
+            <summary>
+            通过模块名称获取
+            </summary>
+            <param name="cacheModule"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.Add``1(System.String,``0,System.TimeSpan,System.Nullable{System.DateTime},System.Int32,System.String)">
+            <summary>
+            添加缓存，已存在不更新
+            </summary>
+            <typeparam name="T">添加缓存对象类型</typeparam>
+            <param name="key">添加对象的key</param>
+            <param name="obj">值</param>
+            <param name="slidingExpiration">相对过期的TimeSpan</param>
+            <param name="absoluteExpiration"> 绝对过期时间 </param>
+            <param name="db"> 缓存分区名称 </param>
+            <param name="moduleName"> 模块名称 </param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.AddOrUpdate``1(System.String,``0,System.TimeSpan,System.Nullable{System.DateTime},System.Int32,System.String)">
+            <summary>
+            添加缓存,如果存在则更新
+            </summary>
+            <typeparam name="T">添加缓存对象类型</typeparam>
+            <param name="key">添加对象的key</param>
+            <param name="obj">值</param>
+            <param name="slidingExpiration">相对过期的TimeSpan</param>
+            <param name="absoluteExpiration"> 绝对过期时间 </param>
+            <param name="db"> 缓存分区db </param>
+            <param name="moduleName">模块名称</param>
+            <returns> 是否添加成功 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.Get``1(System.String,System.Int32,System.String)">
+            <summary>
+            获取缓存对象
+            </summary>
+            <typeparam name="T">获取缓存对象类型</typeparam>
+            <param name="key">key</param>
+            <param name="db">缓存分区db</param>
+            <param name="moduleName">模块名称</param>
+            <returns>获取指定key对应的值 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.Get``1(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.String)">
+            <summary>
+            获取缓存对象
+            </summary>
+            <typeparam name="T">获取缓存对象类型</typeparam>
+            <param name="keys">  key列表   </param>
+            <param name="db">缓存分区db</param>
+            <param name="moduleName">模块名称</param>
+            <returns> 获取多个不同类型key对应的不同值 </returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.Remove(System.String,System.Int32,System.String)">
+            <summary>
+            移除缓存对象
+            </summary>
+            <param name="key"></param>
+            <param name="db"></param>
+            <param name="moduleName">模块名称</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:OS.Common.Modules.CacheModule.CacheUtil.Contains(System.String,System.Int32,System.String)">
+            <summary>
+              判断是否存在缓存对象
+            </summary>
+            <param name="key">  key值  </param>
+            <param name="db"> 缓存分区db </param>
+            <param name="moduleName">模块名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:OS.Common.Modules.CacheModuleKeys">
+            <summary>
+            缓存Module名称
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.CacheModuleKeys.Default">
+            <summary>
+            默认系统缓存
+            </summary>
+        </member>
+        <member name="T:OS.Common.Modules.AsynModuleKeys">
+            <summary>
+            异步Module名称
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.AsynModuleKeys.Default">
+            <summary>
+            默认系统异步
+            </summary>
+        </member>
+        <member name="T:OS.Common.Modules.LogModuleKeys">
+            <summary>
+            日志Module名称
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.LogModuleKeys.Default">
+            <summary>
+            默认本地文件日志
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.LogModuleKeys.SqlLog">
+            <summary>
+            记录sql语句log模块
+            </summary>
+        </member>
+        <member name="M:OS.Http.Extention.UrlExtension.UrlEncode(System.String)">
+            <summary>
+            Url编码处理
+            </summary>
+        </member>
+        <member name="M:OS.Http.Extention.UrlExtension.UrlEncode(System.Object)">
+            <summary>
+            Url编码处理
+            </summary>
+        </member>
+        <member name="T:OS.Common.OsConfig">
+            <summary>
+            基础配置模块
+            </summary>
+        </member>
+        <member name="M:OS.Common.OsConfig.RegLogModule(System.Collections.Generic.IDictionary{System.String,OS.Common.LogModule.ILogWriter})">
+            <summary>
+               注册 日志 事件
+            </summary>
+            <param name="logModules"></param>
+        </member>
+        <member name="M:OS.Common.OsConfig.RegLogAsynModuleName(System.String)">
+            <summary>
+              日志记录时使用的异步模块名称
+            </summary>
+            <param name="asynModuleName"></param>
+        </member>
+        <member name="M:OS.Common.OsConfig.RegAsynModule(System.Collections.Generic.IDictionary{System.String,OS.Common.Modules.AsynModule.IAsynBlock})">
+            <summary>
+               注册外部异步事件
+            </summary>
+            <param name="asynBlockModules"></param>
+        </member>
+        <member name="M:OS.Common.OsConfig.RegCacheModule(System.Collections.Generic.IDictionary{System.String,OS.Common.Modules.CacheModule.ICache})">
+            <summary>
+            注册缓存模块
+            </summary>
+            <param name="moduleCaches"></param>
+        </member>
+        <member name="M:OS.Common.OsConfig.RegisterModule``2(System.Collections.Generic.IDictionary{System.String,``0},System.Collections.Generic.IDictionary{System.String,``0},System.String)">
+            <summary>
+                注册缓存，异步，日志等模块
+            </summary>
+            <typeparam name="TI"></typeparam>
+            <typeparam name="TM"></typeparam>
+            <param name="moduleCaches"></param>
+            <param name="addModuleCaches"></param>
+            <param name="defaultModuleName"></param>
+        </member>
+        <member name="T:OS.Common.Encrypt.Md5">
+            <summary>
+            MD5加密类
+            </summary>
+        </member>
+        <member name="M:OS.Common.Encrypt.Md5.HalfEncryptHexString(System.String)">
+            <summary>
+            获取16位MD5值
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Encrypt.Md5.EncryptHexString(System.String,System.Text.Encoding)">
+            <summary>
+            获取MD5加密值
+            </summary>
+            <param name="input"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Encrypt.Md5.Encrypt(System.Byte[])">
+            <summary>
+            获取MD5加密值
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToUInt32(System.String,System.UInt32)">
+            <summary>
+            字符串转化成无符号整形
+            </summary>
+            <param name="obj">要转化的值</param>
+            <param name="defaultValue">如果转化失败，返回的默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToInt32(System.String,System.Int32)">
+            <summary>
+            字符串转化成数字
+            </summary>
+            <param name="obj">要转化的值</param>
+            <param name="defaultValue">如果转化失败，返回的默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToInt32(System.Object,System.Int32)">
+            <summary>
+            字符串转化成数字
+            </summary>
+            <param name="obj">要转化的值</param>
+            <param name="defaultValue">如果转化失败，返回的默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToInt64(System.String,System.Int32)">
+            <summary>
+            字符串转化成数字
+            </summary>
+            <param name="obj">要转化的值</param>
+            <param name="defaultValue">如果转化失败，返回的默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToDecimal(System.String,System.Decimal)">
+            <summary>
+            字符串转化成数字
+            </summary>
+            <param name="obj">要转化的值</param>
+            <param name="defaultValue">如果转化失败，返回的默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToDecimal(System.Object,System.Decimal)">
+            <summary>
+            字符串转化成数字
+            </summary>
+            <param name="obj">要转化的值</param>
+            <param name="defaultValue">如果转化失败，返回的默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToNullableDateTime(System.String)">
+            <summary>
+            字符串转化成时间
+            </summary>
+            <param name="obj">要转化的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ConvertExtention.ToBoolean(System.String)">
+            <summary>
+            转化成布尔类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.DateTimeExtention.ToUtcSeconds(System.DateTime)">
+            <summary>
+            获取距离 1970-01-01（格林威治时间）的秒数
+            </summary>
+            <param name="localTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.DateTimeExtention.FromUtcSeconds(System.Int64)">
+            <summary>
+            距离 1970-01-01（格林威治时间）的秒数转换为当前时间
+            </summary>
+            <param name="seconds"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OS.Common.Extention.ColumnAliasAttribute">
+            <summary>
+            别名属性
+            </summary>
+        </member>
+        <member name="T:OS.Common.Extention.BaseClumnAttribute">
+            <summary>
+            列属性封装基类
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.BaseClumnAttribute.Alias">
+            <summary>
+            列简称
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.BaseClumnAttribute.IsAuto">
+            <summary>
+            是否是自增长列
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.BaseClumnAttribute.IsIgnore">
+            <summary>
+            是否忽略当前列
+            </summary>
+        </member>
+        <member name="T:OS.Common.Extention.IgnoreColumnAttribute">
+            <summary>
+            别名属性
+            </summary>
+        </member>
+        <member name="T:OS.Common.Extention.AutoColumnAttribute">
+            <summary>
+            自增长属性
+            </summary>
+        </member>
+        <member name="T:OS.Common.Extention.PropertyColumnInfo">
+            <summary>
+              列属性信息
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.PropertyColumnInfo.Name">
+            <summary>
+            属性名称
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.PropertyColumnInfo.Alias">
+            <summary>
+            列别名
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.PropertyColumnInfo.IsAuto">
+            <summary>
+            是否自增长
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.PropertyColumnInfo.IsIgnore">
+            <summary>
+              是否忽略当前列
+            </summary>
+        </member>
+        <member name="P:OS.Common.Extention.PropertyColumnInfo.PropertyInfo">
+            <summary>
+            列属性信息
+            </summary>
+        </member>
+        <member name="M:OS.Common.Extention.DTOExtetion.SetToModel``1(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            从Rquest等NameValueCollection列表对象中获取实体信息
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="valueCollection"></param>
+        </member>
+        <member name="M:OS.Common.Extention.DTOExtetion.GetColumnAttributes(System.Type)">
+            <summary>
+            获取列附加属性列表
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.DTOExtetion.ChangeToType(System.String,System.Type)">
+            <summary>
+            转换到指定类型
+            </summary>
+            <param name="obj"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.DTOExtetion.ChangeToType(System.Object,System.Type)">
+            <summary>
+            转换到指定类型
+            </summary>
+            <param name="obj"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.EnumExtention.GetDesp(System.Enum,System.Boolean,System.String)">
+            <summary>
+            获取描述
+            </summary>
+            <param name="en"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.EnumExtention.ToEnumDirs(System.Type,System.Boolean)">
+            <summary>
+            获取枚举字典列表
+            </summary>
+            <param name="enType">枚举类型</param>
+            <param name="isIntValue">返回枚举值是否是int类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.EnumExtention.Copy(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+              拷贝字典
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.ListExtention.Merged``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Func{System.Collections.Generic.IList{``0},``0,System.Boolean})">
+            <summary>
+            List合并
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="target">目标对象</param>
+            <param name="source">来源对象</param>
+            <param name="func">重复项依据方法 true-没有重复项，可以合并，fale-有重复项，不能合并</param>
+            <returns>返回合并后的目标对象 - 排除重复项</returns>
+        </member>
+        <member name="M:OS.Common.Modules.AsynModule.IAsynBlock.Asyn``1(System.Action{``0},``0)">
+            <summary>
+            post
+            </summary>
+            <param name="asynAction"></param>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.AsynModule.AsynBlock.Asyn``1(System.Action{``0},``0)">
+            <summary>
+            post
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <param name="asynAction"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OS.Common.Modules.AsynModule.AsynUtil">
+            <summary>
+            异步
+            </summary>
+        </member>
+        <member name="M:OS.Common.Modules.AsynModule.AsynUtil.GetAsynBlock(System.String)">
+            <summary>
+            通过模块名称获取异步处理模块实例
+            </summary>
+            <param name="asynModule"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.AsynModule.AsynUtil.Asyn``1(System.Action{``0},``0,System.String)">
+            <summary>
+            调用异步方法
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="asynAction"></param>
+            <param name="t"></param>
+            <param name="moduleName"> 异步模块名称 </param>
+            <returns></returns>
+        </member>
+        <member name="T:OS.Common.LogModule.ILogWriter">
+            <summary>
+            日志写实现接口
+            </summary>
+        </member>
+        <member name="M:OS.Common.LogModule.ILogWriter.WriteLog(OS.Common.Modules.LogModule.LogInfo)">
+             <summary>
+               日志写功能
+             </summary>
+            <param name="info">日志实体</param>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.ParaError">
+            <summary>
+            参数错误
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.ParaNotMeet">
+            <summary>
+            条件不满足
+            </summary>              
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.AddFail">
+            <summary>
+            添加失败
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.UpdateFail">
+            <summary>
+            更新失败
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.ObjectNull">
+            <summary>
+            对象不存在
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.UserNull">
+            <summary>
+            当前用户未授权（特殊）
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.ObjectExsit">
+            <summary>
+            对象已存在
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.ObjectStateError">
+            <summary>
+            对象状态不正常
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.NoRight">
+            <summary>
+            没有权限
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.ResultTypes.InnerError">
+            <summary>
+            内部错误（服务器错误）
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComUtils.ChineseUtil.GetFirstChars(System.String)">
+            <summary>
+            汉字转首字母缩写
+            </summary>
+            <param name="cnStrs">汉字</param>
+            <returns>首字母缩写</returns>
+        </member>
+        <member name="M:OS.Common.ComUtils.ChineseUtil.GetFirstChar(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="cnChar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.ComUtils.ChineseUtil.GetPinYin(System.String)">
+            <summary>
+            把汉字转换成拼音(全拼)
+            </summary>
+            <param name="hzStrs">汉字字符串</param>
+            <returns>转换后的拼音(全拼)字符串</returns>
+        </member>
+        <member name="F:OS.Common.ComUtils.ChineseUtil.pyValue">
+            <summary>
+            把汉字转化成全拼
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComUtils.ConfigUtil.GetConnenctProvider(System.String)">
+            <summary>
+              获取提供者名称
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OS.Common.ComUtils.TypeUtil">
+            <summary>
+            内部使用获取属性相关信息
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.LogModule.LogLevelEnum.Trace">
+            <summary>
+            跟踪查看
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.LogModule.LogLevelEnum.Info">
+            <summary>
+            信息
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.LogModule.LogLevelEnum.Error">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="F:OS.Common.Modules.LogModule.LogLevelEnum.Warning">
+            <summary>
+            警告
+            </summary>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogInfo.#ctor">
+            <summary>
+            空构造函数
+            </summary>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogInfo.#ctor(OS.Common.Modules.LogModule.LogLevelEnum,System.String,System.Object,System.String)">
+            <summary>
+            日志构造函数
+            </summary>
+            <param name="loglevel"></param>
+            <param name="msg"></param>
+            <param name="key"></param>
+            <param name="moduleName"></param>
+        </member>
+        <member name="P:OS.Common.Modules.LogModule.LogInfo.Level">
+            <summary>
+            日志等级
+            </summary>
+        </member>
+        <member name="P:OS.Common.Modules.LogModule.LogInfo.ModuleName">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="P:OS.Common.Modules.LogModule.LogInfo.Key">
+            <summary>
+              key值  可以是id等
+            </summary>
+        </member>
+        <member name="P:OS.Common.Modules.LogModule.LogInfo.Message">
+            <summary>
+            日志信息
+            </summary>
+        </member>
+        <member name="P:OS.Common.Modules.LogModule.LogInfo.ErrorCode">
+            <summary>
+            错误编号
+            </summary>
+        </member>
+        <member name="T:OS.Common.Modules.LogModule.LogUtil">
+            <summary>
+            日志写模块
+            </summary>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.GetLogWrite(System.String)">
+            <summary>
+            通过模块名称获取日志模块实例
+            </summary>
+            <param name="logModule"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.Info(System.String,System.Object,System.String)">
+            <summary>
+            记录信息
+            </summary>
+            <param name="msg"> 日志信息  </param>
+            <param name="key">  关键值  </param>
+            <param name="moduleName"> 模块名称 </param>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.Warning(System.String,System.Object,System.String)">
+            <summary>
+            记录警告，用于未处理异常的捕获
+            </summary>
+            <param name="msg"> 日志信息  </param>
+            <param name="key">  关键值  </param>
+            <param name="moduleName">模块名称</param>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.Error(System.String,System.Object,System.String)">
+            <summary>
+            记录错误，用于捕获到的异常信息记录
+            </summary>
+            <param name="msg"> 日志信息  </param>
+            <param name="key">  关键值  </param>
+            <param name="moduleName">模块名称</param>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.Trace(System.String,System.Object,System.String)">
+            <summary>
+            记录错误，用于捕获到的异常信息记录
+            </summary>
+            <param name="msg"> 日志信息  </param>
+            <param name="key">  关键值  </param>
+            <param name="moduleName">模块名称</param>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.Log(OS.Common.Modules.LogModule.LogInfo)">
+            <summary>
+              记录日志
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogUtil.GetErrorCode">
+            <summary>
+            生成错误编号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:OS.Common.Modules.LogModule.LogUtil.LogAsynModuleName">
+            <summary>
+            记录日志操作的异步模块
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComUtils.StringUtil.SqlFilter(System.String)">
+            <summary>
+            过滤 Sql 语句字符串中的注入脚本
+            </summary>
+            <param name="source">传入的字符串</param>
+            <returns>过滤后的字符串</returns>
+        </member>
+        <member name="M:OS.Common.ComUtils.StringUtil.ToBase64(System.String,System.Text.Encoding)">
+            <summary>
+               根据指定编码转化成对应的64位编码
+            </summary>
+            <param name="source"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.ComUtils.StringUtil.FromBase64(System.String,System.Text.Encoding)">
+            <summary>
+               从base64编码解码出正常的值
+            </summary>
+            <param name="baseString"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.ComUtils.StringUtil.Base64UrlEncode(System.String)">
+            <summary>
+              替换base64位字符串中的特殊符号 Url友好
+            </summary>
+            <param name="baseString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.ComUtils.StringUtil.Base64UrlDecode(System.String)">
+            <summary>
+              还原 base64 字符串中的特殊字符  Url不友好
+            </summary>
+            <param name="baseString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Modules.LogModule.LogWriter.WriteLog(OS.Common.Modules.LogModule.LogInfo)">
+            <summary>
+            写日志
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.SortType.DESC">
+            <summary>
+            倒序  由大到小
+            </summary>
+        </member>
+        <member name="F:OS.Common.ComModels.Enums.SortType.ASC">
+            <summary>
+            顺序  由小到大
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.SearchModelExtention.AddFilterColumn(OS.Common.ComModels.SearchModel,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            添加过滤条件
+            </summary>
+            <param name="model"></param>
+            <param name="columns"></param>
+        </member>
+        <member name="T:OS.Common.ComModels.SearchModel">
+            <summary>
+            搜索实体
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.SearchModel.CurrentPage">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.SearchModel.PageSize">
+            <summary>
+            页面大小
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.SearchModel.OrderDics">
+            <summary>
+            排序集合      适用于多个查询条件，如后台查询时
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.SearchModel.FilterDics">
+            <summary>
+            搜索关键字集合      适用于多个查询条件，如后台查询时
+            </summary>
+        </member>
+        <member name="T:OS.Common.ComModels.PageListModel">
+            <summary>
+             分页实体
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModel.#ctor">
+            <summary>
+            空构造函数
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModel.#ctor(System.Int32,System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModel.#ctor(OS.Common.ComModels.Enums.ResultTypes,System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:OS.Common.ComModels.ResultModel.Ret">
+            <summary>
+            返回结果
+             2xx   成功相关状态（如： 200）
+             3xx   参数相关错误 
+             4xx   用户授权相关错误
+             5xx   服务器内部相关错误信息
+             6xx   系统级定制错误信息，如升级维护等
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.ResultModel.Message">
+            <summary>
+            错误或者状态
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.PageListModel.#ctor(OS.Common.ComModels.Enums.ResultTypes,System.String)">
+            <summary>
+              
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:OS.Common.ComModels.PageListModel.Total">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.PageListModel.TotalPage">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="T:OS.Common.ComModels.PageListModel`1">
+            <summary>
+             分页实体
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.PageListModel`1.#ctor">
+            <summary>
+              出错时  构造函数    
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.PageListModel`1.#ctor(OS.Common.ComModels.Enums.ResultTypes,System.String)">
+            <summary>
+              出错时  构造函数    
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:OS.Common.ComModels.PageListModel`1.#ctor(System.Int64,System.Collections.Generic.List{`0},OS.Common.ComModels.SearchModel)">
+            <summary>
+              正常赋值时的实体
+            </summary>
+            <param name="list"></param>
+            <param name="model"></param>
+            <param name="total"></param>
+        </member>
+        <member name="P:OS.Common.ComModels.PageListModel`1.Data">
+            <summary>
+            实体列表
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.SimplePageList`1.Total">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="P:OS.Common.ComModels.SimplePageList`1.Data">
+            <summary>
+            实体列表
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.PageListMap.ConvertToPageList``2(OS.Common.ComModels.PageListModel{``0},System.Func{``0,``1})">
+            <summary>
+              转化pageList列表实体
+            </summary>
+            <typeparam name="TPara"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="pageList"></param>
+            <param name="convertFun"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultIdModel.#ctor(System.Int64)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultIdModel.#ctor(System.Int32,System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultIdModel.#ctor(OS.Common.ComModels.Enums.ResultTypes,System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:OS.Common.ComModels.ResultIdModel.Id">
+            <summary>
+            返回的关键值，如返回添加是否成功并返回id
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModel`1.#ctor(`0)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModel`1.#ctor(System.Int32,System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModel`1.#ctor(OS.Common.ComModels.Enums.ResultTypes,System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ret"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:OS.Common.ComModels.ResultModel`1.Data">
+            <summary>
+            返回指定类型的数据
+            </summary>
+        </member>
+        <member name="T:OS.Common.ComModels.ResultModelMap">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModelMap.ConvertToResult``2(OS.Common.ComModels.ResultModel{``0},System.Func{``0,``1})">
+            <summary>
+              将结果实体转换成其他结果实体
+            </summary>
+            <typeparam name="TResult">输出对象</typeparam>
+            <typeparam name="TPara"></typeparam>
+            <returns>输出对象</returns>
+        </member>
+        <member name="M:OS.Common.ComModels.ResultModelMap.ConvertToResult``1(OS.Common.ComModels.ResultModel)">
+            <summary>
+              将结果实体基本属性（ret，message）赋值
+            </summary>
+            <typeparam name="TResult">输出对象</typeparam>
+            <returns>输出对象</returns>
+        </member>
+        <member name="M:OS.Common.Serialize.XmlSerialize.Get``1(System.String,System.String,System.String)">
+            <summary>
+            从文件中获取
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path">文件夹路径 - 不要带文件名,不带后缀（\\）</param>
+            <param name="fileName">等于空则为 类型名称  </param>
+            <param name="fileSuffix">  文件后缀  </param>  
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Serialize.XmlSerialize.Save``1(``0,System.String,System.String)">
+            <summary>
+            保存对象到指定目录下 指定文件名
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t">对象必须可以被序列化</param>
+            <param name="path">文件夹路径 - 不要带文件名,不带后缀（\\）</param>
+            <param name="fileName">等于空则为 类型名称  </param>
+            <returns>true-成功   false-失败（对象是否能被序列化，文件是否有权限）</returns>
+        </member>
+        <member name="P:OS.Common.Extention.BaseValidateAttribute.ErrorMessage">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="T:OS.Common.Extention.OSRequiredAttribute">
+            <summary>
+            必填验证属性
+            </summary>
+        </member>
+        <member name="T:OS.Common.Extention.OSNumberAttribute">
+            <summary>
+            数字验证属性
+            </summary>
+        </member>
+        <member name="M:OS.Common.Extention.OSNumberAttribute.Validate(System.String,System.Object)">
+            <summary>
+            验证方法
+            </summary>
+            <param name="propertyName"></param>
+            <param name="propertyValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.VolidateExtention.IsValidate``1(``0)">
+            <summary>
+            是否通过验证
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.VolidateExtention.ValidateMessage``1(``0)">
+            <summary>
+            返回的验证错误信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OS.Common.Extention.TypeHelper.GetPropertiAttributes(System.String,System.Reflection.PropertyInfo,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="typeName"></param>
+            <param name="fd"></param>
+            <param name="attributeType"></param>
+            <returns></returns>
+        </member>
+        <member name="F:OS.Common.Extention.TypeHelper.proDictionaries">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OS.Common.Extention.TypeHelper.GetProperties(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

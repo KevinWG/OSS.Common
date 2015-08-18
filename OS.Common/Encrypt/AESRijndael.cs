@@ -25,7 +25,7 @@ namespace OS.Common.Encrypt
 
             if (encoding==null)
                 encoding=Encoding.UTF8;
-            
+
             try
             {
                 byte[] keyArray = encoding.GetBytes(key);// ToByte(key);

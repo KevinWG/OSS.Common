@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\OS.Trip\OS.Trip.Api\LayerSchema\OS.Trip.WebApi\App_Data\OS.Common.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\OS.Common.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -40,16 +42,21 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComModels\AppAuthorizeInfo.cs" />
+    <Compile Include="Authrization\MemberShiper.cs" />
+    <Compile Include="Authrization\SysAuthorizeInfo.cs" />
     <Compile Include="ComModels\Enums\AppClient.cs" />
-    <Compile Include="ComModels\Enums\AppSource.cs" />
     <Compile Include="ComModels\Enums\MobileCountry.cs" />
     <Compile Include="Encrypt\AesRijndael.cs" />
     <Compile Include="Encrypt\HmacSha1.cs" />
+    <Compile Include="Encrypt\Sha1.cs" />
     <Compile Include="Modules\CacheModule\Cache.cs" />
     <Compile Include="Modules\CacheModule\CacheUtil.cs" />
     <Compile Include="Modules\CacheModule\ICache.cs" />
-    <Compile Include="Modules\ModuleKeys.cs" />
+    <Compile Include="Modules\DirConfigModule\DirConfig.cs" />
+    <Compile Include="Modules\DirConfigModule\DirConfigUtil.cs" />
+    <Compile Include="Modules\DirConfigModule\IDirConfig.cs" />
+    <Compile Include="Modules\ModuleDefaultProvider.cs" />
+    <Compile Include="Modules\ModuleNames.cs" />
     <Compile Include="Extention\UrlExtension.cs" />
     <Compile Include="OSConfig.cs" />
     <Compile Include="Encrypt\Md5.cs" />
@@ -75,7 +82,6 @@
     <Compile Include="ComModels\PageModel.cs" />
     <Compile Include="ComModels\ResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialize\XmlSerialize.cs" />
     <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
     <Compile Include="Extention\Volidate\VolidateExtention.cs" />
   </ItemGroup>

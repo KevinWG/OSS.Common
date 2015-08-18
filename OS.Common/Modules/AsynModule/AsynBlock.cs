@@ -3,10 +3,10 @@ using System.Threading;
 
 namespace OS.Common.Modules.AsynModule
 {
-    internal class AsynBlock:IAsynBlock
+    internal class AsynBlock :  IAsynBlock
     {
         /// <summary>
-        /// post
+        ///  post
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
@@ -20,7 +20,5 @@ namespace OS.Common.Modules.AsynModule
                 asynAction(para);
             }, t);
         }
-
-
     }
 }

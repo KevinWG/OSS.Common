@@ -4,6 +4,9 @@ using System.Runtime.Caching;
 
 namespace OS.Common.Modules.CacheModule
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Cache : ICache
     {
         /// <summary>
@@ -28,9 +31,9 @@ namespace OS.Common.Modules.CacheModule
         /// <typeparam name="T">添加缓存对象类型</typeparam>
         /// <param name="key">添加对象的key</param>
         /// <param name="obj">值</param>
-        /// <param name="slidingExpiration">相对过期的TimeSpan</param>
+        /// <param name="slidingExpiration">相对过期的TimeSpan  如果使用固定时间  =TimeSpan.Zero</param>
         /// <param name="absoluteExpiration"> 绝对过期时间 </param>
-        /// <param name="regionName"> 缓存分区db </param>
+        /// <param name="db"> 缓存分区db </param>
         /// <returns>是否添加成功</returns>
         public bool AddOrUpdate<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null,
             int db = 0)
@@ -38,7 +41,17 @@ namespace OS.Common.Modules.CacheModule
             return Add(key, obj, slidingExpiration, absoluteExpiration, db, true);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="obj"></param>
+        /// <param name="slidingExpiration"></param>
+        /// <param name="absoluteExpiration"></param>
+        /// <param name="db"></param>
+        /// <param name="isUpdate"></param>
+        /// <returns></returns>
         private static bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration,
             int db, bool isUpdate)
         {

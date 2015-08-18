@@ -11,7 +11,7 @@ namespace OS.Common.ComModels.Enums
         /// <summary>
         /// 网页端
         /// </summary>
-        [Description("Web")] Web = 0,
+        [Description("PC")] PC = 0,
 
         /// <summary>
         /// IOS
@@ -24,8 +24,32 @@ namespace OS.Common.ComModels.Enums
         [Description("安卓")] Android = 2,
 
         /// <summary>
-        /// 微信等公众账号浏览器端
+        /// WP
         /// </summary>
-        [Description("公众账号")] PublicAccount = 3
+        [Description("WindowsPhone")] WindowsPhone = 3,
     }
+
+
+    /// <summary>
+    ///   应用客户端类型
+    /// </summary>
+    public enum WebBrowserClient
+    {
+        /// <summary>
+        /// 非浏览器
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// 正常浏览器
+        /// </summary>
+        Normal = 1,
+
+        /// <summary>
+        /// 微信浏览器
+        /// </summary>
+        WeiXinBrowser = 2
+    }
+
+
 }

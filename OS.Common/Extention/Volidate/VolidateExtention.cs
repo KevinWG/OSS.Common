@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-
 #region Copyright (C) 2014 北京金色世纪商旅网络科技股份有限公司
 
 /*
@@ -20,7 +19,7 @@ using System.Reflection;
 #endregion
 
 
-namespace OS.Common.Extention
+namespace OS.Common.Extention.Volidate
 {
     public static class VolidateExtention
     {
@@ -30,7 +29,7 @@ namespace OS.Common.Extention
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static bool IsValidate<T>(this T t) where T : class ,new()
+        public static bool IsOsValidate<T>(this T t) where T : class ,new()
         {
             if (t==null)
                 return false;
@@ -58,7 +57,7 @@ namespace OS.Common.Extention
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static List<string> ValidateMessage<T>(this T t) where T : class ,new()
+        public static List<string> ValidateOsMessage<T>(this T t) where T : class ,new()
         {
             List<string> resultList=new List<string>();
             if (t==null)

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks; 
 
 namespace OS.Common.Modules.AsynModule
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAsynBlock
     {
+
         /// <summary>
         /// post
         /// </summary>

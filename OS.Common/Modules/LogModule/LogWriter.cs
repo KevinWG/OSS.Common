@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace OS.Common.LogModule
+namespace OS.Common.Modules.LogModule
 {
     internal class LogWriter : ILogWriter
     {
@@ -13,7 +13,7 @@ namespace OS.Common.LogModule
         {
             _logBaseDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"log");
             if (!Directory.Exists(_logBaseDirPath))
-                Directory.CreateDirectory(_logBaseDirPath);
+                Directory.CreateDirectory(_logBaseDirPath); 
         }
 
         private string getLogFilePath(string module, LogLevelEnum level)
@@ -39,7 +39,7 @@ namespace OS.Common.LogModule
 
                 using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.Default))
                 {
-                    sw.WriteLine(format: logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.Key, arg2: info.Message);
+                    sw.WriteLine(format: logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);
                     sw.Close();
                 }
             }

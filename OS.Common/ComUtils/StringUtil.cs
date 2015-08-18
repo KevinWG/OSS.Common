@@ -86,7 +86,7 @@ namespace OS.Common.ComUtils
         /// <returns></returns>
         public static string Base64UrlDecode(this string baseString)
         {
-            return baseString.Replace('-', '+').Replace( '_','/');
+            return baseString.Replace('-', '+').Replace('_', '/');
         }
 
         #endregion

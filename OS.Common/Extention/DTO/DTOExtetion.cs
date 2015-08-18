@@ -4,22 +4,20 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-
-#region Copyright (C) 2014 北京金色世纪商旅网络科技股份有限公司
+using OS.Common.Extention.Volidate;
 
 /*
 　　	文件功能描述：实体映射赋值
 
 　　	创建人：王超
-　　	创建人Email：wangchao@jsj.com.cn
+　　	创建人Email：
     	创建日期：2014.08.25
 
 　　	修改描述：
 	*/
 
-#endregion
 
-namespace OS.Common.Extention
+namespace OS.Common.Extention.DTO
 {
    public  static class DTOExtetion
     {

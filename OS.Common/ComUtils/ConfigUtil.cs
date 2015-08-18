@@ -4,6 +4,9 @@ using System.Configuration;
 
 namespace OS.Common.ComUtils
 {
+    /// <summary>
+    /// 配置信息获取
+    /// </summary>
     public static class ConfigUtil
     {
         public static NameValueCollection AppSettings { get; private set; }
@@ -29,6 +32,20 @@ namespace OS.Common.ComUtils
                 throw new ArgumentNullException();
             }
             return ConfigurationManager.ConnectionStrings[key].ConnectionString;
+        }
+
+        /// <summary>
+        ///   获取提供者名称
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetConnenctProvider(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException();
+            }
+            return ConfigurationManager.ConnectionStrings[key].ProviderName;
         }
 
         public static StringDictionary GetConnectionStrings()

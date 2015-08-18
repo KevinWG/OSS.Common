@@ -1,22 +1,7 @@
 ﻿using System;
-
-#region Copyright (C) 2014 北京金色世纪商旅网络科技股份有限公司
-
-/*
-　　	文件功能描述：属性别名
-
-　　	创建人：王超
-　　	创建人Email：wangchao@jsj.com.cn
-    	创建日期：2014.08.25
-
-　　	修改描述：
-	*/
-
-#endregion
-
 using System.Reflection;
 
-namespace OS.Common.Extention
+namespace OS.Common.Extention.DTO
 {
     #region   类型属性的自定义属性处理
 
@@ -25,6 +10,10 @@ namespace OS.Common.Extention
     /// </summary>
     public class ColumnAliasAttribute : BaseClumnAttribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="alias"></param>
         public ColumnAliasAttribute(string alias)
         {
             _alias = alias;
@@ -37,6 +26,9 @@ namespace OS.Common.Extention
     /// </summary>
     public class IgnoreColumnAttribute : BaseClumnAttribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public IgnoreColumnAttribute()
         {
             _IsIgnore = false;
@@ -49,6 +41,9 @@ namespace OS.Common.Extention
     /// </summary>
     public class AutoColumnAttribute : BaseClumnAttribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public AutoColumnAttribute()
         {
             _IsAuto = true;

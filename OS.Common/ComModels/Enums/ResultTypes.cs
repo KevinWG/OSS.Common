@@ -1,5 +1,8 @@
 ﻿namespace OS.Common.ComModels.Enums
 {
+    /// <summary>
+    ///   结果类型
+    /// </summary>
     public enum ResultTypes
     {
         /// <summary>
@@ -14,7 +17,7 @@
 
         /// <summary>
         /// 条件不满足
-        /// </summary>              
+        /// </summary>
         ParaNotMeet = 310,
 
         /// <summary>
@@ -27,15 +30,11 @@
         /// </summary>
         UpdateFail = 330,
 
+   
         /// <summary>
         /// 对象不存在
         /// </summary>
-        ObjectNull = 400,
-
-        /// <summary>
-        /// 当前用户未授权（特殊）
-        /// </summary>
-        UserNull = 404,
+        ObjectNull = 404,
 
         /// <summary>
         /// 对象已存在
@@ -46,6 +45,11 @@
         /// 对象状态不正常
         /// </summary>
         ObjectStateError = 420,
+
+        /// <summary>
+        /// 当前用户未验证身份信息
+        /// </summary>
+        UnAuthorize = 425,
 
         /// <summary>
         /// 没有权限

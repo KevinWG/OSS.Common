@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using OS.Common.Modules.CacheModule;
 
 namespace OS.Common.Modules.AsynModule
 {
@@ -9,17 +8,7 @@ namespace OS.Common.Modules.AsynModule
     /// </summary>
     public static class AsynUtil
     {
-        internal static Dictionary<string, IAsynBlock> AsynModules=
-            new Dictionary<string, IAsynBlock>();
-
-        static AsynUtil()
-        {
-            if (!AsynModules.ContainsKey(ModuleAsynKeys.Default))
-            {
-                AsynModules.Add(ModuleAsynKeys.Default,new AsynBlock());
-            }
-        }
-
+        private static IDictionary<string, IAsynBlock> _asynDirs = new Dictionary<string, IAsynBlock>();
         /// <summary>
         /// 通过模块名称获取异步处理模块实例
         /// </summary>
@@ -27,11 +16,17 @@ namespace OS.Common.Modules.AsynModule
         /// <returns></returns>
         public static IAsynBlock GetAsynBlock(string asynModule)
         {
-            if (!string.IsNullOrEmpty(asynModule)&& AsynModules.ContainsKey(asynModule))
-            {
-                return AsynModules[asynModule];
-            }
-            return AsynModules[ModuleAsynKeys.Default];
+            if (string.IsNullOrEmpty(asynModule))
+                asynModule = ModuleNames.Default;
+            
+            if (_asynDirs.ContainsKey(asynModule))
+                return _asynDirs[asynModule];
+            
+
+            var asyn = OsConfig.Provider.GetAsynBlock(asynModule) ?? new AsynBlock();
+            _asynDirs.Add(asynModule, asyn);
+            
+            return asyn;
         }
 
 
@@ -43,7 +38,7 @@ namespace OS.Common.Modules.AsynModule
         /// <param name="t"></param>
         /// <param name="moduleName"> 异步模块名称 </param>
         /// <returns></returns>
-        public static bool Asyn<T>(Action<T> asynAction, T t,string moduleName=ModuleAsynKeys.Default)
+        public static bool Asyn<T>(Action<T> asynAction, T t,string moduleName=ModuleNames.Default)
         {
             return GetAsynBlock(moduleName).Asyn(asynAction, t);
         }

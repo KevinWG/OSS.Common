@@ -5,37 +5,20 @@ using System.Text;
 namespace OS.Common.Encrypt
 {
     /// <summary>
-    /// MD5加密类
+    /// Sha1加密类
     /// </summary>
-    public static class Md5
+    public static class Sha1
     {
         /// <summary>
-        /// 获取16位MD5值
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string HalfEncryptHexString(string input)
-        {
-            string result = EncryptHexString(input);
-
-            if (!string.IsNullOrEmpty(result))
-            {
-                return result.Substring(0, 16);
-            }
-            return result;
-        }
-
-
-        /// <summary>
-        /// 获取MD5加密值
+        /// 获取Sha1加密值
         /// </summary>
         /// <param name="input"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string EncryptHexString(string input, Encoding encoding = null)
+        public static string Encrypt(string input, Encoding encoding = null)
         {
             if (string.IsNullOrEmpty(input))
-                throw new ArgumentNullException("input", "MD5加密的字符串不能为空！");
+                throw new ArgumentNullException("input", "Sha1加密的字符串不能为空！");
 
             if (encoding == null)
                 encoding = Encoding.UTF8;
@@ -56,18 +39,18 @@ namespace OS.Common.Encrypt
 
 
         /// <summary>
-        /// 获取MD5加密值
+        /// 获取Sha1加密值
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
         public static byte[] Encrypt(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0)
-                throw new ArgumentNullException("bytes","MD5加密的字节不能为空！");
+                throw new ArgumentNullException("bytes","Sha1加密的字节不能为空！");
             
-            using (MD5 md5Hash = MD5.Create())
+            using (SHA1 sha1Hash = SHA1.Create())
             {
-                return md5Hash.ComputeHash(bytes);
+                return sha1Hash.ComputeHash(bytes);
             }
         }
 

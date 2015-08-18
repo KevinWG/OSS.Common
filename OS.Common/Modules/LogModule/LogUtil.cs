@@ -1,12 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using OS.Common.Modules;
 using OS.Common.Modules.AsynModule;
 
-namespace OS.Common.LogModule
+namespace OS.Common.Modules.LogModule
 {
 
+    /// <summary>
+    /// 日志等级
+    /// </summary>
     public enum LogLevelEnum
     {
         /// <summary>
@@ -29,7 +30,10 @@ namespace OS.Common.LogModule
         Warning,
     }
 
-    public class LogInfo
+    /// <summary>
+    /// 日志实体
+    /// </summary>
+    public sealed class LogInfo
     {
         /// <summary>
         /// 空构造函数
@@ -38,20 +42,19 @@ namespace OS.Common.LogModule
         {
         }
 
-
         /// <summary>
         /// 日志构造函数
         /// </summary>
         /// <param name="loglevel"></param>
         /// <param name="msg"></param>
-        /// <param name="key"></param>
+        /// <param name="msgKey"></param>
         /// <param name="moduleName"></param>
-        internal LogInfo(LogLevelEnum loglevel,string msg,object key=null,string moduleName=ModuleLogKeys.Default)
+        internal LogInfo(LogLevelEnum loglevel, object msg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
             Level = loglevel;
             ModuleName = moduleName;
-            Message = msg;
-            Key = key;
+            Msg = msg;
+            MsgKey = msgKey;
         }
 
         /// <summary>
@@ -65,14 +68,15 @@ namespace OS.Common.LogModule
         public string ModuleName { get; set; }
 
         /// <summary>
-        ///   key值  可以是id等
+        ///   key值  可以是自定义的标识  
+        ///   根据此字段可以处理当前module下不同复杂日志信息
         /// </summary>
-        public object Key { get; set; }
+        public string MsgKey { get; set; }
 
         /// <summary>
-        /// 日志信息
+        /// 日志信息  可以是复杂类型  如 具体实体类
         /// </summary>
-        public string Message { get; set; }
+        public object Msg { get; set; }
 
         /// <summary>
         /// 错误编号
@@ -85,15 +89,7 @@ namespace OS.Common.LogModule
     /// </summary>
     public static class LogUtil
     {
-        ///// <summary>
-        /////   异步缓冲池
-        ///// </summary>
-        //private static ActionBlock<LogInfo> logActionList=new ActionBlock<LogInfo>(info =>
-        //{
-        //    var act = CreateLogWriter(info.Category);
-        //    act.WriteLog(new LogInfo(info.Level,info.Category,info.Message,info.Key));
-        //},new ExecutionDataflowBlockOptions() { MaxDegreeOfParallelism = 3 } );
-
+  
         /// <summary>
         /// 记录日志操作的异步模块
         /// </summary>
@@ -104,15 +100,9 @@ namespace OS.Common.LogModule
         }
     
 
-        internal static Dictionary<string, ILogWriter> LogModules=
+        private static Dictionary<string, ILogWriter> _logDirs=
             new Dictionary<string, ILogWriter>();
-        static LogUtil()
-        {
-            if (!LogModules.ContainsKey(ModuleAsynKeys.Default))
-            {
-                LogModules.Add(ModuleLogKeys.Default, new LogWriter());
-            }
-        }
+     
 
         /// <summary>
         /// 通过模块名称获取日志模块实例
@@ -121,55 +111,60 @@ namespace OS.Common.LogModule
         /// <returns></returns>
         public static ILogWriter GetLogWrite(string logModule)
         {
-            if (!string.IsNullOrEmpty(logModule)&&LogModules.ContainsKey(logModule))
-            {
-                return LogModules[logModule];
-            }
-            return LogModules[ModuleCacheKeys.Default];
+            if (string.IsNullOrEmpty(logModule))
+                logModule = ModuleNames.Default;
+
+            if (_logDirs.ContainsKey(logModule))
+                return _logDirs[logModule];
+
+            var log = OsConfig.Provider.GetLogWrite(logModule) ?? new LogWriter();
+            _logDirs.Add(logModule, log);
+
+            return log;
         }
 
         /// <summary>
         /// 记录信息
         /// </summary>
         /// <param name="msg"> 日志信息  </param>
-        /// <param name="key">  关键值  </param>
+        /// <param name="msgKey">  关键值  </param>
         /// <param name="moduleName"> 模块名称 </param>
-        public static string Info(string msg, object key=null, string moduleName=ModuleCacheKeys.Default)
+        public static string Info(object msg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
-            return Log(new LogInfo(LogLevelEnum.Info, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Info, msg, msgKey, moduleName));
         }
 
         /// <summary>
         /// 记录警告，用于未处理异常的捕获
         /// </summary>
         /// <param name="msg"> 日志信息  </param>
-        /// <param name="key">  关键值  </param>
+        /// <param name="msgKey">  关键值  </param>
         /// <param name="moduleName">模块名称</param>
-        public static string Warning(string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
+        public static string Warning(object msg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
-            return Log(new LogInfo(LogLevelEnum.Warning, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Warning, msg, msgKey, moduleName));
         }
 
         /// <summary>
         /// 记录错误，用于捕获到的异常信息记录
         /// </summary>
         /// <param name="msg"> 日志信息  </param>
-        /// <param name="key">  关键值  </param>
+        /// <param name="msgKey">  关键值  </param>
         /// <param name="moduleName">模块名称</param>
-        public static string Error(string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
+        public static string Error(object msg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
-            return Log(new LogInfo(LogLevelEnum.Error, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Error, msg, msgKey, moduleName));
         }
 
         /// <summary>
         /// 记录错误，用于捕获到的异常信息记录
         /// </summary>
         /// <param name="msg"> 日志信息  </param>
-        /// <param name="key">  关键值  </param>
+        /// <param name="msgKey">  关键值  </param>
         /// <param name="moduleName">模块名称</param>
-        public static string Trace(string msg, object key = null, string moduleName=ModuleCacheKeys.Default)
+        public static string Trace(object msg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
-            return Log(new LogInfo(LogLevelEnum.Trace, msg, key, moduleName));
+            return Log(new LogInfo(LogLevelEnum.Trace, msg, msgKey, moduleName));
         }
 
 
@@ -177,16 +172,15 @@ namespace OS.Common.LogModule
         ///   记录日志
         /// </summary>
         /// <param name="info"></param>
-        public static string Log(LogInfo info)
+        private static string Log(LogInfo info)
         {
             info.ErrorCode = GetErrorCode();
             if (string.IsNullOrEmpty(info.ModuleName))
-                info.ModuleName = ModuleCacheKeys.Default;
-            
+                info.ModuleName = ModuleNames.Default;
 
             var logWrite = GetLogWrite(info.ModuleName);
-            AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName);  // logActionList.Post(info);
-             return info.ErrorCode;
+            AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName); // logActionList.Post(info);
+            return info.ErrorCode;
         }
 
         /// <summary>
