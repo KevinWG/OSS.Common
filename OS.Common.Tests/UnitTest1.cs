@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OS.Common.Authrization;
-using OS.Common.ComModels;
 using OS.Common.Encrypt;
 using OS.Common.Extention;
 

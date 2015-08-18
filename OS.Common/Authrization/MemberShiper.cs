@@ -145,12 +145,6 @@ namespace OS.Common.Authrization
         /// </summary>
         public string Avatar { get; set; }
 
-        ///// <summary>
-        /////  第三方用户Id
-        /////   如果第三方用户Id不为空，但没用绑定当前系统时 系统用户Id为0
-        ///// </summary>
-        //public string ThirdUserId { get; set; }
-
         /// <summary>
         ///   是否是后台员工
         ///    如果员工以会员身份登录，则UserId  和  EmployeeId  都有值
