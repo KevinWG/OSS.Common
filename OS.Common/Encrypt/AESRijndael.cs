@@ -49,14 +49,15 @@ namespace OS.Common.Encrypt
         /// <returns></returns>
         public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray)
         {
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.PKCS7;
-            ICryptoTransform cTransform = rDel.CreateEncryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            rDel.Clear();
-            return resultArray;
+            using (RijndaelManaged rDel = new RijndaelManaged())
+            {
+                rDel.Key = keyArray;
+                rDel.Mode = CipherMode.ECB;
+                rDel.Padding = PaddingMode.PKCS7;
+                ICryptoTransform cTransform = rDel.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                return resultArray;
+            }
         }
 
 
@@ -82,12 +83,15 @@ namespace OS.Common.Encrypt
 
             try
             {
-                byte[] keyArray = encoding.GetBytes(key);// ToByte(key);
-                byte[] toEncryptArray = Convert.FromBase64String(toDecrypt);// ToByte(toDecrypt);
+                byte[] keyArray = encoding.GetBytes(key); // ToByte(key);
+                byte[] toEncryptArray = Convert.FromBase64String(toDecrypt); // ToByte(toDecrypt);
                 var resultArray = Decrypt(keyArray, toEncryptArray);
                 result = encoding.GetString(resultArray);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                // ignored
+            }
             return result;
         }
 

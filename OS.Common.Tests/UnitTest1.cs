@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OS.Common.Authrization;
 using OS.Common.Encrypt;
@@ -53,6 +55,26 @@ namespace OS.Common.Tests
 
             string unRe = "p0VEVhcxzOv6u9VN0TD/l+12qbH_o=".UrlDecode();
         }
-      
+
+
+        [TestMethod]
+        public void Encrypt()
+        {
+            //string publickey = @"<RSAKeyValue><Modulus>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzP6cxWDtshimWH/jzieQeoCLZwpO8C6paTPpC4bM3dug7GwLNlFmBFFpjEzP92uenD2qyEHXb1Ei0VXnfHMuLh+AqZiciqx8M+Y0fCRQ2bb01HosgiH0fCf7JXjw+8ZkERIk/N00RriIOc+ek3qUF2UJ+gjNxoORijSfYcLJ2zQID</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            //RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+
+            //rsa.FromXmlString(publickey);
+            //byte[] cipherbytes = rsa.Encrypt(Encoding.Default.GetBytes("owxehuN4Ntt8Gx0AqBJ6O6Jv27Yg"), false);
+
+            //string result= Convert.ToBase64String(cipherbytes);
+
+
+            string key = "3fb3afd4a9304519b8f265d4ed059073";
+
+            string result = AesRijndael.Encrypt("owxehuN4Ntt8Gx0AqBJ6O6Jv27Yg", key);
+
+            string r = AesRijndael.Decrypt("kicMdru9cwsGUQoDvhWbFdD6id0ZhK/NY79WWJox7sUx=", key);
+
+        }
     }
 }
