@@ -24,7 +24,7 @@ namespace OS.Common.Authrization
         /// <summary>
         ///   应用来源
         /// </summary>
-        public int AppSource { get; set; }
+        public string AppSource { get; set; }
 
         /// <summary>
         /// 应用客户端类型
@@ -120,7 +120,7 @@ namespace OS.Common.Authrization
                                     Token = val;
                                     break;
                                 case "appsource":
-                                    AppSource = val.ToInt32();
+                                    AppSource = val;
                                     break;
                                 case "appclient":
                                     AppClient = (AppClient)val.ToInt32();
