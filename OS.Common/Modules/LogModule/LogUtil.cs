@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using OS.Common.Modules.AsynModule;
 
 namespace OS.Common.Modules.LogModule

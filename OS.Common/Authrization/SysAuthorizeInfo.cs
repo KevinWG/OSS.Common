@@ -69,7 +69,7 @@ namespace OS.Common.Authrization
         /// 主要是当应用层向基础层传递时使用
         ///  如支付系统等，api层面对多个应用，每个应用对应不同支付key，调用支付接口时必传
         /// </summary>
-        public int OriginAppSource { get; set; }
+        public string OriginAppSource { get; set; }
 
         #endregion
 
@@ -141,7 +141,7 @@ namespace OS.Common.Authrization
                                     WebBrowser = (WebBrowserClient)val.ToInt32();
                                     break;
                                 case "originappsource":
-                                    OriginAppSource = val.ToInt32();
+                                    OriginAppSource = val;
                                     break;
                             }
                         }
@@ -237,10 +237,9 @@ namespace OS.Common.Authrization
             {
                 AddSignDataValue("webbrowser", ((int)WebBrowser).ToString(), separator, strTicketParas);
             }
-            if (OriginAppSource > 0)
-            {
-                AddSignDataValue("originappsource", OriginAppSource.ToString(), separator, strTicketParas);
-            }
+       
+               AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
+          
             return strTicketParas;
         }
 

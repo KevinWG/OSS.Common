@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OS.Common.Authrization;
 using OS.Common.Encrypt;
 using OS.Common.Extention;
+using OS.Common.Modules.LogModule;
 
 namespace OS.Common.Tests
 {
@@ -56,6 +55,13 @@ namespace OS.Common.Tests
             string unRe = "p0VEVhcxzOv6u9VN0TD/l+12qbH_o=".UrlDecode();
         }
 
+
+
+        [TestMethod]
+        public void Test()
+        {
+            string str = LogUtil.Info("test");
+        }
 
         [TestMethod]
         public void Encrypt()
