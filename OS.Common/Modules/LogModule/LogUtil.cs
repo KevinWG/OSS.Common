@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using OS.Common.Modules.AsynModule;
 
@@ -98,12 +99,10 @@ namespace OS.Common.Modules.LogModule
             get; 
             set;
         }
-    
 
-        private static Dictionary<string, ILogWriter> _logDirs=
-            new Dictionary<string, ILogWriter>();
-     
-
+        private static readonly ConcurrentDictionary<string, ILogWriter> _logDirs =
+            new ConcurrentDictionary<string, ILogWriter>();
+        
         /// <summary>
         /// 通过模块名称获取日志模块实例
         /// </summary>
@@ -118,7 +117,7 @@ namespace OS.Common.Modules.LogModule
                 return _logDirs[logModule];
 
             var log = OsConfig.Provider.GetLogWrite(logModule) ?? new LogWriter();
-            _logDirs.Add(logModule, log);
+            _logDirs.TryAdd(logModule, log);
 
             return log;
         }

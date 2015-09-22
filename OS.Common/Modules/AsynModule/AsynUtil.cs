@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace OS.Common.Modules.AsynModule
 {
@@ -8,7 +8,7 @@ namespace OS.Common.Modules.AsynModule
     /// </summary>
     public static class AsynUtil
     {
-        private static IDictionary<string, IAsynBlock> _asynDirs = new Dictionary<string, IAsynBlock>();
+        private static readonly ConcurrentDictionary<string, IAsynBlock> _asynDirs = new ConcurrentDictionary<string, IAsynBlock>();//Dictionary<string, IAsynBlock>();
         /// <summary>
         /// 通过模块名称获取异步处理模块实例
         /// </summary>
@@ -21,11 +21,10 @@ namespace OS.Common.Modules.AsynModule
             
             if (_asynDirs.ContainsKey(asynModule))
                 return _asynDirs[asynModule];
-            
 
             var asyn = OsConfig.Provider.GetAsynBlock(asynModule) ?? new AsynBlock();
-            _asynDirs.Add(asynModule, asyn);
-            
+            _asynDirs.TryAdd(asynModule,asyn);
+
             return asyn;
         }
 

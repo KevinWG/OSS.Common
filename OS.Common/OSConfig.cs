@@ -15,7 +15,7 @@ namespace OS.Common
         /// </summary>
         internal static ModuleBaseProvider Provider
         {
-            get { return _provider ?? new ModuleBaseProvider(); }
+            get { return _provider ?? (_provider = new ModuleBaseProvider()); }
         }
 
 

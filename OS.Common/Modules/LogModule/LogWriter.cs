@@ -7,7 +7,7 @@ namespace OS.Common.Modules.LogModule
     internal class LogWriter : ILogWriter
     {
         private readonly string _logBaseDirPath = null;
-        private const string logFormat = "{0:T}       Key:{1}   Detail:{2}";
+        private const string _logFormat = "{0:T}       Key:{1}   Detail:{2}";
 
         public LogWriter()
         {
@@ -39,7 +39,8 @@ namespace OS.Common.Modules.LogModule
 
                 using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.Default))
                 {
-                    sw.WriteLine(format: logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);
+                    // ReSharper disable once FormatStringProblem
+                    sw.WriteLine(format: _logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);
                     sw.Close();
                 }
             }

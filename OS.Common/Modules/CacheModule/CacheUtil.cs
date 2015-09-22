@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace OS.Common.Modules.CacheModule
@@ -8,7 +9,7 @@ namespace OS.Common.Modules.CacheModule
     /// </summary>
     public static class CacheUtil
     {
-        private static IDictionary<string ,ICache>  _cacheDirs=new Dictionary<string, ICache>();
+        private static readonly ConcurrentDictionary<string, ICache> _cacheDirs = new ConcurrentDictionary<string, ICache>();
 
         /// <summary>
         /// 通过模块名称获取
@@ -24,7 +25,7 @@ namespace OS.Common.Modules.CacheModule
                 return _cacheDirs[cacheModule];
 
             var cache = OsConfig.Provider.GetCache(cacheModule) ?? new Cache();
-            _cacheDirs.Add(cacheModule, cache);
+            _cacheDirs.TryAdd(cacheModule, cache);
 
             return cache;
         }

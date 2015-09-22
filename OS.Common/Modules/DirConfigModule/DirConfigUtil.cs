@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using OS.Common.ComModels;
 
 namespace OS.Common.Modules.DirConfigModule
@@ -8,7 +8,7 @@ namespace OS.Common.Modules.DirConfigModule
     /// </summary>
     public static class DirConfigUtil
     {
-        private static IDictionary<string, IDirConfig> _dirConfigDirs = new Dictionary<string, IDirConfig>();
+        private static readonly ConcurrentDictionary<string, IDirConfig> _dirConfigDirs = new ConcurrentDictionary<string, IDirConfig>();
 
         /// <summary>
         /// 通过模块名称获取
@@ -24,7 +24,7 @@ namespace OS.Common.Modules.DirConfigModule
                 return _dirConfigDirs[dirConfigModule];
 
             var dirConfig = OsConfig.Provider.GetDirConfig(dirConfigModule) ?? new DirConfig();
-            _dirConfigDirs.Add(dirConfigModule, dirConfig);
+            _dirConfigDirs.TryAdd(dirConfigModule, dirConfig);
 
             return dirConfig;
         }
