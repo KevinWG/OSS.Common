@@ -7,7 +7,6 @@ using OS.Common.Extention;
 
 namespace OS.Common.Authrization
 {
-
     /// <summary>
     ///   授权认证信息
     /// </summary>
