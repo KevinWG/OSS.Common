@@ -30,7 +30,6 @@ namespace OS.Common
             _provider = provider;
         }
 
-
         #endregion
 
         /// <summary>

@@ -219,13 +219,13 @@ namespace OS.Common.Authrization
             StringBuilder strTicketParas = new StringBuilder();
 
             if (IsNew)
-            { 
+            {
                 //  照顾旧客户端加密方式，否则检验时串不一样
                 strTicketParas.Append(newFlag);
             }
 
-            AddSignDataValue("appclient", ((int)AppClient).ToString(), separator, strTicketParas);
-            AddSignDataValue("appsource", AppSource.ToString(), separator, strTicketParas);
+            AddSignDataValue("appclient", ((int) AppClient).ToString(), separator, strTicketParas);
+            AddSignDataValue("appsource", AppSource, separator, strTicketParas);
             AddSignDataValue("appversion", AppVersion, separator, strTicketParas);
             AddSignDataValue("deviceid", DeviceId, separator, strTicketParas);
 
@@ -234,11 +234,10 @@ namespace OS.Common.Authrization
             AddSignDataValue("token", Token, separator, strTicketParas);
             if (WebBrowser != WebBrowserClient.None)
             {
-                AddSignDataValue("webbrowser", ((int)WebBrowser).ToString(), separator, strTicketParas);
+                AddSignDataValue("webbrowser", ((int) WebBrowser).ToString(), separator, strTicketParas);
             }
-       
-               AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
-          
+            AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
+
             return strTicketParas;
         }
 

@@ -21,9 +21,9 @@
         public const string PushCenter = "push_center";
 
         /// <summary>
-        ///  公众账号模块
+        ///  社会化中心
         /// </summary>
-        public const string SudioAccount = "studio_account";
+        public const string SnsCenter = "sns_center";
 
         /// <summary>
         ///  多媒体中心模块
