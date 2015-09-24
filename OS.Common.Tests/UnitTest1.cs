@@ -13,11 +13,9 @@ namespace OS.Common.Tests
         [TestMethod]
         public void TestMethod1()
         {
-
             string key = Guid.NewGuid().ToString().Replace("-",string.Empty);
             SysAuthorizeInfo appInfo = new SysAuthorizeInfo();
-            appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;",';');
-
+            appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;");
 
             var newSignData = appInfo.ToSignData(key);
             appInfo.FromSignData(newSignData);
@@ -66,20 +64,11 @@ namespace OS.Common.Tests
         [TestMethod]
         public void Encrypt()
         {
-            //string publickey = @"<RSAKeyValue><Modulus>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzP6cxWDtshimWH/jzieQeoCLZwpO8C6paTPpC4bM3dug7GwLNlFmBFFpjEzP92uenD2qyEHXb1Ei0VXnfHMuLh+AqZiciqx8M+Y0fCRQ2bb01HosgiH0fCf7JXjw+8ZkERIk/N00RriIOc+ek3qUF2UJ+gjNxoORijSfYcLJ2zQID</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-            //RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-
-            //rsa.FromXmlString(publickey);
-            //byte[] cipherbytes = rsa.Encrypt(Encoding.Default.GetBytes("owxehuN4Ntt8Gx0AqBJ6O6Jv27Yg"), false);
-
-            //string result= Convert.ToBase64String(cipherbytes);
-
-
-            string key = "3fb3afd4a9304519b8f265d4ed059073";
+            string key = Guid.NewGuid().ToString().Replace("-", string.Empty);
 
             string result = AesRijndael.Encrypt("owxehuN4Ntt8Gx0AqBJ6O6Jv27Yg", key);
 
-            string r = AesRijndael.Decrypt("kicMdru9cwsGUQoDvhWbFdD6id0ZhK/NY79WWJox7sUx=", key);
+            string r = AesRijndael.Decrypt(result, key);
 
         }
     }
