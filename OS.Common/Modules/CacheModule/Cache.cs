@@ -18,10 +18,9 @@ namespace OS.Common.Modules.CacheModule
         /// <param name="absoluteExpiration"> 绝对过期时间 </param>
         /// <param name="db"> 缓存分区db </param>
         /// <returns>是否添加成功</returns>
-        public bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null,
-            int db = 0)
+        public bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null)
         {
-            return Add(key, obj, slidingExpiration, absoluteExpiration, db, false);
+            return Add(key, obj, slidingExpiration, absoluteExpiration,  false);
         }
 
         /// <summary>
@@ -34,10 +33,9 @@ namespace OS.Common.Modules.CacheModule
         /// <param name="absoluteExpiration"> 绝对过期时间 </param>
         /// <param name="db"> 缓存分区db </param>
         /// <returns>是否添加成功</returns>
-        public bool AddOrUpdate<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null,
-            int db = 0)
+        public bool AddOrUpdate<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null)
         {
-            return Add(key, obj, slidingExpiration, absoluteExpiration, db, true);
+            return Add(key, obj, slidingExpiration, absoluteExpiration, true);
         }
 
         /// <summary>
@@ -48,11 +46,9 @@ namespace OS.Common.Modules.CacheModule
         /// <param name="obj"></param>
         /// <param name="slidingExpiration"></param>
         /// <param name="absoluteExpiration"></param>
-        /// <param name="db"></param>
         /// <param name="isUpdate"></param>
         /// <returns></returns>
-        private static bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration,
-            int db, bool isUpdate)
+        private static bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration, bool isUpdate)
         {
             if (slidingExpiration == TimeSpan.Zero && absoluteExpiration == null)
                 throw new ArgumentNullException("slidingExpiration", "缓存过期时间不正确,需要设置固定过期时间或者相对过期时间");
@@ -70,10 +66,10 @@ namespace OS.Common.Modules.CacheModule
 
             if (isUpdate)
             {
-                MemoryCache.Default.Set(key, obj, cachePllicy, db>0? db.ToString():null);
+                MemoryCache.Default.Set(key, obj, cachePllicy);
                 return true;
             }
-            return MemoryCache.Default.Add(key, obj, cachePllicy, db>0? db.ToString():null);
+            return MemoryCache.Default.Add(key, obj, cachePllicy);
         }
 
         /// <summary>
@@ -81,11 +77,10 @@ namespace OS.Common.Modules.CacheModule
         /// </summary>
         /// <typeparam name="T">获取缓存对象类型</typeparam>
         /// <param name="key">key</param>
-        /// <param name="db">缓存分区db</param>
         /// <returns>获取指定key对应的值 </returns>
-        public T Get<T>(string key, int db=0)
+        public T Get<T>(string key)
         {
-            return (T)MemoryCache.Default.Get(key, db>0? db.ToString():null);
+            return (T)MemoryCache.Default.Get(key);
         }
 
 
@@ -93,11 +88,10 @@ namespace OS.Common.Modules.CacheModule
         /// 移除缓存对象
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="db"></param>
         /// <returns>是否成功</returns>
-        public bool Remove(string key, int db=0)
+        public bool Remove(string key)
         {
-            return MemoryCache.Default.Remove(key, db>0? db.ToString():null)!=null;
+            return MemoryCache.Default.Remove(key)!=null;
         }
 
 
@@ -105,11 +99,10 @@ namespace OS.Common.Modules.CacheModule
         ///   判断是否存在缓存对象
         /// </summary>
         /// <param name="key">  key值  </param>
-        /// <param name="db"> 缓存分区db </param>
         /// <returns></returns>
-        public bool Contains(string key, int db=0)
+        public bool Contains(string key)
         {
-            return MemoryCache.Default.Contains(key, db>0? db.ToString():null);
+            return MemoryCache.Default.Contains(key);
         }
     }
 }
