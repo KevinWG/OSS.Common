@@ -78,20 +78,6 @@ namespace OS.Common.Modules.CacheModule
             return GetCache(moduleName).Get<T>(key, db);
         }
 
-
-        /// <summary>
-        /// 获取缓存对象
-        /// </summary>
-        /// <typeparam name="T">获取缓存对象类型</typeparam>
-        /// <param name="keys">  key列表   </param>
-        /// <param name="moduleName">模块名称</param>
-        /// <param name="db">缓存分区db</param>
-        /// <returns> 获取多个不同类型key对应的不同值 </returns>
-        public static IDictionary<string, object> Get<T>(IEnumerable<String> keys, string moduleName = ModuleNames.Default, int db = 0)
-        {
-            return GetCache(moduleName).Get<T>(keys, db);
-        }
-
         /// <summary>
         /// 移除缓存对象
         /// </summary>

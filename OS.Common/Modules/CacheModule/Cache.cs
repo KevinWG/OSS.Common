@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Caching;
 
 namespace OS.Common.Modules.CacheModule
@@ -89,18 +88,6 @@ namespace OS.Common.Modules.CacheModule
             return (T)MemoryCache.Default.Get(key, db>0? db.ToString():null);
         }
 
-
-        /// <summary>
-        /// 获取缓存对象
-        /// </summary>
-        /// <typeparam name="T">获取缓存对象类型</typeparam>
-        /// <param name="keys">  key列表   </param>
-        /// <param name="db">缓存分区db</param>
-        /// <returns> 获取多个不同类型key对应的不同值 </returns>
-        public IDictionary<string, object> Get<T>(IEnumerable<String> keys, int db=0)
-        {
-            return MemoryCache.Default.GetValues(keys, db>0? db.ToString():null);
-        }
 
         /// <summary>
         /// 移除缓存对象
