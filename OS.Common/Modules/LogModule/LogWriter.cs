@@ -50,7 +50,7 @@ namespace OS.Common.Modules.LogModule
         /// 生成错误编号
         /// </summary>
         /// <returns></returns>
-        public string GetLogCode()
+        public string GetLogCode(LogInfo info)
         {
             return Guid.NewGuid().ToString().Replace("-", "");
         }

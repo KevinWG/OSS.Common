@@ -176,7 +176,7 @@ namespace OS.Common.Modules.LogModule
                 info.ModuleName = ModuleNames.Default;
 
             var logWrite = GetLogWrite(info.ModuleName);
-            info.LogCode = logWrite.GetLogCode();
+            info.LogCode = logWrite.GetLogCode(info);
 
             AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName); // logActionList.Post(info);
             return info.LogCode;

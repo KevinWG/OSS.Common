@@ -16,6 +16,6 @@
         /// 主要用于后期排查
         /// </summary>
         /// <returns></returns>
-        string GetLogCode();
+        string GetLogCode(LogInfo info);
     }
 }
