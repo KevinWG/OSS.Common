@@ -79,9 +79,9 @@ namespace OS.Common.Modules.LogModule
         public object Msg { get; set; }
 
         /// <summary>
-        /// 错误编号
+        /// 编号（全局唯一）
         /// </summary>
-        public string ErrorCode { get; set; }
+        public string LogCode { get; set; }
     }
 
     /// <summary>
@@ -172,22 +172,16 @@ namespace OS.Common.Modules.LogModule
         /// <param name="info"></param>
         private static string Log(LogInfo info)
         {
-            info.ErrorCode = GetErrorCode();
             if (string.IsNullOrEmpty(info.ModuleName))
                 info.ModuleName = ModuleNames.Default;
 
             var logWrite = GetLogWrite(info.ModuleName);
+            info.LogCode = logWrite.GetLogCode();
+
             AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName); // logActionList.Post(info);
-            return info.ErrorCode;
+            return info.LogCode;
         }
 
-        /// <summary>
-        /// 生成错误编号
-        /// </summary>
-        /// <returns></returns>
-        private static string GetErrorCode()
-        {
-            return Guid.NewGuid().ToString().Replace("-", "");
-        }
+     
     }
 }

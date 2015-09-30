@@ -46,5 +46,14 @@ namespace OS.Common.Modules.LogModule
             }
         }
 
+        /// <summary>
+        /// 生成错误编号
+        /// </summary>
+        /// <returns></returns>
+        public string GetLogCode()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "");
+        }
+
     }
 }

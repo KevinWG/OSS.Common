@@ -50,7 +50,7 @@ namespace OS.Common.Tests
         {
             var provider = new ModuleBaseProvider();
             var log = provider.GetLogWrite("");
-            log.WriteLog(new LogInfo(){Level = LogLevelEnum.Error,ErrorCode = "sssss",ModuleName = "default",Msg = "消息",MsgKey = "default"});
+            log.WriteLog(new LogInfo(){Level = LogLevelEnum.Error,LogCode = "sssss",ModuleName = "default",Msg = "消息",MsgKey = "default"});
 
             //string re = "&".UrlEncode();
             //string unRe = "p0VEVhcxzOv6u9VN0TD/l+12qbH_o=".UrlDecode();
