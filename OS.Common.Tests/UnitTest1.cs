@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OS.Common.Authrization;
 using OS.Common.Encrypt;
 using OS.Common.Extention;
+using OS.Common.Modules;
 using OS.Common.Modules.LogModule;
 
 namespace OS.Common.Tests
@@ -39,8 +40,7 @@ namespace OS.Common.Tests
         {
             var timeUtc = DateTime.Now.ToUtcMilliSeconds();
             var result = Md5.EncryptHexString("1389085779854n35a5fdhawz56y24pjn3u9d5zp9r1nhpebrxyyu359cq0ddo");
-            //var
-            //    page = new PageListModel<AppAuthorizeInfo>(100, new List<AppAuthorizeInfo>(), new
+            //var page = new PageListModel<AppAuthorizeInfo>(100, new List<AppAuthorizeInfo>(), new
             //        SearchModel() {});
         }
 
@@ -48,9 +48,12 @@ namespace OS.Common.Tests
         [TestMethod]
         public void Mmmmmmmm()
         {
-            string re = "&".UrlEncode();
+            var provider = new ModuleBaseProvider();
+            var log = provider.GetLogWrite("");
+            log.WriteLog(new LogInfo(){Level = LogLevelEnum.Error,ErrorCode = "sssss",ModuleName = "default",Msg = "消息",MsgKey = "default"});
 
-            string unRe = "p0VEVhcxzOv6u9VN0TD/l+12qbH_o=".UrlDecode();
+            //string re = "&".UrlEncode();
+            //string unRe = "p0VEVhcxzOv6u9VN0TD/l+12qbH_o=".UrlDecode();
         }
 
 

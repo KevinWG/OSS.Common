@@ -81,7 +81,7 @@ namespace OS.Common.Modules.LogModule
         /// <summary>
         /// 错误编号
         /// </summary>
-        public string ErrorCode { get;internal set; }
+        public string ErrorCode { get; set; }
     }
 
     /// <summary>
