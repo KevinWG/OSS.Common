@@ -17,17 +17,22 @@ namespace OS.Common.Modules.DirConfigModule
 
         static DirConfig()
         {
+
+#if DNXCORE50
             _defaultPath = AppDomain.CurrentDomain.BaseDirectory;
+#else
+            _defaultPath = AppDomain.CurrentDomain.BaseDirectory;
+#endif
         }
 
 
-       /// <summary>
-       /// 设置字典配置信息
-       /// </summary>
-       /// <typeparam name="TConfig"></typeparam>
-       /// <param name="key"></param>
-       /// <param name="dirConfig"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// 设置字典配置信息
+        /// </summary>
+        /// <typeparam name="TConfig"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="dirConfig"></param>
+        /// <returns></returns>
         public ResultModel SetDirConfig<TConfig>( string key, TConfig dirConfig) where TConfig:class ,new()
         {
             if (string.IsNullOrEmpty(key))

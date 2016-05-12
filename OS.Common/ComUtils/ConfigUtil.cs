@@ -9,6 +9,9 @@ namespace OS.Common.ComUtils
     /// </summary>
     public static class ConfigUtil
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static NameValueCollection AppSettings { get; private set; }
 
         static ConfigUtil()
@@ -16,6 +19,12 @@ namespace OS.Common.ComUtils
             AppSettings = ConfigurationManager.AppSettings;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static string GetAppSetting(string key)
         {
             if (string.IsNullOrEmpty(key))
