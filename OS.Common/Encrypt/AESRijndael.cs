@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OS.Common.Encrypt
 {
+    /// <summary>
+    /// Aes加密
+    /// </summary>
     public class AesRijndael
     {
         /// <summary>
@@ -46,12 +49,24 @@ namespace OS.Common.Encrypt
         /// </summary>
         /// <param name="keyArray"></param>
         /// <param name="toEncryptArray"></param>
+        /// <param name="iv">偏移量</param>
+        /// <param name="keySize">key大小</param>
+        /// <param name="blockSize">块大小</param>
+        /// <param name="cipherMode"></param>
+        /// <param name="paddingMode"></param>
         /// <returns></returns>
-        public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray)
+        public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray, byte[] iv = null, int keySize = 256, int blockSize = 128, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
         {
             using (RijndaelManaged rDel = new RijndaelManaged())
             {
+                rDel.KeySize = keySize;
+                rDel.BlockSize = blockSize;
+
                 rDel.Key = keyArray;
+                if (iv != null)
+                {
+                    rDel.IV = iv;
+                }
                 rDel.Mode = CipherMode.ECB;
                 rDel.Padding = PaddingMode.PKCS7;
                 ICryptoTransform cTransform = rDel.CreateEncryptor();
@@ -101,14 +116,27 @@ namespace OS.Common.Encrypt
         /// </summary>
         /// <param name="keyArray">key的字节流</param>
         /// <param name="toEncryptArray">加密串的字节流</param>
+        /// <param name="iv">偏移量</param>
+        /// <param name="keySize">key大小</param>
+        /// <param name="blockSize">块大小</param>
+        /// <param name="cipherMode"></param>
+        /// <param name="paddingMode"></param>
         /// <returns></returns>
-        public static byte[] Decrypt(byte[] keyArray, byte[] toEncryptArray)
+        public static byte[] Decrypt(byte[] keyArray, byte[] toEncryptArray,byte[] iv=null,int keySize=256,int blockSize=128, CipherMode cipherMode= CipherMode.ECB, PaddingMode paddingMode= PaddingMode.PKCS7)
         {
             using (RijndaelManaged rDel = new RijndaelManaged())
             {
+                rDel.KeySize = keySize;
+                rDel.BlockSize = blockSize;
+
                 rDel.Key = keyArray;
-                rDel.Mode = CipherMode.ECB;
-                rDel.Padding = PaddingMode.PKCS7;
+                if (iv!=null)
+                {
+                    rDel.IV = iv;
+                }
+                rDel.Mode = cipherMode;
+                rDel.Padding = paddingMode;
+
                 ICryptoTransform cTransform = rDel.CreateDecryptor();
                 byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 return resultArray;
