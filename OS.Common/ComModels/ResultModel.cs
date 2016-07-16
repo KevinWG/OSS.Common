@@ -174,9 +174,23 @@ namespace OS.Common.ComModels
             return ot;
         }
 
+        /// <summary>
+        ///   将结果实体转换成其他结果实体   --转化结果是通过 泛型 定义的Result实体
+        ///     仅转化 Ret和 Message 的值  
+        /// </summary>
+        /// <typeparam name="TResult">输出对象</typeparam>
+        /// <returns>输出对象</returns>
+        public static ResultModel<TResult> ConvertToResultOnly<TResult>(this ResultModel source)
+        {
+            ResultModel<TResult> ot = new ResultModel<TResult>();
+            ot.Ret = source.Ret;
+            ot.Message = source.Message;
+            return ot;
+        }
 
         /// <summary>
-        ///   将结果实体基本属性（ret，message）赋值
+        ///  将结果实体转换成其他结果实体   --转化结果是通过 继承 定义的Result实体  
+        ///    仅转化 Ret和 Message 的值
         /// </summary>
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <returns>输出对象</returns>
