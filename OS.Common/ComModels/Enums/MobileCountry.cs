@@ -2,6 +2,9 @@
 
 namespace OS.Common.ComModels.Enums
 {
+    /// <summary>
+    /// 手机号国家
+    /// </summary>
     public enum MobileCountry
     {
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace OS.Common.Extention
@@ -526,5 +527,21 @@ namespace OS.Common.Extention
         }
 
         #endregion
+
+        
+
+       /// <summary>
+       /// 获取字典的值
+       /// </summary>
+       /// <typeparam name="T"></typeparam>
+       /// <param name="dirs"></param>
+       /// <param name="key"></param>
+       /// <returns></returns>
+        public static T GetValue<T>(this IDictionary<string, T> dirs, string key)
+        { 
+            T t;
+            dirs.TryGetValue(key, out t);
+            return t;
+        }
     }
 }

@@ -6,16 +6,16 @@ using OS.Common.ComModels.Enums;
 namespace OS.Common.ComModels
 {
     /// <summary>
-    /// 以后废弃   todelete
+    /// 结果实体
     /// </summary>
-    public class ResultModel
+    public class ResultMo
     {
         /// <summary>
         /// 空构造函数
         /// </summary>
-        public ResultModel()
+        public ResultMo()
         {
-            Ret = ResultTypes.Success;
+            Ret = (int)ResultTypes.Success;
         }
 
         /// <summary>
@@ -23,9 +23,9 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultModel(int ret, string message = "")
+        public ResultMo(int ret, string message = "")
         {
-            Ret = (ResultTypes)ret;
+            Ret = ret;
             Message = message;
         }
 
@@ -35,21 +35,23 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultModel(ResultTypes ret, string message = "")
+        public ResultMo(ResultTypes ret, string message = "")
         {
-            this.Ret = ret;
+            this.Ret = (int)ret;
             this.Message = message;
         }
 
         /// <summary>
         /// 返回结果
+        /// 一般情况下：
         ///  2xx   成功相关状态（如： 200）
         ///  3xx   参数相关错误 
         ///  4xx   用户授权相关错误
         ///  5xx   服务器内部相关错误信息
         ///  6xx   系统级定制错误信息，如升级维护等
+        /// 也可依据第三方自行定义数值
         /// </summary>
-        public ResultTypes Ret { get; set; }
+        public int Ret { get; set; }
 
         /// <summary>
         /// 错误或者状态
@@ -59,14 +61,14 @@ namespace OS.Common.ComModels
 
 
     /// <summary>
-    /// 
+    /// 带Id的结果实体
     /// </summary>
-    public class ResultIdModel : ResultModel
+    public class ResultIdMo : ResultMo
     {
         /// <summary>
         /// 
         /// </summary>
-        public ResultIdModel():base()
+        public ResultIdMo():base()
         {
         }
 
@@ -74,7 +76,7 @@ namespace OS.Common.ComModels
         /// 构造函数
         /// </summary>
         /// <param name="id"></param>
-        public ResultIdModel(long id)
+        public ResultIdMo(long id)
             : base(200, null)
         {
             Id = id;
@@ -86,7 +88,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultIdModel(int ret, string message):base(ret,message)
+        public ResultIdMo(int ret, string message):base(ret,message)
         {
         }
 
@@ -96,7 +98,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultIdModel(ResultTypes ret, string message)
+        public ResultIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
@@ -108,10 +110,16 @@ namespace OS.Common.ComModels
     }
 
 
-
-    public class ResultModel<TType> : ResultModel
+    /// <summary>
+    /// 自定义泛型的结果实体
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    public class ResultMo<TType> : ResultMo
     {
-        public ResultModel()
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public ResultMo()
         {
         
         }
@@ -120,7 +128,7 @@ namespace OS.Common.ComModels
         /// 构造函数
         /// </summary>
         /// <param name="data"></param>
-        public ResultModel(TType data)
+        public ResultMo(TType data)
             : base(200, null)
         {
             Data = data;
@@ -131,7 +139,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultModel(int ret, string message = "")
+        public ResultMo(int ret, string message = "")
             : base(ret, message)
         {
         }
@@ -141,7 +149,7 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
-        public ResultModel(ResultTypes ret, string message = "")
+        public ResultMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
@@ -153,9 +161,9 @@ namespace OS.Common.ComModels
     }
 
     /// <summary>
-    /// 
+    ///  
     /// </summary>
-    public static class ResultModelMap
+    public static class ResultMoMap
     {
         /// <summary>
         ///   将结果实体转换成其他结果实体
@@ -163,10 +171,10 @@ namespace OS.Common.ComModels
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns>输出对象</returns>
-        public static ResultModel<TResult> ConvertToResult<TPara, TResult>(this ResultModel<TPara> source,
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> source,
             Func<TPara, TResult> func=null)
         {
-            ResultModel<TResult> ot = new ResultModel<TResult>();
+            ResultMo<TResult> ot = new ResultMo<TResult>();
             ot.Ret = source.Ret;
             ot.Message = source.Message;
 
@@ -183,9 +191,9 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <returns>输出对象</returns>
-        public static ResultModel<TResult> ConvertToResultOnly<TResult>(this ResultModel source)
+        public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo source)
         {
-            ResultModel<TResult> ot = new ResultModel<TResult>();
+            ResultMo<TResult> ot = new ResultMo<TResult>();
             ot.Ret = source.Ret;
             ot.Message = source.Message;
             return ot;
@@ -197,8 +205,8 @@ namespace OS.Common.ComModels
         /// </summary>
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <returns>输出对象</returns>
-        public static TResult ConvertToResult<TResult>(this ResultModel source)
-            where TResult : ResultModel, new()
+        public static TResult ConvertToResult<TResult>(this ResultMo source)
+            where TResult : ResultMo, new()
         {
             TResult ot = new TResult();
             ot.Ret = source.Ret;

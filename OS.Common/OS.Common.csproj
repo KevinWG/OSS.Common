@@ -46,6 +46,8 @@
     <Compile Include="Authrization\SysAuthorizeInfo.cs" />
     <Compile Include="ComModels\Enums\AppClient.cs" />
     <Compile Include="ComModels\Enums\MobileCountry.cs" />
+    <Compile Include="ComModels\PageMo.cs" />
+    <Compile Include="ComModels\ResultMo.cs" />
     <Compile Include="Encrypt\AesRijndael.cs" />
     <Compile Include="Encrypt\HmacSha1.cs" />
     <Compile Include="Encrypt\Sha1.cs" />

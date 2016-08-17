@@ -24,7 +24,6 @@ namespace OS.Common.Modules.LogModule
             return string.Concat(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
         }
 
-
         private object obj = new object();
 
         /// <summary>
