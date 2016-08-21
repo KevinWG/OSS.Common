@@ -61,14 +61,16 @@ namespace OS.Common.Encrypt
             {
                 rDel.KeySize = keySize;
                 rDel.BlockSize = blockSize;
-
+                
                 rDel.Key = keyArray;
                 if (iv != null)
                 {
                     rDel.IV = iv;
                 }
-                rDel.Mode = CipherMode.ECB;
-                rDel.Padding = PaddingMode.PKCS7;
+
+                rDel.Mode = cipherMode;
+                rDel.Padding = paddingMode;
+
                 ICryptoTransform cTransform = rDel.CreateEncryptor();
                 byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 return resultArray;
@@ -129,13 +131,14 @@ namespace OS.Common.Encrypt
                 rDel.KeySize = keySize;
                 rDel.BlockSize = blockSize;
 
+                rDel.Mode = cipherMode;
+                rDel.Padding = paddingMode;
+
                 rDel.Key = keyArray;
                 if (iv!=null)
                 {
                     rDel.IV = iv;
                 }
-                rDel.Mode = cipherMode;
-                rDel.Padding = paddingMode;
 
                 ICryptoTransform cTransform = rDel.CreateDecryptor();
                 byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
