@@ -57,6 +57,11 @@ namespace OS.Common.ComModels
         /// 错误或者状态
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        ///   是否成功
+        /// </summary>
+        public bool IsSuccess => Ret == (int) ResultTypes.Success;
     }
 
 

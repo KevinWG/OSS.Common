@@ -232,10 +232,10 @@ namespace OS.Common.Authrization
             AddSignDataValue("ipaddress", IpAddress, separator, strTicketParas);
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
             AddSignDataValue("token", Token, separator, strTicketParas);
-            if (WebBrowser != WebBrowserClient.None)
-            {
-                AddSignDataValue("webbrowser", ((int) WebBrowser).ToString(), separator, strTicketParas);
-            }
+            //if (WebBrowser != WebBrowserClient.None)
+            //{
+            //    AddSignDataValue("webbrowser", ((int) WebBrowser).ToString(), separator, strTicketParas);
+            //}
             AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
 
             return strTicketParas;
