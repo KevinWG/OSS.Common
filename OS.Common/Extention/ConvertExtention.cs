@@ -1,9 +1,25 @@
-﻿using System;
+﻿#region Copyright (C) 2014 OS系列开源项目
+
+/*       
+　　	文件功能描述：验证属性attribute
+
+　　	创建人：王超
+        创建人Email：1985088337@qq.com
+    	创建日期：2014.08.25
+
+　　	修改描述：
+*/
+
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace OS.Common.Extention
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ConvertExtention
     {
         #region DataReader转化部分
