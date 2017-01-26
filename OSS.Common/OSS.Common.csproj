@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C34A14D3-E650-4046-BEC8-3F741AA4678B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OSS.Common</RootNamespace>
+    <AssemblyName>OSS.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\OS.Trip\OS.Trip.Api\LayerSchema\OS.Trip.WebApi\App_Data\OS.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\OSS.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authrization\MemberShiper.cs" />
+    <Compile Include="Authrization\SysAuthorizeInfo.cs" />
+    <Compile Include="ComModels\Enums\AppClient.cs" />
+    <Compile Include="ComModels\Enums\MobileCountry.cs" />
+    <Compile Include="ComModels\PageMo.cs" />
+    <Compile Include="ComModels\ResultMo.cs" />
+    <Compile Include="Encrypt\AesRijndael.cs" />
+    <Compile Include="Encrypt\HmacSha1.cs" />
+    <Compile Include="Encrypt\Sha1.cs" />
+    <Compile Include="Modules\CacheModule\Cache.cs" />
+    <Compile Include="Modules\CacheModule\CacheUtil.cs" />
+    <Compile Include="Modules\CacheModule\ICache.cs" />
+    <Compile Include="Modules\DirConfigModule\DirConfig.cs" />
+    <Compile Include="Modules\DirConfigModule\DirConfigUtil.cs" />
+    <Compile Include="Modules\DirConfigModule\IDirConfig.cs" />
+    <Compile Include="Modules\ModuleDefaultProvider.cs" />
+    <Compile Include="Modules\ModuleNames.cs" />
+    <Compile Include="Extention\UrlExtension.cs" />
+    <Compile Include="OSConfig.cs" />
+    <Compile Include="Encrypt\Md5.cs" />
+    <Compile Include="Extention\ConvertExtention.cs" />
+    <Compile Include="Extention\DateTimeExtention.cs" />
+    <Compile Include="Extention\DTO\ColumnAliasAttribute.cs" />
+    <Compile Include="Extention\DTO\DTOExtetion.cs" />
+    <Compile Include="Extention\EnumExtention.cs" />
+    <Compile Include="Extention\ListExtention.cs" />
+    <Compile Include="Modules\AsynModule\AsynBlock.cs" />
+    <Compile Include="Modules\AsynModule\AsynUtil.cs" />
+    <Compile Include="Modules\AsynModule\IAsynBlock.cs" />
+    <Compile Include="Modules\LogModule\ILogWriter.cs" />
+    <Compile Include="ComModels\Enums\ResultTypes.cs" />
+    <Compile Include="ComUtils\ConfigUtil.cs" />
+    <Compile Include="ComUtils\TypeUtil.cs" />
+    <Compile Include="Modules\LogModule\LogUtil.cs" />
+    <Compile Include="Modules\LogModule\LogWriter.cs" />
+    <Compile Include="ComModels\Enums\SortType.cs" />
+    <Compile Include="ComModels\PageModel.cs" />
+    <Compile Include="ComModels\ResultModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
+    <Compile Include="Extention\Volidate\VolidateExtention.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
