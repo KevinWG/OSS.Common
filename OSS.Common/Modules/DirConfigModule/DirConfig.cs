@@ -33,7 +33,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// <param name="key"></param>
         /// <param name="dirConfig"></param>
         /// <returns></returns>
-        public ResultModel SetDirConfig<TConfig>( string key, TConfig dirConfig) where TConfig:class ,new()
+        public ResultMo SetDirConfig<TConfig>( string key, TConfig dirConfig) where TConfig:class ,new()
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("key", "配置键值不能为空！");
@@ -43,7 +43,7 @@ namespace OSS.Common.Modules.DirConfigModule
 
             string path = string.Concat(_defaultPath, "\\", "Config");
 
-            ResultModel result;
+            ResultMo result;
             FileStream fs = null;
             try
             {
@@ -60,7 +60,7 @@ namespace OSS.Common.Modules.DirConfigModule
                     xmlSer.Serialize(fs, dirConfig);
                 
                 fs.Close();
-                result = new ResultModel();
+                result = new ResultMo();
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace OSS.Common.Modules.DirConfigModule
                   throw ex;
 #endif
                 LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
-                result = new ResultModel(ResultTypes.InnerError, "设置字典配置信息出错");
+                result = new ResultMo(ResultTypes.InnerError, "设置字典配置信息出错");
             }
             finally
             {
@@ -132,7 +132,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public ResultModel RemoveDirConfig( string key)
+        public ResultMo RemoveDirConfig( string key)
         {
             string path = string.Concat(_defaultPath, "\\", "Config");
             string fileName = string.Concat(path, "\\", key, ".config");
@@ -151,7 +151,7 @@ namespace OSS.Common.Modules.DirConfigModule
 #endif
                 LogUtil.Error(string.Format("错误描述：{0}    详情：{1}",ex.Message,ex.StackTrace));
             }
-            return new ResultModel(ResultTypes.InnerError, "移除字典配置时出错");
+            return new ResultMo(ResultTypes.InnerError, "移除字典配置时出错");
         }
     }
 }

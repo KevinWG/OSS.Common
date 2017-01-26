@@ -38,7 +38,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// <param name="moduleName">模块名称</param>
         /// <typeparam name="TConfig"></typeparam>
         /// <returns></returns>
-        public static ResultModel SetDirConfig<TConfig>(string key, TConfig dirConfig,
+        public static ResultMo SetDirConfig<TConfig>(string key, TConfig dirConfig,
             string moduleName = null) where TConfig : class, new()
         {
             return GetDirConfig(moduleName).SetDirConfig(key, dirConfig);
@@ -63,7 +63,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// <param name="key"></param>
         /// <param name="moduleName">模块名称</param>
         /// <returns></returns>
-        public static ResultModel RemoveDirConfig( string key, string moduleName = null)
+        public static ResultMo RemoveDirConfig( string key, string moduleName = null)
         {
             return GetDirConfig(moduleName).RemoveDirConfig(key);
         }

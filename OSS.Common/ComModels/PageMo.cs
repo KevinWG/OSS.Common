@@ -17,7 +17,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="model"></param>
         /// <param name="columns"></param>
-        public static void AddFilterColumn(this SearchModel model, NameValueCollection columns)
+        public static void AddFilterColumn(this SearchMo model, NameValueCollection columns)
         {
             for (int i = 0; i < columns.Count; i++)
             {
@@ -29,9 +29,9 @@ namespace OSS.Common.ComModels
             }
         }
 
-        public static SearchModel ToSearchModel(this NameValueCollection collections)
+        public static SearchMo ToSearchModel(this NameValueCollection collections)
         {
-            var model = new SearchModel();
+            var model = new SearchMo();
             model.CurrentPage = collections["CurrentPage"].ToInt32();
             model.PageSize = collections["PageSize"].ToInt32();
             return model;

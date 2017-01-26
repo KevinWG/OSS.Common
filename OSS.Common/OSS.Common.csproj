@@ -78,8 +78,6 @@
     <Compile Include="Modules\LogModule\LogUtil.cs" />
     <Compile Include="Modules\LogModule\LogWriter.cs" />
     <Compile Include="ComModels\Enums\SortType.cs" />
-    <Compile Include="ComModels\PageModel.cs" />
-    <Compile Include="ComModels\ResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
     <Compile Include="Extention\Volidate\VolidateExtention.cs" />

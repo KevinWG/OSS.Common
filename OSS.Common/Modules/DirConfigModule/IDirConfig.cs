@@ -15,7 +15,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// <param name="dirConfig">配置具体信息</param>
         /// <typeparam name="TConfig">配置信息类型</typeparam>
         /// <returns></returns>
-        ResultModel SetDirConfig<TConfig>(string key, TConfig dirConfig) where TConfig : class ,new();
+        ResultMo SetDirConfig<TConfig>(string key, TConfig dirConfig) where TConfig : class ,new();
 
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        ResultModel RemoveDirConfig(string key);
+        ResultMo RemoveDirConfig(string key);
 
     }
 }
