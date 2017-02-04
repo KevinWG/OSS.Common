@@ -44,8 +44,6 @@
   <ItemGroup>
     <Compile Include="Authrization\MemberShiper.cs" />
     <Compile Include="Authrization\SysAuthorizeInfo.cs" />
-    <Compile Include="ComModels\Enums\AppClient.cs" />
-    <Compile Include="ComModels\Enums\MobileCountry.cs" />
     <Compile Include="ComModels\PageMo.cs" />
     <Compile Include="ComModels\ResultMo.cs" />
     <Compile Include="Encrypt\AesRijndael.cs" />
