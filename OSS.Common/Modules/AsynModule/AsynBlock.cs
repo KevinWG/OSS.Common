@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace OSS.Common.Modules.AsynModule
 {
@@ -8,17 +8,18 @@ namespace OSS.Common.Modules.AsynModule
         /// <summary>
         ///  post
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
         /// <param name="t"></param>
         /// <param name="asynAction"></param>
         /// <returns></returns>
-        public bool Asyn<T>(Action<T> asynAction, T t)
+        public async Task Asyn<TPara>(Action<TPara> asynAction, TPara t)
         {
-            return ThreadPool.QueueUserWorkItem(obj =>
-            {
-                var para = (T) obj;
-                asynAction(para);
-            }, t);
+            await Task.Run(()=> asynAction(t));
+            // ThreadPool.QueueUserWorkItem(obj =>
+            //{
+            //    var para = (T) obj;
+            //    asynAction(para);
+            //}, t);
         }
     }
 }

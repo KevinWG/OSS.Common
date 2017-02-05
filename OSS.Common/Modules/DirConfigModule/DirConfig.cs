@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NETFW 
+using System;
 using System.IO;
 using System.Xml.Serialization;
 using OSS.Common.ComModels;
@@ -7,6 +8,7 @@ using OSS.Common.Modules.LogModule;
 
 namespace OSS.Common.Modules.DirConfigModule
 {
+
     /// <summary>
     /// 默认配置处理
     /// </summary>
@@ -18,10 +20,10 @@ namespace OSS.Common.Modules.DirConfigModule
         static DirConfig()
         {
 
-#if DNXCORE50
+#if NETFW
             _defaultPath = AppDomain.CurrentDomain.BaseDirectory;
 #else
-            _defaultPath = AppDomain.CurrentDomain.BaseDirectory;
+            _defaultPath = AppContext.BaseDirectory;  // totest
 #endif
         }
 
@@ -47,7 +49,6 @@ namespace OSS.Common.Modules.DirConfigModule
             FileStream fs = null;
             try
             {
-
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -55,17 +56,17 @@ namespace OSS.Common.Modules.DirConfigModule
                 fs = new FileStream(string.Concat(path, "\\", key, ".config"), FileMode.Create, FileAccess.Write);
 
                 var type = typeof (TConfig);
-           
-                    XmlSerializer xmlSer = new XmlSerializer(type);
-                    xmlSer.Serialize(fs, dirConfig);
-                
+
+                XmlSerializer xmlSer = new XmlSerializer(type);
+                xmlSer.Serialize(fs, dirConfig);
+
                 fs.Close();
                 result = new ResultMo();
             }
             catch (Exception ex)
             {
 #if DEBUG
-                  throw ex;
+                throw ex;
 #endif
                 LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
                 result = new ResultMo(ResultTypes.InnerError, "设置字典配置信息出错");
@@ -155,3 +156,4 @@ namespace OSS.Common.Modules.DirConfigModule
         }
     }
 }
+#endif

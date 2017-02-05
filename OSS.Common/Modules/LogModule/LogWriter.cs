@@ -11,7 +11,12 @@ namespace OSS.Common.Modules.LogModule
 
         public LogWriter()
         {
+            // todo  测试地址是否ok
+#if NETFW
             _logBaseDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"log");
+#else
+            _logBaseDirPath = Path.Combine(AppContext.BaseDirectory, @"log");
+#endif
             if (!Directory.Exists(_logBaseDirPath))
                 Directory.CreateDirectory(_logBaseDirPath); 
         }
@@ -35,12 +40,14 @@ namespace OSS.Common.Modules.LogModule
             lock (obj)
             {
                 string filePath = getLogFilePath(info.ModuleName, info.Level);
-
-                using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.Default))
+#if NETFW
+                using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.UTF8))
+#else
+                using (StreamWriter sw = new StreamWriter(new FileStream(filePath,FileMode.OpenOrCreate,FileAccess.Write), Encoding.UTF8))
+#endif
                 {
-                    // ReSharper disable once FormatStringProblem
                     sw.WriteLine(format: _logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);
-                    sw.Close();
+                  
                 }
             }
         }

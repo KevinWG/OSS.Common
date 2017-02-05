@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿#if NETFW
+using System.Collections.Concurrent;
 using OSS.Common.ComModels;
 
 namespace OSS.Common.Modules.DirConfigModule
@@ -69,3 +70,4 @@ namespace OSS.Common.Modules.DirConfigModule
         }
     }
 }
+#endif

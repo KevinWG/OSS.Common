@@ -23,254 +23,267 @@ using OSS.Common.Extention.Volidate;
 
 namespace OSS.Common.Extention.DTO
 {
-   public  static class DTOExtetion
+    public static class DTOExtetion
     {
 
-       private static ConcurrentDictionary<string, IDictionary<string,PropertyColumnInfo>> propertyDirs
-           =new ConcurrentDictionary<string, IDictionary<string, PropertyColumnInfo>>();
+        private static ConcurrentDictionary<string, IDictionary<string, PropertyColumnInfo>> propertyDirs
+            = new ConcurrentDictionary<string, IDictionary<string, PropertyColumnInfo>>();
 
-       /// <summary>
-       /// 从Rquest等NameValueCollection列表对象中获取实体信息
-       /// </summary>
-       /// <typeparam name="TModel"></typeparam>
-       /// <param name="valueCollection"></param>
-       public static TModel SetToModel<TModel>(this NameValueCollection valueCollection) where TModel : class, new()
-       {
-           TModel tModel = new TModel();
-           var properties = GetColumnAttributes( typeof (TModel) );
-           foreach (var propertyColumnInfo in properties)
-           {
-               var propertyInfo = propertyColumnInfo.Value.PropertyInfo;
-               var value = valueCollection[propertyColumnInfo.Key];
+        ///// <summary>
+        ///// 从Rquest等NameValueCollection列表对象中获取实体信息
+        ///// </summary>
+        ///// <typeparam name="TModel"></typeparam>
+        ///// <param name="valueCollection"></param>
+        //public static TModel SetToModel<TModel>(this NameValueCollection valueCollection) where TModel : class, new()
+        //{
+        //    TModel tModel = new TModel();
+        //    var properties = GetColumnAttributes( typeof (TModel) );
+        //    foreach (var propertyColumnInfo in properties)
+        //    {
+        //        var propertyInfo = propertyColumnInfo.Value.PropertyInfo;
+        //        var value = valueCollection[propertyColumnInfo.Key];
 
-               if (!propertyColumnInfo.Value.IsIgnore
-                   &&!string.IsNullOrEmpty( value ))
-               {
-                   propertyInfo.SetValue(tModel, value.ChangeToType(propertyInfo.PropertyType), null);
-               }
-           }
-           return tModel;
-       }
+        //        if (!propertyColumnInfo.Value.IsIgnore
+        //            &&!string.IsNullOrEmpty( value ))
+        //        {
+        //            propertyInfo.SetValue(tModel, value.ChangeToType(propertyInfo.PropertyType), null);
+        //        }
+        //    }
+        //    return tModel;
+        //}
 
-       ///// <summary>
-       ///// 从DataReader中获取实体信息
-       ///// </summary>
-       ///// <typeparam name="TModel"></typeparam>
-       ///// <param name="dr"></param>
-       //public static TModel SetToModel<TModel>(this IDataReader dr) where TModel : class ,new()
-       //{
-       //    TModel tModel=new TModel();
+        ///// <summary>
+        ///// 从DataReader中获取实体信息
+        ///// </summary>
+        ///// <typeparam name="TModel"></typeparam>
+        ///// <param name="dr"></param>
+        //public static TModel SetToModel<TModel>(this IDataReader dr) where TModel : class ,new()
+        //{
+        //    TModel tModel=new TModel();
 
-       //    var properties = GetColumnAttributes( typeof (TModel) );
+        //    var properties = GetColumnAttributes( typeof (TModel) );
 
-       //    for (int i = 0; i < dr.FieldCount; i++)
-       //    {
-       //        string drFieldName = dr.GetName( i );
+        //    for (int i = 0; i < dr.FieldCount; i++)
+        //    {
+        //        string drFieldName = dr.GetName( i );
 
-       //        if (properties.ContainsKey( drFieldName ) && !dr.IsDBNull( i ))
-       //        {
-       //            var propertyColumnInfo = properties[drFieldName];
-       //            if (!propertyColumnInfo.IsIgnore)
-       //            {
-       //                var propertyInfo = propertyColumnInfo.PropertyInfo;
-       //                propertyInfo.SetValue(tModel, dr[i].ChangeToType(propertyInfo.PropertyType), null);
-       //            }
-       //        }
-       //    }
-       //    return tModel;
-       //}
+        //        if (properties.ContainsKey( drFieldName ) && !dr.IsDBNull( i ))
+        //        {
+        //            var propertyColumnInfo = properties[drFieldName];
+        //            if (!propertyColumnInfo.IsIgnore)
+        //            {
+        //                var propertyInfo = propertyColumnInfo.PropertyInfo;
+        //                propertyInfo.SetValue(tModel, dr[i].ChangeToType(propertyInfo.PropertyType), null);
+        //            }
+        //        }
+        //    }
+        //    return tModel;
+        //}
 
-       #region   属性处理
+        #region   属性处理
 
-       /// <summary>
-       /// 获取列附加属性列表
-       /// </summary>
-       /// <param name="type"></param>
-       /// <returns></returns>
-       private static IDictionary<string, PropertyColumnInfo> GetColumnAttributes(Type type)
-       {
-           IDictionary<string, PropertyColumnInfo> propertyList;
+        /// <summary>
+        /// 获取列附加属性列表
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private static IDictionary<string, PropertyColumnInfo> GetColumnAttributes(Type type)
+        {
+            IDictionary<string, PropertyColumnInfo> propertyList;
 
-           propertyDirs.TryGetValue(type.FullName, out propertyList);
-           if (propertyList != null)
-               return propertyList;
+            propertyDirs.TryGetValue(type.FullName, out propertyList);
+            if (propertyList != null)
+                return propertyList;
 
-           var properties = TypeHelper.GetProperties(type);
-           propertyList = new Dictionary<string, PropertyColumnInfo>(properties.Length);
+            var properties = TypeHelper.GetProperties(type);
+            propertyList = new Dictionary<string, PropertyColumnInfo>(properties.Length);
 
-           foreach (PropertyInfo fd in properties)
-           {
-               var properColumnInfo = new PropertyColumnInfo();
+            foreach (PropertyInfo fd in properties)
+            {
+                var properColumnInfo = new PropertyColumnInfo();
 
-               properColumnInfo.Name = fd.Name;
-               properColumnInfo.PropertyInfo = fd;
+                properColumnInfo.Name = fd.Name;
+                properColumnInfo.PropertyInfo = fd;
 
-               var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof(BaseClumnAttribute))
-                   .Select(attr => attr as BaseClumnAttribute)
-                   .ToList();
+                var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseClumnAttribute))
+                    .Select(attr => attr as BaseClumnAttribute)
+                    .ToList();
 
-               attrs.ForEach(attr =>
-               {
-                   properColumnInfo.IsAuto = attr.IsAuto || properColumnInfo.IsAuto;
-                   properColumnInfo.IsIgnore = attr.IsIgnore || properColumnInfo.IsIgnore;
+                attrs.ForEach(attr =>
+                {
+                    properColumnInfo.IsAuto = attr.IsAuto || properColumnInfo.IsAuto;
+                    properColumnInfo.IsIgnore = attr.IsIgnore || properColumnInfo.IsIgnore;
 
-                   if (!string.IsNullOrEmpty(attr.Alias))
-                       properColumnInfo.Alias = attr.Alias;
-               });
+                    if (!string.IsNullOrEmpty(attr.Alias))
+                        properColumnInfo.Alias = attr.Alias;
+                });
 
-               properColumnInfo.Alias = properColumnInfo.Alias ?? fd.Name;
-               if (!propertyList.ContainsKey(properColumnInfo.Alias))
-               {
-                   propertyList.Add(properColumnInfo.Alias, properColumnInfo);
-               }
-            
-           }
-           propertyDirs.TryAdd(type.FullName, propertyList);
-           return propertyList;
-       }
-       #endregion
+                properColumnInfo.Alias = properColumnInfo.Alias ?? fd.Name;
+                if (!propertyList.ContainsKey(properColumnInfo.Alias))
+                {
+                    propertyList.Add(properColumnInfo.Alias, properColumnInfo);
+                }
 
-       #region  数据转化部分
-       /// <summary>
-       /// 转换到指定类型
-       /// </summary>
-       /// <param name="obj"></param>
-       /// <param name="type"></param>
-       /// <returns></returns>
-       public static Object ChangeToType(this String obj, Type type)
-       {
-           if (obj == null)
-           {
-               return default(Type);
-           }
-           return ((object)obj).ChangeToType(type);
-       }
+            }
+            propertyDirs.TryAdd(type.FullName, propertyList);
+            return propertyList;
+        }
 
-       /// <summary>
-       /// 转换到指定类型
-       /// </summary>
-       /// <param name="obj"></param>
-       /// <param name="type"></param>
-       /// <returns></returns>
-       public static Object ChangeToType(this Object obj, Type type)
-       {
-           if (obj == null)
-           {
-               return default(Type);
-           }
-           object result;
-           try
-           {
-               if (type == typeof (DateTime?))
-               {
-                   DateTime date;
-                   result = DateTime.TryParse(obj.ToString(), out date) ? date : default(DateTime?);
-               }
-               else if (type == typeof(int?))
-               {
-                   int i;
-                   result = int.TryParse(obj.ToString(), out i) ? i : default(int?);
-               }
-               else
-               {
-                   result = type.IsEnum ? Enum.ToObject(type, Convert.ToInt64(obj)) : Convert.ChangeType(obj, type);
-               }
-           }
-           catch (Exception)
-           {
-               result = default(Type);
-           }
-           return result;
-       }
+        #endregion
 
-       #endregion
+        #region  数据转化部分
 
-       #region  创建数据参数部分
-      
-       ///// <summary>
-       /////   从实体中获取  所有数据库参数和值
-       ///// </summary>
-       ///// <param name="tModel"></param>
-       ///// <param name="type"></param>
-       //public static DbParameters GetDbParameteres<TModel>(this TModel tModel, DataBaseType type=DataBaseType.SqlServer) where TModel : class 
-       //{
-       //    DbParameters parameters=new DbParameters(type);
-       //    var properties = GetColumnAttributes(typeof(TModel));
-       //    foreach (var pro in properties)
-       //    {
-       //        var pcInfo = pro.Value;
-       //        if (!pcInfo.IsIgnore && !pcInfo.IsAuto)
-       //        {
-       //            parameters.AddInParameter(pcInfo.Alias,
-       //                 GetPropertityValue(pcInfo.PropertyInfo, tModel));
-       //        }
-       //        else if (pcInfo.IsAuto)
-       //        {
-       //            parameters.AddOutParameter(pcInfo.Alias,DbType.Int64);
-       //        }
-       //    }
-       //    return parameters;
-       //}
+        /// <summary>
+        /// 转换到指定类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Object ChangeToType(this String obj, Type type)
+        {
+            if (obj == null)
+            {
+                return default(Type);
+            }
+            return ((object) obj).ChangeToType(type);
+        }
+
+        /// <summary>
+        /// 转换到指定类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Object ChangeToType(this Object obj, Type type)
+        {
+            if (obj == null)
+            {
+                return default(Type);
+            }
+            object result;
+            try
+            {
+                if (type == typeof (DateTime?))
+                {
+                    DateTime date;
+                    result = DateTime.TryParse(obj.ToString(), out date) ? date : default(DateTime?);
+                }
+                else if (type == typeof (int?))
+                {
+                    int i;
+                    result = int.TryParse(obj.ToString(), out i) ? i : default(int?);
+                }
+                else
+                {
+#if NETFW
+                    result = type.IsEnum
+#else
+                    result = type.GetTypeInfo().IsEnum
+#endif
+                        ? Enum.ToObject(type, Convert.ToInt64(obj))
+                        : Convert.ChangeType(obj, type);
+                }
+            }
+            catch (Exception)
+            {
+                result = default(Type);
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region  创建数据参数部分
+
+        ///// <summary>
+        /////   从实体中获取  所有数据库参数和值
+        ///// </summary>
+        ///// <param name="tModel"></param>
+        ///// <param name="type"></param>
+        //public static DbParameters GetDbParameteres<TModel>(this TModel tModel, DataBaseType type=DataBaseType.SqlServer) where TModel : class 
+        //{
+        //    DbParameters parameters=new DbParameters(type);
+        //    var properties = GetColumnAttributes(typeof(TModel));
+        //    foreach (var pro in properties)
+        //    {
+        //        var pcInfo = pro.Value;
+        //        if (!pcInfo.IsIgnore && !pcInfo.IsAuto)
+        //        {
+        //            parameters.AddInParameter(pcInfo.Alias,
+        //                 GetPropertityValue(pcInfo.PropertyInfo, tModel));
+        //        }
+        //        else if (pcInfo.IsAuto)
+        //        {
+        //            parameters.AddOutParameter(pcInfo.Alias,DbType.Int64);
+        //        }
+        //    }
+        //    return parameters;
+        //}
 
 
-       ///// <summary>
-       /////   设置SqlServer数据库插入参数和语句
-       ///// </summary>
-       ///// <param name="tModel"></param>
-       ///// <param name="tableName"></param>
-       //public static void SetSqlServerInsertPara<TModel>(this DbCommand com, TModel tModel, string tableName)
-       //{
-       //    DbParameters parameters = new DbParameters(DataBaseType.SqlServer);
-       //    var properties = GetColumnAttributes(typeof (TModel));
+        ///// <summary>
+        /////   设置SqlServer数据库插入参数和语句
+        ///// </summary>
+        ///// <param name="tModel"></param>
+        ///// <param name="tableName"></param>
+        //public static void SetSqlServerInsertPara<TModel>(this DbCommand com, TModel tModel, string tableName)
+        //{
+        //    DbParameters parameters = new DbParameters(DataBaseType.SqlServer);
+        //    var properties = GetColumnAttributes(typeof (TModel));
 
-       //    StringBuilder strColumns = new StringBuilder();
-       //    StringBuilder strValues = new StringBuilder();
-       //    string strAuto = string.Empty;
+        //    StringBuilder strColumns = new StringBuilder();
+        //    StringBuilder strValues = new StringBuilder();
+        //    string strAuto = string.Empty;
 
-       //    foreach (var pro in properties)
-       //    {
-       //        var pcInfo = pro.Value;
-       //        if (!pcInfo.IsIgnore && !pcInfo.IsAuto)
-       //        {
-       //            var para = parameters.AddInParameter(pcInfo.Alias,
-       //                DbParameters.ConvertToDbType(pcInfo.PropertyInfo.PropertyType),
-       //                GetPropertityValue(pcInfo.PropertyInfo, tModel));
+        //    foreach (var pro in properties)
+        //    {
+        //        var pcInfo = pro.Value;
+        //        if (!pcInfo.IsIgnore && !pcInfo.IsAuto)
+        //        {
+        //            var para = parameters.AddInParameter(pcInfo.Alias,
+        //                DbParameters.ConvertToDbType(pcInfo.PropertyInfo.PropertyType),
+        //                GetPropertityValue(pcInfo.PropertyInfo, tModel));
 
-       //            if (strColumns.Length > 0)
-       //                strColumns.Append(",");
-       //            if (strValues.Length > 0)
-       //                strValues.Append(",");
+        //            if (strColumns.Length > 0)
+        //                strColumns.Append(",");
+        //            if (strValues.Length > 0)
+        //                strValues.Append(",");
 
-       //            strColumns.Append("[").Append(pcInfo.Alias).Append("]");
-       //            strValues.Append(para.ParameterName);
-       //        }
-       //        else if (pcInfo.IsAuto)
-       //        {
-       //            var para = parameters.AddOutParameter(pcInfo.Alias, DbType.Int64);
-       //            strAuto = string.Format(" set {0}=@@identity", para.ParameterName);
-       //        }
-       //    }
+        //            strColumns.Append("[").Append(pcInfo.Alias).Append("]");
+        //            strValues.Append(para.ParameterName);
+        //        }
+        //        else if (pcInfo.IsAuto)
+        //        {
+        //            var para = parameters.AddOutParameter(pcInfo.Alias, DbType.Int64);
+        //            strAuto = string.Format(" set {0}=@@identity", para.ParameterName);
+        //        }
+        //    }
 
-       //    com.CommandType = CommandType.Text;
-       //    com.CommandText = string.Format("insert into {0}({1}) values ({2}) {3}", tableName, strColumns, strValues,
-       //        strAuto);
-       //    com.Parameters.AddRange(parameters.ToArray());
-       //}
+        //    com.CommandType = CommandType.Text;
+        //    com.CommandText = string.Format("insert into {0}({1}) values ({2}) {3}", tableName, strColumns, strValues,
+        //        strAuto);
+        //    com.Parameters.AddRange(parameters.ToArray());
+        //}
 
-       private static object GetPropertityValue<TModel>(PropertyInfo proper, TModel tModel)
-       {
-           object obj = proper.GetValue(tModel, null);
-           if (proper.PropertyType.IsEnum)
-           {
-               obj = (int) obj;
-           }
-           return obj;
-       }
-       #endregion
+        private static object GetPropertityValue<TModel>(PropertyInfo proper, TModel tModel)
+        {
+            object obj = proper.GetValue(tModel, null);
+#if NETFW
+            if (proper.PropertyType.IsEnum)
+#else
+ if (proper.PropertyType.GetTypeInfo().IsEnum)
+#endif
+            {
+                obj = (int) obj;
+            }
+            return obj;
+        }
+
+        #endregion
     }
 
 
-   #region   数据库参数定义
+    #region   数据库参数定义
 
    //public enum DataBaseType
    //{
@@ -605,6 +618,6 @@ namespace OSS.Common.Extention.DTO
    //    }
    //}
 
-   #endregion
+#endregion
 
 }

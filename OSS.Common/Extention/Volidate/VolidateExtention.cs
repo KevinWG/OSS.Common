@@ -29,56 +29,59 @@ namespace OSS.Common.Extention.Volidate
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static bool IsOsValidate<T>(this T t) where T : class ,new()
+        public static bool IsOsValidate<T>(this T t) where T : class, new()
         {
-            if (t==null)
+            if (t == null)
                 return false;
-            
 
-            Type type = typeof(T);
-            var files =TypeHelper.GetProperties(type);
+
+            Type type = typeof (T);
+            var files = TypeHelper.GetProperties(type);
 
             for (int i = 0; i < files.Length; i++)
             {
                 var fd = files[i];
 
-                object[] attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof(BaseValidateAttribute));
+                object[] attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
 
-                if (attrs.OfType<BaseValidateAttribute>().Any(requireAttr => !requireAttr.Validate(fd.Name, fd.GetValue(t, null))))
+                if (
+                    attrs.OfType<BaseValidateAttribute>()
+                        .Any(requireAttr => !requireAttr.Validate(fd.Name, fd.GetValue(t, null))))
                 {
                     return false;
                 }
             }
             return true;
         }
+
         /// <summary>
         /// 返回的验证错误信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static List<string> ValidateOsMessage<T>(this T t) where T : class ,new()
+        public static List<string> ValidateOsMessage<T>(this T t) where T : class, new()
         {
-            List<string> resultList=new List<string>();
-            if (t==null)
+            List<string> resultList = new List<string>();
+            if (t == null)
             {
                 resultList.Add("对象不能为空！");
                 return resultList;
             }
 
-            var type = typeof(T);
+            var type = typeof (T);
 
             var files = TypeHelper.GetProperties(type);
 
             foreach (var fd in files)
             {
-                var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof(BaseValidateAttribute));
+                var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
 
                 var fd1 = fd;
                 foreach (var requireAttr in from requireAttr in attrs.OfType<BaseValidateAttribute>()
-                                            let result = requireAttr.Validate(fd1.Name, fd1.GetValue(t, null))
-                                            where !result
-                                            select requireAttr)
+                    let result = requireAttr.Validate(fd1.Name, fd1.GetValue(t, null))
+                    where !result
+                    select requireAttr)
                 {
                     resultList.Add(requireAttr.ErrorMessage);
                     break;
@@ -93,8 +96,12 @@ namespace OSS.Common.Extention.Volidate
 
     public static class TypeHelper
     {
-
+#if NETFW
         private static ConcurrentDictionary<string, object[]> attrDirs = new ConcurrentDictionary<string, object[]>();
+#else
+        private static ConcurrentDictionary<string, Attribute[]> attrDirs = new ConcurrentDictionary<string, Attribute[]>();
+#endif
+
         /// <summary>
         /// 
         /// </summary>
@@ -105,21 +112,27 @@ namespace OSS.Common.Extention.Volidate
         public static object[] GetPropertiAttributes(string typeName, PropertyInfo fd, Type attributeType)
         {
             string key = string.Concat(typeName, fd.Name);
+#if NETFW
             object[] attrs;
+#else
+       Attribute[] attrs;
+#endif
             attrDirs.TryGetValue(key, out attrs);
             if (attrs != null)
-            { 
+            {
                 return attrs;
             }
-            attrs = fd.GetCustomAttributes(attributeType, true);
+            attrs = fd.GetCustomAttributes(attributeType, true).ToArray();
             attrDirs.TryAdd(key, attrs);
             return attrs;
         }
+
         /// <summary>
         /// 
         /// </summary>
         private static ConcurrentDictionary<string, PropertyInfo[]> proDictionaries =
             new ConcurrentDictionary<string, PropertyInfo[]>();
+
         /// <summary>
         /// 
         /// </summary>
@@ -133,7 +146,11 @@ namespace OSS.Common.Extention.Volidate
             {
                 return properties;
             }
+#if NETFW
             properties = type.GetProperties();
+#else
+         properties = type.GetRuntimeProperties().ToArray();
+#endif
             proDictionaries.TryAdd(type.FullName, properties);
             return properties;
         }

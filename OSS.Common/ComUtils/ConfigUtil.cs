@@ -1,4 +1,5 @@
 ﻿using System;
+#if NETFW
 using System.Collections.Specialized;
 using System.Configuration;
 
@@ -70,3 +71,4 @@ namespace OSS.Common.ComUtils
         }
     }
 }
+#endif
