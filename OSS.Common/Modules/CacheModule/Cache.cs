@@ -1,4 +1,5 @@
 ﻿using System;
+#if NETFW
 using System.Runtime.Caching;
 
 namespace OSS.Common.Modules.CacheModule
@@ -106,3 +107,4 @@ namespace OSS.Common.Modules.CacheModule
         }
     }
 }
+#endif

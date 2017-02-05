@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace OSS.Common.Extention
@@ -12,6 +13,7 @@ namespace OSS.Common.Extention
     /// </summary>
     public static class EnumExtention
     {
+#if NETFW
         /// <summary>
         /// 获取描述
         /// </summary>
@@ -49,16 +51,21 @@ namespace OSS.Common.Extention
         
         private static ConcurrentDictionary<string, Dictionary<string, string>> enumDirs
            =new ConcurrentDictionary<string, Dictionary<string, string>>();
-
+  
         /// <summary>
         /// 获取枚举字典列表
+        /// todo  需要处理的
         /// </summary>
         /// <param name="enType">枚举类型</param>
         /// <param name="isIntValue">返回枚举值是否是int类型</param>
         /// <returns></returns>
         public static Dictionary<string, string> ToEnumDirs(this Type enType, bool isIntValue=true)
         {
+#if NETFW
             if (!enType.IsEnum)
+#else
+            if (!enType.GetTypeInfo().IsEnum)
+#endif
             {
                 throw new ArgumentException("获取枚举字典，参数必须是枚举类型！");
             }
@@ -89,7 +96,7 @@ namespace OSS.Common.Extention
             enumDirs.TryAdd(key, dirs);
             return dirs.Copy();
         }
-
+#endif
 
         /// <summary>
         ///   拷贝字典

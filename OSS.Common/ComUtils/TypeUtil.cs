@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+#if NETFW
+using System;
 using System.Collections.Concurrent;
 using System.Reflection;
 
@@ -43,3 +45,4 @@ namespace OSS.Common.ComUtils
 
     }
 }
+#endif

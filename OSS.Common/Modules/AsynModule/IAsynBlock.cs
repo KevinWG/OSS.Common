@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace OSS.Common.Modules.AsynModule
 {
@@ -15,6 +16,6 @@ namespace OSS.Common.Modules.AsynModule
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        bool Asyn<T>(Action<T> asynAction, T t);
+        Task Asyn<T>(Action<T> asynAction, T t);
     }
 }

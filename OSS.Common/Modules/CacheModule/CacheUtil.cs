@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NETFW
+using System;
 using System.Collections.Concurrent;
 
 namespace OSS.Common.Modules.CacheModule
@@ -98,3 +99,4 @@ namespace OSS.Common.Modules.CacheModule
         }
     }
 }
+#endif

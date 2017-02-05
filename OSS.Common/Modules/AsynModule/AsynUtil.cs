@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace OSS.Common.Modules.AsynModule
 {
@@ -37,7 +38,7 @@ namespace OSS.Common.Modules.AsynModule
         /// <param name="t"></param>
         /// <param name="moduleName"> 异步模块名称 </param>
         /// <returns></returns>
-        public static bool Asyn<T>(Action<T> asynAction, T t,string moduleName=ModuleNames.Default)
+        public static Task Asyn<T>(Action<T> asynAction, T t,string moduleName=ModuleNames.Default)
         {
             return GetAsynBlock(moduleName).Asyn(asynAction, t);
         }

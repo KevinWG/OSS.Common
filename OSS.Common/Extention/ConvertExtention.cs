@@ -23,6 +23,7 @@ namespace OSS.Common.Extention
     public static class ConvertExtention
     {
         #region DataReader转化部分
+
         ///// <summary>
         ///// 获取布尔类型
         ///// </summary>
@@ -215,6 +216,7 @@ namespace OSS.Common.Extention
         //    }
         //    return Convert.ToString(rdr[index]);
         //}
+
         #endregion
 
         #region  字符串数字转化部分
@@ -251,7 +253,7 @@ namespace OSS.Common.Extention
         /// <param name="obj">要转化的值</param>
         /// <param name="defaultValue">如果转化失败，返回的默认值</param>
         /// <returns></returns>
-        public static int ToInt32( this string obj ,int defaultValue=0)
+        public static int ToInt32(this string obj, int defaultValue = 0)
         {
             try
             {
@@ -263,7 +265,7 @@ namespace OSS.Common.Extention
             }
             catch (Exception)
             {
-               
+
             }
             return defaultValue;
         }
@@ -274,13 +276,13 @@ namespace OSS.Common.Extention
         /// <param name="obj">要转化的值</param>
         /// <param name="defaultValue">如果转化失败，返回的默认值</param>
         /// <returns></returns>
-        public static int ToInt32(this object obj, int defaultValue=0)
+        public static int ToInt32(this object obj, int defaultValue = 0)
         {
-            if (obj==null)
+            if (obj == null)
             {
                 return defaultValue;
             }
-            return obj.ToString().ToInt32(  );
+            return obj.ToString().ToInt32();
         }
 
 
@@ -292,7 +294,7 @@ namespace OSS.Common.Extention
         /// <param name="obj">要转化的值</param>
         /// <param name="defaultValue">如果转化失败，返回的默认值</param>
         /// <returns></returns>
-        public static long ToInt64(this string obj, int defaultValue=0)
+        public static long ToInt64(this string obj, int defaultValue = 0)
         {
             try
             {
@@ -317,7 +319,7 @@ namespace OSS.Common.Extention
         /// <param name="obj">要转化的值</param>
         /// <param name="defaultValue">如果转化失败，返回的默认值</param>
         /// <returns></returns>
-        public static decimal ToDecimal(this string obj, decimal defaultValue=0)
+        public static decimal ToDecimal(this string obj, decimal defaultValue = 0)
         {
             try
             {
@@ -340,9 +342,9 @@ namespace OSS.Common.Extention
         /// <param name="obj">要转化的值</param>
         /// <param name="defaultValue">如果转化失败，返回的默认值</param>
         /// <returns></returns>
-        public static decimal ToDecimal(this object obj, decimal defaultValue=0)
+        public static decimal ToDecimal(this object obj, decimal defaultValue = 0)
         {
-            if (obj==null)
+            if (obj == null)
             {
                 return defaultValue;
             }
@@ -544,20 +546,40 @@ namespace OSS.Common.Extention
 
         #endregion
 
-        
 
-       /// <summary>
-       /// 获取字典的值
-       /// </summary>
-       /// <typeparam name="T"></typeparam>
-       /// <param name="dirs"></param>
-       /// <param name="key"></param>
-       /// <returns></returns>
+
+        /// <summary>
+        /// 获取字典的值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dirs"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static T GetValue<T>(this IDictionary<string, T> dirs, string key)
-        { 
+        {
             T t;
             dirs.TryGetValue(key, out t);
             return t;
         }
+
+
+#if !NET40
+        /// <summary>
+        ///  .net standard 下的list转化扩展方法
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static List<TResult> ConvertAll<TPara, TResult>(this List<TPara> list, Func<TPara, TResult> func)
+        {
+            if (list == null)
+                return null;
+            var resultList = new List<TResult>(list.Count);
+            list.ForEach(e => resultList.Add(func(e)));
+            return resultList;
+        }
+#endif
     }
 }

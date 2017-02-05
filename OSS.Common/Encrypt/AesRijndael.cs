@@ -57,7 +57,7 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray, byte[] iv = null, int keySize = 256, int blockSize = 128, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
         {
-            using (RijndaelManaged rDel = new RijndaelManaged())
+            using (Aes rDel = Aes.Create())
             {
                 rDel.KeySize = keySize;
                 rDel.BlockSize = blockSize;
@@ -126,7 +126,7 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static byte[] Decrypt(byte[] keyArray, byte[] toEncryptArray,byte[] iv=null,int keySize=256,int blockSize=128, CipherMode cipherMode= CipherMode.ECB, PaddingMode paddingMode= PaddingMode.PKCS7)
         {
-            using (RijndaelManaged rDel = new RijndaelManaged())
+            using (Aes rDel =Aes.Create())
             {
                 rDel.KeySize = keySize;
                 rDel.BlockSize = blockSize;

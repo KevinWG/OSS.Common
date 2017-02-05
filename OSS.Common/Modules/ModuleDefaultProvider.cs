@@ -1,4 +1,5 @@
-﻿using OSS.Common.Modules.AsynModule;
+﻿
+using OSS.Common.Modules.AsynModule;
 using OSS.Common.Modules.CacheModule;
 using OSS.Common.Modules.DirConfigModule;
 using OSS.Common.Modules.LogModule;
@@ -24,16 +25,6 @@ namespace OSS.Common.Modules
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="cacheModuleName"></param>
-        /// <returns></returns>
-        public virtual ICache GetCache(string cacheModuleName)
-        {
-            return new Cache();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="logModuleName"></param>
         /// <returns></returns>
         public virtual ILogWriter GetLogWrite(string logModuleName)
@@ -41,10 +32,21 @@ namespace OSS.Common.Modules
             return new LogWriter();
         }
 
+#if NETFW
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cacheModuleName"></param>
+        /// <returns></returns>
+        public virtual ICache GetCache(string cacheModuleName)
+        {
+            return new Cache();
+        }
 
 
         /// <summary>
         /// 获取字典设置实现实体
+        ///  todo
         /// </summary>
         /// <param name="dirConfigModuleName"></param>
         /// <returns></returns>
@@ -52,5 +54,6 @@ namespace OSS.Common.Modules
         {
             return new DirConfig();
         }
+#endif
     }
 }

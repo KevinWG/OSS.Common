@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Text;
-using OSS.Common.ComModels.Enums;
-using OSS.Common.ComUtils;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 
@@ -27,8 +25,9 @@ namespace OSS.Common.Authrization
 
         /// <summary>
         /// 应用客户端类型
+        /// iOS, Android,PC等用户自定义
         /// </summary>
-        public AppClient AppClient { get; set; }
+        public string AppClient { get; set; }
 
         /// <summary>
         /// 设备ID
@@ -60,7 +59,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         /// 浏览器类型   可选
         /// </summary>
-        public WebBrowserClient WebBrowser { get; set; }
+        public string WebBrowser { get; set; }
 
 
         /// <summary>
@@ -72,18 +71,13 @@ namespace OSS.Common.Authrization
 
         #endregion
 
-        /// <summary>
-        ///  是否是新版
-        /// </summary>
-        public bool IsNew { get; set; }
-        // 是否是新版加密方式，默认是true
-        private static string newFlag = "masterauth";
+     
         /// <summary>
         /// 构造函数
         /// </summary>
         public SysAuthorizeInfo()
         {
-            IsNew = true;
+            
         }
 
 
@@ -99,8 +93,6 @@ namespace OSS.Common.Authrization
         {
             if (!string.IsNullOrEmpty(signData))
             {
-                IsNew = signData.StartsWith(newFlag + separator);
-
                 string[] strs = signData.Split(separator);
                 foreach (var str in strs)
                 {
@@ -122,7 +114,7 @@ namespace OSS.Common.Authrization
                                     AppSource = val;
                                     break;
                                 case "appclient":
-                                    AppClient = (AppClient)val.ToInt32();
+                                    AppClient = val;
                                     break;
                                 case "sign":
                                     Sign = val;
@@ -137,7 +129,7 @@ namespace OSS.Common.Authrization
                                     IpAddress = val;
                                     break;
                                 case "webbrowser":
-                                    WebBrowser = (WebBrowserClient)val.ToInt32();
+                                    WebBrowser = val;
                                     break;
                                 case "originappsource":
                                     OriginAppSource = val;
@@ -155,8 +147,6 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public string ToSignData(string secretKey, char separator=';')
         {
-            IsNew = true; //  如果客户端是旧加密方式，生成串时要处理成新版
-
             TimeSpan = DateTime.Now.ToUtcSeconds();
 
             var encrpStr = GetSignContent(separator);
@@ -200,12 +190,9 @@ namespace OSS.Common.Authrization
         public bool CheckSign(string secretKey, char separator=';')
         {
             var strTicketParas = GetSignContent(separator);
-
-            //  如果是新版 已经 url编码处理，不需要特殊处理
-            string signData = IsNew ? 
-                HmacSha1.EncryptBase64(strTicketParas.ToString(), secretKey) 
-                : HmacSha1.EncryptBase64(strTicketParas.ToString(), secretKey).Base64UrlEncode();
-
+            
+            string signData = HmacSha1.EncryptBase64(strTicketParas.ToString(), secretKey);
+                
             return Sign == signData;
         }
 
@@ -218,24 +205,13 @@ namespace OSS.Common.Authrization
         {
             StringBuilder strTicketParas = new StringBuilder();
 
-            if (IsNew)
-            {
-                //  照顾旧客户端加密方式，否则检验时串不一样
-                strTicketParas.Append(newFlag);
-            }
-
-            AddSignDataValue("appclient", ((int) AppClient).ToString(), separator, strTicketParas);
+            AddSignDataValue("appclient",  AppClient, separator, strTicketParas);
             AddSignDataValue("appsource", AppSource, separator, strTicketParas);
             AddSignDataValue("appversion", AppVersion, separator, strTicketParas);
             AddSignDataValue("deviceid", DeviceId, separator, strTicketParas);
-
-            AddSignDataValue("ipaddress", IpAddress, separator, strTicketParas);
+            
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
-            AddSignDataValue("token", Token, separator, strTicketParas);
-            //if (WebBrowser != WebBrowserClient.None)
-            //{
-            //    AddSignDataValue("webbrowser", ((int) WebBrowser).ToString(), separator, strTicketParas);
-            //}
+            AddSignDataValue("token", Token, separator, strTicketParas);       
             AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
 
             return strTicketParas;
@@ -256,7 +232,7 @@ namespace OSS.Common.Authrization
                 {
                     strTicketParas.Append(separator);
                 }
-                strTicketParas.Append(name).Append("=").Append(IsNew?value.UrlEncode():value);
+                strTicketParas.Append(name).Append("=").Append(value.UrlEncode());
             }
         }
 

@@ -1,43 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using OSS.Common.ComModels.Enums;
+#if !NET40
 using OSS.Common.Extention;
-
+#endif
 namespace OSS.Common.ComModels
 {
-
-    /// <summary>
-    ///  
-    /// </summary>
-    public static class SearchMoExtention
-    {
-        /// <summary>
-        /// 添加过滤条件
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="columns"></param>
-        public static void AddFilterColumn(this SearchMo model, NameValueCollection columns)
-        {
-            for (int i = 0; i < columns.Count; i++)
-            {
-                if (model.FilterDics==null)
-                {
-                    model.FilterDics=new Dictionary<string, string>(columns.Count);
-                }
-                model.FilterDics.Add(columns.GetKey(i),columns[i]);
-            }
-        }
-
-        public static SearchMo ToSearchModel(this NameValueCollection collections)
-        {
-            var model = new SearchMo();
-            model.CurrentPage = collections["CurrentPage"].ToInt32();
-            model.PageSize = collections["PageSize"].ToInt32();
-            return model;
-        }
-    }
-
     /// <summary>
     /// 搜索实体
     /// </summary>
@@ -234,7 +202,11 @@ namespace OSS.Common.ComModels
             List<TResult> resultList = null;
             if (pageList.Data != null)
             {
-                resultList = pageList.Data.ConvertAll(e => convertFun(e));
+#if NETFW
+                resultList = pageList.Data.ConvertAll(e=>convertFun(e));
+#else
+                resultList = pageList.Data.ConvertAll(convertFun);
+#endif
             }
             return new PageListMo<TResult>(pageList.Total, resultList, pageList.Search);
         }

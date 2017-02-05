@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSS.Common\OSS.Common.csproj">
+    <ProjectReference Include="..\OSS.Common\OSS.Common.Net45.csproj">
       <Project>{c34a14d3-e650-4046-bec8-3f741aa4678b}</Project>
-      <Name>OSS.Common</Name>
+      <Name>OSS.Common.Net45</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
