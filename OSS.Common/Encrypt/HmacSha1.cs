@@ -24,7 +24,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes, encoding, bytes);
+            byte[] resultbytes = Encrypt(keyBytes, bytes);
 
             return Convert.ToBase64String(resultbytes);
         }
@@ -44,7 +44,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes, encoding, bytes);
+            byte[] resultbytes = Encrypt(keyBytes,  bytes);
 
             return Encoding.UTF8.GetString(resultbytes);
         }
@@ -54,13 +54,12 @@ namespace OSS.Common.Encrypt
         /// 加密
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="encoding"></param>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        private static byte[] Encrypt(byte[] key, Encoding encoding, byte[] bytes)
+        private static byte[] Encrypt(byte[] key, byte[] bytes)
         {
             byte[] resultbytes;
-            using (HMACSHA1 hmac = new HMACSHA1(key))
+            using (var hmac = new HMACSHA1(key))
             {
                 resultbytes = hmac.ComputeHash(bytes);
             }
