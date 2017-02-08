@@ -1,4 +1,15 @@
-﻿namespace OSS.Common.Modules.LogModule
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：日志模块接口
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*****************************************************************************/
+
+#endregion
+namespace OSS.Common.Modules.LogModule
 {
     /// <summary>
     /// 日志写实现接口

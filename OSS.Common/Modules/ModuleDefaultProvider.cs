@@ -1,4 +1,17 @@
-﻿
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：全局模块提供者
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*    	修改日期：2017-2-8
+*    	修改内容：标准库的缓存兼容
+*       
+*****************************************************************************/
+
+#endregion
 using OSS.Common.Modules.AsynModule;
 using OSS.Common.Modules.CacheModule;
 using OSS.Common.Modules.DirConfigModule;
@@ -32,18 +45,23 @@ namespace OSS.Common.Modules
             return new LogWriter();
         }
 
-#if NETFW
+
         /// <summary>
-        /// 
+        ///   返回cache模块
         /// </summary>
         /// <param name="cacheModuleName"></param>
         /// <returns></returns>
         public virtual ICache GetCache(string cacheModuleName)
         {
+#if NETFW
             return new Cache();
+#else
+            return null;
+#endif
+
         }
 
-
+#if NETFW
         /// <summary>
         /// 获取字典设置实现实体
         ///  todo

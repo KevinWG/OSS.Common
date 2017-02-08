@@ -1,4 +1,15 @@
-﻿using System;
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：加盐sha1的加解密实现
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*****************************************************************************/
+
+#endregion
+using System;
 using System.Security.Cryptography;
 using System.Text;
 

@@ -1,4 +1,18 @@
-﻿namespace OSS.Common.Modules
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：全局模块名称实体
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*    	修改日期：2017-2-8
+*    	修改内容：修改社会化名称
+*       
+*****************************************************************************/
+
+#endregion
+namespace OSS.Common.Modules
 {
     /// <summary>
     /// 缓存Module名称
@@ -23,7 +37,7 @@
         /// <summary>
         ///  社会化中心
         /// </summary>
-        public const string SnsCenter = "sns_center";
+        public const string SocialCenter = "social_center";
 
         /// <summary>
         ///  多媒体中心模块

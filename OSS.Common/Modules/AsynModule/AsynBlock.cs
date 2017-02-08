@@ -1,4 +1,15 @@
-﻿using System;
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：基础异步的默认实现
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*****************************************************************************/
+
+#endregion
+using System;
 using System.Threading.Tasks;
 
 namespace OSS.Common.Modules.AsynModule
@@ -6,7 +17,7 @@ namespace OSS.Common.Modules.AsynModule
     internal class AsynBlock :  IAsynBlock
     {
         /// <summary>
-        ///  post
+        ///  异步方法
         /// </summary>
         /// <typeparam name="TPara"></typeparam>
         /// <param name="t"></param>

@@ -1,4 +1,15 @@
-﻿namespace OSS.Common.ComModels.Enums
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：通用结果枚举
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*****************************************************************************/
+
+#endregion
+namespace OSS.Common.ComModels.Enums
 {
     /// <summary>
     ///   结果类型

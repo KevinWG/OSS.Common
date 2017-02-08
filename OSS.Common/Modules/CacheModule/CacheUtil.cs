@@ -1,11 +1,25 @@
-﻿#if NETFW
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：缓存辅助类
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*    	修改日期：2017-2-8
+*    	修改内容： .net standrad类库的兼容处理
+*       
+*****************************************************************************/
+
+#endregion
+
 using System;
 using System.Collections.Concurrent;
 
 namespace OSS.Common.Modules.CacheModule
 {
     /// <summary>
-    /// 
+    /// 缓存的辅助类
     /// </summary>
     public static class CacheUtil
     {
@@ -24,10 +38,18 @@ namespace OSS.Common.Modules.CacheModule
             if (_cacheDirs.ContainsKey(cacheModule))
                 return _cacheDirs[cacheModule];
 
-            var cache = OsConfig.Provider.GetCache(cacheModule) ?? new Cache();
-            _cacheDirs.TryAdd(cacheModule, cache);
-
+            var cache = OsConfig.Provider.GetCache(cacheModule);
+            if (cache==null)
+            {
+#if NETFW
+                cache = new Cache();
+#else
+                throw new ArgumentNullException("cache",$"并没有找到（{cacheModule}）模块下的缓存实现，请实现ICache接口，并重写ModuleDefaultProvider的GetCache方法，通过OsConfig类注册进来！");
+#endif
+            }
+            _cacheDirs.TryAdd(cacheModule, cache );
             return cache;
+
         }
 
         /// <summary>
@@ -99,4 +121,3 @@ namespace OSS.Common.Modules.CacheModule
         }
     }
 }
-#endif

@@ -1,4 +1,18 @@
-﻿using OSS.Common.Modules;
+﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：全局模块配置内
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*    	修改日期：2017-2-8
+*    	修改内容： .net standrad类库的兼容处理
+*       
+*****************************************************************************/
+
+#endregion
+using OSS.Common.Modules;
 using OSS.Common.Modules.LogModule;
 
 namespace OSS.Common
