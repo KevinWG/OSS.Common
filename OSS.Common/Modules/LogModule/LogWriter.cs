@@ -43,7 +43,7 @@ namespace OSS.Common.Modules.LogModule
 #if NETFW
                 using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.UTF8))
 #else
-                using (StreamWriter sw = new StreamWriter(new FileStream(filePath,FileMode.OpenOrCreate,FileAccess.Write), Encoding.UTF8))
+                using (StreamWriter sw = new StreamWriter(new FileStream(filePath,FileMode.Append,FileAccess.Write), Encoding.UTF8))
 #endif
                 {
                     sw.WriteLine(format: _logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);

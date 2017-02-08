@@ -1,5 +1,6 @@
 ﻿using System;
 using OSS.Common.Authrization;
+using OSS.Common.Modules.LogModule;
 
 namespace OSS.Common.Test
 {
@@ -7,10 +8,21 @@ namespace OSS.Common.Test
     {
         static void Main(string[] args)
         {
-            TestMethod1();
+            //SysAuth();
+
+            DirConfigTest();
+            Console.ReadLine();
         }
 
-        public static void TestMethod1()
+ 
+
+        //[TestMethod]
+        public static void DirConfigTest()
+        {
+            LogUtil.Info("s");
+        }
+
+        public static void SysAuth()
         {
             string key = Guid.NewGuid().ToString().Replace("-", string.Empty);
             SysAuthorizeInfo appInfo = new SysAuthorizeInfo();
@@ -20,18 +32,6 @@ namespace OSS.Common.Test
             appInfo.FromSignData(newSignData);
             var result = appInfo.CheckSign(key);
         }
-
-        //[TestMethod]
-        //public void DirConfigTest()
-        //{
-        //    var teestsets =
-        //        "timespan=1434424329;appsource=1;sign=5vJY-VLYSVGjvEoOhTIXXPD4Gx4=;appclient=1;token=zRgdcEFdeTvIdEwz0GtWP_SJ-DxszWqdqluqF0Rmsow=;appversion=1.0;"
-        //            .UrlEncode();
-        //    //var
-        //    //    page = new PageListModel<AppAuthorizeInfo>(100, new List<AppAuthorizeInfo>(), new
-        //    //        SearchModel() {});
-        //}
-
 
         //[TestMethod]
         //public void EncryptTest()
