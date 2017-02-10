@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Authrization;
+using OSS.Common.ComModels.Enums;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 using OSS.Common.Modules;
@@ -11,7 +12,6 @@ namespace OSS.Common.NET45.Test
     [TestClass]
     public class UnitTest1
     {
-
         [TestMethod]
         public void TestMethod1()
         {
@@ -63,6 +63,13 @@ namespace OSS.Common.NET45.Test
         public void Test()
         {
             string str = LogUtil.Info("test");
+        }
+
+
+        [TestMethod]
+        public void TestEnum()
+        {
+            var str = typeof (ResultTypes).ToEnumDirs();
         }
 
         [TestMethod]

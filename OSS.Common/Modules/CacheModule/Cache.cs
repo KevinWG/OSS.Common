@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
 *　　	文件功能描述：缓存的默认实现（只适用在Framework框架下）

@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2016 Kevin (OSS开源作坊) 公众号：osscoder
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
 *　　	文件功能描述：通用结果枚举
@@ -9,6 +9,9 @@
 *****************************************************************************/
 
 #endregion
+
+using OSS.Common.Extention;
+
 namespace OSS.Common.ComModels.Enums
 {
     /// <summary>
@@ -19,21 +22,25 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 成功
         /// </summary>
+        [OSDescript("成功")]
         Success = 200,
 
         /// <summary>
         /// 参数错误
         /// </summary>
+        [OSDescript("参数错误")]
         ParaError = 301,
 
         /// <summary>
         /// 条件不满足
         /// </summary>
+        [OSDescript("条件不满足")]
         ParaNotMeet = 310,
 
         /// <summary>
         /// 添加失败
         /// </summary>
+        [OSDescript("添加失败")]
         AddFail = 320,
 
         /// <summary>

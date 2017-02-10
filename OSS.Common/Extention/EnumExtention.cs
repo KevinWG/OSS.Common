@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,7 +12,7 @@ namespace OSS.Common.Extention
     /// </summary>
     public static class EnumExtention
     {
-#if NETFW
+
         /// <summary>
         /// 获取描述
         /// </summary>
@@ -51,7 +50,7 @@ namespace OSS.Common.Extention
         
         private static ConcurrentDictionary<string, Dictionary<string, string>> enumDirs
            =new ConcurrentDictionary<string, Dictionary<string, string>>();
-  
+
         /// <summary>
         /// 获取枚举字典列表
         /// todo  需要处理的
@@ -59,16 +58,15 @@ namespace OSS.Common.Extention
         /// <param name="enType">枚举类型</param>
         /// <param name="isIntValue">返回枚举值是否是int类型</param>
         /// <returns></returns>
-        public static Dictionary<string, string> ToEnumDirs(this Type enType, bool isIntValue=true)
+        public static Dictionary<string, string> ToEnumDirs(this Type enType, bool isIntValue = true)
         {
 #if NETFW
             if (!enType.IsEnum)
 #else
             if (!enType.GetTypeInfo().IsEnum)
 #endif
-            {
                 throw new ArgumentException("获取枚举字典，参数必须是枚举类型！");
-            }
+            
             string key = string.Concat(enType.FullName, isIntValue);
             Dictionary<string, string> dirs;
             enumDirs.TryGetValue(key, out dirs);
@@ -76,28 +74,24 @@ namespace OSS.Common.Extention
             if (dirs != null)
                 return dirs.Copy();
 
-            dirs=new Dictionary<string, string>();
-
+            dirs = new Dictionary<string, string>();
             var values = Enum.GetValues(enType);
 
             foreach (var value in values)
             {
                 var name = Enum.GetName(enType, value);
-                string resultValue = isIntValue ? ((int)value).ToString() : value.ToString();
-                var attrList = enType.GetField(name).GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-                if (attrList != null && attrList.Length > 0)
-                {
-                    dirs.Add(resultValue, attrList[0].Description);
-                    continue;
-                }
-                dirs.Add(resultValue, name);
+                string resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
+#if NETFW
+                var attr = enType.GetField(name)?.GetCustomAttribute<OSDescriptAttribute>();
+#else
+                var attr = enType.GetTypeInfo().GetDeclaredField(name)?.GetCustomAttribute<OSDescriptAttribute>();
+#endif
+                dirs.Add(resultValue, attr == null ? name : attr.Description);
             }
-
             enumDirs.TryAdd(key, dirs);
             return dirs.Copy();
         }
-#endif
-
+        
         /// <summary>
         ///   拷贝字典
         /// </summary>
@@ -105,13 +99,26 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         private static Dictionary<string, string> Copy(this Dictionary<string, string> source)
         {
-            Dictionary<string, string> results=new Dictionary<string, string>();
-            foreach (var sou in source)
-            {
-                results.Add(sou.Key, sou.Value);
-            }
-
-            return results;
+            return source.ToDictionary(sou => sou.Key, sou => sou.Value);
         }
     }
+
+    /// <summary>
+    ///   自定义描述属性
+    /// </summary>
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
+    public class OSDescriptAttribute : Attribute
+    {
+        public OSDescriptAttribute(string description)
+        {
+            this.Description = description;
+        }
+
+        /// <summary>
+        ///   描述信息
+        /// </summary>
+        public string Description { get; set; }
+    }
+
+
 }
