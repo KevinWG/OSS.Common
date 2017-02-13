@@ -11,7 +11,7 @@
 #endregion
 using System;
 using System.Collections.Concurrent;
-using OSS.Common.Modules.AsynModule;
+using System.Threading.Tasks;
 
 namespace OSS.Common.Modules.LogModule
 {
@@ -126,7 +126,7 @@ namespace OSS.Common.Modules.LogModule
             if (_logDirs.ContainsKey(logModule))
                 return _logDirs[logModule];
 
-            var log = OsConfig.Provider.GetLogWrite(logModule) ?? new LogWriter();
+            var log = OsConfig.LogWriterProvider?.Invoke(logModule) ?? new LogWriter();
             _logDirs.TryAdd(logModule, log);
 
             return log;
@@ -189,7 +189,8 @@ namespace OSS.Common.Modules.LogModule
             var logWrite = GetLogWrite(info.ModuleName);
             info.LogCode = logWrite.GetLogCode(info);
 
-            AsynUtil.Asyn(logWrite.WriteLog, info, LogAsynModuleName); // logActionList.Post(info);
+            Task.Run(() => logWrite.WriteLog(info));
+
             return info.LogCode;
         }
 

@@ -9,7 +9,10 @@
 *****************************************************************************/
 
 #endregion
-using OSS.Common.Modules;
+
+using System;
+using OSS.Common.Modules.CacheModule;
+using OSS.Common.Modules.DirConfigModule;
 using OSS.Common.Modules.LogModule;
 
 namespace OSS.Common
@@ -19,38 +22,23 @@ namespace OSS.Common
     /// </summary>
     public static class OsConfig
     {
-        private static ModuleBaseProvider _provider;
-
-        /// <summary>
-        /// 模块初始化提供者
-        /// </summary>
-        internal static ModuleBaseProvider Provider
-        {
-            get { return _provider ?? (_provider = new ModuleBaseProvider()); }
-        }
-
-
         #region  Module初始化模块
 
         /// <summary>
-        /// 注册缓存模块
+        ///   日志模块提供者
         /// </summary>
-        /// <param name="provider"></param>
-        public static void RegisterModuleProvider(ModuleBaseProvider provider)
-        {
-            _provider = provider;
-        }
-
-        #endregion
+        public static Func<string, ILogWriter> LogWriterProvider { get; set; }
 
         /// <summary>
-        /// 设置日志异步模块名称
+        ///   缓存模块提供者
         /// </summary>
-        /// <param name="asynModuleName"></param>
-        public static void SetLogAsynModuleName(string asynModuleName)
-        {
-            LogUtil.LogAsynModuleName = asynModuleName;
-        }
+        public static Func<string, ICache> CacheProvider { get; set; }
+        
+        /// <summary>
+        ///   配置信息模块提供者
+        /// </summary>
+        public static Func<string, IDirConfig> DirConfigProvider { get; set; }
+        #endregion
 
 
     }

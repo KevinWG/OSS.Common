@@ -1,4 +1,5 @@
-﻿#if NETFW
+﻿
+using System;
 using System.Collections.Concurrent;
 using OSS.Common.ComModels;
 
@@ -24,9 +25,16 @@ namespace OSS.Common.Modules.DirConfigModule
             if (_dirConfigDirs.ContainsKey(dirConfigModule))
                 return _dirConfigDirs[dirConfigModule];
 
-            var dirConfig = OsConfig.Provider.GetDirConfig(dirConfigModule) ?? new DirConfig();
+            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule);
+            if (dirConfig == null)
+            {
+#if NETFW
+                dirConfig = new DirConfig();
+#else
+                throw new ArgumentNullException("dirconfig", $"并没有找到（{dirConfigModule}）模块下配置实现，请实现 IDirConfig 接口，并赋值 OSConfig下的 DirConfigProvider 委托属性");
+#endif
+            }
             _dirConfigDirs.TryAdd(dirConfigModule, dirConfig);
-
             return dirConfig;
         }
 
@@ -70,4 +78,3 @@ namespace OSS.Common.Modules.DirConfigModule
         }
     }
 }
-#endif

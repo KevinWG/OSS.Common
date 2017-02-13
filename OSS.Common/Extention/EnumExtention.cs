@@ -53,7 +53,6 @@ namespace OSS.Common.Extention
 
         /// <summary>
         /// 获取枚举字典列表
-        /// todo  需要处理的
         /// </summary>
         /// <param name="enType">枚举类型</param>
         /// <param name="isIntValue">返回枚举值是否是int类型</param>
