@@ -1,4 +1,4 @@
-﻿#if NETFW 
+﻿
 using System;
 using System.IO;
 using System.Xml.Serialization;
@@ -14,12 +14,10 @@ namespace OSS.Common.Modules.DirConfigModule
     /// </summary>
     public class DirConfig : IDirConfig
     {
-
         private static readonly string _defaultPath;
 
         static DirConfig()
         {
-
 #if NETFW
             _defaultPath = AppDomain.CurrentDomain.BaseDirectory;
 #else
@@ -59,8 +57,7 @@ namespace OSS.Common.Modules.DirConfigModule
 
                 XmlSerializer xmlSer = new XmlSerializer(type);
                 xmlSer.Serialize(fs, dirConfig);
-
-                fs.Close();
+                
                 result = new ResultMo();
             }
             catch (Exception ex)
@@ -74,7 +71,7 @@ namespace OSS.Common.Modules.DirConfigModule
             finally
             {
                 if (fs != null)
-                    fs.Close();
+                    fs.Dispose();
             }
             return result;
         }
@@ -86,7 +83,7 @@ namespace OSS.Common.Modules.DirConfigModule
         /// <typeparam name="TConfig"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public TConfig GetDirConfig<TConfig>(string key) where TConfig : class ,new()
+        public TConfig GetDirConfig<TConfig>(string key) where TConfig : class, new()
         {
 
             if (string.IsNullOrEmpty(key))
@@ -98,19 +95,16 @@ namespace OSS.Common.Modules.DirConfigModule
             FileStream fs = null;
             try
             {
-                string fileFullName=string.Concat(path, "\\", key, ".config");
-                if (!File.Exists(fileFullName))                
+                string fileFullName = string.Concat(path, "\\", key, ".config");
+                if (!File.Exists(fileFullName))
                     return t;
-                
-                fs = new FileStream(fileFullName, FileMode.Open, FileAccess.Read,FileShare.Read);
+
+                fs = new FileStream(fileFullName, FileMode.Open, FileAccess.Read, FileShare.Read);
 
                 var type = typeof (TConfig);
-              
-                    XmlSerializer xmlSer = new XmlSerializer(type);
-                    t = (TConfig) xmlSer.Deserialize(fs);
-               
-                fs.Close();
 
+                XmlSerializer xmlSer = new XmlSerializer(type);
+                t = (TConfig) xmlSer.Deserialize(fs);
             }
             catch (Exception ex)
             {
@@ -122,7 +116,7 @@ namespace OSS.Common.Modules.DirConfigModule
             finally
             {
                 if (fs != null)
-                    fs.Close();
+                    fs.Dispose();
             }
 
             return t;
@@ -156,4 +150,3 @@ namespace OSS.Common.Modules.DirConfigModule
         }
     }
 }
-#endif

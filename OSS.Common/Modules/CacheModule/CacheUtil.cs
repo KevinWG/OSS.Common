@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Concurrent;
 
+
 namespace OSS.Common.Modules.CacheModule
 {
     /// <summary>
@@ -52,21 +53,6 @@ namespace OSS.Common.Modules.CacheModule
 
         }
 
-        /// <summary>
-        /// 添加缓存，已存在不更新
-        /// </summary>
-        /// <typeparam name="T">添加缓存对象类型</typeparam>
-        /// <param name="key">添加对象的key</param>
-        /// <param name="obj">值</param>
-        /// <param name="slidingExpiration">相对过期的TimeSpan， 如果使用固定时间  =TimeSpan.Zero</param>
-        /// <param name="absoluteExpiration"> 绝对过期时间 </param>
-        /// <param name="moduleName"> 模块名称 </param>
-        /// <returns>是否添加成功</returns>
-        public static bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null,
-             string moduleName = ModuleNames.Default)
-        {
-            return GetCache(moduleName).Add(key, obj, slidingExpiration, absoluteExpiration);
-        }
 
         /// <summary>
         /// 添加缓存,如果存在则更新
@@ -108,16 +94,5 @@ namespace OSS.Common.Modules.CacheModule
             return GetCache(moduleName).Remove(key);
         }
 
-
-        /// <summary>
-        ///   判断是否存在缓存对象
-        /// </summary>
-        /// <param name="key">  key值  </param>
-        /// <param name="moduleName">模块名称</param>
-        /// <returns></returns>
-        public static bool Contains(string key, string moduleName = ModuleNames.Default)
-        {
-            return GetCache(moduleName).Contains(key);
-        }
     }
 }

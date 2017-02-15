@@ -15,11 +15,17 @@ using System.Text;
 
 namespace OSS.Common.Modules.LogModule
 {
-    internal class LogWriter : ILogWriter
+    /// <summary>
+    /// 系统默认写日志模块
+    /// </summary>
+    public class LogWriter : ILogWriter
     {
         private readonly string _logBaseDirPath = null;
         private const string _logFormat = "{0:T}       Key:{1}   Detail:{2}";
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public LogWriter()
         {
             // todo  测试地址是否ok

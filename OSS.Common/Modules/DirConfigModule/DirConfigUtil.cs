@@ -25,15 +25,8 @@ namespace OSS.Common.Modules.DirConfigModule
             if (_dirConfigDirs.ContainsKey(dirConfigModule))
                 return _dirConfigDirs[dirConfigModule];
 
-            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule);
-            if (dirConfig == null)
-            {
-#if NETFW
-                dirConfig = new DirConfig();
-#else
-                throw new ArgumentNullException("dirconfig", $"并没有找到（{dirConfigModule}）模块下配置实现，请实现 IDirConfig 接口，并赋值 OSConfig下的 DirConfigProvider 委托属性");
-#endif
-            }
+            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule) ?? new DirConfig();
+
             _dirConfigDirs.TryAdd(dirConfigModule, dirConfig);
             return dirConfig;
         }

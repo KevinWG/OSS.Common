@@ -20,24 +20,13 @@ namespace OSS.Common.Modules.CacheModule
     public interface ICache
     {
         /// <summary>
-        /// 添加缓存，已存在不更新
-        /// </summary>
-        /// <typeparam name="T">添加缓存对象类型</typeparam>
-        /// <param name="key">添加对象的key</param>
-        /// <param name="obj">值</param>
-        /// <param name="slidingExpiration">相对过期的TimeSpan 如果使用固定时间  =TimeSpan.Zero</param>
-        /// <param name="absoluteExpiration"> 绝对过期时间 </param>
-        /// <returns>是否添加成功</returns>
-        bool Add<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null);
-
-        /// <summary>
         /// 添加缓存,如果存在则更新
         /// </summary>
         /// <typeparam name="T">添加缓存对象类型</typeparam>
         /// <param name="key">添加对象的key</param>
         /// <param name="obj">值</param>
-        /// <param name="slidingExpiration">相对过期的TimeSpan 如果使用固定时间  =TimeSpan.Zero</param>
-        /// <param name="absoluteExpiration"> 绝对过期时间 </param>
+        /// <param name="slidingExpiration">相对过期的TimeSpan  如果使用固定时间  =TimeSpan.Zero</param>
+        /// <param name="absoluteExpiration"> 绝对过期时间,不为空则按照绝对过期时间计算 </param>
         /// <returns>是否添加成功</returns>
         bool AddOrUpdate<T>(string key, T obj, TimeSpan slidingExpiration, DateTime? absoluteExpiration = null);
 
@@ -56,11 +45,5 @@ namespace OSS.Common.Modules.CacheModule
         /// <returns>是否成功</returns>
         bool Remove(string key);
 
-        /// <summary>
-        ///   判断是否存在缓存对象
-        /// </summary>
-        /// <param name="key">  key值  </param>
-        /// <returns></returns>
-        bool Contains(string key);
     }
 }
