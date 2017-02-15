@@ -2,7 +2,7 @@
   "locked": false,
   "version": 2,
   "targets": {
-    ".NETStandard,Version=v1.4": {
+    ".NETStandard,Version=v1.3": {
       "Microsoft.Extensions.Caching.Abstractions/1.1.0": {
         "type": "package",
         "dependencies": {
@@ -774,7 +774,7 @@
           "System.Security.Cryptography.Primitives": "4.0.0"
         },
         "compile": {
-          "ref/netstandard1.4/System.Security.Cryptography.Algorithms.dll": {}
+          "ref/netstandard1.3/System.Security.Cryptography.Algorithms.dll": {}
         }
       },
       "System.Security.Cryptography.Encoding/4.0.0": {
@@ -834,7 +834,7 @@
           "System.Security.Cryptography.Encoding": "4.0.0"
         },
         "compile": {
-          "ref/netstandard1.4/System.Security.Cryptography.X509Certificates.dll": {}
+          "ref/netstandard1.3/System.Security.Cryptography.X509Certificates.dll": {}
         }
       },
       "System.Text.Encoding/4.3.0": {
@@ -4194,7 +4194,7 @@
       "System.Security.Cryptography.Algorithms >= 4.1.0",
       "System.Xml.XmlSerializer >= 4.3.0"
     ],
-    ".NETStandard,Version=v1.4": []
+    ".NETStandard,Version=v1.3": []
   },
   "tools": {},
   "projectFileToolGroups": {}
