@@ -39,18 +39,10 @@ namespace OSS.Common.Modules.CacheModule
             if (_cacheDirs.ContainsKey(cacheModule))
                 return _cacheDirs[cacheModule];
 
-            var cache = OsConfig.CacheProvider?.Invoke(cacheModule);
-            if (cache==null)
-            {
-#if NETFW
-                cache = new Cache();
-#else
-                throw new ArgumentNullException("cache",$"并没有找到（{cacheModule}）模块下的缓存实现，请实现ICache接口，并赋值 OsConfig 下的 CacheProvider 委托属性！");
-#endif
-            }
-            _cacheDirs.TryAdd(cacheModule, cache );
-            return cache;
+            var cache = OsConfig.CacheProvider?.Invoke(cacheModule) ?? new Cache();
 
+            _cacheDirs.TryAdd(cacheModule, cache);
+            return cache;
         }
 
 
