@@ -607,8 +607,19 @@ namespace OSS.Common.Extention
         /// <param name="xml"></param>
         /// <returns></returns>
         public static TT DeserializeXml<TT>(this string xml)
+            where TT:class 
         {
-            var result = default(TT);
+            return  DeserializeXml(xml, typeof(TT)) as TT;
+        }
+
+        /// <summary>
+        /// xml字符串转化到对象
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static object DeserializeXml(this string xml,Type type)
+        {
+            object result = null;
             MemoryStream stream = null;
             StreamWriter writer = null;
             try
@@ -620,12 +631,8 @@ namespace OSS.Common.Extention
                 writer.Flush();
 
                 stream.Position = 0;
-                var deSer = new XmlSerializer(typeof(TT));
-                result = (TT) deSer.Deserialize(stream);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                var deSer = new XmlSerializer(type);
+                result = deSer.Deserialize(stream);
             }
             finally
             {
@@ -634,6 +641,5 @@ namespace OSS.Common.Extention
             }
             return result;
         }
-
     }
 }
