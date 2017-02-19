@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace OSS.Common.Extention
@@ -606,12 +607,9 @@ namespace OSS.Common.Extention
                 stream = new MemoryStream();
                 serializer.Serialize(stream, t);
 
+                stream.Position = 0;
                 streamReader = new StreamReader(stream);
                 result = streamReader.ReadToEnd();
-            }
-            catch
-            {
-                // ignored
             }
             finally
             {
@@ -627,25 +625,26 @@ namespace OSS.Common.Extention
         /// <typeparam name="TT"></typeparam>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static TT XmlDeserialize<TT>(string xml)
+        public static TT DeserializeXml<TT>(this string xml)
         {
             var result = default(TT);
             MemoryStream stream = null;
             StreamWriter writer = null;
             try
             {
-                var deSer = new XmlSerializer(typeof(TT));
-
-
                 stream = new MemoryStream();
+
                 writer = new StreamWriter(stream);
                 writer.Write(xml);
+                writer.Flush();
 
+                stream.Position = 0;
+                var deSer = new XmlSerializer(typeof(TT));
                 result = (TT) deSer.Deserialize(stream);
             }
-            catch
+            catch (Exception ex)
             {
-                //ignore
+                throw ex;
             }
             finally
             {
