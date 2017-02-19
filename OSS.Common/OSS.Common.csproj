@@ -58,6 +58,7 @@
     <Compile Include="Extention\UrlExtension.cs" />
     <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
     <Compile Include="Extention\Volidate\VolidateExtention.cs" />
+    <Compile Include="Extention\XmlExtention.cs" />
     <Compile Include="Modules\CacheModule\Cache.cs" />
     <Compile Include="Modules\CacheModule\CacheUtil.cs" />
     <Compile Include="Modules\CacheModule\ICache.cs" />
