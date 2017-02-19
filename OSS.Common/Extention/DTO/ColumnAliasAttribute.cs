@@ -71,6 +71,9 @@ namespace OSS.Common.Extention.DTO
         AllowMultiple = false, Inherited = true)]
     public class BaseClumnAttribute : Attribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected string _alias;
 
         /// <summary>
@@ -80,7 +83,9 @@ namespace OSS.Common.Extention.DTO
         {
             get { return _alias; }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         protected bool _IsAuto;
 
         /// <summary>
@@ -90,16 +95,15 @@ namespace OSS.Common.Extention.DTO
         {
             get { return _IsAuto; }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         protected bool _IsIgnore;
 
         /// <summary>
         /// 是否忽略当前列
         /// </summary>
-        public bool IsIgnore
-        {
-            get { return _IsIgnore; }
-        }
+        public bool IsIgnore => _IsIgnore;
     }
 
 

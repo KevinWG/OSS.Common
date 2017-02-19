@@ -29,10 +29,7 @@ namespace OSS.Common.Extention.Volidate
         /// <summary>
         /// 错误信息
         /// </summary>
-        public string ErrorMessage
-        {
-            get { return errorMessage; }
-        }
+        public string ErrorMessage => errorMessage;
     }
     /// <summary>
     /// 必填验证属性
@@ -63,6 +60,12 @@ namespace OSS.Common.Extention.Volidate
     public class OsNumberAttribute : BaseValidateAttribute
     {
         private long min, max;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_min"></param>
+        /// <param name="_max"></param>
+        /// <param name="_errorMessage"></param>
         public OsNumberAttribute(long _min=long.MinValue, long _max=long.MaxValue, string _errorMessage=null)
         {
             min          = _min;

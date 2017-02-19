@@ -38,6 +38,8 @@
 	Task扩展方法，如： Task.WaitResult() 等
 	UrlCode扩展方法，如 "name=n&code=1".UrlEncode();
 	枚举扩展方法，如： typeof(Enum).ToEnumDirs();
+	xml序列化扩展方法， 如： "<xml><name>test</name></xml>".DeserializeXml<Type>();
+	
 	还有自定义验证属性像 OSRequiredAttribute等，可以使用IsOsValidate来验证是否验证通过。
 
 ###Modules

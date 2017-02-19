@@ -11,6 +11,9 @@
 #endregion
 namespace OSS.Common.ComModels.Enums
 {
+    /// <summary>
+    /// 排序类型
+    /// </summary>
     public enum SortType
     {
         /// <summary>

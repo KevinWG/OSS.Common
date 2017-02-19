@@ -93,7 +93,9 @@ namespace OSS.Common.Extention.Volidate
     }
 
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class TypeHelper
     {
 #if NETFW
