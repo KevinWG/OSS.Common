@@ -562,26 +562,7 @@ namespace OSS.Common.Extention
             dirs.TryGetValue(key, out t);
             return t;
         }
-
-
-#if !NET40
-        /// <summary>
-        ///  .net standard 下的list转化扩展方法
-        /// </summary>
-        /// <typeparam name="TPara"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        public static List<TResult> ConvertAll<TPara, TResult>(this List<TPara> list, Func<TPara, TResult> func)
-        {
-            if (list == null)
-                return null;
-            var resultList = new List<TResult>(list.Count);
-            list.ForEach(e => resultList.Add(func(e)));
-            return resultList;
-        }
-#endif
+        
     }
 
 

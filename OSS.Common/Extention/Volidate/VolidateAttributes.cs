@@ -37,13 +37,13 @@ namespace OSS.Common.Extention.Volidate
     /// <summary>
     /// 必填验证属性
     /// </summary>
-    public class OSRequiredAttribute : BaseValidateAttribute
+    public class OsRequiredAttribute : BaseValidateAttribute
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_errorMessage"></param>
-        public OSRequiredAttribute(string _errorMessage=null)
+        public OsRequiredAttribute(string _errorMessage=null)
         {
             errorMessage = _errorMessage;
         }
@@ -60,10 +60,10 @@ namespace OSS.Common.Extention.Volidate
     /// <summary>
     /// 数字验证属性
     /// </summary>
-    public class OSNumberAttribute : BaseValidateAttribute
+    public class OsNumberAttribute : BaseValidateAttribute
     {
         private long min, max;
-        public OSNumberAttribute(long _min=long.MinValue, long _max=long.MaxValue, string _errorMessage=null)
+        public OsNumberAttribute(long _min=long.MinValue, long _max=long.MaxValue, string _errorMessage=null)
         {
             min          = _min;
             max          = _max;
