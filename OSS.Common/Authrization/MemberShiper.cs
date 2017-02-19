@@ -9,6 +9,7 @@
 *****************************************************************************/
 
 #endregion
+
 using System;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
@@ -20,7 +21,6 @@ namespace OSS.Common.Authrization
     /// </summary>
     public class MemberShiper
     {
-
         #region  当前应用授权信息
 
         [ThreadStatic] private static SysAuthorizeInfo _appAuthorize;
@@ -28,10 +28,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///   应用授权信息
         /// </summary>
-        public static SysAuthorizeInfo AppAuthorize
-        {
-            get { return _appAuthorize; }
-        }
+        public static SysAuthorizeInfo AppAuthorize => _appAuthorize;
 
         #endregion
 
@@ -43,22 +40,16 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///   登陆用户信息
         /// </summary>
-        public static MemberInfo MemberInfo
-        {
-            get { return _memberInfo; }
-        }
+        public static MemberInfo MemberInfo => _memberInfo;
 
         #endregion
 
         /// <summary>
         /// 是否已经验证
         /// </summary>
-        public static bool IsMemberAuthorized
-        {
-            get { return MemberInfo != null && MemberInfo.UserId > 0; }
-        }
-
-
+        public static bool IsMemberAuthorized => MemberInfo != null && (MemberInfo.Id > 0 || !string.IsNullOrEmpty(MemberInfo.Key));
+    
+        
         #region   设置相关信息
 
         /// <summary>
@@ -85,26 +76,26 @@ namespace OSS.Common.Authrization
 
         #region    token  处理
 
-
         /// <summary>
         /// 通过 ID 生成对应的Token
         /// </summary>
         /// <param name="encryptKey"></param>
-        /// <param name="userId"></param>
+        /// <param name="id"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        public static string GetToken(string encryptKey, long userId)
+        public static string GetToken(string encryptKey, long id,string key=null)
         {
-            string sourceData = string.Concat(userId, "|", DateTime.Now.ToUtcSeconds());
+            string sourceData = string.Concat(id, "|", key,"|" ,DateTime.Now.ToUtcSeconds());
             return AesRijndael.Encrypt(sourceData, encryptKey).Base64UrlEncode();
         }
 
         /// <summary>
-        /// 通过 ID 生成对应的Token
+        ///  通过token解析出对应的id和key
         /// </summary>
         /// <param name="encryptKey"></param>
         /// <param name="token"></param>
-        /// <returns></returns>
-        public static MemberInfo GetTokenDetail(string encryptKey, string token)
+        /// <returns>返回解析信息，Item1为id，Item2为key</returns>
+        public static Tuple<long, string> GetTokenDetail(string encryptKey, string token)
         {
             string tokenDetail = AesRijndael.Decrypt(token.Base64UrlDecode(), encryptKey);
 
@@ -113,14 +104,12 @@ namespace OSS.Common.Authrization
 
             string[] memberIdSplit = tokenDetail.Split('|');
 
-            var memberInfo = new MemberInfo();
-
-            memberInfo.UserId = memberIdSplit[0].ToInt64();
-
-            return memberInfo;
+            return Tuple.Create(memberIdSplit[0].ToInt64(), memberIdSplit[1]);
         }
 
         #endregion
+
+
     }
 
 
@@ -131,12 +120,17 @@ namespace OSS.Common.Authrization
     public class MemberInfo
     {
         /// <summary>
-        ///   会员ID 
+        ///   其他key
         /// </summary>
-        public long UserId { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
-        ///   用户姓名
+        ///   会员ID 
+        /// </summary>
+        public long Id { get; set; }
+
+        /// <summary>
+        ///   用户名称
         /// </summary>
         public string Name { get; set; }
 
