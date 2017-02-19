@@ -25,7 +25,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         public ResultMo()
         {
-            Ret = (int)ResultTypes.Success;
+            Ret = (int) ResultTypes.Success;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace OSS.Common.ComModels
         /// <param name="message"></param>
         public ResultMo(ResultTypes ret, string message = "")
         {
-            this.Ret = (int)ret;
+            this.Ret = (int) ret;
             this.Message = message;
         }
 
@@ -72,6 +72,7 @@ namespace OSS.Common.ComModels
         ///   是否成功
         /// </summary>
         public bool IsSuccess => Ret == (int) ResultTypes.Success;
+
     }
 
 
