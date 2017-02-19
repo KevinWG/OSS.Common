@@ -1,9 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：xml序列化辅助类
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com       
+*    	创建日期：2017-2-19
+*       
+*****************************************************************************/
+
+#endregion
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace OSS.Common.Extention
