@@ -3,7 +3,7 @@
 namespace OSS.Common.Extention
 {
     /// <summary>
-    /// 
+    /// url扩展
     /// </summary>
     public static class UrlExtension
     {

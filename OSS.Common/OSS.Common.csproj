@@ -54,6 +54,7 @@
     <Compile Include="Extention\DTO\DTOExtetion.cs" />
     <Compile Include="Extention\EnumExtention.cs" />
     <Compile Include="Extention\ListExtention.cs" />
+    <Compile Include="Extention\TaskExtention.cs" />
     <Compile Include="Extention\UrlExtension.cs" />
     <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
     <Compile Include="Extention\Volidate\VolidateExtention.cs" />
