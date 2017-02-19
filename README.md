@@ -12,19 +12,24 @@
 		对应的是应用授权信息主要是应用来源，客户端的类型等
 	2. MemberInfo 
 		对应的是当前的用户信息，用户名称 等
-	MemberShiper 中提供了GetToken方法，方便加密用户Id，同时有一个对应的GetTokenDetail来从token中解密用户id信息，使用的是aes加密
+	MemberShiper 中提供了GetToken方法，方便加密用户Id，同时有一个对应的GetTokenDetail来从token中解密用户id信息
+	使用的是加密方式为Aes加密
 
-	使用方法：可以在请求中添加中间件或者filter，来对其进行赋值，然后可以在具体的业务中进行调用。需要注意的是以上两个变量皆为线程变量，如果你使用的异步线程，请注意传值给对应的线程。
+	使用方法：可以在请求中添加中间件或者filter，来对其进行赋值，然后可以在具体的业务中进行调用。
+	需要注意的是以上两个变量皆为线程变量，如果你使用的异步线程，请注意传值给对应的线程。
 
 ###ComModels
 	系统默认实体信息，分页实体 ， 结果实体，方便全局使用，
 	其中结果实体ResultMo包含三个属性： 
-	Ret-状态码，在ResultTypes的枚举中已经把常见的状态信息做了简单定义，这些状态码和Http状态码基本相对应，其中200表示为Success，同时定义了个IsSuccess的属性，此值为快速判断返回是否正确。
-	Message-对应状态码的消息。
+	Ret-状态码，在ResultTypes的枚举中已经把常见的状态信息做了简单定义，这些状态码和Http状态码基本相对应，
+	其中200表示为Success，同时定义了个IsSuccess的属性，此值为快速判断返回是否正确。
+
+	Message-对应状态码的消息
 	IsSuccess-快速判断状态码是否正确，默认200时正确
 
 ###Encrypt
-	系统加密基础库,主要包含：md5（Md5）,aes（AesRijndael）,sha1（Sha1）,hmacsha1（HmacSha1-加盐sha1加密方式）这几种加密算法
+	系统加密基础库
+	主要包含：md5（Md5）,aes（AesRijndael）,sha1（Sha1）,hmacsha1（HmacSha1-加盐sha1加密方式这几种加密算法
 
 ###Extention
 	系统扩展方法，主要包含：
