@@ -1,4 +1,16 @@
-﻿using System;
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：Task扩展类
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com       
+*    	创建日期：2017-2-19
+*       
+*****************************************************************************/
+
+#endregion
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
