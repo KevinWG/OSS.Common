@@ -13,7 +13,9 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace OSS.Common.Extention
 {
@@ -515,7 +517,6 @@ namespace OSS.Common.Extention
 
         #endregion
 
-
         #region Filter
 
         /// <summary>
@@ -545,7 +546,6 @@ namespace OSS.Common.Extention
         }
 
         #endregion
-
 
 
         /// <summary>
@@ -581,5 +581,79 @@ namespace OSS.Common.Extention
             return resultList;
         }
 #endif
+    }
+
+
+    /// <summary>
+    /// xml  转化扩展
+    /// </summary>
+    public static class XmlConvertExtention
+    {
+        /// <summary>
+        /// 对象序列化成xml字符串
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static string SerializeToXml(this object t)
+        {
+            string result = string.Empty;
+            MemoryStream stream = null;
+            StreamReader streamReader = null;
+            try
+            {
+                var serializer = new XmlSerializer(t.GetType());
+
+                stream = new MemoryStream();
+                serializer.Serialize(stream, t);
+
+                streamReader = new StreamReader(stream);
+                result = streamReader.ReadToEnd();
+            }
+            catch
+            {
+                // ignored
+            }
+            finally
+            {
+                streamReader?.Dispose();
+                stream?.Dispose();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// xml字符串转化到对象
+        /// </summary>
+        /// <typeparam name="TT"></typeparam>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static TT XmlDeserialize<TT>(string xml)
+        {
+            var result = default(TT);
+            MemoryStream stream = null;
+            StreamWriter writer = null;
+            try
+            {
+                var deSer = new XmlSerializer(typeof(TT));
+
+
+                stream = new MemoryStream();
+                writer = new StreamWriter(stream);
+                writer.Write(xml);
+
+                result = (TT) deSer.Deserialize(stream);
+            }
+            catch
+            {
+                //ignore
+            }
+            finally
+            {
+                writer?.Dispose();
+                stream?.Dispose();
+            }
+            return result;
+        }
+
     }
 }
