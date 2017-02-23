@@ -96,6 +96,7 @@ namespace OSS.Common.Modules.DirConfigModule
             try
             {
                 string fileFullName = string.Concat(path, "\\", key, ".config");
+            
                 if (!File.Exists(fileFullName))
                     return t;
 

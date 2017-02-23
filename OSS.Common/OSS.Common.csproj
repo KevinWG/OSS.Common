@@ -1,86 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A41832C-1B96-4111-B76B-BF303ED49641}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OSS.Common</RootNamespace>
-    <AssemblyName>OSS.Common</AssemblyName>
-    <DefaultLanguage>zh-CN</DefaultLanguage>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Version>1.1.2.8</Version>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Authors>Kevin</Authors>
+    <Company>OSSCoder</Company>
+    <Product>OSS开源系列</Product>
+    <Description>通用基础</Description>
+    <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
+    <PackageIconUrl>http://7xil4i.com1.z0.glb.clouddn.com/osscoder_icon.jpg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
+    <PackageReleaseNotes>使用标准库</PackageReleaseNotes>
+    <AssemblyVersion>1.1.2.8</AssemblyVersion>
+    <FileVersion>1.1.2.8</FileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.4\OSS.Common.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\OSS.Common.XML</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="Authrization\MemberShiper.cs" />
-    <Compile Include="Authrization\SysAuthorizeInfo.cs" />
-    <Compile Include="ComModels\Enums\ResultTypes.cs" />
-    <Compile Include="ComModels\Enums\SortType.cs" />
-    <Compile Include="ComModels\PageMo.cs" />
-    <Compile Include="ComModels\ResultMo.cs" />
-    <Compile Include="ComUtils\ConfigUtil.cs" />
-    <Compile Include="ComUtils\TypeUtil.cs" />
-    <Compile Include="Encrypt\AesRijndael.cs" />
-    <Compile Include="Encrypt\HmacSha1.cs" />
-    <Compile Include="Encrypt\Md5.cs" />
-    <Compile Include="Encrypt\Sha1.cs" />
-    <Compile Include="Extention\ConvertExtention.cs" />
-    <Compile Include="Extention\DateTimeExtention.cs" />
-    <Compile Include="Extention\DTO\ColumnAliasAttribute.cs" />
-    <Compile Include="Extention\DTO\DTOExtetion.cs" />
-    <Compile Include="Extention\EnumExtention.cs" />
-    <Compile Include="Extention\ListExtention.cs" />
-    <Compile Include="Extention\TaskExtention.cs" />
-    <Compile Include="Extention\UrlExtension.cs" />
-    <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
-    <Compile Include="Extention\Volidate\VolidateExtention.cs" />
-    <Compile Include="Extention\XmlExtention.cs" />
-    <Compile Include="Modules\CacheModule\Cache.cs" />
-    <Compile Include="Modules\CacheModule\CacheUtil.cs" />
-    <Compile Include="Modules\CacheModule\ICache.cs" />
-    <Compile Include="Modules\DirConfigModule\DirConfig.cs" />
-    <Compile Include="Modules\DirConfigModule\DirConfigUtil.cs" />
-    <Compile Include="Modules\DirConfigModule\IDirConfig.cs" />
-    <Compile Include="Modules\LogModule\ILogWriter.cs" />
-    <Compile Include="Modules\LogModule\LogUtil.cs" />
-    <Compile Include="Modules\LogModule\LogWriter.cs" />
-    <Compile Include="Modules\ModuleNames.cs" />
-    <Compile Include="OSConfig.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

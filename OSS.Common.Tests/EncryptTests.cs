@@ -17,7 +17,7 @@ namespace OSS.Common.Tests
 
 
         [TestMethod]
-        public static void DirConfigTest()
+        public void DirConfigTest()
         {
             LogUtil.Info("s");
         }

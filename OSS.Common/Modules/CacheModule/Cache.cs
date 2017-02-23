@@ -10,10 +10,11 @@
 
 #endregion
 using System;
-using Microsoft.Extensions.Primitives;
+
 #if NETFW
 using System.Runtime.Caching;
 #else
+using Microsoft.Extensions.Primitives;
 using Microsoft.Extensions.Caching.Memory;
 #endif
 namespace OSS.Common.Modules.CacheModule

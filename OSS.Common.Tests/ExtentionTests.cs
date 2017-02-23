@@ -14,6 +14,7 @@ namespace OSS.Common.Tests
         public void XmlSerializeTest()
         {
             var obj = new TestXml();
+
             obj.Name =  new XmlDocument().CreateCDataSection("ssssss") ;
             obj.items = new List<TestItem>() {new TestItem() {house = "beijing", age = 20}};
 
