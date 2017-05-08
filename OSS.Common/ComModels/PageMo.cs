@@ -113,78 +113,24 @@ namespace OSS.Common.ComModels
         ///   正常赋值时的实体
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="searchMo"></param>
         /// <param name="total"></param>
-        public PageListMo(long total, List<TModel> list, SearchMo searchMo)
+        public PageListMo(long total, List<TModel> list)
         {
-
-            if (searchMo == null)
-                throw new ArgumentNullException("searchMo", "searchmodel 不能为空");
-
-            Search = searchMo;
             Data = list;
             Total = total;
-
-            _pageSize = searchMo.PageSize;
-        }
-
-        /// <summary>
-        ///   正常赋值时的实体
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="total"></param>
-        public PageListMo(long total, int pageSize, List<TModel> list)
-        {
-            if (pageSize < 1)
-            {
-                throw new ArgumentNullException("pageSize", "pageSize 必须大于0");
-            }
-            Total = total;
-            Data = list;
-            _pageSize = pageSize;
         }
 
         /// <summary>
         /// 实体列表
         /// </summary>
         public List<TModel> Data { get; set; }
-
-        /// <summary>
-        /// 搜索对象
-        /// </summary>
-        public SearchMo Search { get; set; }
-
+        
 
         /// <summary>
         /// 总数
         /// </summary>
         public long Total { get; set; }
-
-        private int _pageSize;
-        /// <summary>
-        /// 页面大小
-        /// </summary>
-        public int PageSize
-        {
-            get
-            {
-                if (_pageSize == 0)
-                {
-                        return 1;
-                }
-                return _pageSize;
-            }
-            set { _pageSize = value; }
-        }
-
-        /// <summary>
-        /// 总页数
-        /// </summary>
-        public int TotalPage
-        {
-            get { return (int)Math.Ceiling((double)Total / PageSize); }
-        }
+        
     }
 
     /// <summary>
@@ -219,7 +165,7 @@ namespace OSS.Common.ComModels
                 resultList = pageList.Data.ConvertAll(convertFun);
 #endif
             }
-            return new PageListMo<TResult>(pageList.Total, resultList, pageList.Search);
+            return new PageListMo<TResult>(pageList.Total, resultList);
         }
     }
 

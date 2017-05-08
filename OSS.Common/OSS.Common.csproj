@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.1.2.8</Version>
+    <Version>1.1.2.81</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -12,13 +12,17 @@
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
     <PackageIconUrl>http://7xil4i.com1.z0.glb.clouddn.com/osscoder_icon.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
-    <PackageReleaseNotes>使用标准库</PackageReleaseNotes>
-    <AssemblyVersion>1.1.2.8</AssemblyVersion>
-    <FileVersion>1.1.2.8</FileVersion>
+    <PackageReleaseNotes>简化PageListMo实体</PackageReleaseNotes>
+    <AssemblyVersion>1.1.2.81</AssemblyVersion>
+    <FileVersion>1.1.2.81</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard1.4\OSS.Common.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.3\OSS.Common.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
