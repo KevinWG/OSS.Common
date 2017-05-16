@@ -47,7 +47,6 @@ namespace OSS.Common.ComModels.Enums
         /// 更新失败
         /// </summary>
         UpdateFail = 330,
-
    
         /// <summary>
         /// 对象不存在
@@ -65,12 +64,17 @@ namespace OSS.Common.ComModels.Enums
         ObjectStateError = 420,
 
         /// <summary>
-        /// 当前用户未验证身份信息
+        ///  未知来源
+        /// </summary>
+        UnKnowSource=423,
+
+        /// <summary>
+        /// 未授权
         /// </summary>
         UnAuthorize = 425,
 
         /// <summary>
-        /// 没有权限
+        /// 权限不足
         /// </summary>
         NoRight = 430,
 

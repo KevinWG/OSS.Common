@@ -15,14 +15,13 @@ using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 
 namespace OSS.Common.Authrization
-{
+{ 
     /// <summary>
     /// 当前系统访问上下文信息
     /// </summary>
-    public class MemberShiper
+    public static class MemberShiper
     {
         #region  当前应用授权信息
-
         [ThreadStatic] private static SysAuthorizeInfo _appAuthorize;
 
         /// <summary>
@@ -32,22 +31,21 @@ namespace OSS.Common.Authrization
 
         #endregion
 
-        #region   用户信息
-
-
-        [ThreadStatic] private static MemberInfo _memberInfo;
+        #region  成员信息
+        [ThreadStatic] private static MemberIdentity _identity;
 
         /// <summary>
-        ///   登陆用户信息
+        ///   成员身份信息
         /// </summary>
-        public static MemberInfo MemberInfo => _memberInfo;
+        public static MemberIdentity Indentity => _identity;
 
+         
         #endregion
 
         /// <summary>
         /// 是否已经验证
         /// </summary>
-        public static bool IsMemberAuthorized => MemberInfo != null && (MemberInfo.Id > 0 || !string.IsNullOrEmpty(MemberInfo.Key));
+        public static bool IsMemberAuthorized => _identity != null ;
     
         
         #region   设置相关信息
@@ -56,13 +54,11 @@ namespace OSS.Common.Authrization
         ///   设置用户信息
         /// </summary>
         /// <param name="info"></param>
-        public static void SetMemberInfo(MemberInfo info)
+        public static void SetIdentity(MemberIdentity info)
         {
-            _memberInfo = info;
+            _identity = info;
         }
-
-
-
+        
         /// <summary>
         ///   设置应用授权信息
         /// </summary>
@@ -75,18 +71,23 @@ namespace OSS.Common.Authrization
         #endregion
 
         #region    token  处理
+        /// <summary>
+        /// 获取成员扩展详情
+        /// </summary>
+        /// <typeparam name="TMInfo"></typeparam>
+        /// <returns></returns>
+        public static TMInfo GetMemberInfo<TMInfo>()
+            where TMInfo:class => _identity?.MemberInfo as TMInfo;
 
         /// <summary>
         /// 通过 ID 生成对应的Token
         /// </summary>
         /// <param name="encryptKey"></param>
-        /// <param name="id"></param>
-        /// <param name="key"></param>
+        /// <param name="tokenDetail"></param>
         /// <returns></returns>
-        public static string GetToken(string encryptKey, long id,string key=null)
+        public static string GetToken(string encryptKey, string tokenDetail)
         {
-            string sourceData = string.Concat(id, "|", key,"|" ,DateTime.Now.ToUtcSeconds());
-            return AesRijndael.Encrypt(sourceData, encryptKey).Base64UrlEncode();
+            return AesRijndael.Encrypt(tokenDetail, encryptKey).Base64UrlEncode();
         }
 
         /// <summary>
@@ -95,53 +96,36 @@ namespace OSS.Common.Authrization
         /// <param name="encryptKey"></param>
         /// <param name="token"></param>
         /// <returns>返回解析信息，Item1为id，Item2为key</returns>
-        public static Tuple<long, string> GetTokenDetail(string encryptKey, string token)
+        public static string GetTokenDetail(string encryptKey, string token)
         {
-            string tokenDetail = AesRijndael.Decrypt(token.Base64UrlDecode(), encryptKey);
+            var tokenDetail = AesRijndael.Decrypt(token.Base64UrlDecode(), encryptKey);
 
             if (string.IsNullOrEmpty(tokenDetail))
-                throw new ArgumentNullException("token", "不合法的用户Token");
-
-            string[] memberIdSplit = tokenDetail.Split('|');
-
-            return Tuple.Create(memberIdSplit[0].ToInt64(), memberIdSplit[1]);
+                throw new ArgumentNullException(nameof(token), "不合法的用户Token");
+            
+            return tokenDetail;
         }
-
         #endregion
-
-
     }
 
-
-
     /// <summary>
-    /// 授权用户信息
+    /// 成员通行证信息
     /// </summary>
-    public class MemberInfo
+    public class MemberIdentity
     {
         /// <summary>
-        ///   其他key
+        /// 授权类型
         /// </summary>
-        public string Key { get; set; }
+        public int AuthorizedType { get; set; }
 
         /// <summary>
-        ///   会员ID 
+        ///   成员Id
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        ///   用户名称
+        /// 成员扩展信息
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 用户头像
-        /// </summary>
-        public string Avatar { get; set; }
-
-        /// <summary>
-        /// 用户数据
-        /// </summary>
-        public object MemberData { get; set; }
+        public object MemberInfo { get; set; }
     }
 }
