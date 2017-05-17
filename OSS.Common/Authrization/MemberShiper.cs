@@ -37,15 +37,14 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///   成员身份信息
         /// </summary>
-        public static MemberIdentity Indentity => _identity;
-
-         
+        public static MemberIdentity Identity => _identity;
+        
         #endregion
 
         /// <summary>
         /// 是否已经验证
         /// </summary>
-        public static bool IsMemberAuthorized => _identity != null ;
+        public static bool IsAuthenticated => _identity != null ;
     
         
         #region   设置相关信息
@@ -116,7 +115,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         /// 授权类型
         /// </summary>
-        public int AuthorizedType { get; set; }
+        public int AuthenticationType { get; set; }
 
         /// <summary>
         ///   成员Id
