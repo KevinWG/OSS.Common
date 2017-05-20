@@ -37,11 +37,7 @@ namespace OSS.Common.ComModels
         {
             get
             {
-                if (_curntPage<=0)
-                {
-                    return 1;
-                }
-                return _curntPage;
+                return _curntPage<=0 ? 1 : _curntPage;
             }
             set { _curntPage = value; }
         }
@@ -67,10 +63,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         ///    起始行 -只读属性
         /// </summary>
-        public int StartRow
-        {
-            get { return (CurrentPage - 1)*PageSize; }
-        }
+        public int StartRow => (CurrentPage - 1)*PageSize;
 
         /// <summary>
         /// 排序集合      适用于多个查询条件
@@ -153,7 +146,7 @@ namespace OSS.Common.ComModels
         {
             if (convertFun == null)
             {
-                throw new ArgumentNullException("convertFun", "转化方法不能为空！");
+                throw new ArgumentNullException(nameof(convertFun), "转化方法不能为空！");
             }
 
             List<TResult> resultList = null;
