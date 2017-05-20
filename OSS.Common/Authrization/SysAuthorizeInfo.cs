@@ -26,7 +26,6 @@ namespace OSS.Common.Authrization
 
         /// <summary>
         ///   应用版本
-        ///    不得包含  & 等特殊符号
         /// </summary>
         public string AppVersion { get; set; }
 
@@ -43,7 +42,6 @@ namespace OSS.Common.Authrization
 
         /// <summary>
         /// 设备ID
-        ///  不得包含  & 等特殊符号
         /// </summary>
         public string DeviceId { get; set; }
 
@@ -64,7 +62,7 @@ namespace OSS.Common.Authrization
 
 
         /// <summary>
-        /// IP地址   可选
+        /// IP地址   可选，手机App端自动获取
         /// </summary>
         public string IpAddress { get; set; }
 
@@ -103,52 +101,49 @@ namespace OSS.Common.Authrization
         /// <param name="separator">A=a  B=b 之间分隔符</param>
         public void FromSignData(string signData, char separator=';')
         {
-            if (!string.IsNullOrEmpty(signData))
+            if (string.IsNullOrEmpty(signData)) return;
+
+            var strs = signData.Split(separator);
+            foreach (var str in strs)
             {
-                string[] strs = signData.Split(separator);
-                foreach (var str in strs)
+                if (string.IsNullOrEmpty(str)) continue;
+
+                var keyValue = str.Split(new[] { '=' }, 2);
+                if (keyValue.Length <= 1) continue;
+
+                var val = keyValue[1].UrlDecode();
+                switch (keyValue[0].ToLower())
                 {
-                    if (!string.IsNullOrEmpty(str))
-                    {
-                        string[] keyValue = str.Split(new[] { '=' }, 2);
-                        if (keyValue.Length > 1)
-                        {
-                            string val = keyValue[1].UrlDecode();
-                            switch (keyValue[0].ToLower())
-                            {
-                                case "appversion":
-                                    AppVersion = val;
-                                    break;
-                                case "token":
-                                    Token = val;
-                                    break;
-                                case "appsource":
-                                    AppSource = val;
-                                    break;
-                                case "appclient":
-                                    AppClient = val;
-                                    break;
-                                case "sign":
-                                    Sign = val;
-                                    break;
-                                case "deviceid":
-                                    DeviceId = val;
-                                    break;
-                                case "timespan":
-                                    TimeSpan = val.ToInt64();
-                                    break;
-                                case "ipaddress":
-                                    IpAddress = val;
-                                    break;
-                                case "webbrowser":
-                                    WebBrowser = val;
-                                    break;
-                                case "originappsource":
-                                    OriginAppSource = val;
-                                    break;
-                            }
-                        }
-                    }
+                    case "appversion":
+                        AppVersion = val;
+                        break;
+                    case "token":
+                        Token = val;
+                        break;
+                    case "appsource":
+                        AppSource = val;
+                        break;
+                    case "appclient":
+                        AppClient = val;
+                        break;
+                    case "sign":
+                        Sign = val;
+                        break;
+                    case "deviceid":
+                        DeviceId = val;
+                        break;
+                    case "timespan":
+                        TimeSpan = val.ToInt64();
+                        break;
+                    case "ipaddress":
+                        IpAddress = val;
+                        break;
+                    case "webbrowser":
+                        WebBrowser = val;
+                        break;
+                    case "originappsource":
+                        OriginAppSource = val;
+                        break;
                 }
             }
         }
@@ -175,7 +170,7 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public SysAuthorizeInfo Copy()
         {
-            SysAuthorizeInfo newOne = new SysAuthorizeInfo();
+            var newOne = new SysAuthorizeInfo();
 
             newOne.AppClient = this.AppClient;
             newOne.AppSource = this.AppSource;
@@ -203,7 +198,7 @@ namespace OSS.Common.Authrization
         {
             var strTicketParas = GetSignContent(separator);
             
-            string signData = HmacSha1.EncryptBase64(strTicketParas.ToString(), secretKey);
+            var signData = HmacSha1.EncryptBase64(strTicketParas.ToString(), secretKey);
                 
             return Sign == signData;
         }
@@ -215,17 +210,19 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         private StringBuilder GetSignContent(char separator)
         {
-            StringBuilder strTicketParas = new StringBuilder();
+            var strTicketParas = new StringBuilder();
 
             AddSignDataValue("appclient",  AppClient, separator, strTicketParas);
             AddSignDataValue("appsource", AppSource, separator, strTicketParas);
             AddSignDataValue("appversion", AppVersion, separator, strTicketParas);
             AddSignDataValue("deviceid", DeviceId, separator, strTicketParas);
-            
+            AddSignDataValue("ipaddress", IpAddress, separator, strTicketParas);
+
+            AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
             AddSignDataValue("token", Token, separator, strTicketParas);       
-            AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
-
+            AddSignDataValue("webbrowser", WebBrowser, separator, strTicketParas);
+   
             return strTicketParas;
         }
 
@@ -236,16 +233,15 @@ namespace OSS.Common.Authrization
         /// <param name="value"></param>
         /// <param name="separator"></param>
         /// <param name="strTicketParas"></param>
-        private void AddSignDataValue(string name, string value, char separator, StringBuilder strTicketParas)
+        private static void AddSignDataValue(string name, string value, char separator, StringBuilder strTicketParas)
         {
-            if (!string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value)) return;
+
+            if (strTicketParas.Length > 0)
             {
-                if (strTicketParas.Length > 0)
-                {
-                    strTicketParas.Append(separator);
-                }
-                strTicketParas.Append(name).Append("=").Append(value.UrlEncode());
+                strTicketParas.Append(separator);
             }
+            strTicketParas.Append(name).Append("=").Append(value.UrlEncode());
         }
 
         #endregion
