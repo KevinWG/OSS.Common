@@ -1,19 +1,21 @@
 ﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
-*　　	文件功能描述：日志模块的实体定义
+*　　	文件功能描述：全局插件 -  日志插件实体及辅助类
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
 *       
+*       
 *****************************************************************************/
 
 #endregion
-using System;
+
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using OSS.Common.Modules;
 
-namespace OSS.Common.Modules.LogModule
+namespace OSS.Common.Plugs.LogPlug
 {
 
     /// <summary>

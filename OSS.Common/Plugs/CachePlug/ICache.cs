@@ -1,21 +1,22 @@
 #region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
-*　　	文件功能描述：基础缓存实现接口
+*　　	文件功能描述：全局插件 -  缓存插件接口
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
 *       
+*       
 *****************************************************************************/
 
 #endregion
-using System;
-using System.Collections.Generic;
 
-namespace OSS.Common.Modules.CacheModule
+using System;
+
+namespace OSS.Common.Plugs.CachePlug
 {
     /// <summary>
-    /// 
+    /// 缓存插件接口
     /// </summary>
     public interface ICache
     {

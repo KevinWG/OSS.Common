@@ -1,13 +1,11 @@
 ﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
-*　　	文件功能描述：缓存辅助类
+*　　	文件功能描述：全局插件 -  缓存插件辅助类
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
 *       
-*    	修改日期：2017-2-8
-*    	修改内容： .net standrad类库的兼容处理
 *       
 *****************************************************************************/
 
@@ -15,9 +13,10 @@
 
 using System;
 using System.Collections.Concurrent;
+using OSS.Common.Modules;
+using OSS.Common.Modules.CacheModule;
 
-
-namespace OSS.Common.Modules.CacheModule
+namespace OSS.Common.Plugs.CachePlug
 {
     /// <summary>
     /// 缓存的辅助类

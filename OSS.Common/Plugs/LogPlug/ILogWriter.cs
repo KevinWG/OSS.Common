@@ -1,15 +1,19 @@
 ﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
-*　　	文件功能描述：日志模块接口
+*　　	文件功能描述：全局插件 -  日志插件接口
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
 *       
+*       
 *****************************************************************************/
 
 #endregion
-namespace OSS.Common.Modules.LogModule
+
+using OSS.Common.Modules.LogModule;
+
+namespace OSS.Common.Plugs.LogPlug
 {
     /// <summary>
     /// 日志写实现接口

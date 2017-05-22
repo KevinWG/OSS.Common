@@ -1,23 +1,25 @@
 ﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
-*　　	文件功能描述：缓存的默认实现（只适用在Framework框架下）
+*　　	文件功能描述：全局插件 -  缓存插件默认实现
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
 *       
+*       
 *****************************************************************************/
 
 #endregion
-using System;
 
+using System;
+using Microsoft.Extensions.Caching.Memory;
+using OSS.Common.Modules.CacheModule;
 #if NETFW
 using System.Runtime.Caching;
 #else
-using Microsoft.Extensions.Primitives;
-using Microsoft.Extensions.Caching.Memory;
+
 #endif
-namespace OSS.Common.Modules.CacheModule
+namespace OSS.Common.Plugs.CachePlug
 {
     /// <summary>
     /// 

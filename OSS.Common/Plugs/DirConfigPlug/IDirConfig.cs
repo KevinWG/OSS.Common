@@ -1,6 +1,20 @@
-﻿using OSS.Common.ComModels;
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
-namespace OSS.Common.Modules.DirConfigModule
+/***************************************************************************
+*　　	文件功能描述：全局插件 -  配置插件接口
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*       
+*****************************************************************************/
+
+#endregion
+
+
+using OSS.Common.ComModels;
+
+namespace OSS.Common.Plugs.DirConfigPlug
 {
     /// <summary>
     /// 字典配置接口

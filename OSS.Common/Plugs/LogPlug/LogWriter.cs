@@ -1,19 +1,21 @@
 ﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
 
 /***************************************************************************
-*　　	文件功能描述：日志类的默认实现
+*　　	文件功能描述：全局插件 -  日志插件默认实现
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
 *       
+*       
 *****************************************************************************/
 
 #endregion
+
 using System;
 using System.IO;
 using System.Text;
 
-namespace OSS.Common.Modules.LogModule
+namespace OSS.Common.Plugs.LogPlug
 {
     /// <summary>
     /// 系统默认写日志模块

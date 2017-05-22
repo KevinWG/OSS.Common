@@ -1,4 +1,16 @@
-﻿
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
+
+/***************************************************************************
+*　　	文件功能描述：全局插件 -  配置插件默认实现
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*       
+*****************************************************************************/
+
+#endregion
+
 using System;
 using System.IO;
 using System.Xml.Serialization;
@@ -6,7 +18,7 @@ using OSS.Common.ComModels;
 using OSS.Common.ComModels.Enums;
 using OSS.Common.Modules.LogModule;
 
-namespace OSS.Common.Modules.DirConfigModule
+namespace OSS.Common.Plugs.DirConfigPlug
 {
 
     /// <summary>
