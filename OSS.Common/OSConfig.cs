@@ -11,9 +11,9 @@
 #endregion
 
 using System;
-using OSS.Common.Modules.CacheModule;
-using OSS.Common.Modules.DirConfigModule;
-using OSS.Common.Modules.LogModule;
+using OSS.Common.Plugs.CachePlug;
+using OSS.Common.Plugs.DirConfigPlug;
+using OSS.Common.Plugs.LogPlug;
 
 namespace OSS.Common
 {

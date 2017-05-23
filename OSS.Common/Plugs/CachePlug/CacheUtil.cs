@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Concurrent;
 using OSS.Common.Modules;
-using OSS.Common.Modules.CacheModule;
 
 namespace OSS.Common.Plugs.CachePlug
 {

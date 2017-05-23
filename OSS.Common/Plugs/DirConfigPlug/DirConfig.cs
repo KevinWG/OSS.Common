@@ -16,7 +16,7 @@ using System.IO;
 using System.Xml.Serialization;
 using OSS.Common.ComModels;
 using OSS.Common.ComModels.Enums;
-using OSS.Common.Modules.LogModule;
+using OSS.Common.Plugs.LogPlug;
 
 namespace OSS.Common.Plugs.DirConfigPlug
 {

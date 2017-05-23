@@ -11,8 +11,6 @@
 
 #endregion
 
-using OSS.Common.Modules.LogModule;
-
 namespace OSS.Common.Plugs.LogPlug
 {
     /// <summary>

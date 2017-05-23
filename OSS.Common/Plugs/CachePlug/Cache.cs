@@ -13,7 +13,7 @@
 
 using System;
 using Microsoft.Extensions.Caching.Memory;
-using OSS.Common.Modules.CacheModule;
+
 #if NETFW
 using System.Runtime.Caching;
 #else
