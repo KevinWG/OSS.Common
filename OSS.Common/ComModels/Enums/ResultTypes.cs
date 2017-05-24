@@ -81,7 +81,7 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 授权冻结
         /// </summary>
-        AuthFreezen = 440,
+        AuthFreezed = 440,
 
         /// <summary>
         /// 内部错误（服务器错误）

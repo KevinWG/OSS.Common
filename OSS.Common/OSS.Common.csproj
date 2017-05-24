@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
     <PackageIconUrl>http://7xil4i.com1.z0.glb.clouddn.com/osscoder_icon.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
-    <PackageReleaseNotes>修改命名空间名称</PackageReleaseNotes>
+    <PackageReleaseNotes>添加AuthFreezed 错误码</PackageReleaseNotes>
     <AssemblyVersion>1.1.3.23</AssemblyVersion>
     <FileVersion>1.1.3.23</FileVersion>
   </PropertyGroup>
