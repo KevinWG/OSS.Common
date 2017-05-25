@@ -11,6 +11,7 @@
 #endregion
 
 using System;
+using System.Threading;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 
@@ -32,12 +33,12 @@ namespace OSS.Common.Authrization
         #endregion
 
         #region  成员信息
-        [ThreadStatic] private static MemberIdentity _identity;
+         private static readonly AsyncLocal<MemberIdentity>  _identity=new AsyncLocal<MemberIdentity>();
 
         /// <summary>
         ///   成员身份信息
         /// </summary>
-        public static MemberIdentity Identity => _identity;
+        public static MemberIdentity Identity => _identity.Value;
         
         #endregion
 
@@ -55,7 +56,7 @@ namespace OSS.Common.Authrization
         /// <param name="info"></param>
         public static void SetIdentity(MemberIdentity info)
         {
-            _identity = info;
+            _identity.Value = info;
         }
         
         /// <summary>
@@ -76,7 +77,7 @@ namespace OSS.Common.Authrization
         /// <typeparam name="TMInfo"></typeparam>
         /// <returns></returns>
         public static TMInfo GetMemberInfo<TMInfo>()
-            where TMInfo:class => _identity?.MemberInfo as TMInfo;
+            where TMInfo:class => _identity.Value?.MemberInfo as TMInfo;
 
         /// <summary>
         /// 通过 ID 生成对应的Token
