@@ -45,7 +45,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         /// 是否已经验证
         /// </summary>
-        public static bool IsAuthenticated => _identity != null ;
+        public static bool IsAuthenticated => _identity.Value!=null ;
     
         
         #region   设置相关信息
