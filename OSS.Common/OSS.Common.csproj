@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.1.3.27</Version>
+    <Version>1.1.3.3</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -12,9 +12,9 @@
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
     <PackageIconUrl>http://7xil4i.com1.z0.glb.clouddn.com/osscoder_icon.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
-    <PackageReleaseNotes>修改优化后MemberShiper.IsAuthenticated 的bug</PackageReleaseNotes>
-    <AssemblyVersion>1.1.3.27</AssemblyVersion>
-    <FileVersion>1.1.3.27</FileVersion>
+    <PackageReleaseNotes>添加ResultMo静态扩展方法</PackageReleaseNotes>
+    <AssemblyVersion>1.1.3.3</AssemblyVersion>
+    <FileVersion>1.1.3.3</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -67,12 +67,29 @@ namespace OSS.Common.ComModels
         /// 错误或者状态
         /// </summary>
         public string Message { get; set; }
+    }
+
+    /// <summary>
+    ///   ResultMo 扩展
+    /// </summary>
+    public static class ResultExtention
+    {
+        /// <summary>
+        ///  是否是Success
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static bool IsSuccess(this ResultMo res)=>
+            res.Ret == (int)ResultTypes.Success;
 
         /// <summary>
-        ///   是否成功
+        /// 是否是对应的结果类型
         /// </summary>
-        public bool IsSuccess => Ret == (int) ResultTypes.Success;
-
+        /// <param name="res"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsResultType(this ResultMo res, ResultTypes type) =>
+            res.Ret == (int) type;
     }
 
 
