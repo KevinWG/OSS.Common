@@ -63,37 +63,37 @@ namespace OSS.Common.Plugs.LogPlug
         /// <param name="moduleName"></param>
         internal LogInfo(LogLevelEnum loglevel, object logMsg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
-            level = loglevel;
-            module_name = moduleName;
-            this.msg = logMsg;
-            msg_key = msgKey;
+            Level = loglevel;
+            ModuleName = moduleName;
+            this.Msg = logMsg;
+            MsgKey = msgKey;
         }
 
         /// <summary>
         /// 日志等级
         /// </summary>
-        public LogLevelEnum level { get; set; }
+        public LogLevelEnum Level { get; set; }
 
         /// <summary>
         /// 日志类型
         /// </summary>
-        public string module_name { get; set; }
+        public string ModuleName { get; set; }
 
         /// <summary>
         ///   key值  可以是自定义的标识  
         ///   根据此字段可以处理当前module下不同复杂日志信息
         /// </summary>
-        public string msg_key { get; set; }
+        public string MsgKey { get; set; }
 
         /// <summary>
         /// 日志信息  可以是复杂类型  如 具体实体类
         /// </summary>
-        public object msg { get; set; }
+        public object Msg { get; set; }
 
         /// <summary>
         /// 编号（全局唯一）
         /// </summary>
-        public string log_code { get; set; }
+        public string LogCode { get; set; }
     }
 
     /// <summary>
@@ -184,15 +184,15 @@ namespace OSS.Common.Plugs.LogPlug
         /// <param name="info"></param>
         private static string Log(LogInfo info)
         {
-            if (string.IsNullOrEmpty(info.module_name))
-                info.module_name = ModuleNames.Default;
+            if (string.IsNullOrEmpty(info.ModuleName))
+                info.ModuleName = ModuleNames.Default;
 
-            var logWrite = GetLogWrite(info.module_name);
-            info.log_code = logWrite.GetLogCode(info);
+            var logWrite = GetLogWrite(info.ModuleName);
+            info.LogCode = logWrite.GetLogCode(info);
 
             Task.Run(() => logWrite.WriteLog(info));
 
-            return info.log_code;
+            return info.LogCode;
         }
 
      

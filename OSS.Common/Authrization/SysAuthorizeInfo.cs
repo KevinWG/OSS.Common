@@ -104,34 +104,34 @@ namespace OSS.Common.Authrization
                 var val = keyValue[1].UrlDecode();
                 switch (keyValue[0].ToLower())
                 {
-                    case "appversion":
+                    case "app_version":
                         AppVersion = val;
                         break;
                     case "token":
                         Token = val;
                         break;
-                    case "appsource":
+                    case "app_source":
                         AppSource = val;
                         break;
-                    case "appclient":
+                    case "app_client":
                         AppClient = val;
                         break;
                     case "sign":
                         Sign = val;
                         break;
-                    case "deviceid":
+                    case "device_id":
                         DeviceId = val;
                         break;
                     case "timespan":
                         TimeSpan = val.ToInt64();
                         break;
-                    case "ipaddress":
+                    case "ip_address":
                         IpAddress = val;
                         break;
-                    case "webbrowser":
+                    case "web_browser":
                         WebBrowser = val;
                         break;
-                    case "originappsource":
+                    case "origin_app_source":
                         OriginAppSource = val;
                         break;
                 }
@@ -205,16 +205,16 @@ namespace OSS.Common.Authrization
         {
             var strTicketParas = new StringBuilder();
 
-            AddSignDataValue("appclient",  AppClient, separator, strTicketParas);
-            AddSignDataValue("appsource", AppSource, separator, strTicketParas);
-            AddSignDataValue("appversion", AppVersion, separator, strTicketParas);
-            AddSignDataValue("deviceid", DeviceId, separator, strTicketParas);
-            AddSignDataValue("ipaddress", IpAddress, separator, strTicketParas);
+            AddSignDataValue("app_client",  AppClient, separator, strTicketParas);
+            AddSignDataValue("app_source", AppSource, separator, strTicketParas);
+            AddSignDataValue("app_version", AppVersion, separator, strTicketParas);
+            AddSignDataValue("device_id", DeviceId, separator, strTicketParas);
+            AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
 
-            AddSignDataValue("originappsource", OriginAppSource, separator, strTicketParas);
+            AddSignDataValue("origin_app_source", OriginAppSource, separator, strTicketParas);
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
             AddSignDataValue("token", Token, separator, strTicketParas);       
-            AddSignDataValue("webbrowser", WebBrowser, separator, strTicketParas);
+            AddSignDataValue("web_browser", WebBrowser, separator, strTicketParas);
    
             return strTicketParas;
         }
