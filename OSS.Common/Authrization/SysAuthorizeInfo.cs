@@ -81,17 +81,7 @@ namespace OSS.Common.Authrization
 
         #endregion
 
-     
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public SysAuthorizeInfo()
-        {
-            
-        }
-
-
-
+        
         #region  字符串处理
 
         /// <summary>
@@ -170,19 +160,22 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public SysAuthorizeInfo Copy()
         {
-            var newOne = new SysAuthorizeInfo();
+            var newOne = new SysAuthorizeInfo
+            {
+                AppClient = this.AppClient,
+                AppSource = this.AppSource,
+                AppVersion = this.AppVersion,
+                DeviceId = this.DeviceId,
+                IpAddress = this.IpAddress,
 
-            newOne.AppClient = this.AppClient;
-            newOne.AppSource = this.AppSource;
-            newOne.AppVersion = this.AppVersion;
-            newOne.DeviceId = this.DeviceId;
-            newOne.IpAddress = this.IpAddress;
+                OriginAppSource = this.OriginAppSource,
+                Sign = this.Sign,
+                TimeSpan = this.TimeSpan,
+                Token = this.Token,
+                WebBrowser = this.WebBrowser
+            };
 
-            newOne.OriginAppSource = this.OriginAppSource;
-            newOne.Sign = this.Sign;
-            newOne.TimeSpan = this.TimeSpan;
-            newOne.Token = this.Token;
-            newOne.WebBrowser = this.WebBrowser;
+
             return newOne;
         }
 

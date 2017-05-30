@@ -13,7 +13,6 @@
 
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using OSS.Common.Modules;
 
 namespace OSS.Common.Plugs.LogPlug
 {
@@ -59,42 +58,42 @@ namespace OSS.Common.Plugs.LogPlug
         /// 日志构造函数
         /// </summary>
         /// <param name="loglevel"></param>
-        /// <param name="msg"></param>
+        /// <param name="logMsg"></param>
         /// <param name="msgKey"></param>
         /// <param name="moduleName"></param>
-        internal LogInfo(LogLevelEnum loglevel, object msg, string msgKey = null, string moduleName = ModuleNames.Default)
+        internal LogInfo(LogLevelEnum loglevel, object logMsg, string msgKey = null, string moduleName = ModuleNames.Default)
         {
-            Level = loglevel;
-            ModuleName = moduleName;
-            Msg = msg;
-            MsgKey = msgKey;
+            level = loglevel;
+            module_name = moduleName;
+            this.msg = logMsg;
+            msg_key = msgKey;
         }
 
         /// <summary>
         /// 日志等级
         /// </summary>
-        public LogLevelEnum Level { get; set; }
+        public LogLevelEnum level { get; set; }
 
         /// <summary>
         /// 日志类型
         /// </summary>
-        public string ModuleName { get; set; }
+        public string module_name { get; set; }
 
         /// <summary>
         ///   key值  可以是自定义的标识  
         ///   根据此字段可以处理当前module下不同复杂日志信息
         /// </summary>
-        public string MsgKey { get; set; }
+        public string msg_key { get; set; }
 
         /// <summary>
         /// 日志信息  可以是复杂类型  如 具体实体类
         /// </summary>
-        public object Msg { get; set; }
+        public object msg { get; set; }
 
         /// <summary>
         /// 编号（全局唯一）
         /// </summary>
-        public string LogCode { get; set; }
+        public string log_code { get; set; }
     }
 
     /// <summary>
@@ -185,15 +184,15 @@ namespace OSS.Common.Plugs.LogPlug
         /// <param name="info"></param>
         private static string Log(LogInfo info)
         {
-            if (string.IsNullOrEmpty(info.ModuleName))
-                info.ModuleName = ModuleNames.Default;
+            if (string.IsNullOrEmpty(info.module_name))
+                info.module_name = ModuleNames.Default;
 
-            var logWrite = GetLogWrite(info.ModuleName);
-            info.LogCode = logWrite.GetLogCode(info);
+            var logWrite = GetLogWrite(info.module_name);
+            info.log_code = logWrite.GetLogCode(info);
 
             Task.Run(() => logWrite.WriteLog(info));
 
-            return info.LogCode;
+            return info.log_code;
         }
 
      

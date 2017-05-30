@@ -25,7 +25,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         public ResultMo()
         {
-            Ret = (int) ResultTypes.Success;
+            ret = (int) ResultTypes.Success;
         }
 
         /// <summary>
@@ -35,8 +35,8 @@ namespace OSS.Common.ComModels
         /// <param name="message"></param>
         public ResultMo(int ret, string message = "")
         {
-            Ret = ret;
-            Message = message;
+            this.ret = ret;
+            this.message = message;
         }
 
 
@@ -47,8 +47,8 @@ namespace OSS.Common.ComModels
         /// <param name="message"></param>
         public ResultMo(ResultTypes ret, string message = "")
         {
-            this.Ret = (int) ret;
-            this.Message = message;
+            this.ret = (int) ret;
+            this.message = message;
         }
 
         /// <summary>
@@ -61,12 +61,12 @@ namespace OSS.Common.ComModels
         ///  6xx   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
         /// </summary>
-        public int Ret { get; set; }
+        public int ret { get; set; }
 
         /// <summary>
         /// 错误或者状态
         /// </summary>
-        public string Message { get; set; }
+        public string message { get; set; }
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ namespace OSS.Common.ComModels
         /// <param name="res"></param>
         /// <returns></returns>
         public static bool IsSuccess(this ResultMo res)=>
-            res.Ret == (int)ResultTypes.Success;
+            res.ret == (int)ResultTypes.Success;
 
         /// <summary>
         /// 是否是对应的结果类型
@@ -89,7 +89,7 @@ namespace OSS.Common.ComModels
         /// <param name="type"></param>
         /// <returns></returns>
         public static bool IsResultType(this ResultMo res, ResultTypes type) =>
-            res.Ret == (int) type;
+            res.ret == (int) type;
     }
 
 
@@ -112,7 +112,7 @@ namespace OSS.Common.ComModels
         public ResultIdMo(long id)
             : base(200, null)
         {
-            Id = id;
+            this.id = id;
         }
 
 
@@ -139,7 +139,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 返回的关键值，如返回添加是否成功并返回id
         /// </summary>
-        public long Id { get; set; }
+        public long id { get; set; }
     }
 
 
@@ -164,7 +164,7 @@ namespace OSS.Common.ComModels
         public ResultMo(TType data)
             : base(200, null)
         {
-            Data = data;
+            this.data = data;
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         ///  结果类型数据
         /// </summary>
-        public TType Data { get; set; }
+        public TType data { get; set; }
     }
 
     /// <summary>
@@ -207,13 +207,15 @@ namespace OSS.Common.ComModels
         public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> source,
             Func<TPara, TResult> func=null)
         {
-            ResultMo<TResult> ot = new ResultMo<TResult>();
-            ot.Ret = source.Ret;
-            ot.Message = source.Message;
-
-            if (func != null && source.Data!=null)
+            ResultMo<TResult> ot = new ResultMo<TResult>
             {
-                ot.Data = func(source.Data);
+                ret = source.ret,
+                message = source.message
+            };
+
+            if (func != null && source.data!=null)
+            {
+                ot.data = func(source.data);
             }
             return ot;
         }
@@ -226,9 +228,11 @@ namespace OSS.Common.ComModels
         /// <returns>输出对象</returns>
         public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo source)
         {
-            ResultMo<TResult> ot = new ResultMo<TResult>();
-            ot.Ret = source.Ret;
-            ot.Message = source.Message;
+            ResultMo<TResult> ot = new ResultMo<TResult>
+            {
+                ret = source.ret,
+                message = source.message
+            };
             return ot;
         }
 
@@ -241,9 +245,11 @@ namespace OSS.Common.ComModels
         public static TResult ConvertToResult<TResult>(this ResultMo source)
             where TResult : ResultMo, new()
         {
-            TResult ot = new TResult();
-            ot.Ret = source.Ret;
-            ot.Message = source.Message;
+            TResult ot = new TResult
+            {
+                ret = source.ret,
+                message = source.message
+            };
             return ot;
         }
 

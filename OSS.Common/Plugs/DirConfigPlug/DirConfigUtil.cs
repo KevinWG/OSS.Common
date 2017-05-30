@@ -12,7 +12,6 @@
 #endregion
 using System.Collections.Concurrent;
 using OSS.Common.ComModels;
-using OSS.Common.Modules;
 
 namespace OSS.Common.Plugs.DirConfigPlug
 {

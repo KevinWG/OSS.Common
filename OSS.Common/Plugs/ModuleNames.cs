@@ -12,7 +12,7 @@
 *****************************************************************************/
 
 #endregion
-namespace OSS.Common.Modules
+namespace OSS.Common.Plugs
 {
     /// <summary>
     /// 缓存Module名称

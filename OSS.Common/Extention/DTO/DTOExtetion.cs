@@ -102,8 +102,8 @@ namespace OSS.Common.Extention.DTO
             {
                 var properColumnInfo = new PropertyColumnInfo();
 
-                properColumnInfo.Name = fd.Name;
-                properColumnInfo.PropertyInfo = fd;
+                properColumnInfo.name = fd.Name;
+                properColumnInfo.property_info = fd;
 
                 var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseClumnAttribute))
                     .Select(attr => attr as BaseClumnAttribute)
@@ -111,17 +111,17 @@ namespace OSS.Common.Extention.DTO
 
                 attrs.ForEach(attr =>
                 {
-                    properColumnInfo.IsAuto = attr.IsAuto || properColumnInfo.IsAuto;
-                    properColumnInfo.IsIgnore = attr.IsIgnore || properColumnInfo.IsIgnore;
+                    properColumnInfo.is_auto = attr.is_auto || properColumnInfo.is_auto;
+                    properColumnInfo.is_ignore = attr.is_ignore || properColumnInfo.is_ignore;
 
-                    if (!string.IsNullOrEmpty(attr.Alias))
-                        properColumnInfo.Alias = attr.Alias;
+                    if (!string.IsNullOrEmpty(attr.alias))
+                        properColumnInfo.alias = attr.alias;
                 });
 
-                properColumnInfo.Alias = properColumnInfo.Alias ?? fd.Name;
-                if (!propertyList.ContainsKey(properColumnInfo.Alias))
+                properColumnInfo.alias = properColumnInfo.alias ?? fd.Name;
+                if (!propertyList.ContainsKey(properColumnInfo.alias))
                 {
-                    propertyList.Add(properColumnInfo.Alias, properColumnInfo);
+                    propertyList.Add(properColumnInfo.alias, properColumnInfo);
                 }
 
             }

@@ -79,7 +79,7 @@ namespace OSS.Common.Extention.DTO
         /// <summary>
         /// 列简称
         /// </summary>
-        public String Alias
+        public String alias
         {
             get { return _alias; }
         }
@@ -91,7 +91,7 @@ namespace OSS.Common.Extention.DTO
         /// <summary>
         /// 是否是自增长列
         /// </summary>
-        public bool IsAuto
+        public bool is_auto
         {
             get { return _IsAuto; }
         }
@@ -103,7 +103,7 @@ namespace OSS.Common.Extention.DTO
         /// <summary>
         /// 是否忽略当前列
         /// </summary>
-        public bool IsIgnore => _IsIgnore;
+        public bool is_ignore => _IsIgnore;
     }
 
 
@@ -116,27 +116,27 @@ namespace OSS.Common.Extention.DTO
         /// <summary>
         /// 属性名称
         /// </summary>
-        public string Name { get; set; }
+        public string name { get; set; }
 
         /// <summary>
         /// 列别名
         /// </summary>
-        public string Alias { get; set; }
+        public string alias { get; set; }
 
         /// <summary>
         /// 是否自增长
         /// </summary>
-        public bool IsAuto { get; set; }
+        public bool is_auto { get; set; }
 
         /// <summary>
         ///   是否忽略当前列
         /// </summary>
-        public bool IsIgnore { get; set; }
+        public bool is_ignore { get; set; }
 
         /// <summary>
         /// 列属性信息
         /// </summary>
-        public PropertyInfo PropertyInfo { get; set; }
+        public PropertyInfo property_info { get; set; }
     }
 
     #endregion

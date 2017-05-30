@@ -24,8 +24,8 @@ namespace OSS.Common.ComModels
     {
         public SearchMo()
         {
-            FilterDics = new Dictionary<string, string>();
-            OrderDics=new Dictionary<string, SortType>();
+            filter_dics = new Dictionary<string, string>();
+            order_dics=new Dictionary<string, SortType>();
         }
 
         private int _curntPage = 1;
@@ -33,7 +33,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 当前页
         /// </summary>
-        public int CurrentPage
+        public int current_page
         {
             get
             {
@@ -47,7 +47,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 页面大小
         /// </summary>
-        public int PageSize
+        public int page_size
         {
             get
             {
@@ -63,17 +63,17 @@ namespace OSS.Common.ComModels
         /// <summary>
         ///    起始行 -只读属性
         /// </summary>
-        public int StartRow => (CurrentPage - 1)*PageSize;
+        public int start_row => (current_page - 1)*page_size;
 
         /// <summary>
         /// 排序集合      适用于多个查询条件
         /// </summary>
-        public Dictionary<string, SortType> OrderDics { get; set; }
+        public Dictionary<string, SortType> order_dics { get; set; }
 
         /// <summary>
         /// 搜索关键字集合      适用于多个查询条件
         /// </summary>
-        public Dictionary<string, string> FilterDics { get; set; }
+        public Dictionary<string, string> filter_dics { get; set; }
     }
 
 
@@ -106,23 +106,23 @@ namespace OSS.Common.ComModels
         ///   正常赋值时的实体
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="total"></param>
-        public PageListMo(long total, List<TModel> list)
+        /// <param name="totalCount"></param>
+        public PageListMo(long totalCount, List<TModel> list)
         {
-            Data = list;
-            Total = total;
+            data = list;
+            this.total = totalCount;
         }
 
         /// <summary>
         /// 实体列表
         /// </summary>
-        public List<TModel> Data { get; set; }
+        public List<TModel> data { get; set; }
         
 
         /// <summary>
         /// 总数
         /// </summary>
-        public long Total { get; set; }
+        public long total { get; set; }
         
     }
 
@@ -150,15 +150,15 @@ namespace OSS.Common.ComModels
             }
 
             List<TResult> resultList = null;
-            if (pageList.Data != null)
+            if (pageList.data != null)
             {
 #if NETFW
                 resultList = pageList.Data.ConvertAll(e=>convertFun(e));
 #else
-                resultList = pageList.Data.ConvertAll(convertFun);
+                resultList = pageList.data.ConvertAll(convertFun);
 #endif
             }
-            return new PageListMo<TResult>(pageList.Total, resultList);
+            return new PageListMo<TResult>(pageList.total, resultList);
         }
     }
 

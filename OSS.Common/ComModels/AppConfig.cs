@@ -21,16 +21,16 @@ namespace OSS.Common.ComModels
         /// <summary>
         ///   应用来源,自定义部分
         /// </summary>
-        public string AppSource { get; set; }
+        public string app_source { get; set; }
 
         /// <summary>
         /// 应用账号AppId
         /// </summary>
-        public string AppId { get; set; }
+        public string app_id { get; set; }
 
         /// <summary>
         /// 应用账号AppSecret
         /// </summary>
-        public string AppSecret { get; set; }
+        public string app_secret { get; set; }
     }
 }

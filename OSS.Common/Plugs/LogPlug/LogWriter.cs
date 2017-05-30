@@ -58,14 +58,14 @@ namespace OSS.Common.Plugs.LogPlug
         {
             lock (obj)
             {
-                string filePath = getLogFilePath(info.ModuleName, info.Level);
+                string filePath = getLogFilePath(info.module_name, info.level);
 #if NETFW
                 using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.UTF8))
 #else
                 using (StreamWriter sw = new StreamWriter(new FileStream(filePath,FileMode.Append,FileAccess.Write), Encoding.UTF8))
 #endif
                 {
-                    sw.WriteLine(format: _logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);
+                    sw.WriteLine(format: _logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.msg_key, arg2: info.msg);
                   
                 }
             }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace OSS.Common.Extention
 {
+    /// <summary>
+    ///  列表扩展方法
+    /// </summary>
     public static class ListExtention
     {
         /// <summary>

@@ -13,7 +13,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using OSS.Common.Modules;
 
 namespace OSS.Common.Plugs.CachePlug
 {

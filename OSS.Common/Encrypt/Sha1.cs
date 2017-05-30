@@ -29,7 +29,7 @@ namespace OSS.Common.Encrypt
         public static string Encrypt(string input, Encoding encoding = null)
         {
             if (string.IsNullOrEmpty(input))
-                throw new ArgumentNullException("input", "Sha1加密的字符串不能为空！");
+                throw new ArgumentNullException(nameof(input), "Sha1加密的字符串不能为空！");
 
             if (encoding == null)
                 encoding = Encoding.UTF8;
@@ -37,10 +37,10 @@ namespace OSS.Common.Encrypt
             var data = encoding.GetBytes(input);
             var encryData = Encrypt(data);
 
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < encryData.Length; i++)
+            var sBuilder = new StringBuilder();
+            foreach (var t in encryData)
             {
-                sBuilder.Append(encryData[i].ToString("x2"));
+                sBuilder.Append(t.ToString("x2"));
             }
 
             // Return the hexadecimal string.
@@ -57,9 +57,9 @@ namespace OSS.Common.Encrypt
         public static byte[] Encrypt(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0)
-                throw new ArgumentNullException("bytes","Sha1加密的字节不能为空！");
+                throw new ArgumentNullException(nameof(bytes),"Sha1加密的字节不能为空！");
             
-            using (SHA1 sha1Hash = SHA1.Create())
+            using (var sha1Hash = SHA1.Create())
             {
                 return sha1Hash.ComputeHash(bytes);
             }
