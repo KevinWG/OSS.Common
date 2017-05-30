@@ -16,7 +16,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 日志写实现接口
     /// </summary>
-    public interface ILogWriter
+    public interface ILogPlug
     {
         /// <summary>
         ///   日志写功能

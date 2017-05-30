@@ -20,14 +20,14 @@ namespace OSS.Common.Plugs.DirConfigPlug
     /// </summary>
     public static class DirConfigUtil
     {
-        private static readonly ConcurrentDictionary<string, IDirConfig> _dirConfigDirs = new ConcurrentDictionary<string, IDirConfig>();
+        private static readonly ConcurrentDictionary<string, IDirConfigPlug> _dirConfigDirs = new ConcurrentDictionary<string, IDirConfigPlug>();
 
         /// <summary>
         /// 通过模块名称获取
         /// </summary>
         /// <param name="dirConfigModule"></param>
         /// <returns></returns>
-        private static IDirConfig GetDirConfig(string dirConfigModule)
+        private static IDirConfigPlug GetDirConfig(string dirConfigModule)
         {
             if (string.IsNullOrEmpty(dirConfigModule))
                 dirConfigModule = ModuleNames.Default;
@@ -35,7 +35,7 @@ namespace OSS.Common.Plugs.DirConfigPlug
             if (_dirConfigDirs.ContainsKey(dirConfigModule))
                 return _dirConfigDirs[dirConfigModule];
 
-            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule) ?? new DirConfig();
+            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule) ?? new DefaultDirConfigPlug();
 
             _dirConfigDirs.TryAdd(dirConfigModule, dirConfig);
             return dirConfig;

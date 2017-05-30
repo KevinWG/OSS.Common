@@ -111,15 +111,15 @@ namespace OSS.Common.Plugs.LogPlug
             set;
         }
 
-        private static readonly ConcurrentDictionary<string, ILogWriter> _logDirs =
-            new ConcurrentDictionary<string, ILogWriter>();
+        private static readonly ConcurrentDictionary<string, ILogPlug> _logDirs =
+            new ConcurrentDictionary<string, ILogPlug>();
         
         /// <summary>
         /// 通过模块名称获取日志模块实例
         /// </summary>
         /// <param name="logModule"></param>
         /// <returns></returns>
-        public static ILogWriter GetLogWrite(string logModule)
+        public static ILogPlug GetLogWrite(string logModule)
         {
             if (string.IsNullOrEmpty(logModule))
                 logModule = ModuleNames.Default;
@@ -127,7 +127,7 @@ namespace OSS.Common.Plugs.LogPlug
             if (_logDirs.ContainsKey(logModule))
                 return _logDirs[logModule];
 
-            var log = OsConfig.LogWriterProvider?.Invoke(logModule) ?? new LogWriter();
+            var log = OsConfig.LogWriterProvider?.Invoke(logModule) ?? new DefaultLogPlug();
             _logDirs.TryAdd(logModule, log);
 
             return log;

@@ -24,7 +24,7 @@ namespace OSS.Common.Plugs.CachePlug
     /// <summary>
     /// 
     /// </summary>
-    public class Cache : ICache
+    public class DefaultCachePlug : ICachePlug
     {
 #if !NETFW
         private static readonly MemoryCache m_Cache=new MemoryCache(new MemoryCacheOptions());

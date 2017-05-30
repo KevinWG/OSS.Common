@@ -18,7 +18,7 @@ namespace OSS.Common.Plugs.CachePlug
     /// <summary>
     /// 缓存插件接口
     /// </summary>
-    public interface ICache
+    public interface ICachePlug
     {
         /// <summary>
         /// 添加缓存,如果存在则更新

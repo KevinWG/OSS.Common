@@ -27,17 +27,17 @@ namespace OSS.Common
         /// <summary>
         ///   日志模块提供者
         /// </summary>
-        public static Func<string, ILogWriter> LogWriterProvider { get; set; }
+        public static Func<string, ILogPlug> LogWriterProvider { get; set; }
 
         /// <summary>
         ///   缓存模块提供者
         /// </summary>
-        public static Func<string, ICache> CacheProvider { get; set; }
+        public static Func<string, ICachePlug> CacheProvider { get; set; }
         
         /// <summary>
         ///   配置信息模块提供者
         /// </summary>
-        public static Func<string, IDirConfig> DirConfigProvider { get; set; }
+        public static Func<string, IDirConfigPlug> DirConfigProvider { get; set; }
         #endregion
 
 

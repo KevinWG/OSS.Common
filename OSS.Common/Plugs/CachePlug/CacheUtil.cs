@@ -21,14 +21,14 @@ namespace OSS.Common.Plugs.CachePlug
     /// </summary>
     public static class CacheUtil
     {
-        private static readonly ConcurrentDictionary<string, ICache> _cacheDirs = new ConcurrentDictionary<string, ICache>();
+        private static readonly ConcurrentDictionary<string, ICachePlug> _cacheDirs = new ConcurrentDictionary<string, ICachePlug>();
 
         /// <summary>
         /// 通过模块名称获取
         /// </summary>
         /// <param name="cacheModule"></param>
         /// <returns></returns>
-        public static ICache GetCache(string cacheModule)
+        public static ICachePlug GetCache(string cacheModule)
         {
             if (string.IsNullOrEmpty(cacheModule))
                 cacheModule = ModuleNames.Default;
@@ -36,7 +36,7 @@ namespace OSS.Common.Plugs.CachePlug
             if (_cacheDirs.ContainsKey(cacheModule))
                 return _cacheDirs[cacheModule];
 
-            var cache = OsConfig.CacheProvider?.Invoke(cacheModule) ?? new Cache();
+            var cache = OsConfig.CacheProvider?.Invoke(cacheModule) ?? new DefaultCachePlug();
 
             _cacheDirs.TryAdd(cacheModule, cache);
             return cache;

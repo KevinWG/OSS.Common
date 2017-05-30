@@ -31,12 +31,6 @@ namespace OSS.Common.ComModels.Enums
         [OSDescript("参数错误")]
         ParaError = 301,
 
-        ///// <summary>
-        ///// 条件不满足
-        ///// </summary>
-        //[OSDescript("条件不满足")]
-        //ParaNotMeet = 310,
-
         /// <summary>
         /// 添加失败
         /// </summary>

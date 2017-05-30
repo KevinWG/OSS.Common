@@ -20,7 +20,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 系统默认写日志模块
     /// </summary>
-    public class LogWriter : ILogWriter
+    public class DefaultLogPlug : ILogPlug
     {
         private readonly string _logBaseDirPath = null;
         private const string _logFormat = "{0:T}       Key:{1}   Detail:{2}";
@@ -28,7 +28,7 @@ namespace OSS.Common.Plugs.LogPlug
         /// <summary>
         /// 构造函数
         /// </summary>
-        public LogWriter()
+        public DefaultLogPlug()
         {
             // todo  测试地址是否ok
 #if NETFW

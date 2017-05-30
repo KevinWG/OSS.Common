@@ -19,7 +19,7 @@ namespace OSS.Common.Plugs.DirConfigPlug
     /// <summary>
     /// 字典配置接口
     /// </summary>
-    public interface IDirConfig
+    public interface IDirConfigPlug
     {
 
         /// <summary>

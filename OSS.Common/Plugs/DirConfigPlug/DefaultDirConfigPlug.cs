@@ -24,11 +24,11 @@ namespace OSS.Common.Plugs.DirConfigPlug
     /// <summary>
     /// 默认配置处理
     /// </summary>
-    public class DirConfig : IDirConfig
+    public class DefaultDirConfigPlug : IDirConfigPlug
     {
         private static readonly string _defaultPath;
 
-        static DirConfig()
+        static DefaultDirConfigPlug()
         {
 #if NETFW
             _defaultPath = AppDomain.CurrentDomain.BaseDirectory;
