@@ -22,65 +22,62 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 成功
         /// </summary>
-        [OSDescript("成功")]
-        Success = 200,
+        [OSDescript("成功")] Success = 0,
 
         /// <summary>
         /// 参数错误
         /// </summary>
-        [OSDescript("参数错误")]
-        ParaError = 301,
+        [OSDescript("参数错误")] ParaError = 1301,
 
         /// <summary>
         /// 添加失败
         /// </summary>
-        [OSDescript("添加失败")]
-        AddFail = 320,
+        [OSDescript("添加失败")] AddFail = 1320,
 
         /// <summary>
         /// 更新失败
         /// </summary>
-        UpdateFail = 330,
-   
+        UpdateFail = 1330,
+
         /// <summary>
         /// 对象不存在
         /// </summary>
-        ObjectNull = 404,
+        ObjectNull = 1404,
 
         /// <summary>
         /// 对象已存在
         /// </summary>
-        ObjectExsit = 410,
+        ObjectExsit = 1410,
 
         /// <summary>
         /// 对象状态不正常
         /// </summary>
-        ObjectStateError = 420,
+        ObjectStateError = 1420,
 
         /// <summary>
         ///  未知来源
         /// </summary>
-        UnKnowSource=423,
+        UnKnowSource = 1423,
 
         /// <summary>
         /// 未授权
         /// </summary>
-        UnAuthorize = 425,
+        UnAuthorize = 1425,
 
         /// <summary>
         /// 权限不足
         /// </summary>
-        NoRight = 430,
+        NoRight = 1430,
 
         /// <summary>
         /// 授权冻结
         /// </summary>
-        AuthFreezed = 440,
+        AuthFreezed = 1440,
 
         /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
-        InnerError = 500
+        InnerError = 1500
 
     }
 }

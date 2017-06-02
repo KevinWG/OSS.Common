@@ -22,6 +22,9 @@ namespace OSS.Common.ComModels
     /// </summary>
     public class SearchMo
     {
+        /// <summary>
+        ///   构造函数
+        /// </summary>
         public SearchMo()
         {
             filter_dics = new Dictionary<string, string>();
@@ -51,11 +54,7 @@ namespace OSS.Common.ComModels
         {
             get
             {
-                if (_pageSize <= 0)
-                {
-                    return 20;
-                }
-                return _pageSize;
+                return _pageSize <= 0 ? 20 : _pageSize;
             }
             set { _pageSize = value; }
         }
@@ -127,7 +126,7 @@ namespace OSS.Common.ComModels
     }
 
     /// <summary>
-    /// 
+    /// 分页实体扩展
     /// </summary>
     public static class PageListMoMap
     {

@@ -25,7 +25,6 @@ namespace OSS.Common.ComModels
         /// </summary>
         public ResultMo()
         {
-            ret = (int) ResultTypes.Success;
         }
 
         /// <summary>
@@ -54,11 +53,11 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 返回结果
         /// 一般情况下：
-        ///  2xx   成功相关状态（如： 200）
-        ///  3xx   参数相关错误 
-        ///  4xx   用户授权相关错误
-        ///  5xx   服务器内部相关错误信息
-        ///  6xx   系统级定制错误信息，如升级维护等
+        ///  0  成功
+        ///  13xx   参数相关错误 
+        ///  14xx   用户授权相关错误
+        ///  15xx   服务器内部相关错误信息
+        ///  16xx   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
         /// </summary>
         public int ret { get; set; }
@@ -80,7 +79,7 @@ namespace OSS.Common.ComModels
         /// <param name="res"></param>
         /// <returns></returns>
         public static bool IsSuccess(this ResultMo res)=>
-            res.ret == (int)ResultTypes.Success;
+            res.ret == 0;
 
         /// <summary>
         /// 是否是对应的结果类型
@@ -101,7 +100,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 
         /// </summary>
-        public ResultIdMo():base()
+        public ResultIdMo()
         {
         }
 
@@ -110,7 +109,6 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="id"></param>
         public ResultIdMo(long id)
-            : base(200, null)
         {
             this.id = id;
         }
@@ -162,7 +160,6 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="data"></param>
         public ResultMo(TType data)
-            : base(200, null)
         {
             this.data = data;
         }
@@ -207,7 +204,7 @@ namespace OSS.Common.ComModels
         public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> source,
             Func<TPara, TResult> func=null)
         {
-            ResultMo<TResult> ot = new ResultMo<TResult>
+            var ot = new ResultMo<TResult>
             {
                 ret = source.ret,
                 message = source.message
@@ -228,7 +225,7 @@ namespace OSS.Common.ComModels
         /// <returns>输出对象</returns>
         public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo source)
         {
-            ResultMo<TResult> ot = new ResultMo<TResult>
+            var ot = new ResultMo<TResult>
             {
                 ret = source.ret,
                 message = source.message
@@ -245,7 +242,7 @@ namespace OSS.Common.ComModels
         public static TResult ConvertToResult<TResult>(this ResultMo source)
             where TResult : ResultMo, new()
         {
-            TResult ot = new TResult
+            var ot = new TResult
             {
                 ret = source.ret,
                 message = source.message
