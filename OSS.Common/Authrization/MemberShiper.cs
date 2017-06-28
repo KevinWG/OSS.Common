@@ -16,38 +16,40 @@ using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 
 namespace OSS.Common.Authrization
-{ 
+{
     /// <summary>
     /// 当前系统访问上下文信息
     /// </summary>
     public static class MemberShiper
     {
         #region  当前应用授权信息
-        [ThreadStatic] private static SysAuthorizeInfo _appAuthorize;
+
+        private static readonly AsyncLocal<SysAuthorizeInfo> _appAuthorize = new AsyncLocal<SysAuthorizeInfo>();
 
         /// <summary>
         ///   应用授权信息
         /// </summary>
-        public static SysAuthorizeInfo AppAuthorize => _appAuthorize;
+        public static SysAuthorizeInfo AppAuthorize => _appAuthorize.Value;
 
         #endregion
 
         #region  成员信息
-         private static readonly AsyncLocal<MemberIdentity>  _identity=new AsyncLocal<MemberIdentity>();
+
+        private static readonly AsyncLocal<MemberIdentity> _identity = new AsyncLocal<MemberIdentity>();
 
         /// <summary>
         ///   成员身份信息
         /// </summary>
         public static MemberIdentity Identity => _identity.Value;
-        
+
         #endregion
 
         /// <summary>
         /// 是否已经验证
         /// </summary>
-        public static bool IsAuthenticated => _identity.Value!=null ;
-    
-        
+        public static bool IsAuthenticated => _identity.Value != null;
+
+
         #region   设置相关信息
 
         /// <summary>
@@ -58,26 +60,27 @@ namespace OSS.Common.Authrization
         {
             _identity.Value = info;
         }
-        
+
         /// <summary>
         ///   设置应用授权信息
         /// </summary>
         /// <param name="info"></param>
         public static void SetAppAuthrizeInfo(SysAuthorizeInfo info)
         {
-            _appAuthorize = info;
+            _appAuthorize.Value = info;
         }
 
         #endregion
 
         #region    token  处理
+
         /// <summary>
         /// 获取成员扩展详情
         /// </summary>
         /// <typeparam name="TMInfo"></typeparam>
         /// <returns></returns>
         public static TMInfo GetMemberInfo<TMInfo>()
-            where TMInfo:class => _identity.Value?.MemberInfo as TMInfo;
+            where TMInfo : class => _identity.Value?.MemberInfo as TMInfo;
 
         /// <summary>
         /// 通过 ID 生成对应的Token
@@ -102,9 +105,10 @@ namespace OSS.Common.Authrization
 
             if (string.IsNullOrEmpty(tokenDetail))
                 throw new ArgumentNullException(nameof(token), "不合法的用户Token");
-            
+
             return tokenDetail;
         }
+
         #endregion
     }
 
