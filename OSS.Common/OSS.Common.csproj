@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.1.5.52</Version>
+    <Version>1.1.5.53</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -12,9 +12,9 @@
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
-    <PackageReleaseNotes>修改ret成功标识200 =&gt; 0</PackageReleaseNotes>
-    <AssemblyVersion>1.1.5.52</AssemblyVersion>
-    <FileVersion>1.1.5.52</FileVersion>
+    <PackageReleaseNotes>简化message属性</PackageReleaseNotes>
+    <AssemblyVersion>1.1.5.53</AssemblyVersion>
+    <FileVersion>1.1.5.53</FileVersion>
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 

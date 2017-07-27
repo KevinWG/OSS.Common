@@ -35,7 +35,7 @@ namespace OSS.Common.ComModels
         public ResultMo(int ret, string message = "")
         {
             this.ret = ret;
-            this.message = message;
+            this.msg = message;
         }
 
 
@@ -47,7 +47,7 @@ namespace OSS.Common.ComModels
         public ResultMo(ResultTypes ret, string message = "")
         {
             this.ret = (int) ret;
-            this.message = message;
+            this.msg = message;
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace OSS.Common.ComModels
         public int ret { get; set; }
 
         /// <summary>
-        /// 错误或者状态
+        /// 状态信息(错误描述等)
         /// </summary>
-        public string message { get; set; }
+        public string msg { get; set; }
     }
 
     /// <summary>
@@ -207,7 +207,7 @@ namespace OSS.Common.ComModels
             var ot = new ResultMo<TResult>
             {
                 ret = source.ret,
-                message = source.message
+                msg = source.msg
             };
 
             if (func != null && source.data!=null)
@@ -228,7 +228,7 @@ namespace OSS.Common.ComModels
             var ot = new ResultMo<TResult>
             {
                 ret = source.ret,
-                message = source.message
+                msg = source.msg
             };
             return ot;
         }
@@ -245,7 +245,7 @@ namespace OSS.Common.ComModels
             var ot = new TResult
             {
                 ret = source.ret,
-                message = source.message
+                msg = source.msg
             };
             return ot;
         }
