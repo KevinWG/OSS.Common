@@ -39,11 +39,16 @@ namespace OSS.Common.Authrization
         /// iOS, Android,PC等用户自定义
         /// </summary>
         public string AppClient { get; set; }
-
+        
         /// <summary>
         /// 设备ID
         /// </summary>
         public string DeviceId { get; set; }
+
+        /// <summary>
+        ///  租户ID  
+        /// </summary>
+        public string TenantId { get; set; }
 
         /// <summary>
         ///  Token 
@@ -54,34 +59,25 @@ namespace OSS.Common.Authrization
         /// 时间
         /// </summary>
         public long TimeSpan { get; set; }
-
+        
         /// <summary>
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
 
-
-        /// <summary>
-        /// IP地址   可选，手机App端自动获取
-        /// </summary>
-        public string IpAddress { get; set; }
-
         /// <summary>
         /// 浏览器类型   可选
         /// </summary>
         public string WebBrowser { get; set; }
-
-
+        
         /// <summary>
-        /// 原始appsource   可选
-        /// 主要是当应用层向基础层传递时使用
-        ///  如支付系统等，api层面对多个应用，每个应用对应不同支付key，调用支付接口时必传
+        /// IP地址 可选 【不参与签名】 手机App端由接收方赋值
         /// </summary>
-        public string OriginAppSource { get; set; }
+        public string IpAddress { get; set; }
 
         #endregion
 
-        
+
         #region  字符串处理
 
         /// <summary>
@@ -102,7 +98,7 @@ namespace OSS.Common.Authrization
                 if (keyValue.Length <= 1) continue;
 
                 var val = keyValue[1].UrlDecode();
-                switch (keyValue[0].ToLower())
+                switch (keyValue[0])
                 {
                     case "app_version":
                         AppVersion = val;
@@ -116,6 +112,10 @@ namespace OSS.Common.Authrization
                     case "app_client":
                         AppClient = val;
                         break;
+                    case "tenant_id":
+                        TenantId = val;
+                        break;
+
                     case "sign":
                         Sign = val;
                         break;
@@ -130,9 +130,6 @@ namespace OSS.Common.Authrization
                         break;
                     case "web_browser":
                         WebBrowser = val;
-                        break;
-                    case "origin_app_source":
-                        OriginAppSource = val;
                         break;
                 }
             }
@@ -150,6 +147,26 @@ namespace OSS.Common.Authrization
             Sign = HmacSha1.EncryptBase64(encrpStr.ToString(), secretKey);
 
             AddSignDataValue("sign", Sign, separator, encrpStr);
+            AddSignDataValue("ip_address",IpAddress,separator, encrpStr);
+
+            return encrpStr.ToString();
+        }
+
+
+        /// <summary>
+        ///   获取  签名[上次的签名值]   字符串，ip[本身也不参与签名计算] 可能会不同
+        /// </summary>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public string GetOldSignData(char separator = ';')
+        {
+            if (string.IsNullOrEmpty(Sign))
+                return null;
+            
+            var encrpStr = GetSignContent(separator);
+
+            AddSignDataValue("sign", Sign, separator, encrpStr);
+            AddSignDataValue("ip_address", IpAddress, separator, encrpStr);
 
             return encrpStr.ToString();
         }
@@ -168,7 +185,7 @@ namespace OSS.Common.Authrization
                 DeviceId = this.DeviceId,
                 IpAddress = this.IpAddress,
 
-                OriginAppSource = this.OriginAppSource,
+                TenantId = this.TenantId,
                 Sign = this.Sign,
                 TimeSpan = this.TimeSpan,
                 Token = this.Token,
@@ -209,9 +226,9 @@ namespace OSS.Common.Authrization
             AddSignDataValue("app_source", AppSource, separator, strTicketParas);
             AddSignDataValue("app_version", AppVersion, separator, strTicketParas);
             AddSignDataValue("device_id", DeviceId, separator, strTicketParas);
-            AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
+            //AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
 
-            AddSignDataValue("origin_app_source", OriginAppSource, separator, strTicketParas);
+            AddSignDataValue("tenant_id", TenantId, separator, strTicketParas);
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
             AddSignDataValue("token", Token, separator, strTicketParas);       
             AddSignDataValue("web_browser", WebBrowser, separator, strTicketParas);

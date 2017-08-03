@@ -16,13 +16,8 @@ namespace OSS.Common.ComModels
     /// <summary>
     /// 通用应用账号配置信息  
     /// </summary>
-   public class AppConfig
+    public class AppConfig
     {
-        /// <summary>
-        ///   应用来源,自定义部分
-        /// </summary>
-        public string AppSource { get; set; }
-
         /// <summary>
         /// 应用账号AppId
         /// </summary>
