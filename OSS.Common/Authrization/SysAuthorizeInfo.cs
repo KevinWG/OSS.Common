@@ -44,12 +44,7 @@ namespace OSS.Common.Authrization
         /// 设备ID
         /// </summary>
         public string DeviceId { get; set; }
-
-        /// <summary>
-        ///  租户ID  
-        /// </summary>
-        public string TenantId { get; set; }
-
+        
         /// <summary>
         ///  Token 
         /// </summary>
@@ -71,9 +66,19 @@ namespace OSS.Common.Authrization
         public string WebBrowser { get; set; }
         
         /// <summary>
-        /// IP地址 可选 【不参与签名】 手机App端由接收方赋值
+        /// IP地址 可选 手机App端由接收方赋值
         /// </summary>
         public string IpAddress { get; set; }
+
+        /// <summary>
+        ///  租户ID  
+        /// </summary>
+        public string TenantId { get; set; }
+
+        /// <summary>
+        ///  推广码
+        /// </summary>
+        public string ProCode { get; set; }
 
         #endregion
 
@@ -131,6 +136,9 @@ namespace OSS.Common.Authrization
                     case "web_browser":
                         WebBrowser = val;
                         break;
+                    case "pro_code":
+                        ProCode = val;
+                        break;
                 }
             }
         }
@@ -147,29 +155,10 @@ namespace OSS.Common.Authrization
             Sign = HmacSha1.EncryptBase64(encrpStr.ToString(), secretKey);
 
             AddSignDataValue("sign", Sign, separator, encrpStr);
-            AddSignDataValue("ip_address",IpAddress,separator, encrpStr);
 
             return encrpStr.ToString();
         }
 
-
-        /// <summary>
-        ///   获取  签名[上次的签名值]   字符串，ip[本身也不参与签名计算] 可能会不同
-        /// </summary>
-        /// <param name="separator"></param>
-        /// <returns></returns>
-        public string GetOldSignData(char separator = ';')
-        {
-            if (string.IsNullOrEmpty(Sign))
-                return null;
-            
-            var encrpStr = GetSignContent(separator);
-
-            AddSignDataValue("sign", Sign, separator, encrpStr);
-            AddSignDataValue("ip_address", IpAddress, separator, encrpStr);
-
-            return encrpStr.ToString();
-        }
 
         /// <summary>
         /// 复制新的授权信息实体
@@ -189,7 +178,9 @@ namespace OSS.Common.Authrization
                 Sign = this.Sign,
                 TimeSpan = this.TimeSpan,
                 Token = this.Token,
-                WebBrowser = this.WebBrowser
+                WebBrowser = this.WebBrowser,
+
+                ProCode = this.ProCode
             };
 
 
@@ -222,17 +213,18 @@ namespace OSS.Common.Authrization
         {
             var strTicketParas = new StringBuilder();
 
-            AddSignDataValue("app_client",  AppClient, separator, strTicketParas);
+            AddSignDataValue("app_client", AppClient, separator, strTicketParas);
             AddSignDataValue("app_source", AppSource, separator, strTicketParas);
             AddSignDataValue("app_version", AppVersion, separator, strTicketParas);
             AddSignDataValue("device_id", DeviceId, separator, strTicketParas);
-            //AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
+            AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
 
+            AddSignDataValue("pro_code", ProCode, separator, strTicketParas);
             AddSignDataValue("tenant_id", TenantId, separator, strTicketParas);
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
-            AddSignDataValue("token", Token, separator, strTicketParas);       
+            AddSignDataValue("token", Token, separator, strTicketParas);
             AddSignDataValue("web_browser", WebBrowser, separator, strTicketParas);
-   
+
             return strTicketParas;
         }
 

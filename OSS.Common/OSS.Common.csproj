@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.1.5.56</Version>
+    <Version>1.1.5.58</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -12,9 +12,9 @@
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
-    <PackageReleaseNotes>添加系统的租户Id属性</PackageReleaseNotes>
-    <AssemblyVersion>1.1.5.56</AssemblyVersion>
-    <FileVersion>1.1.5.56</FileVersion>
+    <PackageReleaseNotes>添加推广码</PackageReleaseNotes>
+    <AssemblyVersion>1.1.5.58</AssemblyVersion>
+    <FileVersion>1.1.5.58</FileVersion>
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
