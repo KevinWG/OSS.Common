@@ -21,6 +21,9 @@ using System.Reflection;
 
 namespace OSS.Common.Extention.Volidate
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class VolidateExtention
     {
         /// <summary>
@@ -35,18 +38,17 @@ namespace OSS.Common.Extention.Volidate
                 return false;
 
 
-            Type type = typeof (T);
+            var type = typeof (T);
             var files = TypeHelper.GetProperties(type);
 
-            for (int i = 0; i < files.Length; i++)
+            foreach (var fd in files)
             {
-                var fd = files[i];
+                var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
 
-                object[] attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
-
+                var fd1 = fd;
                 if (
                     attrs.OfType<BaseValidateAttribute>()
-                        .Any(requireAttr => !requireAttr.Validate(fd.Name, fd.GetValue(t, null))))
+                        .Any(requireAttr => !requireAttr.Validate(fd1.Name, fd1.GetValue(t, null))))
                 {
                     return false;
                 }
@@ -98,12 +100,8 @@ namespace OSS.Common.Extention.Volidate
     /// </summary>
     public static class TypeHelper
     {
-#if NETFW
         private static ConcurrentDictionary<string, object[]> attrDirs = new ConcurrentDictionary<string, object[]>();
-#else
-        private static ConcurrentDictionary<string, Attribute[]> attrDirs = new ConcurrentDictionary<string, Attribute[]>();
-#endif
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -114,11 +112,9 @@ namespace OSS.Common.Extention.Volidate
         public static object[] GetPropertiAttributes(string typeName, PropertyInfo fd, Type attributeType)
         {
             string key = string.Concat(typeName, fd.Name);
-#if NETFW
+
             object[] attrs;
-#else
-       Attribute[] attrs;
-#endif
+
             attrDirs.TryGetValue(key, out attrs);
             if (attrs != null)
             {
@@ -148,11 +144,8 @@ namespace OSS.Common.Extention.Volidate
             {
                 return properties;
             }
-#if NETFW
             properties = type.GetProperties();
-#else
-         properties = type.GetRuntimeProperties().ToArray();
-#endif
+
             proDictionaries.TryAdd(type.FullName, properties);
             return properties;
         }
