@@ -79,9 +79,10 @@ namespace OSS.Common.ComModels
         /// 构造函数
         /// </summary>
         /// <param name="config"></param>
-        public BaseConfigProvider(TConfigType config = null)
+        public BaseConfigProvider(TConfigType config)
         {
-            _config = config;
+            if (config!=null)
+                _config = config;
         }
 
 
