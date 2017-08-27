@@ -50,10 +50,9 @@ namespace OSS.Common.ComModels
         ///  设置上下文配置信息，当前配置在当前上下文中有效
         /// </summary>
         /// <param name="config"></param>
-        public void SetContextConfig(TConfigType config)
+        public virtual void SetContextConfig(TConfigType config)
         {
             _contextConfig.Value = config;
-            ConfigChange(config);
         }
 
         /// <summary>
@@ -83,7 +82,6 @@ namespace OSS.Common.ComModels
         public BaseConfigProvider(TConfigType config = null)
         {
             _config = config;
-            ConfigChange(_config);
         }
 
         /// <summary>
