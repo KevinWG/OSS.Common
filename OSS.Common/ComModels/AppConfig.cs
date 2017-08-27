@@ -84,14 +84,6 @@ namespace OSS.Common.ComModels
             _config = config;
         }
 
-        /// <summary>
-        ///  配置信息变化方法
-        /// </summary>
-        /// <param name="config"></param>
-        protected virtual void ConfigChange(TConfigType config)
-        {
-            
-        }
 
         #endregion
 
