@@ -37,20 +37,14 @@ namespace OSS.Common.Encrypt
             if (string.IsNullOrEmpty(toEncrypt))
                 return result;
 
-            if (encoding==null)
-                encoding=Encoding.UTF8;
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+            
+            byte[] keyArray = encoding.GetBytes(key); // ToByte(key);
+            byte[] toEncryptArray = encoding.GetBytes(toEncrypt);
+            var resultArray = Encrypt(keyArray, toEncryptArray);
+            result = Convert.ToBase64String(resultArray);
 
-            try
-            {
-                byte[] keyArray = encoding.GetBytes(key);// ToByte(key);
-                byte[] toEncryptArray = encoding.GetBytes(toEncrypt);
-                var resultArray = Encrypt(keyArray, toEncryptArray);
-                result = Convert.ToBase64String(resultArray);
-            }
-            catch
-            {
-
-            }
             return result;
         }
 
@@ -96,30 +90,24 @@ namespace OSS.Common.Encrypt
         /// <param name="key"></param>
         /// <param name="encoding"> 编码方式 不传值默认为  utf-8 </param>
         /// <returns></returns>
-        public static string Decrypt(string toDecrypt, string key,Encoding encoding=null)
+        public static string Decrypt(string toDecrypt, string key, Encoding encoding = null)
         {
             string result = string.Empty;
 
             if (string.IsNullOrEmpty(key))
-                throw new ArgumentNullException("key","key值不能为空");
-            
+                throw new ArgumentNullException("key", "key值不能为空");
+
             if (string.IsNullOrEmpty(toDecrypt))
                 return result;
-            
-            if(encoding==null)
-                encoding=Encoding.UTF8;
 
-            try
-            {
-                byte[] keyArray = encoding.GetBytes(key); // ToByte(key);
-                byte[] toEncryptArray = Convert.FromBase64String(toDecrypt); // ToByte(toDecrypt);
-                var resultArray = Decrypt(keyArray, toEncryptArray);
-                result = encoding.GetString(resultArray);
-            }
-            catch (Exception ex)
-            {
-                // ignored
-            }
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            byte[] keyArray = encoding.GetBytes(key); // ToByte(key);
+            byte[] toEncryptArray = Convert.FromBase64String(toDecrypt); // ToByte(toDecrypt);
+            var resultArray = Decrypt(keyArray, toEncryptArray);
+            result = encoding.GetString(resultArray);
+
             return result;
         }
 
