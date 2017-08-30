@@ -12,12 +12,11 @@
 #endregion
 
 using System;
-using Microsoft.Extensions.Caching.Memory;
 
 #if NETFW
 using System.Runtime.Caching;
 #else
-
+using Microsoft.Extensions.Caching.Memory;
 #endif
 namespace OSS.Common.Plugs.CachePlug
 {

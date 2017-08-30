@@ -12,9 +12,7 @@
 using System;
 using System.Collections.Generic;
 using OSS.Common.ComModels.Enums;
-#if !NET40
-using OSS.Common.Extention;
-#endif
+
 namespace OSS.Common.ComModels
 {
     /// <summary>
@@ -152,7 +150,7 @@ namespace OSS.Common.ComModels
             if (pageList.data != null)
             {
 #if NETFW
-                resultList = pageList.Data.ConvertAll(e=>convertFun(e));
+                resultList = pageList.data.ConvertAll(e=>convertFun(e));
 #else
                 resultList = pageList.data.ConvertAll(convertFun);
 #endif
