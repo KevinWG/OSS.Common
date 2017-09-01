@@ -149,11 +149,7 @@ namespace OSS.Common.ComModels
             List<TResult> resultList = null;
             if (pageList.data != null)
             {
-#if NETFW
                 resultList = pageList.data.ConvertAll(e=>convertFun(e));
-#else
-                resultList = pageList.data.ConvertAll(convertFun);
-#endif
             }
             return new PageListMo<TResult>(pageList.total, resultList);
         }
