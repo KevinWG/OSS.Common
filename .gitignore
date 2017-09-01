@@ -14,11 +14,6 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
-nugetOutput/
-
-# .Net Stanard sloution files
-OSS.Common.sln
-OSS.Common.csproj
 
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
