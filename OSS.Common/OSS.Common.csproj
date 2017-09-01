@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Version>1.2.2.2</Version>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Authors>Kevin</Authors>
+    <Company>OSSCoder</Company>
+    <Product>OSS开源系列</Product>
+    <Description>通用基础</Description>
+    <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
+    <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
+
+    <PackageReleaseNotes>修改上下文方法至虚方法</PackageReleaseNotes>
+    <AssemblyVersion>1.2.2.2</AssemblyVersion>
+    <FileVersion>1.2.2.2</FileVersion>
+
+    <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.4\OSS.Common.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\OSS.Common.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
