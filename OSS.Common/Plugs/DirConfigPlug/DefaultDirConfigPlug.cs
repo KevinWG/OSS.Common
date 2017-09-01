@@ -72,18 +72,9 @@ namespace OSS.Common.Plugs.DirConfigPlug
 
                 result = new ResultMo();
             }
-            catch (Exception ex)
-            {
-#if DEBUG
-                throw ex;
-#endif
-                LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
-                result = new ResultMo(ResultTypes.InnerError, "设置字典配置信息出错");
-            }
             finally
             {
-                if (fs != null)
-                    fs.Dispose();
+                fs?.Dispose();
             }
             return result;
         }
@@ -101,13 +92,13 @@ namespace OSS.Common.Plugs.DirConfigPlug
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("key", "配置键值不能为空！");
 
-            string path = string.Concat(_defaultPath, "\\", "Config");
+            var path = string.Concat(_defaultPath, "\\", "Config");
 
-            TConfig t = default(TConfig);
+            var t = default(TConfig);
             FileStream fs = null;
             try
             {
-                string fileFullName = string.Concat(path, "\\", key, ".config");
+                var fileFullName = string.Concat(path, "\\", key, ".config");
 
                 if (!File.Exists(fileFullName))
                     return t;
@@ -116,22 +107,13 @@ namespace OSS.Common.Plugs.DirConfigPlug
 
                 var type = typeof(TConfig);
 
-                XmlSerializer xmlSer = new XmlSerializer(type);
+                var xmlSer = new XmlSerializer(type);
                 t = (TConfig)xmlSer.Deserialize(fs);
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                throw ex;
-#endif
-                LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
             }
             finally
             {
-                if (fs != null)
-                    fs.Dispose();
+                fs?.Dispose();
             }
-
             return t;
         }
 
@@ -142,14 +124,15 @@ namespace OSS.Common.Plugs.DirConfigPlug
         /// <returns></returns>
         public ResultMo RemoveDirConfig(string key)
         {
-            string path = string.Concat(_defaultPath, "\\", "Config");
-            string fileName = string.Concat(path, "\\", key, ".config");
+            var path = string.Concat(_defaultPath, "\\", "Config");
+            var fileName = string.Concat(path, "\\", key, ".config");
 
             try
             {
                 if (File.Exists(fileName))
                 {
                     File.Delete(fileName);
+                    return 
                 }
             }
             catch (Exception ex)
