@@ -152,3 +152,7 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 packages
+*.nupkg
+/OSS.Common/OSS.Common.NET46.csproj
+/OSS.Common/Properties
+/OSS.Common.NET46.sln
