@@ -36,11 +36,8 @@ namespace OSS.Common.ComModels
         /// </summary>
         public int current_page
         {
-            get
-            {
-                return _curntPage<=0 ? 1 : _curntPage;
-            }
-            set { _curntPage = value; }
+            get => _curntPage<=0 ? 1 : _curntPage;
+            set => _curntPage = value;
         }
 
         private int _pageSize = 20;
@@ -50,11 +47,8 @@ namespace OSS.Common.ComModels
         /// </summary>
         public int page_size
         {
-            get
-            {
-                return _pageSize <= 0 ? 20 : _pageSize;
-            }
-            set { _pageSize = value; }
+            get => _pageSize <= 0 ? 20 : _pageSize;
+            set => _pageSize = value;
         }
         
         /// <summary>

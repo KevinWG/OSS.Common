@@ -31,7 +31,33 @@ namespace OSS.Common.ComModels
         /// 应用账号AppSecret
         /// </summary>
         public string AppSecret { get; set; }
+
+        /// <summary>
+        /// 操作管理类型
+        /// </summary>
+        public AppOperateMode OperateMode { get; set; } = AppOperateMode.BySelf;
+
+        /// <summary>
+        ///  代理应用的账号AppId
+        /// </summary>
+        public string AgentAppId { get; set; }
     }
+
+    /// <summary>
+    /// 应用操作类型
+    /// </summary>
+    public enum AppOperateMode
+    {
+        /// <summary>
+        ///  自管理
+        /// </summary>
+        BySelf,
+        /// <summary>
+        /// 代理操作
+        /// </summary>
+        ByAgent
+    }
+
 
     /// <summary>
     ///   通用配置基类
@@ -81,7 +107,7 @@ namespace OSS.Common.ComModels
         /// <param name="config"></param>
         public BaseConfigProvider(TConfigType config)
         {
-            if (config!=null)
+            if (config != null)
                 _config = config;
         }
 

@@ -13,7 +13,7 @@ namespace OSS.Common.ComUtils
         /// <summary>
         /// 
         /// </summary>
-        public static NameValueCollection AppSettings { get; private set; }
+        public static NameValueCollection AppSettings { get; }
 
         static ConfigUtil()
         {
@@ -34,7 +34,11 @@ namespace OSS.Common.ComUtils
             }
             return ConfigurationManager.AppSettings[key];
         }
-
+        /// <summary>
+        ///  获取连接串
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string GetConnectionString(string key)
         {
             if (string.IsNullOrEmpty(key))

@@ -64,12 +64,11 @@ namespace OSS.Common.Plugs.CachePlug
             else
                 cachePllicy.SlidingExpiration = slidingExpiration;
 
-            if (isUpdate)
-            {
-                MemoryCache.Default.Set(key, obj, cachePllicy);
-                return true;
-            }
-            return MemoryCache.Default.Add(key, obj, cachePllicy);
+            if (!isUpdate)
+                return MemoryCache.Default.Add(key, obj, cachePllicy);
+
+            MemoryCache.Default.Set(key, obj, cachePllicy);
+            return true;
 #else
             var opt = new MemoryCacheEntryOptions();
            if (absoluteExpiration != null)
