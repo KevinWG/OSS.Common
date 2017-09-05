@@ -16,7 +16,6 @@ using System.IO;
 using System.Xml.Serialization;
 using OSS.Common.ComModels;
 using OSS.Common.ComModels.Enums;
-using OSS.Common.Plugs.LogPlug;
 
 namespace OSS.Common.Plugs.DirConfigPlug
 {
@@ -126,23 +125,12 @@ namespace OSS.Common.Plugs.DirConfigPlug
         {
             var path = string.Concat(_defaultPath, "\\", "Config");
             var fileName = string.Concat(path, "\\", key, ".config");
+            
+            if (!File.Exists(fileName))
+                return new ResultMo(ResultTypes.InnerError, "移除字典配置时出错");
 
-            try
-            {
-                if (File.Exists(fileName))
-                {
-                    File.Delete(fileName);
-                    return 
-                }
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                  throw ex;
-#endif
-                LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
-            }
-            return new ResultMo(ResultTypes.InnerError, "移除字典配置时出错");
+            File.Delete(fileName);
+            return new ResultMo();
         }
     }
 }
