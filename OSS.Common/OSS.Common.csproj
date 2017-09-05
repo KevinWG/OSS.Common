@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.2.3.5</Version>
+    <Version>1.2.3.6</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
     <PackageReleaseNotes>添加Appconfig的代理属性</PackageReleaseNotes>
-    <AssemblyVersion>1.2.3.5</AssemblyVersion>
-    <FileVersion>1.2.3.5</FileVersion>
+    <AssemblyVersion>1.2.3.6</AssemblyVersion>
+    <FileVersion>1.2.3.6</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>

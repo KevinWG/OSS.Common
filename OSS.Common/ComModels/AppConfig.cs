@@ -35,27 +35,27 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 操作管理类型
         /// </summary>
-        public AppOpType OpType { get; set; } = AppOpType.Self;
+        public AppOperateMode OperateMode { get; set; } = AppOperateMode.BySelf;
 
         /// <summary>
         ///  代理应用的账号AppId
         /// </summary>
-        public string ProxyAppId { get; set; }
+        public string AgentAppId { get; set; }
     }
 
     /// <summary>
     /// 应用操作类型
     /// </summary>
-    public enum AppOpType
+    public enum AppOperateMode
     {
         /// <summary>
         ///  自管理
         /// </summary>
-        Self,
+        BySelf,
         /// <summary>
         /// 代理操作
         /// </summary>
-        Proxy
+        ByAgent
     }
 
 
