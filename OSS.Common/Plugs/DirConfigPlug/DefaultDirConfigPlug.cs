@@ -72,14 +72,6 @@ namespace OSS.Common.Plugs.DirConfigPlug
 
                 result = new ResultMo();
             }
-            catch (Exception ex)
-            {
-#if DEBUG
-                throw ex;
-#endif
-                LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
-                result = new ResultMo(ResultTypes.InnerError, "设置字典配置信息出错");
-            }
             finally
             {
                 if (fs != null)
@@ -118,13 +110,6 @@ namespace OSS.Common.Plugs.DirConfigPlug
 
                 XmlSerializer xmlSer = new XmlSerializer(type);
                 t = (TConfig)xmlSer.Deserialize(fs);
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                throw ex;
-#endif
-                LogUtil.Error(string.Format("错误描述：{0}    详情：{1}", ex.Message, ex.StackTrace));
             }
             finally
             {

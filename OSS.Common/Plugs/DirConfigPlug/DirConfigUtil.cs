@@ -37,10 +37,8 @@ namespace OSS.Common.Plugs.DirConfigPlug
             if (_dirConfigDirs.ContainsKey(dirConfigModule))
                 return _dirConfigDirs[dirConfigModule];
 
-            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule) ;// ?? new DefaultDirConfigPlug();
-            if (dirConfig==null)
-                throw new ArgumentException($"没有发现 {dirConfigModule} 模块下对应 IDirConfigPlug 的实现，请通过OsConfig类注册，默认实现参见：http://git.oschina.net/KevinW/codes/3vh6rweuy21ki984p5loa63" );
-            
+            var dirConfig = OsConfig.DirConfigProvider?.Invoke(dirConfigModule) ?? new DefaultDirConfigPlug();
+
             _dirConfigDirs.TryAdd(dirConfigModule, dirConfig);
             return dirConfig;
         }
