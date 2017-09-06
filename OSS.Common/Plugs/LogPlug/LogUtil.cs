@@ -11,7 +11,6 @@
 
 #endregion
 
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace OSS.Common.Plugs.LogPlug
@@ -101,19 +100,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// </summary>
     public static class LogUtil
     {
-  
-        /// <summary>
-        /// 记录日志操作的异步模块
-        /// </summary>
-        internal static string LogAsynModuleName
-        {
-            get; 
-            set;
-        }
-
-        private static readonly ConcurrentDictionary<string, ILogPlug> _logDirs =
-            new ConcurrentDictionary<string, ILogPlug>();
-        
+        private static readonly DefaultLogPlug defaultCache = new DefaultLogPlug();
         /// <summary>
         /// 通过模块名称获取日志模块实例
         /// </summary>
@@ -124,13 +111,7 @@ namespace OSS.Common.Plugs.LogPlug
             if (string.IsNullOrEmpty(logModule))
                 logModule = ModuleNames.Default;
 
-            if (_logDirs.ContainsKey(logModule))
-                return _logDirs[logModule];
-
-            var log = OsConfig.LogWriterProvider?.Invoke(logModule) ?? new DefaultLogPlug();
-            _logDirs.TryAdd(logModule, log);
-
-            return log;
+            return OsConfig.LogWriterProvider?.Invoke(logModule) ?? defaultCache;
         }
 
         /// <summary>
