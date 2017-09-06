@@ -63,14 +63,16 @@ namespace OSS.Common.ComModels
     ///   通用配置基类
     /// </summary>
     /// <typeparam name="TConfigType"></typeparam>
-    public class BaseConfigProvider<TConfigType>
-        where TConfigType : class, new()
+    /// <typeparam name="TConfigOwnerType">配置的使用者（防止在同一线程中同一配置类型有两个不同的使用者设置上下文配置信息）</typeparam>
+    public class BaseConfigProvider<TConfigType,TConfigOwnerType>
+        where TConfigType : class
+        where TConfigOwnerType : class
     {
 
         #region  接口配置信息
 
-        private static readonly AsyncLocal<TConfigType> _contextConfig = new AsyncLocal<TConfigType>();
-        private readonly TConfigType _config;
+        private readonly AsyncLocal<TConfigType> _contextConfig = new AsyncLocal<TConfigType>();
+        private TConfigType _config;
 
         /// <summary>
         ///  设置上下文配置信息，当前配置在当前上下文中有效
@@ -88,18 +90,22 @@ namespace OSS.Common.ComModels
         {
             get
             {
-                if (_config != null)
-                {
-                    return _config;
-                }
-
                 if (_contextConfig.Value != null)
                 {
                     return _contextConfig.Value;
                 }
+
+                if (_config != null 
+                    || (_config = GetDefaultConfig()) != null)
+                {
+                    return _config;
+                }
+
                 throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或者SetContextConfig方法设置当前上下文配置信息");
             }
         }
+
+
 
         /// <summary>
         /// 构造函数
@@ -118,6 +124,16 @@ namespace OSS.Common.ComModels
         ///   当前模块名称
         /// </summary>
         public string ModuleName { get; set; } = ModuleNames.Default;
+
+        /// <summary>
+        /// 获取默认配置信息
+        /// 如果上下文配置不存在，且构造函数也没有传入配置信息，执行此方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual TConfigType GetDefaultConfig()
+        {
+            return null;
+        }
     }
 
 }
