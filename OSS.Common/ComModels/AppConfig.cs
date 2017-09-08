@@ -71,14 +71,14 @@ namespace OSS.Common.ComModels
 
         #region  接口配置信息
 
-        private readonly AsyncLocal<TConfigType> _contextConfig = new AsyncLocal<TConfigType>();
+        private static readonly AsyncLocal<TConfigType> _contextConfig = new AsyncLocal<TConfigType>();
         private TConfigType _config;
 
         /// <summary>
         ///  设置上下文配置信息，当前配置在当前上下文中有效
         /// </summary>
         /// <param name="config"></param>
-        public virtual void SetContextConfig(TConfigType config)
+        public static void SetContextConfig(TConfigType config)
         {
             _contextConfig.Value = config;
         }
