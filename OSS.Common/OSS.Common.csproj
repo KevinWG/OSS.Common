@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.2.3.8</Version>
+    <Version>1.2.3.9</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>优化BaseConfigProvider和Plug模块</PackageReleaseNotes>
-    <AssemblyVersion>1.2.3.8</AssemblyVersion>
-    <FileVersion>1.2.3.8</FileVersion>
+    <PackageReleaseNotes>修改AppConfig中的代理AppId属性</PackageReleaseNotes>
+    <AssemblyVersion>1.2.3.9</AssemblyVersion>
+    <FileVersion>1.2.3.9</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
