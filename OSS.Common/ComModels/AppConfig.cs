@@ -38,9 +38,10 @@ namespace OSS.Common.ComModels
         public AppOperateMode OperateMode { get; set; } = AppOperateMode.BySelf;
 
         /// <summary>
+        ///  当 OperateMode = AppOperateMode.ByAgent 时
         ///  代理应用的账号AppId
         /// </summary>
-        public string AgentAppId { get; set; }
+        public string ByAppId { get; set; }
     }
 
     /// <summary>
