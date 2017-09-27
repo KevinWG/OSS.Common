@@ -38,13 +38,13 @@ namespace OSS.Common.Authrization
         /// 应用客户端类型
         /// iOS, Android,PC等用户自定义
         /// </summary>
-        public string AppClient { get; set; }
-        
+        public int AppClient { get; set; }
+
         /// <summary>
         /// 设备ID
         /// </summary>
         public string DeviceId { get; set; }
-        
+
         /// <summary>
         ///  Token 
         /// </summary>
@@ -54,7 +54,7 @@ namespace OSS.Common.Authrization
         /// 时间
         /// </summary>
         public long TimeSpan { get; set; }
-        
+
         /// <summary>
         ///  sign标识
         /// </summary>
@@ -63,8 +63,8 @@ namespace OSS.Common.Authrization
         /// <summary>
         /// 浏览器类型   可选
         /// </summary>
-        public string WebBrowser { get; set; }
-        
+        public int WebBrowser { get; set; }
+
         /// <summary>
         /// IP地址 可选 手机App端由接收方赋值
         /// </summary>
@@ -90,7 +90,7 @@ namespace OSS.Common.Authrization
         /// </summary>
         /// <param name="signData"></param>
         /// <param name="separator">A=a  B=b 之间分隔符</param>
-        public void FromSignData(string signData, char separator=';')
+        public void FromSignData(string signData, char separator = ';')
         {
             if (string.IsNullOrEmpty(signData)) return;
 
@@ -99,45 +99,44 @@ namespace OSS.Common.Authrization
             {
                 if (string.IsNullOrEmpty(str)) continue;
 
-                var keyValue = str.Split(new[] { '=' }, 2);
+                var keyValue = str.Split(new[] {'='}, 2);
                 if (keyValue.Length <= 1) continue;
 
                 var val = keyValue[1].UrlDecode();
                 switch (keyValue[0])
                 {
-                    case "app_version":
+                    case "av":
                         AppVersion = val;
                         break;
-                    case "token":
-                        Token = val;
-                        break;
-                    case "app_source":
+                    case "as":
                         AppSource = val;
                         break;
-                    case "app_client":
-                        AppClient = val;
+                    case "ac":
+                        AppClient = val.ToInt32();
                         break;
-                    case "tenant_id":
+                    case "did":
+                        DeviceId = val;
+                        break;
+                    case "ip":
+                        IpAddress = val;
+                        break;
+                    case "tid":
                         TenantId = val;
                         break;
-
+                    case "pc":
+                        ProCode = val;
+                        break;
+                    case "ts":
+                        TimeSpan = val.ToInt64();
+                        break;
+                    case "tn":
+                        Token = val;
+                        break;
                     case "sign":
                         Sign = val;
                         break;
-                    case "device_id":
-                        DeviceId = val;
-                        break;
-                    case "timespan":
-                        TimeSpan = val.ToInt64();
-                        break;
-                    case "ip_address":
-                        IpAddress = val;
-                        break;
-                    case "web_browser":
-                        WebBrowser = val;
-                        break;
-                    case "pro_code":
-                        ProCode = val;
+                    case "wb":
+                        WebBrowser = val.ToInt32();
                         break;
                 }
             }
@@ -147,7 +146,7 @@ namespace OSS.Common.Authrization
         /// 生成签名后的字符串
         /// </summary>
         /// <returns></returns>
-        public string ToSignData(string secretKey, char separator=';')
+        public string ToSignData(string secretKey, char separator = ';')
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
 
@@ -195,12 +194,12 @@ namespace OSS.Common.Authrization
         ///   检验是否合法
         /// </summary>
         /// <returns></returns>
-        public bool CheckSign(string secretKey, char separator=';')
+        public bool CheckSign(string secretKey, char separator = ';')
         {
             var strTicketParas = GetSignContent(separator);
-            
+
             var signData = HmacSha1.EncryptBase64(strTicketParas.ToString(), secretKey);
-                
+
             return Sign == signData;
         }
 
@@ -212,19 +211,24 @@ namespace OSS.Common.Authrization
         private StringBuilder GetSignContent(char separator)
         {
             var strTicketParas = new StringBuilder();
+            if (AppClient>0)
+            {
+                AddSignDataValue("ac", AppClient.ToString(), separator, strTicketParas);
+            }
+          
+            AddSignDataValue("as", AppSource, separator, strTicketParas);
+            AddSignDataValue("av", AppVersion, separator, strTicketParas);
+            AddSignDataValue("did", DeviceId, separator, strTicketParas);
+            AddSignDataValue("ip", IpAddress, separator, strTicketParas);
 
-            AddSignDataValue("app_client", AppClient, separator, strTicketParas);
-            AddSignDataValue("app_source", AppSource, separator, strTicketParas);
-            AddSignDataValue("app_version", AppVersion, separator, strTicketParas);
-            AddSignDataValue("device_id", DeviceId, separator, strTicketParas);
-            AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
-
-            AddSignDataValue("pro_code", ProCode, separator, strTicketParas);
-            AddSignDataValue("tenant_id", TenantId, separator, strTicketParas);
-            AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
-            AddSignDataValue("token", Token, separator, strTicketParas);
-            AddSignDataValue("web_browser", WebBrowser, separator, strTicketParas);
-
+            AddSignDataValue("pc", ProCode, separator, strTicketParas);
+            AddSignDataValue("tid", TenantId, separator, strTicketParas);
+            AddSignDataValue("ts", TimeSpan.ToString(), separator, strTicketParas);
+            AddSignDataValue("tn", Token, separator, strTicketParas);
+            if (WebBrowser > 0)
+            {
+                AddSignDataValue("wb", WebBrowser.ToString(), separator, strTicketParas);
+            }
             return strTicketParas;
         }
 
@@ -250,4 +254,102 @@ namespace OSS.Common.Authrization
 
     }
 
+    /// <summary>
+    /// 应用客户端类型
+    /// 1 - 3000  PC
+    /// 3001-6000  Pad  
+    /// 6001- 9000  Mobile
+    /// </summary>
+    public enum AppClientType
+    {
+        /// <summary>
+        ///  未知
+        /// </summary>
+        Unkonw=0,
+
+        /// <summary>
+        /// PC版windows系统
+        /// </summary>
+        Windows = 1,
+
+        /// <summary>
+        ///  PC版苹果系统
+        /// </summary>
+        Macintosh = 30,
+
+        /// <summary>
+        /// Linux 系统
+        /// </summary>
+        Linux = 60,
+        
+        //============================= PC 分界线
+
+        /// <summary>
+        ///  Pad泛类
+        /// </summary>
+        Pad=3001,
+
+        /// <summary>
+        ///  苹果pad操作系统
+        /// </summary>
+        iOS_Pad = 3030,
+
+        /// <summary>
+        /// 安卓pad端
+        /// </summary>
+        Android_Pad =3060,
+        
+        //============================= Pad 分界线
+
+        /// <summary>
+        ///  手机泛类
+        /// </summary>
+        Mobile= 6001,
+
+        /// <summary>
+        /// 苹果手机系统
+        /// </summary>
+        iOS = 6030,
+
+        /// <summary>
+        /// 安卓手机系统
+        /// </summary>
+        Android=6030
+    }
+
+    /// <summary>
+    /// 应用浏览器类型
+    /// </summary>
+    public enum AppWebBrower
+    {
+        /// <summary>
+        ///  未知
+        /// </summary>
+        Unkonw = 0,
+
+        /// <summary>
+        ///  微信内置浏览器
+        /// </summary>
+        WeiXin = 10,
+
+        /// <summary>
+        ///  支付宝内置浏览器
+        /// </summary>
+        Zhifubao = 20,
+
+        /// <summary>
+        ///  谷歌浏览器
+        /// </summary>
+        Chrome = 30,
+
+        /// <summary>
+        /// 火狐浏览器
+        /// </summary>
+        Firefox = 40,
+
+        /// <summary>
+        ///  IE
+        /// </summary>
+        IE = 50
+    }
 }
