@@ -18,9 +18,94 @@ using OSS.Common.Extention;
 namespace OSS.Common.Authrization
 {
     /// <summary>
-    ///   授权认证信息
+    ///  旧应用的授权认证信息
+    ///  todelete
     /// </summary>
-    public class SysAuthorizeInfo
+    [Obsolete]
+    public class SysAuthorizeInfo : AppAuthorizeInfo
+    {
+        public override void FromSignData(string signData, char separator = ';')
+        {
+            if (string.IsNullOrEmpty(signData)) return;
+
+            var strs = signData.Split(separator);
+            foreach (var str in strs)
+            {
+                if (string.IsNullOrEmpty(str)) continue;
+
+                var keyValue = str.Split(new[] { '=' }, 2);
+                if (keyValue.Length <= 1) continue;
+
+                var val = keyValue[1].UrlDecode();
+                switch (keyValue[0])
+                {
+                    case "app_version":
+                        AppVersion = val;
+                        break;
+                    case "token":
+                        Token = val;
+                        break;
+                    case "app_source":
+                        AppSource = val;
+                        break;
+                    case "app_client":
+                        AppClient = val.ToInt32();
+                        break;
+                    case "tenant_id":
+                        TenantId = val;
+                        break;
+
+                    case "sign":
+                        Sign = val;
+                        break;
+                    case "device_id":
+                        DeviceId = val;
+                        break;
+                    case "timespan":
+                        TimeSpan = val.ToInt64();
+                        break;
+                    case "ip_address":
+                        IpAddress = val;
+                        break;
+                    case "web_browser":
+                        WebBrowser = val.ToInt32();
+                        break;
+                    case "pro_code":
+                        ProCode = val;
+                        break;
+                }
+            }
+        }
+
+        protected internal override StringBuilder GetSignContent(char separator)
+        {
+            var strTicketParas = new StringBuilder();
+            if (AppClient>0)
+            {
+                AddSignDataValue("app_client", AppClient.ToString(), separator, strTicketParas);
+            }
+            
+            AddSignDataValue("app_source", AppSource, separator, strTicketParas);
+            AddSignDataValue("app_version", AppVersion, separator, strTicketParas);
+            AddSignDataValue("device_id", DeviceId, separator, strTicketParas);
+            AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
+
+            AddSignDataValue("pro_code", ProCode, separator, strTicketParas);
+            AddSignDataValue("tenant_id", TenantId, separator, strTicketParas);
+            AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
+            AddSignDataValue("token", Token, separator, strTicketParas);
+            if (AppClient > 0)
+            {
+                AddSignDataValue("web_browser", WebBrowser.ToString(), separator, strTicketParas);
+            }
+            return strTicketParas;
+        }
+    }
+
+    /// <summary>
+    ///   应用的授权认证信息
+    /// </summary>
+    public class AppAuthorizeInfo
     {
         #region  参与签名属性
 
@@ -90,7 +175,7 @@ namespace OSS.Common.Authrization
         /// </summary>
         /// <param name="signData"></param>
         /// <param name="separator">A=a  B=b 之间分隔符</param>
-        public void FromSignData(string signData, char separator = ';')
+        public virtual void FromSignData(string signData, char separator = ';')
         {
             if (string.IsNullOrEmpty(signData)) return;
 
@@ -163,9 +248,9 @@ namespace OSS.Common.Authrization
         /// 复制新的授权信息实体
         /// </summary>
         /// <returns></returns>
-        public SysAuthorizeInfo Copy()
+        public AppAuthorizeInfo Copy()
         {
-            var newOne = new SysAuthorizeInfo
+            var newOne = new AppAuthorizeInfo
             {
                 AppClient = this.AppClient,
                 AppSource = this.AppSource,
@@ -208,7 +293,7 @@ namespace OSS.Common.Authrization
         /// </summary>
         /// <param name="separator"></param>
         /// <returns></returns>
-        private StringBuilder GetSignContent(char separator)
+        protected internal virtual StringBuilder GetSignContent(char separator)
         {
             var strTicketParas = new StringBuilder();
             if (AppClient>0)
@@ -239,7 +324,7 @@ namespace OSS.Common.Authrization
         /// <param name="value"></param>
         /// <param name="separator"></param>
         /// <param name="strTicketParas"></param>
-        private static void AddSignDataValue(string name, string value, char separator, StringBuilder strTicketParas)
+        protected internal static void AddSignDataValue(string name, string value, char separator, StringBuilder strTicketParas)
         {
             if (string.IsNullOrEmpty(value)) return;
 
@@ -315,41 +400,5 @@ namespace OSS.Common.Authrization
         /// 安卓手机系统
         /// </summary>
         Android=6030
-    }
-
-    /// <summary>
-    /// 应用浏览器类型
-    /// </summary>
-    public enum AppWebBrower
-    {
-        /// <summary>
-        ///  未知
-        /// </summary>
-        Unkonw = 0,
-
-        /// <summary>
-        ///  微信内置浏览器
-        /// </summary>
-        WeiXin = 10,
-
-        /// <summary>
-        ///  支付宝内置浏览器
-        /// </summary>
-        Zhifubao = 20,
-
-        /// <summary>
-        ///  谷歌浏览器
-        /// </summary>
-        Chrome = 30,
-
-        /// <summary>
-        /// 火狐浏览器
-        /// </summary>
-        Firefox = 40,
-
-        /// <summary>
-        ///  IE
-        /// </summary>
-        IE = 50
     }
 }

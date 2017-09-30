@@ -25,7 +25,7 @@ namespace OSS.Common.Tests
         public static void SysAuth()
         {
             string key = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            SysAuthorizeInfo appInfo = new SysAuthorizeInfo();
+            AppAuthorizeInfo appInfo = new AppAuthorizeInfo();
             appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;");
 
             var newSignData = appInfo.ToSignData(key);
