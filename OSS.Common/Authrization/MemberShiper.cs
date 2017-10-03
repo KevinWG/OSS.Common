@@ -24,12 +24,12 @@ namespace OSS.Common.Authrization
     {
         #region  当前应用授权信息
 
-        private static readonly AsyncLocal<SysAuthorizeInfo> _appAuthorize = new AsyncLocal<SysAuthorizeInfo>();
+        private static readonly AsyncLocal<AppAuthorizeInfo> _appAuthorize = new AsyncLocal<AppAuthorizeInfo>();
 
         /// <summary>
         ///   应用授权信息
         /// </summary>
-        public static SysAuthorizeInfo AppAuthorize => _appAuthorize.Value;
+        public static AppAuthorizeInfo AppAuthorize => _appAuthorize.Value;
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace OSS.Common.Authrization
         ///   设置应用授权信息
         /// </summary>
         /// <param name="info"></param>
-        public static void SetAppAuthrizeInfo(SysAuthorizeInfo info)
+        public static void SetAppAuthrizeInfo(AppAuthorizeInfo info)
         {
             _appAuthorize.Value = info;
         }
