@@ -13,7 +13,6 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            SysAuth();
         }
 
 
@@ -25,14 +24,13 @@ namespace OSS.Common.Tests
 
         public static void SysAuth()
         {
-            string key = "8d567449b8714a046c464059788d5fa6";// Guid.NewGuid().ToString().Replace(" - ", string.Empty);
-            SysAuthorizeInfo appInfo = new SysAuthorizeInfo();
-            appInfo.FromSignData("app_source=Test;app_version=1.0;tenant_id=1646;timespan=1507864154;token=mnbvc-Fd2DqZZrjETS6thQ%3D%3D;sign=air2y62B6hy9pPVym%2BKW5fu6vS4%3D");
-            var result = appInfo.CheckSign(key);
+            string key = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            AppAuthorizeInfo appInfo = new AppAuthorizeInfo();
+            appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;");
 
             var newSignData = appInfo.ToSignData(key);
             appInfo.FromSignData(newSignData);
-            result = appInfo.CheckSign(key);
+            var result = appInfo.CheckSign(key);
         }
 
         [TestMethod]
