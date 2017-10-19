@@ -33,7 +33,7 @@ namespace OSS.Common.ComUtils
         /// 生成随机串
         /// </summary>
         /// <returns></returns>
-        private static string GenerateNonceStr()
+        public static string GenerateNonceStr()
         {
             var num = new StringBuilder();
 
@@ -43,6 +43,7 @@ namespace OSS.Common.ComUtils
             }
             return num.ToString();
         }
+
 
     }
 }
