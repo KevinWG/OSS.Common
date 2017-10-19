@@ -23,6 +23,25 @@ namespace OSS.Common.ComModels
     public class AppConfig
     {
         /// <summary>
+        /// 构造函数
+        /// </summary>
+        public AppConfig()
+        {
+        }
+
+
+        /// <summary>
+        ///  构造函数
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        public AppConfig(string appId, string appSecret)
+        {
+            AppId = appId;
+            AppSecret = appSecret;
+        }
+
+        /// <summary>
         /// 应用账号AppId
         /// </summary>
         public string AppId { get; set; }
