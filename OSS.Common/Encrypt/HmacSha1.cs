@@ -16,8 +16,9 @@ using System.Text;
 namespace OSS.Common.Encrypt
 {
     /// <summary>
-    /// 
+    /// HMACSHA1 加密类
     /// </summary>
+    [Obsolete]
     public static class HmacSha1
     {
         /// <summary>
@@ -55,7 +56,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes,  bytes);
+            byte[] resultbytes = Encrypt(keyBytes, bytes);
 
             return Encoding.UTF8.GetString(resultbytes);
         }
@@ -75,6 +76,88 @@ namespace OSS.Common.Encrypt
                 resultbytes = hmac.ComputeHash(bytes);
             }
             return resultbytes;
+        }
+    }
+
+    /// <summary>
+    /// HMAC哈希加密类
+    /// </summary>
+    public static class HMACSHA
+    {
+        /// <summary>
+        /// 返回加密后的
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <param name="encoding">如果为空，则默认Utf-8</param>
+        /// <param name="encryType">HMAC加密类型：SHA1，SHA256，SHA384，SHA512，MD5</param>
+        /// <returns> 解密后的字节流通过Base64转化 </returns>
+        public static string EncryptBase64(string data, string key, Encoding encoding = null, string encryType = "SHA1")
+        {
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            var bytes = encoding.GetBytes(data);
+            var keyBytes = encoding.GetBytes(key);
+
+            byte[] resultbytes = Encrypt(keyBytes, bytes);
+
+            return Convert.ToBase64String(resultbytes);
+        }
+
+        /// <summary>
+        /// 返回加密后的
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <param name="encoding">如果为空，则默认Utf-8</param>
+        /// <param name="encryType">HMAC加密类型：SHA1，SHA256，SHA384，SHA512，MD5</param>
+        /// <returns></returns>
+        public static string EncryptUtf8(string data, string key, Encoding encoding = null, string encryType = "SHA1")
+        {
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            var bytes = encoding.GetBytes(data);
+            var keyBytes = encoding.GetBytes(key);
+
+            byte[] resultbytes = Encrypt(keyBytes, bytes);
+
+            return Encoding.UTF8.GetString(resultbytes);
+        }
+
+
+        /// <summary>
+        /// HMAC加密
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="bytes"></param>
+        /// <param name="encryType">HMAC加密类型：SHA1，SHA256，SHA384，SHA512，MD5</param>
+        /// <returns></returns>
+        private static byte[] Encrypt(byte[] key, byte[] bytes, string encryType = "SHA1")
+        {
+            byte[] resultbytes;
+            using (var hmac = GetCryptAlgorithm(key))
+            {
+                resultbytes = hmac.ComputeHash(bytes);
+            }
+            return resultbytes;
+        }
+
+        private static HMAC GetCryptAlgorithm(byte[] key, string encryType = "SHA1")
+        {
+            switch (encryType)
+            {
+                case "SHA256":
+                    return new HMACSHA256(key);
+                case "SHA384":
+                    return new HMACSHA384(key);
+                case "SHA512":
+                    return new HMACSHA512(key);
+                case "MD5":
+                    return new HMACMD5(key);
+            }
+            return new HMACSHA1(key);
         }
     }
 }
