@@ -21,6 +21,24 @@ namespace OSS.Common.Tests
             string reslt = obj.SerializeToXml();//"<xml><name><![CDATA[toUser]]></name> </xml>";
             var res = reslt.DeserializeXml<TestXml>();
         }
+
+        [TestMethod]
+        public void DateTimeTest()
+        {
+            var localTime = DateTime.Now;
+            long startTicks = new DateTime(1970, 1, 1).Ticks;
+
+            var seconds1 = (localTime.ToUniversalTime().Ticks - startTicks) / 10000000;
+            var seconds2 = (long) (localTime.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+            var seconds3 = localTime.ToLocalSeconds();
+
+            var date1 = seconds1.FromUtcSeconds();
+            var date2 = new DateTime(1970, 1, 1).AddSeconds(seconds2).ToLocalTime();
+            var date3 = seconds3.FromLocalSeconds();
+        }
+
+
+
     }
 
 

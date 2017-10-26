@@ -20,6 +20,8 @@ namespace OSS.Common.Extention
     /// </summary>
     public static class DateTimeExtention
     {
+        private static readonly long startTicks = new DateTime(1970, 1, 1).Ticks;
+
 
         /// <summary>
         /// 获取距离 1970-01-01（格林威治时间）的秒数
@@ -28,7 +30,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static long ToUtcSeconds(this DateTime localTime)
         {
-            return (long)(localTime.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+            return (localTime.ToUniversalTime().Ticks - startTicks)/10000000;
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static DateTime FromUtcSeconds(this long seconds)
         {
-            return new DateTime(1970, 1, 1).AddSeconds(seconds).ToLocalTime();
+            return DateTimeOffset.FromUnixTimeSeconds(seconds).LocalDateTime;// new DateTime(1970, 1, 1).AddSeconds(seconds).ToLocalTime();
         }
 
 
@@ -49,17 +51,17 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static long ToUtcMilliSeconds(this DateTime localTime)
         {
-            return (long)(localTime.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds;
+            return (localTime.ToUniversalTime().Ticks - startTicks) / 10000;
         }
 
         /// <summary>
         /// 距离 1970-01-01（格林威治时间）的秒数转换为当前时间
         /// </summary>
-        /// <param name="seconds"></param>
+        /// <param name="milliSeconds"></param>
         /// <returns></returns>
-        public static DateTime FromUtcMilliSeconds(this long seconds)
+        public static DateTime FromUtcMilliSeconds(this long milliSeconds)
         {
-            return new DateTime(1970, 1, 1).AddMilliseconds(seconds).ToLocalTime();
+            return DateTimeOffset.FromUnixTimeMilliseconds(milliSeconds).LocalDateTime;
         }
 
         /// <summary>
@@ -69,7 +71,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static long ToLocalSeconds(this DateTime localTime)
         {
-            return (long)(localTime - new DateTime(1970, 1, 1)).TotalSeconds;
+            return (localTime.Ticks - startTicks) / 10000000;
         }
 
         /// <summary>
@@ -79,7 +81,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static DateTime FromLocalSeconds(this long seconds)
         {
-            return new DateTime(1970, 1, 1).AddSeconds(seconds);
+            return new DateTime(1970,1,1).AddSeconds(seconds);
         }
 
     }

@@ -54,6 +54,7 @@
     <Compile Include="ComModels\ResultMo.cs" />
     <Compile Include="ComUtils\ConfigUtil.cs" />
     <Compile Include="ComUtils\InsContainer.cs" />
+    <Compile Include="ComUtils\NumGenerator.cs" />
     <Compile Include="ComUtils\StringUtil.cs" />
     <Compile Include="ComUtils\TypeUtil.cs" />
     <Compile Include="Encrypt\AesRijndael.cs" />

@@ -29,21 +29,35 @@ namespace OSS.Common.ComUtils
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Q', 'P', 'R', 'T', 'S', 'V', 'U',
             'W', 'X', 'Y', 'Z'
         };
+
         /// <summary>
         /// 生成随机串
         /// </summary>
         /// <returns></returns>
-        public static string GenerateNonceStr()
+        public static string RandomStr(int length=8)
         {
             var num = new StringBuilder();
-
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < length; i++)
             {
                 num.Append(_arrChar[_rnd.Next(0, 59)].ToString());
             }
             return num.ToString();
         }
 
-
+        /// <summary>
+        /// 随机数字
+        /// </summary>
+        /// <returns></returns>
+        public static string RandomNum(int length=4)
+        {
+            var num = new StringBuilder();
+            for (var i = 0; i < length; i++)
+            {
+                num.Append(_rnd.Next(0, 9));
+            }
+            return num.ToString();
+        }
     }
+
+
 }
