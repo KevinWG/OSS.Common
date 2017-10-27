@@ -22,12 +22,15 @@ namespace OSS.Common.ComUtils
     {
 
         private static readonly Random _rnd = new Random();
-        private static readonly char[] _arrChar = {
+        private static readonly char[] _arrChar =
+        {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            'a', 'b', 'd', 'c', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 'q', 's', 't', 'u', 'v',
-            'w', 'z', 'y', 'x',
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Q', 'P', 'R', 'T', 'S', 'V', 'U',
-            'W', 'X', 'Y', 'Z'
+            'a', 'b', 'd', 'c', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'p', 'r', 'q', 's', 't', 'u',
+            'v', 'w', 'z', 'y', 'x',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'Q', 'P', 'R', 'T', 'S', 'V',
+            'U', 'W', 'X', 'Y', 'Z'
         };
 
         /// <summary>
@@ -36,10 +39,10 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static string RandomStr(int length=8)
         {
-            var num = new StringBuilder();
+            var num = new StringBuilder(length);
             for (var i = 0; i < length; i++)
             {
-                num.Append(_arrChar[_rnd.Next(0, 59)].ToString());
+                num.Append(_arrChar[_rnd.Next(0, 59)]);
             }
             return num.ToString();
         }
@@ -50,7 +53,7 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static string RandomNum(int length=4)
         {
-            var num = new StringBuilder();
+            var num = new StringBuilder(length);
             for (var i = 0; i < length; i++)
             {
                 num.Append(_rnd.Next(0, 9));
@@ -104,14 +107,10 @@ namespace OSS.Common.ComUtils
 
                 value <<= 5;
                 if (count == 13 && i == 12)
-                {
-                    // 最高位只有两位
-                    value = value ^ (num & 0x03);
-                }
+                    value = value ^ (num & 0x03);     // 最高位只有两位
                 else
-                {
                     value = value ^ num;
-                }
+                
             }
             return value;
 
