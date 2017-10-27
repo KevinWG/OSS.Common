@@ -28,8 +28,7 @@ namespace OSS.Common.ComModels
         public AppConfig()
         {
         }
-
-
+        
         /// <summary>
         ///  构造函数
         /// </summary>
@@ -105,6 +104,7 @@ namespace OSS.Common.ComModels
 
         /// <summary>
         /// 微信接口配置
+        ///  优先级： 上下文设置  =》 实例设置 =》 默认设置
         /// </summary>
         public TConfigType ApiConfig
         {
@@ -154,6 +154,45 @@ namespace OSS.Common.ComModels
         {
             return null;
         }
+
+        /// <summary>
+        ///  配置模式    
+        /// </summary>
+        public ConfigProviderMode ConfigMode
+        {
+            get
+            {
+                if (_contextConfig.Value != null)
+                {
+                    return ConfigProviderMode.Context;
+                }
+                return _config != null ? ConfigProviderMode.Instance : ConfigProviderMode.Default;
+            }
+        }
+    }
+
+    /// <summary>
+    ///  配置的提供方式
+    /// </summary>
+    public enum ConfigProviderMode
+    {
+        /// <summary>
+        ///  实例构造函数设置
+        /// </summary>
+        Instance,
+
+
+        /// <summary>
+        ///  上下文设置
+        /// </summary>
+        Context,
+
+
+        /// <summary>
+        /// 默认配置
+        /// </summary>
+        Default
+
     }
 
 }
