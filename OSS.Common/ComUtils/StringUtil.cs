@@ -39,7 +39,7 @@ namespace OSS.Common.ComUtils
             var num = new StringBuilder(length);
             for (var i = 0; i < length; i++)
             {
-                num.Append(_arrChar[_rnd.Next(0, 59)].ToString());
+                num.Append(_arrChar[_rnd.Next(0, 59)]);
             }
             return num.ToString();
         }
