@@ -22,12 +22,15 @@ namespace OSS.Common.ComUtils
     {
 
         private static readonly Random _rnd = new Random();
-        private static readonly char[] _arrChar = {
+        private static readonly char[] _arrChar =
+        {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            'a', 'b', 'd', 'c', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 'q', 's', 't', 'u', 'v',
-            'w', 'z', 'y', 'x',
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Q', 'P', 'R', 'T', 'S', 'V', 'U',
-            'W', 'X', 'Y', 'Z'
+            'a', 'b', 'd', 'c', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'p', 'r', 'q', 's', 't', 'u',
+            'v', 'w', 'z', 'y', 'x',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'Q', 'P', 'R', 'T', 'S', 'V',
+            'U', 'W', 'X', 'Y', 'Z'
         };
 
         /// <summary>
