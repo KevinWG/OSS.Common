@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OSS.Common.ComUtils;
 using OSS.Common.Extention;
 
 namespace OSS.Common.Tests
@@ -35,6 +36,15 @@ namespace OSS.Common.Tests
             var date1 = seconds1.FromUtcSeconds();
             var date2 = new DateTime(1970, 1, 1).AddSeconds(seconds2).ToLocalTime();
             var date3 = seconds3.FromLocalSeconds();
+        }
+
+        [TestMethod]
+        public void StringTest()
+        {
+            long testNum = 1215415415;
+            var code = testNum.ToCode();
+            var num = code.ToCodeNum();
+
         }
 
 
