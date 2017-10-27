@@ -35,7 +35,7 @@ namespace OSS.Common.ComUtils
         /// <summary>
         ///  当前的工作id 最大值不能超过（2的11次方 - 1）
         /// </summary>
-        public long WorkId { get; private set; }
+        public long WorkId { get; }
 
         // 【Timestamp部分】
         const int timestampLeftShift = sequenceBitLength + workerIdBitLength;
@@ -71,7 +71,7 @@ namespace OSS.Common.ComUtils
                 //毫秒内序列溢出
                 //阻塞到下一个毫秒,获得新的时间戳
                 if (sequence == 0)
-                    timestamp = tilNextMillis();
+                    timestamp = WaitNextMillis();
             }
             //时间戳改变，毫秒内序列重置
             else
@@ -88,7 +88,7 @@ namespace OSS.Common.ComUtils
         ///  当前毫秒内序列使用完，等待下一毫秒
         /// </summary>
         /// <returns></returns>
-        protected long tilNextMillis()
+        protected long WaitNextMillis()
         {
             long timeTicks;
             do
