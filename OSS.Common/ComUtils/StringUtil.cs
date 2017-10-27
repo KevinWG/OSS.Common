@@ -104,14 +104,10 @@ namespace OSS.Common.ComUtils
 
                 value <<= 5;
                 if (count == 13 && i == 12)
-                {
-                    // 最高位只有两位
-                    value = value ^ (num & 0x03);
-                }
+                    value = value ^ (num & 0x03);     // 最高位只有两位
                 else
-                {
                     value = value ^ num;
-                }
+                
             }
             return value;
 
