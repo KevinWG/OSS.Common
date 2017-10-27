@@ -61,6 +61,7 @@ namespace OSS.Common.ComUtils
 
         // 排除【0，O】I 4 这类
         private const string _arrCodeStr = "12356789ABCDEFGHJKLMNPQRSTUVWXYZ";
+
         /// <summary>
         /// 数字转化为短码
         /// </summary>
@@ -69,15 +70,16 @@ namespace OSS.Common.ComUtils
         public static string ToCode(this long num)
         {
             const long codeTemp = 0x1F;
-            var code = string.Empty;
+            var code = new StringBuilder(13);
+
             while (num > 0)
             {
                 var index = num & codeTemp;
+                code.Append(_arrCodeStr[(int) index]);
 
-                code += _arrCodeStr[(int) index];
                 num >>= 5;
             }
-            return code;
+            return code.ToString();
         }
 
         /// <summary>
