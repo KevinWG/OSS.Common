@@ -57,6 +57,65 @@ namespace OSS.Common.ComUtils
             }
             return num.ToString();
         }
+
+
+        // 排除【0，O】I 4 这类
+        private const string _arrCodeStr = "12356789ABCDEFGHJKLMNPQRSTUVWXYZ";
+
+        /// <summary>
+        /// 数字转化为短码
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToCode(this long num)
+        {
+            const long codeTemp = 0x1F;
+            var code = new StringBuilder(13);
+
+            while (num > 0)
+            {
+                var index = num & codeTemp;
+                code.Append(_arrCodeStr[(int) index]);
+
+                num >>= 5;
+            }
+            return code.ToString();
+        }
+
+        /// <summary>
+        /// 根据短码反推数字
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static long ToCodeNum(this string code)
+        {
+            if (string.IsNullOrEmpty(code))
+                return 0;
+            var count = code.Length ;
+            if (count > 13)
+                throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
+
+            long value = 0;
+            for (var i = count-1; i >=0 ; i--)
+            {
+                var num = _arrCodeStr.IndexOf(code[i]);
+                if (num<0)
+                    throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
+
+                value <<= 5;
+                if (count == 13 && i == 12)
+                {
+                    // 最高位只有两位
+                    value = value ^ (num & 0x03);
+                }
+                else
+                {
+                    value = value ^ num;
+                }
+            }
+            return value;
+
+        }
     }
 
 
