@@ -36,7 +36,7 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static string RandomStr(int length=8)
         {
-            var num = new StringBuilder();
+            var num = new StringBuilder(length);
             for (var i = 0; i < length; i++)
             {
                 num.Append(_arrChar[_rnd.Next(0, 59)].ToString());
@@ -50,7 +50,7 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static string RandomNum(int length=4)
         {
-            var num = new StringBuilder();
+            var num = new StringBuilder(length);
             for (var i = 0; i < length; i++)
             {
                 num.Append(_rnd.Next(0, 9));
