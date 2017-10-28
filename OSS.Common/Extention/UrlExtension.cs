@@ -12,10 +12,8 @@ namespace OSS.Common.Extention
         /// </summary>
         public static string UrlEncode(this string input)
         {
-            if (string.IsNullOrEmpty(input))
-                return string.Empty;
-            
-            return Uri.EscapeDataString(input);
+            return string.IsNullOrEmpty(input)
+                ? string.Empty : Uri.EscapeDataString(input);
         }
 
         /// <summary>
@@ -23,10 +21,8 @@ namespace OSS.Common.Extention
         /// </summary>
         public static string UrlEncode(this object input)
         {
-            if (input==null)
-                return string.Empty;
-
-            return Uri.EscapeDataString(input.ToString());
+            return input==null ? string.Empty 
+                : Uri.EscapeDataString(input.ToString());
         }
 
         /// <summary>
@@ -34,10 +30,7 @@ namespace OSS.Common.Extention
         /// </summary>
         public static string UrlDecode(this string input)
         {
-            if (string.IsNullOrEmpty(input))
-                return string.Empty;
-
-            return Uri.UnescapeDataString(input);
+            return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
         }
 
     }

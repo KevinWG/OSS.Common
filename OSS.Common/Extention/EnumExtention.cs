@@ -23,28 +23,27 @@ namespace OSS.Common.Extention
         public static string GetDesp(this Enum en, bool isFlag = false, string operate = ",")
         {
             var values = en.GetType().ToEnumDirs();
-            int current = (int) Enum.Parse(en.GetType(), en.ToString());
+            var current = (int) Enum.Parse(en.GetType(), en.ToString());
             
             if (isFlag)
             {
-                StringBuilder strResult = new StringBuilder();
+                var strResult = new StringBuilder();
 
                 foreach (var value in values)
                 {
-                    int tempKey = value.Key.ToInt32();
-                    if ((tempKey & current) == tempKey)
+                    var tempKey = value.Key.ToInt32();
+                    if ((tempKey & current) != tempKey) continue;
+
+                    if (strResult.Length != 0)
                     {
-                        if (strResult.Length != 0)
-                        {
-                            strResult.Append(operate);
-                        }
-                        strResult.Append(value.Value);
+                        strResult.Append(operate);
                     }
+                    strResult.Append(value.Value);
                 }
                 return strResult.ToString();
             }
 
-            KeyValuePair<string, string> keypair = values.FirstOrDefault(e => e.Key == current.ToString());
+            var keypair = values.FirstOrDefault(e => e.Key == current.ToString());
             return keypair.Key == null ? "不存在的枚举值" : keypair.Value;
         }
         
@@ -66,9 +65,8 @@ namespace OSS.Common.Extention
 #endif
                 throw new ArgumentException("获取枚举字典，参数必须是枚举类型！");
             
-            string key = string.Concat(enType.FullName, isIntValue);
-            Dictionary<string, string> dirs;
-            enumDirs.TryGetValue(key, out dirs);
+            var key = string.Concat(enType.FullName, isIntValue);
+            enumDirs.TryGetValue(key, out var dirs);
 
             if (dirs != null)
                 return dirs.Copy();
@@ -79,7 +77,7 @@ namespace OSS.Common.Extention
             foreach (var value in values)
             {
                 var name = Enum.GetName(enType, value);
-                string resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
+                var resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
 #if NETFW
                 var attr = enType.GetField(name)?.GetCustomAttribute<OSDescriptAttribute>();
 #else

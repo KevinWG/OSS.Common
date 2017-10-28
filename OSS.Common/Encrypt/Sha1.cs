@@ -37,13 +37,12 @@ namespace OSS.Common.Encrypt
             var data = encoding.GetBytes(input);
             var encryData = Encrypt(data);
 
-            var sBuilder = new StringBuilder();
+            var sBuilder = new StringBuilder(encryData.Length*2);
             foreach (var t in encryData)
             {
                 sBuilder.Append(t.ToString("x2"));
             }
-
-            // Return the hexadecimal string.
+            
             return sBuilder.ToString();
 
         }
@@ -64,9 +63,6 @@ namespace OSS.Common.Encrypt
                 return sha1Hash.ComputeHash(bytes);
             }
         }
-
-
-
-
+        
     }
 }

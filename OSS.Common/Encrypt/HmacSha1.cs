@@ -36,7 +36,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes, bytes);
+            var resultbytes = Encrypt(keyBytes, bytes);
 
             return Convert.ToBase64String(resultbytes);
         }
@@ -48,7 +48,7 @@ namespace OSS.Common.Encrypt
         /// <param name="key"></param>
         /// <param name="encoding">如果为空，则默认Utf-8</param>
         /// <returns></returns>
-        public static string EncryptUtf8(string data, string key, Encoding encoding = null)
+        public static string Encrypt(string data, string key, Encoding encoding = null)
         {
             if (encoding == null)
                 encoding = Encoding.UTF8;
@@ -56,9 +56,9 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes, bytes);
+            var resultbytes = Encrypt(keyBytes, bytes);
 
-            return Encoding.UTF8.GetString(resultbytes);
+            return encoding.GetString(resultbytes);
         }
 
 
@@ -100,7 +100,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes, bytes);
+            var resultbytes = Encrypt(keyBytes, bytes);
 
             return Convert.ToBase64String(resultbytes);
         }
@@ -113,7 +113,7 @@ namespace OSS.Common.Encrypt
         /// <param name="encoding">如果为空，则默认Utf-8</param>
         /// <param name="encryType">HMAC加密类型：SHA1，SHA256，SHA384，SHA512，MD5</param>
         /// <returns></returns>
-        public static string EncryptUtf8(string data, string key, Encoding encoding = null, string encryType = "SHA1")
+        public static string Encrypt(string data, string key, Encoding encoding = null, string encryType = "SHA1")
         {
             if (encoding == null)
                 encoding = Encoding.UTF8;
@@ -121,9 +121,9 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            byte[] resultbytes = Encrypt(keyBytes, bytes);
+            var resultbytes = Encrypt(keyBytes, bytes);
 
-            return Encoding.UTF8.GetString(resultbytes);
+            return encoding.GetString(resultbytes);
         }
 
 
