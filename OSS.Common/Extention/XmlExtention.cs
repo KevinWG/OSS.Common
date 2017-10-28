@@ -28,7 +28,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static string SerializeToXml(this object t)
         {
-            string result = string.Empty;
+            string result;
             MemoryStream stream = null;
             StreamReader streamReader = null;
             try
@@ -69,7 +69,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static object DeserializeXml(this string xml, Type type)
         {
-            object result = null;
+            object result;
             MemoryStream stream = null;
             StreamWriter writer = null;
             try

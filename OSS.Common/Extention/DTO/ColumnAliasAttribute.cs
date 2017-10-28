@@ -32,8 +32,7 @@ namespace OSS.Common.Extention.DTO
             _alias = alias;
         }
     }
-
-
+    
     /// <summary>
     /// 别名属性
     /// </summary>
@@ -105,9 +104,7 @@ namespace OSS.Common.Extention.DTO
         /// </summary>
         public bool is_ignore => _IsIgnore;
     }
-
-
-
+    
     /// <summary>
     ///   列属性信息
     /// </summary>

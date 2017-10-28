@@ -21,11 +21,8 @@ namespace OSS.Common.Extention
     /// </summary>
     public static class ConvertExtention
     {
-        
-
         #region  字符串数字转化部分
-
-
+        
         /// <summary>
         /// 字符串转化成无符号整形
         /// </summary>
@@ -157,11 +154,7 @@ namespace OSS.Common.Extention
         {
             return obj?.ToString().ToInt32() ?? defaultValue;
         }
-
-
-
-
-
+        
         /// <summary>
         /// 字符串转化成数字
         /// </summary>
@@ -318,8 +311,7 @@ namespace OSS.Common.Extention
         {
             return baseString.Replace('-', '+').Replace('_', '/');
         }
-
-
+        
         #endregion
 
         #region Filter

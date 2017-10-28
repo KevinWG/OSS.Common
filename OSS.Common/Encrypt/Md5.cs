@@ -27,13 +27,9 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static string HalfEncryptHexString(string input)
         {
-            string result = EncryptHexString(input);
+            var result = EncryptHexString(input);
 
-            if (!string.IsNullOrEmpty(result))
-            {
-                return result.Substring(0, 16);
-            }
-            return result;
+            return !string.IsNullOrEmpty(result) ? result.Substring(0, 16) : result;
         }
 
 
@@ -54,13 +50,12 @@ namespace OSS.Common.Encrypt
             var data = encoding.GetBytes(input);
             var encryData = Encrypt(data);
 
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < encryData.Length; i++)
+            var sBuilder = new StringBuilder(encryData.Length*2);
+            for (var i = 0; i < encryData.Length; i++)
             {
                 sBuilder.Append(encryData[i].ToString("x2"));
             }
-
-            // Return the hexadecimal string.
+            
             return sBuilder.ToString();
 
         }
@@ -76,7 +71,7 @@ namespace OSS.Common.Encrypt
             if (bytes == null || bytes.Length == 0)
                 throw new ArgumentNullException("bytes","MD5加密的字节不能为空！");
             
-            using (MD5 md5Hash = MD5.Create())
+            using (var md5Hash = MD5.Create())
             {
                 return md5Hash.ComputeHash(bytes);
             }

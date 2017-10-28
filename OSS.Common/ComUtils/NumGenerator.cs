@@ -99,7 +99,8 @@ namespace OSS.Common.ComUtils
             return timeTicks;
         }
 
-        private static readonly long timeStartTicks = new DateTime(2015, 1, 1).Ticks;
+
+        private static readonly long timeStartTicks = new DateTime(2017, 10, 1).Ticks;
 
         /// <summary>
         /// 获取时间戳

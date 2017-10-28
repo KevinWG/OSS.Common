@@ -29,7 +29,7 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static string Encrypt(string toEncrypt, string key, Encoding encoding = null)
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("key", "key值不能为空");
@@ -40,8 +40,8 @@ namespace OSS.Common.Encrypt
             if (encoding == null)
                 encoding = Encoding.UTF8;
             
-            byte[] keyArray = encoding.GetBytes(key); // ToByte(key);
-            byte[] toEncryptArray = encoding.GetBytes(toEncrypt);
+            var keyArray = encoding.GetBytes(key); // ToByte(key);
+            var toEncryptArray = encoding.GetBytes(toEncrypt);
             var resultArray = Encrypt(keyArray, toEncryptArray);
             result = Convert.ToBase64String(resultArray);
 
@@ -62,7 +62,7 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray, byte[] iv = null, int keySize = 256, int blockSize = 128, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
         {
-            using (Aes rDel = Aes.Create())
+            using (var rDel = Aes.Create())
             {
                 rDel.KeySize = keySize;
                 rDel.BlockSize = blockSize;
@@ -76,8 +76,8 @@ namespace OSS.Common.Encrypt
                 rDel.Mode = cipherMode;
                 rDel.Padding = paddingMode;
 
-                ICryptoTransform cTransform = rDel.CreateEncryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                var cTransform = rDel.CreateEncryptor();
+                var resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 return resultArray;
             }
         }
@@ -92,7 +92,7 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static string Decrypt(string toDecrypt, string key, Encoding encoding = null)
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("key", "key值不能为空");
@@ -103,8 +103,8 @@ namespace OSS.Common.Encrypt
             if (encoding == null)
                 encoding = Encoding.UTF8;
 
-            byte[] keyArray = encoding.GetBytes(key); // ToByte(key);
-            byte[] toEncryptArray = Convert.FromBase64String(toDecrypt); // ToByte(toDecrypt);
+            var keyArray = encoding.GetBytes(key); // ToByte(key);
+            var toEncryptArray = Convert.FromBase64String(toDecrypt); // ToByte(toDecrypt);
             var resultArray = Decrypt(keyArray, toEncryptArray);
             result = encoding.GetString(resultArray);
 
@@ -125,7 +125,7 @@ namespace OSS.Common.Encrypt
         /// <returns></returns>
         public static byte[] Decrypt(byte[] keyArray, byte[] toEncryptArray,byte[] iv=null,int keySize=256,int blockSize=128, CipherMode cipherMode= CipherMode.ECB, PaddingMode paddingMode= PaddingMode.PKCS7)
         {
-            using (Aes rDel =Aes.Create())
+            using (var rDel =Aes.Create())
             {
                 rDel.KeySize = keySize;
                 rDel.BlockSize = blockSize;
@@ -139,34 +139,10 @@ namespace OSS.Common.Encrypt
                     rDel.IV = iv;
                 }
 
-                ICryptoTransform cTransform = rDel.CreateDecryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                var cTransform = rDel.CreateDecryptor();
+                var resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 return resultArray;
             }
         }
-
-
-        //private static string HEX = "0123456789abcdef";
-        //private static string ToText(byte[] buf)
-        //{
-        //    if (buf == null)
-        //        return string.Empty;
-        //    StringBuilder builder = new StringBuilder();
-        //    for (int i = 0; i < buf.Length; i++)
-        //    {
-        //        builder.Append(HEX[(buf[i] >> 4) & 0x0f]).Append(HEX[buf[i] & 0x0f]);
-        //    }
-        //    return builder.ToString();
-        //}
-        //private static byte[] ToByte(String hexString)
-        //{
-        //    int len = hexString.Length / 2;
-        //    byte[] result = new byte[len];
-        //    for (int i = 0; i < len; i++)
-        //    {
-        //        result[i] = Convert.ToByte(Convert.ToInt32(hexString.Substring(2 * i, 2), 16));
-        //    }
-        //    return result;
-        //}
     }
 }

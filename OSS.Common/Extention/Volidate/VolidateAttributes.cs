@@ -46,7 +46,7 @@ namespace OSS.Common.Extention.Volidate
         }
         internal override bool Validate(string propertyName, object propertyValue)
         {
-            bool result=propertyValue != null && propertyValue.ToString() != string.Empty;
+            var result=propertyValue != null && propertyValue.ToString() != string.Empty;
             if (!result)
             {
                 errorMessage = errorMessage ??string.Format("请输入 {0} 信息", propertyName);
@@ -59,7 +59,9 @@ namespace OSS.Common.Extention.Volidate
     /// </summary>
     public class OsNumberAttribute : BaseValidateAttribute
     {
-        private long min, max;
+        private readonly long min;
+        private readonly long max;
+
         /// <summary>
         /// 
         /// </summary>
@@ -85,9 +87,8 @@ namespace OSS.Common.Extention.Volidate
                 errorMessage = errorMessage ?? string.Format("{0} 的值 不能为空！", propertyName);
                 return false;
             }
-            bool isOkay = false;
-            long longValue = 0;
-            if (long.TryParse(propertyValue.ToString(), out longValue))
+            var isOkay = false;
+            if (long.TryParse(propertyValue.ToString(), out var longValue))
             {
                 isOkay= min <= longValue&& longValue <= max;
                 errorMessage = isOkay

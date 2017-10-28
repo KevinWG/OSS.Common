@@ -24,8 +24,8 @@ namespace OSS.Common.Tests
 
         public static void SysAuth()
         {
-            string key = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            AppAuthorizeInfo appInfo = new AppAuthorizeInfo();
+            var key = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            var appInfo = new SysAuthorizeInfo();
             appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;");
 
             var newSignData = appInfo.ToSignData(key);
@@ -44,9 +44,9 @@ namespace OSS.Common.Tests
 
 
         [TestMethod]
-        public void Test()
+        public void Sha1Test()
         {
-            string str = LogUtil.Info("test");
+            string str1 = Sha1.Encrypt("这是一个测试");
         }
 
         [TestMethod]

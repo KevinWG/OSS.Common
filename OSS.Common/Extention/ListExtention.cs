@@ -18,7 +18,7 @@ namespace OSS.Common.Extention
         /// <returns>返回合并后的目标对象 - 排除重复项</returns>
         public static IList<T> Merged<T>(this IList<T> target, IList<T> source, Func<IList<T>, T, bool> func)
         {
-            foreach (T t in source)
+            foreach (var t in source)
             {
                 if (func(target, t))
                 {
