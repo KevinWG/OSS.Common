@@ -105,15 +105,9 @@ namespace OSS.Common.ComUtils
                 if (num<0)
                     throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
 
-                value <<= 5;
-                if (i == 12)
-                    value = value ^ (num & 0x0F); // 最高位只有四位
-                else
-                    value = value ^ num;
-                
+                value = value ^ num;
             }
             return value;
-
         }
     }
 
