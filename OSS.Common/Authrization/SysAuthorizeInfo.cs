@@ -59,7 +59,7 @@ namespace OSS.Common.Authrization
                         AppClient = val;
                         break;
                     case "tenant_id":
-                        TenantId = val;
+                        TenantId = val.ToInt64();
                         break;
 
                     case "sign":
@@ -102,7 +102,10 @@ namespace OSS.Common.Authrization
             AddSignDataValue("ip_address", IpAddress, separator, strTicketParas);
 
             AddSignDataValue("pro_code", ProCode, separator, strTicketParas);
-            AddSignDataValue("tenant_id", TenantId, separator, strTicketParas);
+            if (TenantId>0)
+            {
+                AddSignDataValue("tenant_id", TenantId.ToString(), separator, strTicketParas);
+            }
             AddSignDataValue("timespan", TimeSpan.ToString(), separator, strTicketParas);
             AddSignDataValue("token", Token, separator, strTicketParas);
             AddSignDataValue("web_browser", WebBrowser, separator, strTicketParas);
@@ -170,7 +173,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///  租户ID  
         /// </summary>
-        public string TenantId { get; set; }
+        public long TenantId { get; set; }
 
         /// <summary>
         ///  推广码
@@ -218,7 +221,7 @@ namespace OSS.Common.Authrization
                         IpAddress = val;
                         break;
                     case "tid":
-                        TenantId = val;
+                        TenantId = val.ToInt64();
                         break;
                     case "pc":
                         ProCode = val;
@@ -316,7 +319,10 @@ namespace OSS.Common.Authrization
             AddSignDataValue("ip", IpAddress, separator, strTicketParas);
 
             AddSignDataValue("pc", ProCode, separator, strTicketParas);
-            AddSignDataValue("tid", TenantId, separator, strTicketParas);
+            if (TenantId>0)
+            {
+                AddSignDataValue("tid", TenantId.ToString(), separator, strTicketParas);
+            }
             AddSignDataValue("ts", TimeSpan.ToString(), separator, strTicketParas);
             AddSignDataValue("tn", Token, separator, strTicketParas);
             AddSignDataValue("wb", WebBrowser, separator, strTicketParas);

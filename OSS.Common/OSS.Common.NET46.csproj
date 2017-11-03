@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1B7D6819-AB3E-47FF-8911-7BE29691C859}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OSS.Common</RootNamespace>
+    <AssemblyName>OSS.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFW</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\OSS.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net46\</OutputPath>
+    <DefineConstants>TRACE;NETFW</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\net46\OSS.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authrization\MemberShiper.cs" />
+    <Compile Include="Authrization\SysAuthorizeInfo.cs" />
+    <Compile Include="ComModels\AppConfig.cs" />
+    <Compile Include="ComModels\Enums\ResultTypes.cs" />
+    <Compile Include="ComModels\Enums\SortType.cs" />
+    <Compile Include="ComModels\PageMo.cs" />
+    <Compile Include="ComModels\ResultMo.cs" />
+    <Compile Include="ComUtils\ConfigUtil.cs" />
+    <Compile Include="ComUtils\InsContainer.cs" />
+    <Compile Include="ComUtils\NumGenerator.cs" />
+    <Compile Include="ComUtils\StringUtil.cs" />
+    <Compile Include="ComUtils\TypeUtil.cs" />
+    <Compile Include="Encrypt\AesRijndael.cs" />
+    <Compile Include="Encrypt\HmacSha1.cs" />
+    <Compile Include="Encrypt\Md5.cs" />
+    <Compile Include="Encrypt\Sha1.cs" />
+    <Compile Include="Extention\ConvertExtention.cs" />
+    <Compile Include="Extention\DateTimeExtention.cs" />
+    <Compile Include="Extention\DTO\ColumnAliasAttribute.cs" />
+    <Compile Include="Extention\EnumExtention.cs" />
+    <Compile Include="Extention\ListExtention.cs" />
+    <Compile Include="Extention\TaskExtention.cs" />
+    <Compile Include="Extention\UrlExtension.cs" />
+    <Compile Include="Extention\Volidate\VolidateAttributes.cs" />
+    <Compile Include="Extention\Volidate\VolidateExtention.cs" />
+    <Compile Include="Extention\XmlExtention.cs" />
+    <Compile Include="OSConfig.cs" />
+    <Compile Include="Plugs\CachePlug\CacheUtil.cs" />
+    <Compile Include="Plugs\CachePlug\DefaultCachePlug.cs" />
+    <Compile Include="Plugs\CachePlug\ICachePlug.cs" />
+    <Compile Include="Plugs\DirConfigPlug\DefaultDirConfigPlug.cs" />
+    <Compile Include="Plugs\DirConfigPlug\DirConfigUtil.cs" />
+    <Compile Include="Plugs\DirConfigPlug\IDirConfigPlug.cs" />
+    <Compile Include="Plugs\LogPlug\DefaultLogPlug.cs" />
+    <Compile Include="Plugs\LogPlug\ILogPlug.cs" />
+    <Compile Include="Plugs\LogPlug\LogUtil.cs" />
+    <Compile Include="Plugs\ModuleNames.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
