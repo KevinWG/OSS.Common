@@ -90,7 +90,8 @@ namespace OSS.Common.Plugs.CachePlug
         public T Get<T>(string key)
         {
 #if NETFW
-            return (T)MemoryCache.Default.Get(key);
+            var val= MemoryCache.Default.Get(key) ;
+            return val == null ? default(T) : (T) val;
 #else
             return m_Cache.Get<T>(key);
 #endif
@@ -105,9 +106,9 @@ namespace OSS.Common.Plugs.CachePlug
         public bool Remove(string key)
         {
 #if NETFW
-             return MemoryCache.Default.Remove(key)!=null;
+            return MemoryCache.Default.Remove(key) != null;
 #else
-             m_Cache.Remove(key);
+            m_Cache.Remove(key);
             return true;
 #endif
         }

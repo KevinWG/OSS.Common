@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.2.5.3</Version>
+    <Version>1.2.5.6</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -13,9 +13,10 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <AssemblyVersion>1.2.5.3</AssemblyVersion>
-    <FileVersion>1.2.5.3</FileVersion>
+    <PackageReleaseNotes>1.优化TenantId至值类型
+2.修复Cache插件在Framework下Get&lt;long&gt;为空时的转化异常</PackageReleaseNotes>
+    <AssemblyVersion>1.2.5.6</AssemblyVersion>
+    <FileVersion>1.2.5.6</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>

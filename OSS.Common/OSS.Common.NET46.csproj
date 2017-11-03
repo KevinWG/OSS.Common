@@ -64,7 +64,6 @@
     <Compile Include="Extention\ConvertExtention.cs" />
     <Compile Include="Extention\DateTimeExtention.cs" />
     <Compile Include="Extention\DTO\ColumnAliasAttribute.cs" />
-    <Compile Include="Extention\DTO\DTOExtetion.cs" />
     <Compile Include="Extention\EnumExtention.cs" />
     <Compile Include="Extention\ListExtention.cs" />
     <Compile Include="Extention\TaskExtention.cs" />
