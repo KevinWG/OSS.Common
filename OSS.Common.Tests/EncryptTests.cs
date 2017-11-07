@@ -15,13 +15,6 @@ namespace OSS.Common.Tests
         {
         }
 
-
-        [TestMethod]
-        public void DirConfigTest()
-        {
-            LogUtil.Info("s");
-        }
-
         public static void SysAuth()
         {
             var key = Guid.NewGuid().ToString().Replace("-", string.Empty);

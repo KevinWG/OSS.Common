@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.2.5.7</Version>
+    <Version>1.2.6.0</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -14,9 +14,11 @@
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
     <PackageReleaseNotes>1. 优化HMAC未覆盖的算法
-2. 随机数算法添加启动seed</PackageReleaseNotes>
-    <AssemblyVersion>1.2.5.7</AssemblyVersion>
-    <FileVersion>1.2.5.7</FileVersion>
+2. 随机数算法添加启动seed
+3. 默认日志功能添加错误Code
+</PackageReleaseNotes>
+    <AssemblyVersion>1.2.6.0</AssemblyVersion>
+    <FileVersion>1.2.6.0</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>

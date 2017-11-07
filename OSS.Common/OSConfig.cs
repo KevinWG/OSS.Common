@@ -40,6 +40,6 @@ namespace OSS.Common
         public static Func<string, IDirConfigPlug> DirConfigProvider { get; set; }
         #endregion
 
-
+        internal static readonly long TimeStartTicks =new DateTime(2017, 10, 1).Ticks;
     }
 }

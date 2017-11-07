@@ -25,10 +25,9 @@ namespace OSS.Common.Plugs.LogPlug
         void WriteLog(LogInfo info);
 
         /// <summary>
-        /// 获取全局唯一日志编码
-        /// 主要用于后期排查
+        ///   设置日志编号
         /// </summary>
-        /// <returns></returns>
-        string GetLogCode(LogInfo info);
+        /// <param name="info"></param>
+        void SetLogCode(LogInfo info);
     }
 }
