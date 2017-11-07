@@ -21,7 +21,7 @@ namespace OSS.Common.ComUtils
     public static class StringUtil
     {
 
-        private static readonly Random _rnd = new Random();
+        private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
         private static readonly char[] _arrChar =
         {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',

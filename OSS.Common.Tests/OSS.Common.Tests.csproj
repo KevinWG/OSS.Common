@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncryptTests.cs" />
-    <Compile Include="CacheTests.cs" />
     <Compile Include="ExtentionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
