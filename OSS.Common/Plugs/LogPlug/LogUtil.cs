@@ -169,13 +169,13 @@ namespace OSS.Common.Plugs.LogPlug
                 info.ModuleName = ModuleNames.Default;
 
             var logWrite = GetLogWrite(info.ModuleName);
-            info.LogCode = logWrite.GetLogCode(info);
+            logWrite.SetLogCode(info);
 
             Task.Run(() => logWrite.WriteLog(info));
 
             return info.LogCode;
         }
 
-     
+
     }
 }

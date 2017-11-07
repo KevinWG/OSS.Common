@@ -23,7 +23,7 @@ namespace OSS.Common.ComUtils
         // 符号位(1位) + Timestamp(41位) + WorkId(10位) + sequence(12位)  = 编号Id (64位)
 
         //【sequence 部分】  随机序列  12位
-        static long sequence = 0L;
+        long sequence = 0L;
         const long maxSequence = -1L ^ (-1L << sequenceBitLength);
         const int sequenceBitLength = 12;
 
@@ -99,16 +99,13 @@ namespace OSS.Common.ComUtils
             return timeTicks;
         }
 
-
-        private static readonly long timeStartTicks = new DateTime(2017, 10, 1).Ticks;
-
         /// <summary>
         /// 获取时间戳
         /// </summary>
         /// <returns></returns>
         private static long GetTimestamp()
         {
-            return (DateTime.UtcNow.Ticks - timeStartTicks) / 10000;
+            return (DateTime.UtcNow.Ticks - OsConfig.TimeStartTicks) / 10000;
         }
     }
 

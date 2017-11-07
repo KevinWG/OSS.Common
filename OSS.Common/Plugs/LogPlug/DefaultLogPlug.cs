@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using System.Text;
+using OSS.Common.ComUtils;
 
 namespace OSS.Common.Plugs.LogPlug
 {
@@ -23,7 +24,7 @@ namespace OSS.Common.Plugs.LogPlug
     public class DefaultLogPlug : ILogPlug
     {
         private readonly string _logBaseDirPath = null;
-        private const string _logFormat = "{0:T}       Key:{1}   Detail:{2}";
+        private const string _logFormat = "{0:T}    Code:{1}    Key:{2}   Detail:{3}";
 
         /// <summary>
         /// 构造函数
@@ -42,9 +43,11 @@ namespace OSS.Common.Plugs.LogPlug
 
         private string getLogFilePath(string module, LogLevelEnum level)
         {
-            string dirPath = string.Format(@"{0}\{1}\{2}\",_logBaseDirPath, module, level);
+            var dirPath = string.Format(@"{0}\{1}\{2}\",_logBaseDirPath, module, level);
+
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
+
             return string.Concat(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
         }
 
@@ -65,19 +68,24 @@ namespace OSS.Common.Plugs.LogPlug
                 using (StreamWriter sw = new StreamWriter(new FileStream(filePath,FileMode.Append,FileAccess.Write), Encoding.UTF8))
 #endif
                 {
-                    sw.WriteLine(format: _logFormat, arg0: DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), arg1: info.MsgKey, arg2: info.Msg);
+                    sw.WriteLine( _logFormat,
+                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                         info.LogCode,
+                         info.MsgKey,
+                         info.Msg);
                   
                 }
             }
         }
-
+        
         /// <summary>
         /// 生成错误编号
         /// </summary>
         /// <returns></returns>
-        public string GetLogCode(LogInfo info)
+        public void SetLogCode(LogInfo log)
         {
-            return Guid.NewGuid().ToString().Replace("-", "");
+            // 0.1 毫秒
+            log.LogCode=((DateTime.UtcNow.Ticks - OsConfig.TimeStartTicks) / 1000).ToCode();
         }
 
     }
