@@ -137,7 +137,7 @@ namespace OSS.Common.Encrypt
         private static byte[] Encrypt(byte[] key, byte[] bytes, string encryType = "SHA1")
         {
             byte[] resultbytes;
-            using (var hmac = GetCryptAlgorithm(key))
+            using (var hmac = GetCryptAlgorithm(key, encryType))
             {
                 resultbytes = hmac.ComputeHash(bytes);
             }
