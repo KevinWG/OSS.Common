@@ -54,6 +54,12 @@ namespace OSS.Common.ComModels.Enums
         /// </summary>
         ObjectStateError = 1420,
 
+
+        /// <summary>
+        ///  未知操作
+        /// </summary>
+        UnKnowOperate = 1422,
+        
         /// <summary>
         ///  未知来源
         /// </summary>
