@@ -51,7 +51,7 @@ namespace OSS.Common.Plugs.LogPlug
             return string.Concat(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
         }
 
-        private object obj = new object();
+        private readonly object obj = new object();
 
         /// <summary>
         /// 写日志
@@ -61,7 +61,7 @@ namespace OSS.Common.Plugs.LogPlug
         {
             lock (obj)
             {
-                string filePath = getLogFilePath(info.ModuleName, info.Level);
+                var filePath = getLogFilePath(info.ModuleName, info.Level);
 #if NETFW
                 using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.UTF8))
 #else
