@@ -1,5 +1,9 @@
 # OS.Common
 通用基础实现，当前是以标准库的形式提供，在net46分支下有标准库和Framework 4.6的两个版本实现
+
+如果有问题，也可以在公众号(osscoder)中提问:
+![osscoder](http://img1.static.osscoder.com/wei_qr.jpg)
+
 当前类库主要提供以下的内容：
 
 1. 基础用户系统设备信息实体定义。
@@ -10,6 +14,7 @@
 
 ## Authrization
 用户授权信息模块，可以在上下文中使用MemberShiper，其中主要包含两个属性：
+
 1. AppAuthorize 
 	对应的是应用授权信息主要是应用来源，客户端的类型等
 2. Identity 
@@ -19,18 +24,19 @@ MemberShiper 中提供了GetToken方法，方便加密用户Id，同时有一个对应的GetTokenDetai
 
 
 ## ComModels
-系统默认实体信息，分页实体 ， 结果实体，方便全局使用，
-其中结果实体ResultMo包含三个属性： 
-ret-状态码，在ResultTypes的枚举中已经把常见的状态信息做了简单定义，这些状态码和Http状态码基本相对应，
-	其中0表示为Success，同时定义了个IsSuccess()的方法扩展，此值为快速判断返回是否正确。
+系统默认实体信息如应用配置实体，分页实体，结果实体，方便全局使用
+其中结果实体ResultMo包含两个属性比较重要：
+ret-状态码，在ResultTypes的枚举中已经把常见的状态信息做了简单定义
+	其中0表示为Success，同时定义了个IsSuccess()的方法扩展，此值为快速判断返回是否正确
 msg-对应状态码的消息
 
 ## Encrypt
-系统加密基础库
-主要包含：md5（Md5）,aes（AesRijndael）,sha1（Sha1）,hmacsha1（HmacSha1-加盐sha1加密方式这几种加密算法
+系统加密基础库，主要包含：
+md5（Md5）,aes（AesRijndael）,sha1（Sha1）,hmac（HMACSHA）-加盐sha加密方式这几种加密算法
 
 ## Extention
 系统扩展方法，主要包含：
+
 字符串转化扩展，如： "0".ToInt32()，"xxx".Base64UrlEncode()等
 时间转化扩展，如：DateTime.Now.ToUtcSeconds() 等
 Task扩展方法，如： Task.WaitResult() 等
@@ -39,13 +45,13 @@ UrlCode扩展方法，如 "name=n&code=1".UrlEncode();
 xml序列化扩展方法， 如： "<xml><name>test</name></xml>".DeserializeXml<Type>();
 
 ## Plugs
-系统扩展模块和对应的默认实现，同时在Plugs目录下定义了ModuleNames类，含有系统常见模块。
+系统扩展模块和对应的默认实现，同时在Plugs目录下定义了ModuleNames类，含有系统常见模块
 如果你有高级定制需求，比如在系统不同模块使用插件的不同实现，可以在程序入口处定义指定模块名称对应的插件实现，而无需修改业务代码
 
 这里主要包含以下三种插件
 
 ### 一.CachePlug  
-缓存模块，内部定义了ICachePlug接口，和一个 DefaultCachePlug默认缓存实现，
+缓存模块，内部定义了ICachePlug接口，和一个 DefaultCachePlug默认缓存实现
 使用时，可以直接使用 CacheUtil 静态类下的方法，比如Set方法
 	
 	CacheUtil.Set("key","va",TimeSpan.FromHours(1),"moduleName")
