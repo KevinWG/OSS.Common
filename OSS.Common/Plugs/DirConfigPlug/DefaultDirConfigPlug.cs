@@ -66,7 +66,7 @@ namespace OSS.Common.Plugs.DirConfigPlug
 
                 var type = typeof(TConfig);
 
-                XmlSerializer xmlSer = new XmlSerializer(type);
+                var xmlSer = new XmlSerializer(type);
                 xmlSer.Serialize(fs, dirConfig);
 
                 result = new ResultMo();

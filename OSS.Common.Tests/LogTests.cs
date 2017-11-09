@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OSS.Common.Plugs.CachePlug;
 using OSS.Common.Plugs.LogPlug;
 
 namespace OSS.Common.Tests
