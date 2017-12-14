@@ -73,6 +73,7 @@
     <Compile Include="EncryptTests.cs" />
     <Compile Include="ExtentionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnmUtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

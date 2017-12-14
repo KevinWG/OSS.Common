@@ -85,7 +85,7 @@ namespace OSS.Common.Plugs.LogPlug
         public void SetLogCode(LogInfo log)
         {
             // 0.1 毫秒
-            log.LogCode=((DateTime.UtcNow.Ticks - OsConfig.TimeStartTicks) / 1000).ToCode();
+            log.LogCode=NumUtil.TimeMilliNum().ToCode();
         }
 
     }
