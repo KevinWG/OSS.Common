@@ -47,20 +47,6 @@ namespace OSS.Common.ComUtils
             return num.ToString();
         }
 
-        /// <summary>
-        /// 随机数字
-        /// </summary>
-        /// <returns></returns>
-        public static string RandomNum(int length=4)
-        {
-            var num = new StringBuilder(length);
-            for (var i = 0; i < length; i++)
-            {
-                num.Append(_rnd.Next(0, 9));
-            }
-            return num.ToString();
-        }
-
 
         // 排除【0，O】I 4 这类
         private const string _arrCodeStr = "12356789ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -104,8 +90,9 @@ namespace OSS.Common.ComUtils
                 var num = _arrCodeStr.IndexOf(code[i]);
                 if (num<0)
                     throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
-
-                value = value ^ num;
+                
+                value = (value << 5) ^ num;
+               
             }
             return value;
         }

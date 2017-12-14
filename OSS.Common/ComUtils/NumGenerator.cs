@@ -11,7 +11,9 @@
 
 #endregion
 
+using OSS.Common.Extention;
 using System;
+using System.Text;
 
 namespace OSS.Common.ComUtils
 {
@@ -23,7 +25,7 @@ namespace OSS.Common.ComUtils
         // 符号位(1位) + Timestamp(41位) + WorkId(10位) + sequence(12位)  = 编号Id (64位)
 
         //【sequence 部分】  随机序列  12位
-        long sequence = 0L;
+        long sequence;
         const long maxSequence = -1L ^ (-1L << sequenceBitLength);
         const int sequenceBitLength = 12;
 
@@ -53,14 +55,40 @@ namespace OSS.Common.ComUtils
             WorkId = workId;
         }
 
-        private long lastTimestamp = 0;
+        private long lastTimestamp;
+        /// <summary>
+        ///  生成下一个编号
+        /// </summary>
+        /// <returns></returns>
         public long NextNum()
         {
-            var timestamp = GetTimestamp();
+            var timestamp = GetTimestampAndSetSeq();
+            
+            return (timestamp << timestampLeftShift)
+                   | (WorkId << workerLeftShift)
+                   | sequence;
+        }
+
+        /// <summary>
+        ///  获取数字编号（排除机器位，直接是时间戳 + 自增序列）
+        /// </summary>
+        /// <returns></returns>
+        internal long GetNumWithoutWorker()
+        {
+            var timestamp = GetTimestampAndSetSeq();
+            
+            return (timestamp << sequenceBitLength)
+                   | sequence;
+        }
+
+        private long GetTimestampAndSetSeq()
+        {
+            var timestamp = NumUtil.TimeMilliNum();
             if (timestamp < lastTimestamp)
             {
                 //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-                throw new ArgumentException($"Clock moved backwards.  Refusing to generate id for {lastTimestamp - timestamp} milliseconds");
+                throw new ArgumentException(
+                    $"Clock moved backwards.  Refusing to generate id for {lastTimestamp - timestamp} milliseconds");
             }
 
             // 如果是同一时间生成的，则进行毫秒内序列
@@ -79,9 +107,7 @@ namespace OSS.Common.ComUtils
 
             //上次生成ID的时间截
             lastTimestamp = timestamp;
-            return (timestamp << timestampLeftShift)
-                   | (WorkId << workerLeftShift)
-                   | sequence;
+            return timestamp;
         }
 
         /// <summary>
@@ -93,37 +119,73 @@ namespace OSS.Common.ComUtils
             long timeTicks;
             do
             {
-                timeTicks = GetTimestamp();
+                timeTicks = NumUtil.TimeMilliNum(); 
             }
             while (timeTicks <= lastTimestamp);
             return timeTicks;
         }
 
-        /// <summary>
-        /// 获取时间戳
-        /// </summary>
-        /// <returns></returns>
-        private static long GetTimestamp()
-        {
-            return (DateTime.UtcNow.Ticks - OsConfig.TimeStartTicks) / 10000;
-        }
     }
 
     /// <summary>
     ///  唯一数字编码生成静态通用类
     /// </summary>
-    public class NumUtil
+    public static class NumUtil
     {
-        private static readonly NumGenerator generator = new NumGenerator(0);
+
+        private static readonly long _timeStartTicks = new DateTime(2017, 12, 1).ToUniversalTime().Ticks;
+        private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
+
+        private static readonly char[] _arrChar =
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
         /// <summary>
-        /// 单机生成唯一数字编号
+        /// 生成随机串
         /// </summary>
         /// <returns></returns>
-        public static long UniNum()
+        public static string RandomStr(int length = 8)
         {
-            return generator.NextNum();
+            var num = new StringBuilder(length);
+            for (var i = 0; i < length; i++)
+            {
+                num.Append(_arrChar[_rnd.Next(0, 59)]);
+            }
+            return num.ToString();
+        }
+        
+
+
+
+        private static readonly NumGenerator generator = new NumGenerator(0);
+        
+        /// <summary>
+        /// twitter 的snowflake唯一Id算法(排除机器位)
+        /// </summary>
+        /// <returns></returns>
+        public static long SnowNum()
+        {
+            return generator.GetNumWithoutWorker();
         }
 
+        /// <summary>
+        ///  时间戳数字编号（精度 毫秒
+        /// </summary>
+        /// <returns></returns>
+        public static long TimeMilliNum()
+        {
+            return (DateTime.UtcNow.Ticks - _timeStartTicks) / 10000;
+        }
 
+        /// <summary>
+        ///  时间戳（秒）+ 主编号的后四位 生成的数字编号
+        /// </summary>
+        /// <param name="mainNum"></param>
+        /// <returns></returns>
+        public static long SubTimeNum(long mainNum)
+        {
+            var suffixNum = mainNum % 10000;
+            return string.Concat(TimeMilliNum(), suffixNum).ToInt64();
+        }
+      
     }
 }

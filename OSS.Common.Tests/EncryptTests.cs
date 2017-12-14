@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Authrization;
+using OSS.Common.ComUtils;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
-using OSS.Common.Plugs.LogPlug;
 
 namespace OSS.Common.Tests
 {
@@ -35,7 +35,6 @@ namespace OSS.Common.Tests
             //        SearchModel() {});
         }
 
-
         [TestMethod]
         public void Sha1Test()
         {
@@ -50,6 +49,8 @@ namespace OSS.Common.Tests
             string result = AesRijndael.Encrypt("owxehuN4Ntt8Gx0AqBJ6O6Jv27Yg", key);
 
             string r = AesRijndael.Decrypt(result, key);
+
+            
 
         }
 

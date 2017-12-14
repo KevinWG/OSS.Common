@@ -41,8 +41,9 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void StringTest()
         {
-            long testNum = long.MaxValue;
+            var testNum = long.MaxValue;
             var code = testNum.ToCode();
+
             var num = code.ToCodeNum();
             Assert.IsTrue(num==testNum);
         }
