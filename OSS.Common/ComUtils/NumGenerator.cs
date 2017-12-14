@@ -26,11 +26,13 @@ namespace OSS.Common.ComUtils
 
         //【sequence 部分】  随机序列  12位
         long sequence;
+
         const long maxSequence = -1L ^ (-1L << sequenceBitLength);
         const int sequenceBitLength = 12;
 
         // 【WorkId部分】 工作Id 10位
         const long maxWorkerId = -1L ^ (-1L << workerIdBitLength);
+
         const int workerLeftShift = sequenceBitLength;
         const int workerIdBitLength = 10;
 
@@ -56,6 +58,7 @@ namespace OSS.Common.ComUtils
         }
 
         private long lastTimestamp;
+
         /// <summary>
         ///  生成下一个编号
         /// </summary>
@@ -63,7 +66,7 @@ namespace OSS.Common.ComUtils
         public long NextNum()
         {
             var timestamp = GetTimestampAndSetSeq();
-            
+
             return (timestamp << timestampLeftShift)
                    | (WorkId << workerLeftShift)
                    | sequence;
@@ -76,7 +79,7 @@ namespace OSS.Common.ComUtils
         internal long GetNumWithoutWorker()
         {
             var timestamp = GetTimestampAndSetSeq();
-            
+
             return (timestamp << sequenceBitLength)
                    | sequence;
         }
@@ -119,9 +122,8 @@ namespace OSS.Common.ComUtils
             long timeTicks;
             do
             {
-                timeTicks = NumUtil.TimeMilliNum(); 
-            }
-            while (timeTicks <= lastTimestamp);
+                timeTicks = NumUtil.TimeMilliNum();
+            } while (timeTicks <= lastTimestamp);
             return timeTicks;
         }
 
@@ -136,28 +138,23 @@ namespace OSS.Common.ComUtils
         private static readonly long _timeStartTicks = new DateTime(2017, 12, 1).ToUniversalTime().Ticks;
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
-        private static readonly char[] _arrChar =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-        /// <summary>
-        /// 生成随机串
-        /// </summary>
-        /// <returns></returns>
-        public static string RandomStr(int length = 8)
+      
+        /// <summary>		
+        /// 随机数字		
+        /// </summary>		
+        /// <returns></returns>		
+        public static string RandomNum(int length = 4)
         {
             var num = new StringBuilder(length);
             for (var i = 0; i < length; i++)
             {
-                num.Append(_arrChar[_rnd.Next(0, 59)]);
+                num.Append(_rnd.Next(0, 9));
             }
             return num.ToString();
         }
         
-
-
-
         private static readonly NumGenerator generator = new NumGenerator(0);
-        
+
         /// <summary>
         /// twitter 的snowflake唯一Id算法(排除机器位)
         /// </summary>
@@ -186,6 +183,6 @@ namespace OSS.Common.ComUtils
             var suffixNum = mainNum % 10000;
             return string.Concat(TimeMilliNum(), suffixNum).ToInt64();
         }
-      
+
     }
 }
