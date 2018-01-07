@@ -100,7 +100,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            var resultbytes = Encrypt(keyBytes, bytes);
+            var resultbytes = Encrypt(keyBytes, bytes, encryType);
 
             return Convert.ToBase64String(resultbytes);
         }
@@ -121,7 +121,7 @@ namespace OSS.Common.Encrypt
             var bytes = encoding.GetBytes(data);
             var keyBytes = encoding.GetBytes(key);
 
-            var resultbytes = Encrypt(keyBytes, bytes);
+            var resultbytes = Encrypt(keyBytes, bytes, encryType);
 
             return encoding.GetString(resultbytes);
         }
@@ -134,7 +134,7 @@ namespace OSS.Common.Encrypt
         /// <param name="bytes"></param>
         /// <param name="encryType">HMAC加密类型：SHA1，SHA256，SHA384，SHA512，MD5</param>
         /// <returns></returns>
-        private static byte[] Encrypt(byte[] key, byte[] bytes, string encryType = "SHA1")
+        public static byte[] Encrypt(byte[] key, byte[] bytes, string encryType = "SHA1")
         {
             byte[] resultbytes;
             using (var hmac = GetCryptAlgorithm(key, encryType))
@@ -144,7 +144,7 @@ namespace OSS.Common.Encrypt
             return resultbytes;
         }
 
-        private static HMAC GetCryptAlgorithm(byte[] key, string encryType = "SHA1")
+        private static HMAC GetCryptAlgorithm(byte[] key, string encryType )
         {
             switch (encryType)
             {
