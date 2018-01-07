@@ -56,7 +56,7 @@ namespace OSS.Common.Authrization
                         AppSource = val;
                         break;
                     case "app_client":
-                        AppClient = val;
+                        AppClient = val.ToInt32();
                         break;
                     case "tenant_id":
                         TenantId = val.ToInt64();
@@ -94,8 +94,9 @@ namespace OSS.Common.Authrization
         protected internal override StringBuilder GetSignContent(char separator)
         {
             var strTicketParas = new StringBuilder();
+            if (AppClient > 0)
+                AddSignDataValue("app_client", AppClient.ToString(), separator, strTicketParas);
 
-            AddSignDataValue("app_client", AppClient, separator, strTicketParas);
             AddSignDataValue("app_source", AppSource, separator, strTicketParas);
             AddSignDataValue("app_version", AppVersion, separator, strTicketParas);
             AddSignDataValue("device_id", DeviceId, separator, strTicketParas);
@@ -136,9 +137,14 @@ namespace OSS.Common.Authrization
 
         /// <summary>
         /// 应用客户端类型
-        /// iOS, Android,PC等用户自定义,可以参考 AppClientType
+        ///   用户自定义，也可使用 AppClientType
         /// </summary>
-        public string AppClient { get; set; }
+        public int AppClient { get; set; }
+
+        ///// <summary>
+        ///// 用户客户端类型
+        ///// </summary>
+        //public int UserClient { get; set; }
 
         /// <summary>
         /// 设备ID
@@ -169,12 +175,7 @@ namespace OSS.Common.Authrization
         /// IP地址 可选 手机App端由接收方赋值
         /// </summary>
         public string IpAddress { get; set; }
-
-        /// <summary>
-        ///  租户ID  
-        /// </summary>
-        public long TenantId { get; set; }
-
+        
         /// <summary>
         ///  推广码
         /// </summary>
@@ -182,6 +183,10 @@ namespace OSS.Common.Authrization
 
         #endregion
 
+        /// <summary>
+        ///  租户ID  
+        /// </summary>
+        public long TenantId { get; set; }
 
         #region  字符串处理
 
@@ -212,7 +217,7 @@ namespace OSS.Common.Authrization
                         AppSource = val;
                         break;
                     case "ac":
-                        AppClient = val;
+                        AppClient = val.ToInt32();
                         break;
                     case "did":
                         DeviceId = val;
@@ -251,7 +256,7 @@ namespace OSS.Common.Authrization
             TimeSpan = DateTime.Now.ToUtcSeconds();
 
             var encrpStr = GetSignContent(separator);
-            Sign = HmacSha1.EncryptBase64(encrpStr.ToString(), secretKey);
+            Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
 
             AddSignDataValue("sign", Sign, separator, encrpStr);
 
@@ -311,8 +316,9 @@ namespace OSS.Common.Authrization
         protected internal virtual StringBuilder GetSignContent(char separator)
         {
             var strTicketParas = new StringBuilder();
-
-            AddSignDataValue("ac", AppClient, separator, strTicketParas);
+            if (AppClient>0)
+                AddSignDataValue("ac", AppClient.ToString(), separator, strTicketParas);
+           
             AddSignDataValue("as", AppSource, separator, strTicketParas);
             AddSignDataValue("av", AppVersion, separator, strTicketParas);
             AddSignDataValue("did", DeviceId, separator, strTicketParas);
@@ -349,7 +355,39 @@ namespace OSS.Common.Authrization
         }
 
         #endregion
+    } 
+    /// <summary>
+    /// 应用客户端类型
+    /// 1 - 3000  PC
+    /// 3001-6000  Pad  
+    /// 6001- 9000  Mobile
+    /// </summary>
+    public enum AppClientType
+    {
+        /// <summary>
+        ///  未知
+        /// </summary>
+        Unkonw = 0,
+        
+        /// <summary>
+        /// 苹果应用
+        /// </summary>
+        iOS = 100,
 
+        /// <summary>
+        /// 安卓应用
+        /// </summary>
+        Android = 200,
+
+        /// <summary>
+        ///  window应用
+        /// </summary>
+        Window=300,
+
+        /// <summary>
+        /// 网页应用
+        /// </summary>
+        Web=500,
     }
 
     ///// <summary>
@@ -358,7 +396,7 @@ namespace OSS.Common.Authrization
     ///// 3001-6000  Pad  
     ///// 6001- 9000  Mobile
     ///// </summary>
-    //public static class AppClientType
+    //public enum UserClientType
     //{
     //    /// <summary>
     //    ///  未知
@@ -379,7 +417,7 @@ namespace OSS.Common.Authrization
     //    /// Linux 系统
     //    /// </summary>
     //    Linux = 60,
-        
+
     //    //============================= PC 分界线
 
     //    /// <summary>
@@ -396,7 +434,7 @@ namespace OSS.Common.Authrization
     //    /// 安卓pad端
     //    /// </summary>
     //    Android_Pad =3060,
-        
+
     //    //============================= Pad 分界线
 
     //    /// <summary>

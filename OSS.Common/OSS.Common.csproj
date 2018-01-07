@@ -13,8 +13,7 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>1. 修复编号生成的BUG
-2. 添加数字编号生成的方法</PackageReleaseNotes>
+    <PackageReleaseNotes>1. 修改Appclient类型</PackageReleaseNotes>
     <AssemblyVersion>1.2.7.8</AssemblyVersion>
     <FileVersion>1.2.7.8</FileVersion>
 
