@@ -62,6 +62,15 @@ namespace OSS.Common.ComUtils
             return ToCode(num, _arrCodeStr);
         }
 
+        /// <summary>
+        /// 数字转化为短码
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToCode(this int num)
+        {
+            return ToCode(num, _arrCodeStr);
+        }
 
         /// <summary>
         /// 数字转化为短码
