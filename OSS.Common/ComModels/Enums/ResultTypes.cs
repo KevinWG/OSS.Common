@@ -25,6 +25,11 @@ namespace OSS.Common.ComModels.Enums
         [OSDescript("成功")] Success = 0,
 
         /// <summary>
+        ///  签名错误
+        /// </summary>
+        [OSDescript("签名错误")] SignError = 1300,
+
+        /// <summary>
         /// 参数错误
         /// </summary>
         [OSDescript("参数错误")] ParaError = 1301,
@@ -37,53 +42,53 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 更新失败
         /// </summary>
-        UpdateFail = 1330,
+        [OSDescript("更新失败")] UpdateFail = 1330,
 
         /// <summary>
         /// 对象不存在
         /// </summary>
-        ObjectNull = 1404,
+        [OSDescript("对象不存在")] ObjectNull = 1404,
 
         /// <summary>
         /// 对象已存在
         /// </summary>
-        ObjectExsit = 1410,
+        [OSDescript("对象已存在")] ObjectExsit = 1410,
 
         /// <summary>
         /// 对象状态不正常
         /// </summary>
-        ObjectStateError = 1420,
+        [OSDescript("对象状态不正常")] ObjectStateError = 1420,
 
 
         /// <summary>
         ///  未知操作
         /// </summary>
-        UnKnowOperate = 1422,
-        
+        [OSDescript("未知操作")] UnKnowOperate = 1422,
+
         /// <summary>
         ///  未知来源
         /// </summary>
-        UnKnowSource = 1423,
+        [OSDescript("未知来源")] UnKnowSource = 1423,
 
         /// <summary>
-        /// 未授权
+        /// 未登录
         /// </summary>
-        UnAuthorize = 1425,
+        [OSDescript("未登录")] UnAuthorize = 1425,
 
         /// <summary>
         /// 权限不足
         /// </summary>
-        NoRight = 1430,
-
+        [OSDescript("权限不足")] NoRight = 1430,
         /// <summary>
-        /// 授权冻结
+        /// 账号/权限冻结
         /// </summary>
+        [OSDescript("账号/权限冻结")]
         AuthFreezed = 1440,
 
         /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
-        InnerError = 1500
+        [OSDescript("内部错误")] InnerError = 1500
 
     }
 }
