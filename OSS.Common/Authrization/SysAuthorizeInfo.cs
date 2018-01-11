@@ -113,9 +113,6 @@ namespace OSS.Common.Authrization
 
             return strTicketParas;
         }
-
-
-
     }
 
     /// <summary>
@@ -175,18 +172,23 @@ namespace OSS.Common.Authrization
         /// IP地址 可选 手机App端由接收方赋值
         /// </summary>
         public string IpAddress { get; set; }
-        
-        /// <summary>
-        ///  推广码
-        /// </summary>
-        public string ProCode { get; set; }
-
-        #endregion
 
         /// <summary>
         ///  租户ID  
         /// </summary>
         public long TenantId { get; set; }
+
+        /// <summary>
+        ///  推广码
+        /// </summary>
+        public string ProCode { get; set; }
+        
+        #endregion
+        
+        /// <summary>
+        ///  operate tag 单次操作标识
+        /// </summary>
+        public string OTag { get; set; }
 
         #region  字符串处理
 
