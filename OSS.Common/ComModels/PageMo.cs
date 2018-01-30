@@ -25,8 +25,8 @@ namespace OSS.Common.ComModels
         /// </summary>
         public SearchMo()
         {
-            filter_dics = new Dictionary<string, string>();
-            order_dics=new Dictionary<string, SortType>();
+            filters = new Dictionary<string, string>();
+            orders = new Dictionary<string, SortType>();
         }
 
         private int _curntPage = 1;
@@ -60,12 +60,12 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 排序集合      适用于多个查询条件
         /// </summary>
-        public Dictionary<string, SortType> order_dics { get; set; }
+        public Dictionary<string, SortType> orders { get; set; }
 
         /// <summary>
         /// 搜索关键字集合      适用于多个查询条件
         /// </summary>
-        public Dictionary<string, string> filter_dics { get; set; }
+        public Dictionary<string, string> filters { get; set; }
     }
 
 
