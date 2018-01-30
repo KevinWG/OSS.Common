@@ -34,7 +34,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 当前页
         /// </summary>
-        public int current_page
+        public int cur_page
         {
             get => _curntPage<=0 ? 1 : _curntPage;
             set => _curntPage = value;
@@ -45,16 +45,17 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 页面大小
         /// </summary>
-        public int page_size
+        public int size
         {
             get => _pageSize <= 0 ? 20 : _pageSize;
             set => _pageSize = value;
         }
-        
+
         /// <summary>
-        ///    起始行 -只读属性
+        ///    获取起始行
         /// </summary>
-        public int start_row => (current_page - 1)*page_size;
+        public int GetStartRow()=>(cur_page - 1) * size;
+        
 
         /// <summary>
         /// 排序集合      适用于多个查询条件
