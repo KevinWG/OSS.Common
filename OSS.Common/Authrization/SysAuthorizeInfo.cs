@@ -182,13 +182,15 @@ namespace OSS.Common.Authrization
         ///  推广码
         /// </summary>
         public string ProCode { get; set; }
-        
-        #endregion
-        
+
         /// <summary>
         ///  operate tag 单次操作标识
         /// </summary>
         public string OTag { get; set; }
+
+        #endregion
+
+
 
         #region  字符串处理
 
@@ -227,12 +229,17 @@ namespace OSS.Common.Authrization
                     case "ip":
                         IpAddress = val;
                         break;
-                    case "tid":
-                        TenantId = val.ToInt64();
+                    case "ot":
+                        OTag = val;
                         break;
                     case "pc":
                         ProCode = val;
                         break;
+
+                    case "tid":
+                        TenantId = val.ToInt64();
+                        break;
+
                     case "ts":
                         TimeSpan = val.ToInt64();
                         break;
@@ -280,13 +287,14 @@ namespace OSS.Common.Authrization
                 DeviceId = this.DeviceId,
                 IpAddress = this.IpAddress,
 
-                TenantId = this.TenantId,
+                OTag = this.OTag,
+                ProCode = this.ProCode,
                 Sign = this.Sign,
+                TenantId = this.TenantId,
                 TimeSpan = this.TimeSpan,
-                Token = this.Token,
-                WebBrowser = this.WebBrowser,
 
-                ProCode = this.ProCode
+                Token = this.Token,
+                WebBrowser = this.WebBrowser
             };
 
 
@@ -326,6 +334,7 @@ namespace OSS.Common.Authrization
             AddSignDataValue("did", DeviceId, separator, strTicketParas);
             AddSignDataValue("ip", IpAddress, separator, strTicketParas);
 
+            AddSignDataValue("ot", OTag, separator, strTicketParas);
             AddSignDataValue("pc", ProCode, separator, strTicketParas);
             if (TenantId>0)
             {
