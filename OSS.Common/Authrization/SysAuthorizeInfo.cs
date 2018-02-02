@@ -376,8 +376,8 @@ namespace OSS.Common.Authrization
             if (TenantId > 0)
                 AddTicketProperty("tid", TenantId.ToString(), separator, strTicketParas);
             
-            AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas);
             AddTicketProperty("tn", Token, separator, strTicketParas);
+            AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas);
             AddTicketProperty("wb", WebBrowser, separator, strTicketParas);
 
             return strTicketParas;
