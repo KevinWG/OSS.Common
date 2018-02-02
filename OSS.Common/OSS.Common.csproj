@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.2.7.8</Version>
+    <Version>1.3.1</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>1. 修改Appclient类型</PackageReleaseNotes>
-    <AssemblyVersion>1.2.7.8</AssemblyVersion>
-    <FileVersion>1.2.7.8</FileVersion>
+    <PackageReleaseNotes>完善AppAuthorizeInfo</PackageReleaseNotes>
+    <AssemblyVersion>1.3.1.8</AssemblyVersion>
+    <FileVersion>1.3.1.8</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
