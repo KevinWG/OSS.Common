@@ -57,16 +57,6 @@ namespace OSS.Common.ComUtils
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        public static string ToCode(this long num)
-        {
-            return ToCode(num, _arrCodeStr);
-        }
-
-        /// <summary>
-        /// 数字转化为短码
-        /// </summary>
-        /// <param name="num"></param>
-        /// <returns></returns>
         public static string ToCode(this int num)
         {
             return ToCode(num, _arrCodeStr);
@@ -78,10 +68,14 @@ namespace OSS.Common.ComUtils
         /// <param name="num"></param>
         /// <param name="arrStrs">转换时映射字母，32位，不可重复</param>
         /// <returns></returns>
-        public static string ToCode(this long num, string arrStrs)
+        public static string ToCode(this long num, string arrStrs=null)
         {
-            if (string.IsNullOrEmpty(arrStrs)|| arrStrs.Length!=32)
+            if (string.IsNullOrEmpty(arrStrs))
+                arrStrs = _arrCodeStr;
+            
+            if (arrStrs.Length!=32)
                 throw new ArgumentOutOfRangeException(nameof(arrStrs), "映射字符必须是32位，且不能重复！");
+
             const long codeTemp = 0x1F;
             var code = new StringBuilder(13);
 
@@ -99,21 +93,14 @@ namespace OSS.Common.ComUtils
         /// 根据短码反推数字
         /// </summary>
         /// <param name="code"></param>
-        /// <returns></returns>
-        public static long ToCodeNum(this string code)
-        {
-            return ToCodeNum(code, _arrCodeStr);
-        }
-
-        /// <summary>
-        /// 根据短码反推数字
-        /// </summary>
-        /// <param name="code"></param>
         /// <param name="arrStrs">转换时映射字母，32位，不可重复</param>
         /// <returns></returns>
-        public static long ToCodeNum(this string code, string arrStrs)
+        public static long ToCodeNum(this string code, string arrStrs=null)
         {
-            if (string.IsNullOrEmpty(arrStrs) || arrStrs.Length != 32)
+            if (string.IsNullOrEmpty(arrStrs))
+                arrStrs = _arrCodeStr;
+
+            if ( arrStrs.Length != 32)
                 throw new ArgumentOutOfRangeException(nameof(arrStrs), "映射字符必须是32位，且不能重复！");
 
             if (string.IsNullOrEmpty(code))
