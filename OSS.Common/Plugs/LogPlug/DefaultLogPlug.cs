@@ -48,7 +48,7 @@ namespace OSS.Common.Plugs.LogPlug
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
 
-            return Path.Combine(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
+            return Path.Combine(dirPath, DateTime.Now.ToString("yyyyMMddHH")+".txt");
         }
 
         private readonly object obj = new object();
