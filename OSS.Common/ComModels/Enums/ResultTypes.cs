@@ -59,7 +59,6 @@ namespace OSS.Common.ComModels.Enums
         /// </summary>
         [OSDescript("对象状态不正常")] ObjectStateError = 1420,
 
-
         /// <summary>
         ///  未知操作
         /// </summary>
@@ -79,16 +78,27 @@ namespace OSS.Common.ComModels.Enums
         /// 权限不足
         /// </summary>
         [OSDescript("权限不足")] NoRight = 1430,
+
         /// <summary>
         /// 账号/权限冻结
         /// </summary>
         [OSDescript("账号/权限冻结")]
         AuthFreezed = 1440,
+        
+        /// <summary>
+        /// 租户下线关闭状态
+        /// </summary>
+        [OSDescript("租户关闭")] TenantOff = 1450,
+
+        /// <summary>
+        /// 租户欠费
+        /// </summary>
+        [OSDescript("租户欠费")] TenantArrearage = 1452,
 
         /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
-        [OSDescript("内部错误")] InnerError = 1500
+        [OSDescript("内部错误")] InnerError = 1500,
 
     }
 }

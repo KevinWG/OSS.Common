@@ -24,7 +24,7 @@ namespace OSS.Common.Plugs.LogPlug
     public class DefaultLogPlug : ILogPlug
     {
         private readonly string _logBaseDirPath = null;
-        private const string _logFormat = "{0:T}    Code:{1}    Key:{2}   Detail:{3}";
+        private const string _logFormat = "{0:T}    Code:{1}    Key:{2}   Detail:{3}\r\n";
 
         /// <summary>
         /// 构造函数
@@ -35,7 +35,7 @@ namespace OSS.Common.Plugs.LogPlug
 #if NETFW
             _logBaseDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"log");
 #else
-            _logBaseDirPath = Path.Combine(AppContext.BaseDirectory, @"log");
+            _logBaseDirPath = Path.Combine(AppContext.BaseDirectory, "log");
 #endif
             if (!Directory.Exists(_logBaseDirPath))
                 Directory.CreateDirectory(_logBaseDirPath); 
@@ -43,12 +43,12 @@ namespace OSS.Common.Plugs.LogPlug
 
         private string getLogFilePath(string module, LogLevelEnum level)
         {
-            var dirPath = string.Format(@"{0}\{1}\{2}\",_logBaseDirPath, module, level);
+            var dirPath = Path.Combine(_logBaseDirPath,string.Concat(module,"_",level) ,DateTime.Now.ToString("yyMM"));//string.Format(@"{0}\{1}\{2}\",_logBaseDirPath, module, level);
 
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
 
-            return string.Concat(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
+            return Path.Combine(dirPath, DateTime.Now.ToString("yyyyMMddHH"), ".txt");
         }
 
         private readonly object obj = new object();
