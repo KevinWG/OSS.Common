@@ -11,6 +11,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.ComModels
@@ -189,6 +190,57 @@ namespace OSS.Common.ComModels
         /// </summary>
         public TType data { get; set; }
     }
+
+
+    /// <summary>
+    /// 自定义泛型的结果实体
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    public class ResultListMo<TType> : ResultMo
+    {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public ResultListMo()
+        {
+
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="data"></param>
+        public ResultListMo(IList<TType> data)
+        {
+            this.data = data;
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultListMo(int ret, string message = "")
+            : base(ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultListMo(ResultTypes ret, string message = "")
+            : base(ret, message)
+        {
+        }
+
+        /// <summary>
+        ///  结果类型数据
+        /// </summary>
+        public IList<TType> data { get; set; }
+    }
+
 
     /// <summary>
     ///  结果实体映射类
