@@ -191,7 +191,7 @@ namespace OSS.Common.ComModels
     }
 
     /// <summary>
-    ///  
+    ///  结果实体映射类
     /// </summary>
     public static class ResultMoMap
     {
@@ -201,53 +201,91 @@ namespace OSS.Common.ComModels
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns>输出对象</returns>
-        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> source,
-            Func<TPara, TResult> func=null)
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this TPara res,
+            Func<TPara, TResult> func = null)
+            where TPara : ResultMo
         {
             var ot = new ResultMo<TResult>
             {
-                ret = source.ret,
-                msg = source.msg
+                ret = res.ret,
+                msg = res.msg
             };
 
-            if (func != null && source.data!=null)
-            {
-                ot.data = func(source.data);
-            }
+            if (func != null && res.IsSuccess())
+                ot.data = func(res);
+            
             return ot;
         }
 
+
+
         /// <summary>
-        ///   将结果实体转换成其他结果实体   --转化结果是通过 泛型 定义的Result实体
-        ///     仅转化 Ret和 Message 的值  
+        /// 转化到结果实体
         /// </summary>
-        /// <typeparam name="TResult">输出对象</typeparam>
-        /// <returns>输出对象</returns>
-        public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo source)
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> res,
+            Func<TPara, TResult> func = null)
         {
             var ot = new ResultMo<TResult>
             {
-                ret = source.ret,
-                msg = source.msg
+                ret = res.ret,
+                msg = res.msg
             };
+
+            if (func != null && res.IsSuccess())
+                ot.data = func(res.data);
+
             return ot;
         }
 
+
+
         /// <summary>
-        ///  将结果实体转换成其他结果实体   --转化结果是通过 继承 定义的Result实体  
-        ///    仅转化 Ret和 Message 的值
+        /// 转化到结果实体
         /// </summary>
-        /// <typeparam name="TResult">输出对象</typeparam>
-        /// <returns>输出对象</returns>
-        public static TResult ConvertToResult<TResult>(this ResultMo source)
-            where TResult : ResultMo, new()
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TResult ConvertToResultInherit<TPara, TResult>(this TPara res,
+            Func<TPara, TResult> func = null)
+            where TPara : ResultMo
+            where TResult : ResultMo,new()
         {
-            var ot = new TResult
-            {
-                ret = source.ret,
-                msg = source.msg
+            if (func != null && res.IsSuccess())
+                return func(res);
+
+            return new TResult(){
+                ret = res.ret,
+                msg = res.msg
             };
-            return ot;
+        }
+
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TResult ConvertToResultInherit<TPara, TResult>(this ResultMo<TPara> res,
+            Func<TPara, TResult> func = null)
+            where TResult : ResultMo,new()
+        {
+            if (func != null && res.IsSuccess())
+                return func(res.data);
+
+            return new TResult()
+            {
+                ret = res.ret,
+                msg = res.msg
+            };
         }
 
 

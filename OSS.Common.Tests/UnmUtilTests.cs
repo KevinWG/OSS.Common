@@ -10,7 +10,7 @@ namespace OSS.Common.Tests
         public void TestMethod1()
         {
             var snowStr1 = NumUtil.SnowNum();
-            var snowStr2 = NumUtil.SnowNum();
+            var snowStr2 =  NumUtil.SnowNum();
             Assert.IsTrue(snowStr2 != snowStr1);
 
             var timeNum1 = NumUtil.TimeMilliNum();
