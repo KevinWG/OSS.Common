@@ -326,7 +326,7 @@ namespace OSS.Common.ComModels
         /// <param name="func"></param>
         /// <returns></returns>
         public static TResult ConvertToResultInherit<TPara, TResult>(this TPara res,
-            Func<TPara, TResult> func = null)
+            Func<TPara, TResult> func)
             where TPara : ResultMo
             where TResult : ResultMo,new()
         {
@@ -348,7 +348,7 @@ namespace OSS.Common.ComModels
         /// <param name="func"></param>
         /// <returns></returns>
         public static TResult ConvertToResultInherit<TPara, TResult>(this ResultMo<TPara> res,
-            Func<TPara, TResult> func = null)
+            Func<TPara, TResult> func)
             where TResult : ResultMo,new()
         {
             if (func != null && res.IsSuccess())
