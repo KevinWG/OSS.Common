@@ -254,7 +254,7 @@ namespace OSS.Common.ComModels
         /// <typeparam name="TPara"></typeparam>
         /// <returns>输出对象</returns>
         public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this TPara res,
-            Func<TPara, TResult> func = null)
+            Func<TPara, TResult> func)
             where TPara : ResultMo
         {
             var ot = new ResultMo<TResult>
@@ -280,7 +280,7 @@ namespace OSS.Common.ComModels
         /// <param name="func"></param>
         /// <returns></returns>
         public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> res,
-            Func<TPara, TResult> func = null)
+            Func<TPara, TResult> func)
         {
             var ot = new ResultMo<TResult>
             {
@@ -301,9 +301,21 @@ namespace OSS.Common.ComModels
         /// <returns></returns>
         public static ResultMo<TResult> ConvertToResult<TResult>(this ResultMo res)
         {
-            return ConvertToResult<ResultMo, TResult>(res);
+            return ConvertToResult<ResultMo, TResult>(res,null);
         }
 
+
+        /// <summary>
+        ///  转化到结果实体
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        [Obsolete]
+        public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo res)
+        {
+            return ConvertToResult<ResultMo, TResult>(res,null);
+        }
 
         /// <summary>
         /// 转化到结果实体
