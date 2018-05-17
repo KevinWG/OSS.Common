@@ -93,7 +93,10 @@ namespace OSS.Common.ComModels
             : base(ret, message)
         {
         }
-
+        public PageListMo(int ret, string message = "")
+            : base(ret, message)
+        {
+        }
         /// <summary>
         ///   正常赋值时的实体
         /// </summary>
@@ -141,11 +144,10 @@ namespace OSS.Common.ComModels
                 throw new ArgumentNullException(nameof(convertFun), "转化方法不能为空！");
             }
 
-            List<TResult> resultList = null;
-            if (pageList.data != null)
-            {
-                resultList = pageList.data.ConvertAll(e=>convertFun(e));
-            }
+            if (!pageList.IsSuccess() || pageList.data == null)
+                return new PageListMo<TResult>(pageList.ret, pageList.msg);
+
+            var resultList = pageList.data.ConvertAll(e=>convertFun(e));
             return new PageListMo<TResult>(pageList.total, resultList);
         }
     }

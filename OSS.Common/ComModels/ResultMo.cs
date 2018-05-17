@@ -11,6 +11,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.ComModels
@@ -190,8 +191,59 @@ namespace OSS.Common.ComModels
         public TType data { get; set; }
     }
 
+
     /// <summary>
-    ///  
+    /// 自定义泛型的结果实体
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    public class ResultListMo<TType> : ResultMo
+    {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public ResultListMo()
+        {
+
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="data"></param>
+        public ResultListMo(IList<TType> data)
+        {
+            this.data = data;
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultListMo(int ret, string message = "")
+            : base(ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="message"></param>
+        public ResultListMo(ResultTypes ret, string message = "")
+            : base(ret, message)
+        {
+        }
+
+        /// <summary>
+        ///  结果类型数据
+        /// </summary>
+        public IList<TType> data { get; set; }
+    }
+
+
+    /// <summary>
+    ///  结果实体映射类
     /// </summary>
     public static class ResultMoMap
     {
@@ -201,56 +253,112 @@ namespace OSS.Common.ComModels
         /// <typeparam name="TResult">输出对象</typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns>输出对象</returns>
-        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> source,
-            Func<TPara, TResult> func=null)
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this TPara res,
+            Func<TPara, TResult> func = null)
+            where TPara : ResultMo
         {
             var ot = new ResultMo<TResult>
             {
-                ret = source.ret,
-                msg = source.msg
+                ret = res.ret,
+                msg = res.msg
             };
 
-            if (func != null && source.data!=null)
-            {
-                ot.data = func(source.data);
-            }
+            if (func != null && res.IsSuccess())
+                ot.data = func(res);
+            
             return ot;
         }
 
+
+
         /// <summary>
-        ///   将结果实体转换成其他结果实体   --转化结果是通过 泛型 定义的Result实体
-        ///     仅转化 Ret和 Message 的值  
+        /// 转化到结果实体
         /// </summary>
-        /// <typeparam name="TResult">输出对象</typeparam>
-        /// <returns>输出对象</returns>
-        public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo source)
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> res,
+            Func<TPara, TResult> func = null)
         {
             var ot = new ResultMo<TResult>
             {
-                ret = source.ret,
-                msg = source.msg
+                ret = res.ret,
+                msg = res.msg
             };
+
+            if (func != null && res.IsSuccess())
+                ot.data = func(res.data);
+
             return ot;
+        }
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static ResultMo<TResult> ConvertToResult<TResult>(this ResultMo res)
+        {
+            return ConvertToResult<ResultMo, TResult>(res);
+        }
+
+
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TResult ConvertToResultInherit<TPara, TResult>(this TPara res,
+            Func<TPara, TResult> func = null)
+            where TPara : ResultMo
+            where TResult : ResultMo,new()
+        {
+            if (func != null && res.IsSuccess())
+                return func(res);
+
+            return new TResult(){
+                ret = res.ret,
+                msg = res.msg
+            };
         }
 
         /// <summary>
-        ///  将结果实体转换成其他结果实体   --转化结果是通过 继承 定义的Result实体  
-        ///    仅转化 Ret和 Message 的值
+        /// 转化到结果实体
         /// </summary>
-        /// <typeparam name="TResult">输出对象</typeparam>
-        /// <returns>输出对象</returns>
-        public static TResult ConvertToResult<TResult>(this ResultMo source)
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TResult ConvertToResultInherit<TPara, TResult>(this ResultMo<TPara> res,
+            Func<TPara, TResult> func = null)
+            where TResult : ResultMo,new()
+        {
+            if (func != null && res.IsSuccess())
+                return func(res.data);
+
+            return new TResult()
+            {
+                ret = res.ret,
+                msg = res.msg
+            };
+        }
+
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static TResult ConvertToResultInherit<TResult>(this ResultMo res)
             where TResult : ResultMo, new()
         {
-            var ot = new TResult
-            {
-                ret = source.ret,
-                msg = source.msg
-            };
-            return ot;
+            return ConvertToResultInherit<ResultMo, TResult>(res);
         }
-
-
-
     }
 }
