@@ -293,7 +293,16 @@ namespace OSS.Common.ComModels
 
             return ot;
         }
-
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static ResultMo<TResult> ConvertToResult<TResult>(this ResultMo res)
+        {
+            return ConvertToResult<ResultMo, TResult>(res);
+        }
 
 
         /// <summary>
@@ -340,7 +349,16 @@ namespace OSS.Common.ComModels
             };
         }
 
-
-
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static TResult ConvertToResultInherit<TResult>(this ResultMo res)
+            where TResult : ResultMo, new()
+        {
+            return ConvertToResultInherit<ResultMo, TResult>(res);
+        }
     }
 }

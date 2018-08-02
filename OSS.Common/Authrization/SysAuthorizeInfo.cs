@@ -55,10 +55,13 @@ namespace OSS.Common.Authrization
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
 
-            var encrpStr = GetSignContent(separator);
+            var encrpStr = GetContent(separator,false);
             Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
-            AddTicketProperty("sign", Sign, separator, encrpStr);
-            return encrpStr.ToString();
+
+            var content = GetContent(separator, true);
+            AddTicketProperty("sign", Sign, separator, content, true);
+
+            return content.ToString();
         }
 
 
@@ -116,25 +119,25 @@ namespace OSS.Common.Authrization
         /// </summary>
         /// <param name="separator"></param>
         /// <returns></returns>
-        protected override StringBuilder GetSignContent(char separator)
+        protected override StringBuilder GetContent(char separator, bool isUrlEncode)
         {
             var strTicketParas = new StringBuilder();
             if (AppClient > 0)
-                AddTicketProperty("app_client", AppClient.ToString(), separator, strTicketParas);
+                AddTicketProperty("app_client", ((int)AppClient).ToString(), separator, strTicketParas, isUrlEncode);
 
-            AddTicketProperty("app_source", AppSource, separator, strTicketParas);
-            AddTicketProperty("app_version", AppVersion, separator, strTicketParas);
-            AddTicketProperty("device_id", DeviceId, separator, strTicketParas);
-            AddTicketProperty("ip_address", IpAddress, separator, strTicketParas);
+            AddTicketProperty("app_source", AppSource, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("app_version", AppVersion, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("device_id", DeviceId, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("ip_address", IpAddress, separator, strTicketParas, isUrlEncode);
 
-            AddTicketProperty("pro_code", ProCode, separator, strTicketParas);
+            AddTicketProperty("pro_code", ProCode, separator, strTicketParas, isUrlEncode);
             if (TenantId > 0)
             {
-                AddTicketProperty("tenant_id", TenantId.ToString(), separator, strTicketParas);
+                AddTicketProperty("tenant_id", TenantId.ToString(), separator, strTicketParas, isUrlEncode);
             }
-            AddTicketProperty("timespan", TimeSpan.ToString(), separator, strTicketParas);
-            AddTicketProperty("token", Token, separator, strTicketParas);
-            AddTicketProperty("web_browser", WebBrowser, separator, strTicketParas);
+            AddTicketProperty("timespan", TimeSpan.ToString(), separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("token", Token, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("web_browser", WebBrowser, separator, strTicketParas, isUrlEncode);
 
             return strTicketParas;
         }
@@ -322,7 +325,8 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public bool CheckSign(string secretKey, char separator = ';')
         {
-            var strTicketParas = GetSignContent(separator);
+            var strTicketParas = GetContent(separator,false);
+
             var signData = HMACSHA.EncryptBase64(strTicketParas.ToString(), secretKey);
 
             return Sign == signData;
@@ -336,13 +340,15 @@ namespace OSS.Common.Authrization
         public string ToTicket(string secretKey, char separator = ';')
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
-            var encrpStr = GetSignContent(separator);
+            var encrpStr = GetContent(separator,false);
 
             Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
-            AddTicketProperty("sign", Sign, separator, encrpStr);
 
-            ExtendTicket(encrpStr, separator);
-            return encrpStr.ToString();
+            var content = GetContent(separator, true);
+            AddTicketProperty("sign", Sign, separator, content,true);
+
+            ExtendTicket(content, separator);
+            return content.ToString();
         }
 
         /// <summary>
@@ -359,26 +365,27 @@ namespace OSS.Common.Authrization
         ///   获取要加密签名的串
         /// </summary>
         /// <param name="separator"></param>
+        /// <param name="isUrlEncode">是否url转义，传递的值需要转义，签名时不需要</param>
         /// <returns></returns>
-        protected virtual StringBuilder GetSignContent(char separator)
+        protected virtual StringBuilder GetContent(char separator,bool isUrlEncode)
         {
             var strTicketParas = new StringBuilder();
 
-            AddTicketProperty("ac", AppClient.ToString(), separator, strTicketParas);
-            AddTicketProperty("as", AppSource, separator, strTicketParas);
-            AddTicketProperty("av", AppVersion, separator, strTicketParas);
-            AddTicketProperty("did", DeviceId, separator, strTicketParas);
-            AddTicketProperty("ip", IpAddress, separator, strTicketParas);
+            AddTicketProperty("ac", ((int)AppClient).ToString(), separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("as", AppSource, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("av", AppVersion, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("did", DeviceId, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("ip", IpAddress, separator, strTicketParas, isUrlEncode);
 
-            AddTicketProperty("ot", OTag, separator, strTicketParas);
-            AddTicketProperty("pc", ProCode, separator, strTicketParas);
+            AddTicketProperty("ot", OTag, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("pc", ProCode, separator, strTicketParas, isUrlEncode);
 
             if (TenantId > 0)
-                AddTicketProperty("tid", TenantId.ToString(), separator, strTicketParas);
+                AddTicketProperty("tid", TenantId.ToString(), separator, strTicketParas, isUrlEncode);
             
-            AddTicketProperty("tn", Token, separator, strTicketParas);
-            AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas);
-            AddTicketProperty("wb", WebBrowser, separator, strTicketParas);
+            AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("wb", WebBrowser, separator, strTicketParas, isUrlEncode);
 
             return strTicketParas;
         }
@@ -390,7 +397,8 @@ namespace OSS.Common.Authrization
         /// <param name="value"></param>
         /// <param name="separator"></param>
         /// <param name="strTicketParas"></param>
-        protected static void AddTicketProperty(string name, string value, char separator, StringBuilder strTicketParas)
+        /// <param name="isUrlEncode">是否参与加密字符串</param>
+        protected static void AddTicketProperty(string name, string value, char separator, StringBuilder strTicketParas,bool isUrlEncode)
         {
             if (string.IsNullOrEmpty(value)) return;
 
@@ -398,7 +406,7 @@ namespace OSS.Common.Authrization
             {
                 strTicketParas.Append(separator);
             }
-            strTicketParas.Append(name).Append("=").Append(value.UrlEncode());
+            strTicketParas.Append(name).Append("=").Append(isUrlEncode?value.UrlEncode():value);
         }
 
         #endregion
