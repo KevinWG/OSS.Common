@@ -15,14 +15,25 @@ namespace OSS.Common.Tests
         {
         }
 
-        public static void SysAuth()
+
+        [TestMethod]
+        public  void SysAuth()
         {
             var key = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            var appInfo = new SysAuthorizeInfo();
-            appInfo.FromSignData("timespan=1434372013;appsource=1;appclient=1;token=SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=;appversion=1.0;");
 
-            var newSignData = appInfo.ToSignData(key);
-            appInfo.FromSignData(newSignData);
+            var appInfo = new AppAuthorizeInfo
+            {
+                AppClient = AppClientType.Android,
+                AppSource = "mmmmm",
+                AppVersion = "1.0.1",
+                DeviceId = "mmnsnd",
+                Token = "SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=",
+                IpAddress = "127.0.0.1"
+            };
+
+            var newSignData = appInfo.ToTicket(key);
+            appInfo.FromTicket(newSignData);
+
             var result = appInfo.CheckSign(key);
         }
 
