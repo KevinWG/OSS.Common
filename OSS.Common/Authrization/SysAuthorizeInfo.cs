@@ -51,14 +51,14 @@ namespace OSS.Common.Authrization
         /// 生成签名后的字符串
         /// </summary>
         /// <returns></returns>
-        public string ToSignData(string secretKey, char separator = ';')
+        public string ToSignData(string appSource, string appVersion,string secretKey, char separator = ';')
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
 
-            var encrpStr = GetContent(separator,false);
+            var encrpStr = GetContent(appSource,appVersion,separator, false);
             Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
 
-            var content = GetContent(separator, true);
+            var content = GetContent(appSource, appVersion, separator, true);
             AddTicketProperty("sign", Sign, separator, content, true);
 
             return content.ToString();
@@ -119,14 +119,14 @@ namespace OSS.Common.Authrization
         /// </summary>
         /// <param name="separator"></param>
         /// <returns></returns>
-        protected override StringBuilder GetContent(char separator, bool isUrlEncode)
+        protected override StringBuilder GetContent(string appSource, string appVersion,char separator, bool isUrlEncode)
         {
             var strTicketParas = new StringBuilder();
             if (AppClient > 0)
                 AddTicketProperty("app_client", ((int)AppClient).ToString(), separator, strTicketParas, isUrlEncode);
 
-            AddTicketProperty("app_source", AppSource, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("app_version", AppVersion, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("app_source", appSource, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("app_version", appVersion, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("device_id", DeviceId, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ip_address", IpAddress, separator, strTicketParas, isUrlEncode);
 
@@ -325,7 +325,7 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public bool CheckSign(string secretKey, char separator = ';')
         {
-            var strTicketParas = GetContent(separator,false);
+            var strTicketParas = GetContent(AppSource,AppVersion,separator,false);
 
             var signData = HMACSHA.EncryptBase64(strTicketParas.ToString(), secretKey);
 
@@ -337,14 +337,14 @@ namespace OSS.Common.Authrization
         /// 生成签名后的字符串
         /// </summary>
         /// <returns></returns>
-        public string ToTicket(string secretKey, char separator = ';')
+        public string ToTicket(string appSource,string appVersion,string secretKey, char separator = ';')
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
-            var encrpStr = GetContent(separator,false);
+            var encrpStr = GetContent(appSource,appVersion,separator, false);
 
             Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
 
-            var content = GetContent(separator, true);
+            var content = GetContent(appSource, appVersion, separator, true);
             AddTicketProperty("sign", Sign, separator, content,true);
 
             ExtendTicket(content, separator);
@@ -364,16 +364,18 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///   获取要加密签名的串
         /// </summary>
+        /// <param name="appSource"></param>
+        /// <param name="appVersion"></param>
         /// <param name="separator"></param>
         /// <param name="isUrlEncode">是否url转义，传递的值需要转义，签名时不需要</param>
         /// <returns></returns>
-        protected virtual StringBuilder GetContent(char separator,bool isUrlEncode)
+        protected virtual StringBuilder GetContent(string appSource, string appVersion, char separator,bool isUrlEncode)
         {
             var strTicketParas = new StringBuilder();
 
             AddTicketProperty("ac", ((int)AppClient).ToString(), separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("as", AppSource, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("av", AppVersion, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("as", appSource, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("av", appVersion, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("did", DeviceId, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ip", IpAddress, separator, strTicketParas, isUrlEncode);
 
