@@ -74,9 +74,8 @@ namespace OSS.Common.Authrization
         /// </summary>
         public string Sign { get; set; }
 
-
         /// <summary>
-        ///  扩展参数 【自定义，不参与签名】
+        ///  内部扩展参数 【自定义，不参与签名和传递】
         /// </summary>
         public object Extra { get; set; }
 
@@ -96,8 +95,7 @@ namespace OSS.Common.Authrization
         ///  租户ID 【仅 InnerProxy 时，才会通过外部传值，不参与签名】
         /// </summary>
         public long TenantId { get; set; }
-
-
+        
         #endregion
 
         #region  字符串处理
@@ -167,7 +165,6 @@ namespace OSS.Common.Authrization
                 case "tt":
                     TenantToken = val;
                     break;
-
            
                 case "sign":
                     Sign = val;

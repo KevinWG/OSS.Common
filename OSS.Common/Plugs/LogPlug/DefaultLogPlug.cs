@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using OSS.Common.ComUtils;
 
 namespace OSS.Common.Plugs.LogPlug
@@ -51,7 +52,7 @@ namespace OSS.Common.Plugs.LogPlug
             return Path.Combine(dirPath, DateTime.Now.ToString("yyyyMMddHH")+".txt");
         }
 
-        private readonly object obj = new object();
+        private static readonly object obj = new object();
 
         /// <summary>
         /// 写日志
@@ -59,23 +60,28 @@ namespace OSS.Common.Plugs.LogPlug
         /// <param name="info"></param>
         public void WriteLog(LogInfo info)
         {
-            lock (obj)
+            Task.Run(() =>
             {
-                var filePath = getLogFilePath(info.ModuleName, info.Level);
+                lock (obj)
+                {
+                    var filePath = getLogFilePath(info.ModuleName, info.Level);
 #if NETFW
                 using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.UTF8))
 #else
-                using (StreamWriter sw = new StreamWriter(new FileStream(filePath,FileMode.Append,FileAccess.Write), Encoding.UTF8))
+                    using (StreamWriter sw =
+                        new StreamWriter(new FileStream(filePath, FileMode.Append, FileAccess.Write), Encoding.UTF8))
 #endif
-                {
-                    sw.WriteLine( _logFormat,
-                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                         info.LogCode,
-                         info.MsgKey,
-                         info.Msg);
-                  
+                    {
+                        sw.WriteLine(_logFormat,
+                            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                            info.LogCode,
+                            info.MsgKey,
+                            info.Msg);
+
+                    }
                 }
-            }
+            });
+
         }
         
         /// <summary>
