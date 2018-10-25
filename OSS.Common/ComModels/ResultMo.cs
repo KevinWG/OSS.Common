@@ -370,7 +370,7 @@ namespace OSS.Common.ComModels
         public static TResult ConvertToResultInherit<TResult>(this ResultMo res)
             where TResult : ResultMo, new()
         {
-            return ConvertToResultInherit<ResultMo, TResult>(res);
+            return ConvertToResultInherit<ResultMo, TResult>(res,null);
         }
     }
 }
