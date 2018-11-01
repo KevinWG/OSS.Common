@@ -25,24 +25,22 @@ namespace OSS.Common.ComUtils
         // 符号位(1位) + Timestamp(41位) + WorkId(10位) + sequence(12位)  = 编号Id (64位)
 
         //【sequence 部分】  随机序列  12位
-        long sequence;
-
-        const long maxSequence = -1L ^ (-1L << sequenceBitLength);
-        const int sequenceBitLength = 12;
+        private const long _maxSequence = -1L ^ (-1L << _sequenceBitLength);
+        private const int _sequenceBitLength = 12;
 
         // 【WorkId部分】 工作Id 10位
-        const long maxWorkerId = -1L ^ (-1L << workerIdBitLength);
+        private const long _maxWorkerId = -1L ^ (-1L << _workerIdBitLength);
+        private const int _workerLeftShift = _sequenceBitLength;
+        private const int _workerIdBitLength = 10;
 
-        const int workerLeftShift = sequenceBitLength;
-        const int workerIdBitLength = 10;
+        // 【Timestamp部分】
+        private const int _timestampLeftShift = _workerLeftShift + _workerIdBitLength;
+
 
         /// <summary>
         ///  当前的工作id 最大值不能超过（2的11次方 - 1）
         /// </summary>
         public long WorkId { get; }
-
-        // 【Timestamp部分】
-        const int timestampLeftShift = sequenceBitLength + workerIdBitLength;
 
         /// <summary>
         /// 构造函数
@@ -50,14 +48,17 @@ namespace OSS.Common.ComUtils
         /// <param name="workId">当前的工作id 最大值不能超过（2的11次方 - 1）</param>
         public NumGenerator(long workId)
         {
-            if (workId > maxWorkerId || workId < 0)
+            if (workId > _maxWorkerId || workId < 0)
             {
                 throw new ArgumentException("workId", $"worker Id can't be greater than {workId} or less than 0");
             }
+
             WorkId = workId;
         }
 
-        private long lastTimestamp;
+        private long _sequence;
+        private long _timestamp;
+        private readonly object _lockObj=new object();
 
         /// <summary>
         ///  生成下一个编号
@@ -65,65 +66,66 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public long NextNum()
         {
-            var timestamp = GetTimestampAndSetSeq();
+            long ts, seq;
+            lock (_lockObj)
+            {
+                SetTimestampAndSeq();
+                ts = _timestamp;
+                seq = _sequence;
+            }
+            return CombineNum(ts, seq);
+        }
 
-            return (timestamp << timestampLeftShift)
-                   | (WorkId << workerLeftShift)
+ 
+        private long CombineNum(long timestamp, long sequence)
+        {
+            return (timestamp << _timestampLeftShift)
+                   | (WorkId << _workerLeftShift)
                    | sequence;
         }
 
-        /// <summary>
-        ///  获取数字编号（排除机器位，直接是时间戳 + 自增序列）
-        /// </summary>
-        /// <returns></returns>
-        internal long GetNumWithoutWorker()
-        {
-            var timestamp = GetTimestampAndSetSeq();
 
-            return (timestamp << sequenceBitLength)
-                   | sequence;
-        }
-
-        private long GetTimestampAndSetSeq()
+        private void SetTimestampAndSeq()
         {
-            var timestamp = NumUtil.TimeMilliNum();
-            if (timestamp < lastTimestamp)
+            var newTimestamp = NumUtil.TimeMilliNum();
+            if (newTimestamp < _timestamp)
             {
                 //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
                 throw new ArgumentException(
-                    $"Clock moved backwards.  Refusing to generate id for {lastTimestamp - timestamp} milliseconds");
+                    $"生成数字编号时，时间出错，和上次相差 {_timestamp - newTimestamp} 毫秒");
             }
 
             // 如果是同一时间生成的，则进行毫秒内序列
-            if (lastTimestamp == timestamp)
+            if (_timestamp == newTimestamp)
             {
-                sequence = (sequence + 1) & maxSequence;
+                _sequence = (_sequence + 1) & _maxSequence;
 
                 //毫秒内序列溢出
                 //阻塞到下一个毫秒,获得新的时间戳
-                if (sequence == 0)
-                    timestamp = WaitNextMillis();
+                if (_sequence == 0)
+                    newTimestamp = WaitNextMillis(_timestamp);
             }
             //时间戳改变，毫秒内序列重置
             else
-                sequence = 0L;
+                _sequence = 0L;
 
             //上次生成ID的时间截
-            lastTimestamp = timestamp;
-            return timestamp;
+            _timestamp = newTimestamp;
+
         }
 
         /// <summary>
         ///  当前毫秒内序列使用完，等待下一毫秒
         /// </summary>
         /// <returns></returns>
-        protected long WaitNextMillis()
+        protected long WaitNextMillis(long timestmap)
         {
             long timeTicks;
             do
             {
                 timeTicks = NumUtil.TimeMilliNum();
-            } while (timeTicks <= lastTimestamp);
+            } while (timeTicks <= timestmap);
+
             return timeTicks;
         }
 
@@ -138,7 +140,7 @@ namespace OSS.Common.ComUtils
         private static readonly long _timeStartTicks = new DateTime(2017, 12, 1).ToUniversalTime().Ticks;
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
-      
+
         /// <summary>		
         /// 随机数字		
         /// </summary>		
@@ -150,9 +152,10 @@ namespace OSS.Common.ComUtils
             {
                 num.Append(_rnd.Next(0, 9));
             }
+
             return num.ToString();
         }
-        
+
         private static readonly NumGenerator generator = new NumGenerator(0);
 
         /// <summary>
@@ -161,7 +164,7 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static long SnowNum()
         {
-            return generator.GetNumWithoutWorker();
+            return generator.NextNum();
         }
 
         /// <summary>
