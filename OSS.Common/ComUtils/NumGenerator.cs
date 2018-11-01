@@ -18,47 +18,89 @@ using System.Text;
 namespace OSS.Common.ComUtils
 {
     /// <summary>
+    /// 生成兼容js的编号（53bit）
+    /// </summary>
+    public class SmallNumGenerator : BaseNumGenerator
+    {
+        public SmallNumGenerator(long workId) : base(workId, 9, 3)
+        {
+        }
+    }
+
+    /// <summary>
     ///  唯一编码生成类
     /// </summary>
-    public class NumGenerator
+    public class NumGenerator : BaseNumGenerator
     {
-        // 符号位(1位) + Timestamp(41位) + WorkId(10位) + sequence(12位)  = 编号Id (64位)
-
-        //【sequence 部分】  随机序列  12位
-        private const long _maxSequence = -1L ^ (-1L << _sequenceBitLength);
-        private const int _sequenceBitLength = 12;
-
-        // 【WorkId部分】 工作Id 10位
-        private const long _maxWorkerId = -1L ^ (-1L << _workerIdBitLength);
-        private const int _workerLeftShift = _sequenceBitLength;
-        private const int _workerIdBitLength = 10;
-
-        // 【Timestamp部分】
-        private const int _timestampLeftShift = _workerLeftShift + _workerIdBitLength;
-
-
-        /// <summary>
-        ///  当前的工作id 最大值不能超过（2的11次方 - 1）
-        /// </summary>
-        public long WorkId { get; }
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="workId">当前的工作id 最大值不能超过（2的11次方 - 1）</param>
-        public NumGenerator(long workId)
+        public NumGenerator(long workId) : base(workId, 12, 10)
         {
+        }
+    }
+
+    /// <summary>
+    ///  数字编号生成基类
+    /// </summary>
+    public class BaseNumGenerator
+    {
+        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId + sequence  = 编号Id (64位)
+
+        //【sequence 部分】  随机序列 
+        private long _maxSequence; // 最大值
+        private int _sequenceBitLength; //长度
+
+        // 【WorkId部分】 工作Id 
+        private long _maxWorkerId;    // 最大值
+        private int _workerIdBitLength; // 长度
+        /// <summary>
+        ///  workerId需要偏移的位置
+        /// </summary>
+        protected int WorkerLeftShift { get; private set; }
+
+        /// <summary>
+        /// Timestamp 需要偏移的位置
+        /// </summary>
+        protected int TimestampLeftShift { get; private set; }
+
+        private void InitailConfig(int seqBitLength, int worIdBitLength)
+        {
+            _sequenceBitLength = seqBitLength;
+            _maxSequence = -1L ^ (-1L << _sequenceBitLength);
+
+            _workerIdBitLength = worIdBitLength;
+            _maxWorkerId = -1L ^ (-1L << _workerIdBitLength);
+            WorkerLeftShift = _sequenceBitLength;
+
+            TimestampLeftShift = WorkerLeftShift + _workerIdBitLength;
+        }
+
+        /// <summary>
+        ///  获取当前的工作ID
+        /// </summary>
+        public long WorkId { get; }
+
+
+        private long _sequence;   //  时间戳下 序号值
+        private long _timestamp;  // 最后一次的时间戳值
+
+        private readonly object obj = new object();// 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        protected BaseNumGenerator(long workId, int seqBitLength, int worIdBitLength)
+        {
+            InitailConfig(seqBitLength, worIdBitLength);
+
             if (workId > _maxWorkerId || workId < 0)
             {
-                throw new ArgumentException("workId", $"worker Id can't be greater than {workId} or less than 0");
+                throw new ArgumentException("workId", $"工作Id不能大于 {_maxWorkerId} 或 小于 0");
             }
-
             WorkId = workId;
         }
 
-        private long _sequence;
-        private long _timestamp;
-        private readonly object _lockObj=new object();
 
         /// <summary>
         ///  生成下一个编号
@@ -67,7 +109,7 @@ namespace OSS.Common.ComUtils
         public long NextNum()
         {
             long ts, seq;
-            lock (_lockObj)
+            lock (obj)
             {
                 SetTimestampAndSeq();
                 ts = _timestamp;
@@ -76,14 +118,18 @@ namespace OSS.Common.ComUtils
             return CombineNum(ts, seq);
         }
 
- 
-        private long CombineNum(long timestamp, long sequence)
+        /// <summary>
+        ///   组合数字ID
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
+        protected virtual long CombineNum(long timestamp, long sequence)
         {
-            return (timestamp << _timestampLeftShift)
-                   | (WorkId << _workerLeftShift)
-                   | sequence;
+            return (timestamp << TimestampLeftShift)
+                         | (WorkId << WorkerLeftShift)
+                         | sequence;
         }
-
 
         private void SetTimestampAndSeq()
         {
@@ -92,7 +138,7 @@ namespace OSS.Common.ComUtils
             {
                 //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
                 throw new ArgumentException(
-                    $"生成数字编号时，时间出错，和上次相差 {_timestamp - newTimestamp} 毫秒");
+                    $"当前时间小于上次生成时间 {_timestamp - newTimestamp} 毫秒，注意系统时间是否发生变化！");
             }
 
             // 如果是同一时间生成的，则进行毫秒内序列
@@ -109,26 +155,22 @@ namespace OSS.Common.ComUtils
             else
                 _sequence = 0L;
 
-            //上次生成ID的时间截
             _timestamp = newTimestamp;
-
         }
 
         /// <summary>
         ///  当前毫秒内序列使用完，等待下一毫秒
         /// </summary>
         /// <returns></returns>
-        protected long WaitNextMillis(long timestmap)
+        protected long WaitNextMillis(long curTimeSpan)
         {
             long timeTicks;
             do
             {
                 timeTicks = NumUtil.TimeMilliNum();
-            } while (timeTicks <= timestmap);
-
+            } while (timeTicks <= curTimeSpan);
             return timeTicks;
         }
-
     }
 
     /// <summary>
