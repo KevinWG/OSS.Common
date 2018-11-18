@@ -21,7 +21,9 @@ namespace OSS.Common.ComUtils
     /// 生成兼容js的编号（53bit）
     /// </summary>
     public class SmallNumGenerator : BaseNumGenerator
-    {
+    {       
+        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId( 3 位) + sequence （9 位）  = 编号Id (64位)
+
         public SmallNumGenerator(long workId) : base(workId, 9, 3)
         {
         }
@@ -46,7 +48,7 @@ namespace OSS.Common.ComUtils
     /// </summary>
     public class BaseNumGenerator
     {
-        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId + sequence  = 编号Id (64位)
+        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId() + sequence  = 编号Id (64位)
 
         //【sequence 部分】  随机序列 
         private long _maxSequence; // 最大值
@@ -179,7 +181,7 @@ namespace OSS.Common.ComUtils
     public static class NumUtil
     {
 
-        private static readonly long _timeStartTicks = new DateTime(2017, 12, 1).ToUniversalTime().Ticks;
+        private static readonly long _timeStartTicks = new DateTime(2018, 1, 1).ToUniversalTime().Ticks;
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
 
@@ -209,6 +211,20 @@ namespace OSS.Common.ComUtils
             return generator.NextNum();
         }
 
+        
+
+        private static readonly SmallNumGenerator smallGenerator = new SmallNumGenerator(0);
+
+        /// <summary>
+        /// twitter 的snowflake唯一Id算法(排除机器位)
+        /// </summary>
+        /// <returns></returns>
+        public static long SmallSnowNum()
+        {
+            return smallGenerator.NextNum();
+        }
+
+        
         /// <summary>
         ///  时间戳数字编号（精度 毫秒
         /// </summary>

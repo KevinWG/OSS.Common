@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using OSS.Common.Authrization;
 using OSS.Common.ComUtils;
 
 namespace OSS.Common.Plugs.LogPlug
@@ -44,12 +45,13 @@ namespace OSS.Common.Plugs.LogPlug
 
         private string getLogFilePath(string module, LogLevelEnum level)
         {
+            var date = DateTime.Now;
             var dirPath = Path.Combine(_logBaseDirPath,string.Concat(module,"_",level) ,DateTime.Now.ToString("yyMM"));//string.Format(@"{0}\{1}\{2}\",_logBaseDirPath, module, level);
 
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
 
-            return Path.Combine(dirPath, DateTime.Now.ToString("yyyyMMddHH")+".txt");
+            return Path.Combine(dirPath, date.ToString("MMddHH")+( date.Minute>30?"00":"30")+ ".txt");
         }
 
         private static readonly object obj = new object();
@@ -81,7 +83,6 @@ namespace OSS.Common.Plugs.LogPlug
                     }
                 }
             });
-
         }
         
         /// <summary>
@@ -91,7 +92,7 @@ namespace OSS.Common.Plugs.LogPlug
         public void SetLogCode(LogInfo log)
         {
             // 0.1 毫秒
-            log.LogCode=NumUtil.TimeMilliNum().ToCode();
+            log.LogCode= MemberShiper.AppAuthorize?.TraceNum ??  NumUtil.TimeMilliNum().ToCode();
         }
 
     }
