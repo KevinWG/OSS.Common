@@ -45,7 +45,7 @@ namespace OSS.Common.Extention
 
 
         /// <summary>
-        /// 获取距离 1970-01-01（格林威治时间）的秒数
+        /// 获取距离 1970-01-01（格林威治时间）的毫秒数
         /// </summary>
         /// <param name="localTime"></param>
         /// <returns></returns>
@@ -63,6 +63,19 @@ namespace OSS.Common.Extention
         {
             return DateTimeOffset.FromUnixTimeMilliseconds(milliSeconds).LocalDateTime;
         }
+
+
+        /// <summary>
+        /// 获取距离 1970-01-01（格林威治时间）Ticks  精确到0.1微秒（千万分之一秒）
+        /// </summary>
+        /// <param name="localTime"></param>
+        /// <returns></returns>
+        public static long ToUtcTicks(this DateTime localTime)
+        {
+            return localTime.ToUniversalTime().Ticks - startTicks ;
+        }
+
+
 
         /// <summary>
         /// 获取距离 1970-01-01（本地/北京时间）的秒数
