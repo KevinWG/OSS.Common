@@ -40,24 +40,25 @@ namespace OSS.Common.Authrization
         public string DeviceId { get; set; }
 
         /// <summary>
-        ///  Token 
-        /// </summary>
-        public string Token { get; set; }
-
-        /// <summary>
-        /// 时间
-        /// </summary>
-        public long TimeSpan { get; set; }
-
-        /// <summary>
         /// IP地址 可选 手机App为空
         /// </summary>
         public string IpAddress { get; set; }
 
         /// <summary>
-        ///  operate tag  可选 
+        ///  用户Token 
         /// </summary>
-        public string OTag { get; set; }
+        public string Token { get; set; }
+        
+
+        /// <summary>
+        ///  请求跟踪编号
+        /// </summary>
+        public string TraceNum { get; set; }
+
+        /// <summary>
+        /// 时间戳
+        /// </summary>
+        public long TimeSpan { get; set; }
 
         /// <summary>
         ///   租户Token[仅对内部应用有效]
@@ -69,21 +70,26 @@ namespace OSS.Common.Authrization
         /// </summary>
         public string WebBrowser { get; set; }
 
+
+
+        /// <summary>
+        ///  租户ID 【仅 InnerProxy 时，才会通过外部传值，不参与签名】
+        /// </summary>
+        public long TenantId { get; set; }
+
         /// <summary>
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
+        
 
-        /// <summary>
-        ///  内部扩展参数 【自定义，不参与签名和传递】
-        /// </summary>
-        public object Extra { get; set; }
+
+
 
         /// <summary>
         /// 应用客户端类型[非外部传值，不参与签名]
         /// </summary>
         public AppClientType AppClient { get; set; }
-
 
         /// <summary>
         ///   应用类型 [非外部传值，不参与签名]
@@ -91,10 +97,6 @@ namespace OSS.Common.Authrization
         public AppSourceType AppType { get; set; }
 
 
-        /// <summary>
-        ///  租户ID 【仅 InnerProxy 时，才会通过外部传值，不参与签名】
-        /// </summary>
-        public long TenantId { get; set; }
         
         #endregion
 
@@ -131,46 +133,43 @@ namespace OSS.Common.Authrization
         {
             switch (key)
             {
-                case "av":
-                    AppVersion = val;
-                    break;
-
                 case "as":
                     AppSource = val;
                     break;
-
+                case "av":
+                    AppVersion = val;
+                    break;
                 case "did":
                     DeviceId = val;
                     break;
-
                 case "ip":
                     IpAddress = val;
                     break;
-
-                case "ot":
-                    OTag = val;
+                case "tn":
+                    Token = val;
                     break;
+
+
+                case "tnum":
+                    TraceNum = val;
+                    break;
+                case "ts":
+                    TimeSpan = val.ToInt64();
+                    break;
+                case "tt":
+                    TenantToken = val;
+                    break;
+                case "wb":
+                    WebBrowser = val;
+                    break;
+                    
 
                 case "tid":
                     TenantId = val.ToInt64();
                     break;
 
-                case "tn":
-                    Token = val;
-                    break;
-                case "ts":
-                    TimeSpan = val.ToInt64();
-                    break;
-
-                case "tt":
-                    TenantToken = val;
-                    break;
-           
                 case "sign":
                     Sign = val;
-                    break;
-                case "wb":
-                    WebBrowser = val;
                     break;
             }
         }
@@ -189,14 +188,13 @@ namespace OSS.Common.Authrization
                 DeviceId = this.DeviceId,
                 IpAddress = this.IpAddress,
 
-                OTag = this.OTag,
                 Sign = this.Sign,
                 TenantId = this.TenantId,
                 TimeSpan = this.TimeSpan,
-
                 Token = this.Token,
+                TraceNum = this.TraceNum,
+
                 WebBrowser = this.WebBrowser,
-                Extra = this.Extra,
                 TenantToken = this.TenantToken,
                 AppType = this.AppType
             };
@@ -216,7 +214,7 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public bool CheckSign(string secretKey, char separator = ';')
         {
-            var strTicketParas = GetSignContent(AppSource,AppVersion,separator,false);
+            var strTicketParas = GetSignContent(AppSource, AppVersion, separator, false);
 
             var signData = HMACSHA.EncryptBase64(strTicketParas.ToString(), secretKey);
 
@@ -228,21 +226,21 @@ namespace OSS.Common.Authrization
         /// 生成签名后的字符串
         /// </summary>
         /// <returns></returns>
-        public string ToTicket(string appSource,string appVersion,string secretKey, char separator = ';')
+        public string ToTicket(string appSource, string appVersion, string secretKey, char separator = ';')
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
-            var encrpStr = GetSignContent(appSource,appVersion,separator, false);
+            var encrpStr = GetSignContent(appSource, appVersion, separator, false);
 
             Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
 
             var content = GetContent(appSource, appVersion, separator);
-            AddTicketProperty("sign", Sign, separator, content,true);
+            AddTicketProperty("sign", Sign, separator, content, true);
 
             return content.ToString();
         }
 
 
-        
+
         /// <summary>
         ///   获取要加密签名的串
         /// </summary>
@@ -251,25 +249,24 @@ namespace OSS.Common.Authrization
         /// <param name="separator"></param>
         /// <param name="isUrlEncode">是否url转义，传递的值需要转义，签名时不需要</param>
         /// <returns></returns>
-        private  StringBuilder GetSignContent(string appSource, string appVersion, char separator,bool isUrlEncode)
+        private StringBuilder GetSignContent(string appSource, string appVersion, char separator, bool isUrlEncode)
         {
             var strTicketParas = new StringBuilder();
-            
+
             AddTicketProperty("as", appSource, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("av", appVersion, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("did", DeviceId, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ip", IpAddress, separator, strTicketParas, isUrlEncode);
 
-            AddTicketProperty("ot", OTag, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas, isUrlEncode);
             AddTicketProperty("tt", TenantToken, separator, strTicketParas, isUrlEncode);
-
             AddTicketProperty("wb", WebBrowser, separator, strTicketParas, isUrlEncode);
 
             return strTicketParas;
         }
-        
+
         private StringBuilder GetContent(string appSource, string appVersion, char separator)
         {
             var strTicketParas = new StringBuilder();
@@ -290,7 +287,8 @@ namespace OSS.Common.Authrization
         /// <param name="separator"></param>
         /// <param name="strTicketParas"></param>
         /// <param name="isUrlEncode">是否参与加密字符串</param>
-        private static void AddTicketProperty(string name, string value, char separator, StringBuilder strTicketParas,bool isUrlEncode)
+        private static void AddTicketProperty(string name, string value, char separator, StringBuilder strTicketParas,
+            bool isUrlEncode)
         {
             if (string.IsNullOrEmpty(value)) return;
 
@@ -298,7 +296,7 @@ namespace OSS.Common.Authrization
             {
                 strTicketParas.Append(separator);
             }
-            strTicketParas.Append(name).Append("=").Append(isUrlEncode?value.UrlEncode():value);
+            strTicketParas.Append(name).Append("=").Append(isUrlEncode ? value.UrlEncode() : value);
         }
 
         #endregion
