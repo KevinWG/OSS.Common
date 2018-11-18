@@ -92,7 +92,7 @@ namespace OSS.Common.Plugs.LogPlug
         public void SetLogCode(LogInfo log)
         {
             // 0.1 毫秒
-            log.LogCode= MemberShiper.AppAuthorize?.TraceNum ??  NumUtil.TimeMilliNum().ToCode();
+            log.LogCode= MemberShiper.AppAuthorize?.TraceNum ??  Guid.NewGuid().ToString();
         }
 
     }

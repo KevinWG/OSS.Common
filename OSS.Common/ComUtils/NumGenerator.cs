@@ -11,9 +11,7 @@
 
 #endregion
 
-using OSS.Common.Extention;
 using System;
-using System.Text;
 
 namespace OSS.Common.ComUtils
 {
@@ -135,7 +133,7 @@ namespace OSS.Common.ComUtils
 
         private void SetTimestampAndSeq()
         {
-            var newTimestamp = NumUtil.TimeMilliNum();
+            var newTimestamp = TimeMilliNum();
             if (newTimestamp < _timestamp)
             {
                 //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
@@ -169,62 +167,15 @@ namespace OSS.Common.ComUtils
             long timeTicks;
             do
             {
-                timeTicks = NumUtil.TimeMilliNum();
+                timeTicks = TimeMilliNum();
             } while (timeTicks <= curTimeSpan);
             return timeTicks;
         }
-    }
 
-    /// <summary>
-    ///  唯一数字编码生成静态通用类
-    /// </summary>
-    public static class NumUtil
-    {
+
 
         private static readonly long _timeStartTicks = new DateTime(2018, 1, 1).ToUniversalTime().Ticks;
-        private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
-
-        /// <summary>		
-        /// 随机数字		
-        /// </summary>		
-        /// <returns></returns>		
-        public static string RandomNum(int length = 4)
-        {
-            var num = new StringBuilder(length);
-            for (var i = 0; i < length; i++)
-            {
-                num.Append(_rnd.Next(0, 9));
-            }
-
-            return num.ToString();
-        }
-
-        private static readonly NumGenerator generator = new NumGenerator(0);
-
-        /// <summary>
-        /// twitter 的snowflake唯一Id算法(排除机器位)
-        /// </summary>
-        /// <returns></returns>
-        public static long SnowNum()
-        {
-            return generator.NextNum();
-        }
-
-        
-
-        private static readonly SmallNumGenerator smallGenerator = new SmallNumGenerator(0);
-
-        /// <summary>
-        /// twitter 的snowflake唯一Id算法(排除机器位)
-        /// </summary>
-        /// <returns></returns>
-        public static long SmallSnowNum()
-        {
-            return smallGenerator.NextNum();
-        }
-
-        
         /// <summary>
         ///  时间戳数字编号（精度 毫秒
         /// </summary>
@@ -233,17 +184,5 @@ namespace OSS.Common.ComUtils
         {
             return (DateTime.UtcNow.Ticks - _timeStartTicks) / 10000;
         }
-
-        /// <summary>
-        ///  时间戳（秒）+ 主编号的后四位 生成的数字编号
-        /// </summary>
-        /// <param name="mainNum"></param>
-        /// <returns></returns>
-        public static long SubTimeNum(long mainNum)
-        {
-            var suffixNum = mainNum % 10000;
-            return string.Concat(TimeMilliNum(), suffixNum).ToInt64();
-        }
-
     }
 }
