@@ -90,7 +90,7 @@ namespace OSS.Common.Authrization
         /// <returns></returns>
         public static string GetToken(string encryptKey, string tokenDetail)
         {
-            return AesRijndael.Encrypt(tokenDetail, encryptKey).Base64UrlEncode();
+            return AesRijndael.Encrypt(tokenDetail, encryptKey).Base64UrlSafeEncode();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace OSS.Common.Authrization
         /// <returns>返回解析信息，Item1为id，Item2为key</returns>
         public static string GetTokenDetail(string encryptKey, string token)
         {
-            var tokenDetail = AesRijndael.Decrypt(token.Base64UrlDecode(), encryptKey);
+            var tokenDetail = AesRijndael.Decrypt(token.Base64UrlSafeDecode(), encryptKey);
 
             if (string.IsNullOrEmpty(tokenDetail))
                 throw new ArgumentNullException(nameof(token), "不合法的用户Token");
