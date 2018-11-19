@@ -295,11 +295,11 @@ namespace OSS.Common.Extention
         /// <summary>
         ///   替换base64位字符串中的特殊符号 Url友好
         /// </summary>
-        /// <param name="baseString"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public static string Base64UrlEncode(this string baseString)
+        public static string Base64UrlSafeEncode(this string data)
         {
-            return baseString.Replace('+', '-').Replace('/', '_');
+            return data.Replace('+', '-').Replace('/', '_').TrimEnd('=');
         }
 
         /// <summary>
@@ -307,9 +307,16 @@ namespace OSS.Common.Extention
         /// </summary>
         /// <param name="baseString"></param>
         /// <returns></returns>
-        public static string Base64UrlDecode(this string baseString)
+        public static string Base64UrlSafeDecode(this string baseString)
         {
-            return baseString.Replace('-', '+').Replace('_', '/');
+            var bStr= baseString.Replace('-', '+').Replace('_', '/');
+
+            var len = bStr.Length % 4;
+            if (len>0)
+            {
+                bStr += "====".Remove(len);
+            }
+            return bStr;
         }
         
         #endregion

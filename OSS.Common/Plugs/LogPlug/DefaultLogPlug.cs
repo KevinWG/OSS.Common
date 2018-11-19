@@ -16,7 +16,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using OSS.Common.Authrization;
-using OSS.Common.ComUtils;
 
 namespace OSS.Common.Plugs.LogPlug
 {
