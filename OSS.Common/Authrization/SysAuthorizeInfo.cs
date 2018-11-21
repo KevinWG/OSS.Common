@@ -48,7 +48,7 @@ namespace OSS.Common.Authrization
         ///  用户Token 
         /// </summary>
         public string Token { get; set; }
-        
+
 
         /// <summary>
         ///  请求跟踪编号
@@ -81,7 +81,7 @@ namespace OSS.Common.Authrization
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
-        
+
 
 
 
@@ -97,7 +97,7 @@ namespace OSS.Common.Authrization
         public AppSourceType AppType { get; set; }
 
 
-        
+
         #endregion
 
         #region  字符串处理
@@ -162,7 +162,7 @@ namespace OSS.Common.Authrization
                 case "wb":
                     WebBrowser = val;
                     break;
-                    
+
 
                 case "tid":
                     TenantId = val.ToInt64();
@@ -340,37 +340,33 @@ namespace OSS.Common.Authrization
 
 
     /// <summary>
-    ///  
+    ///  应用来源类型
     /// </summary>
     public enum AppSourceType
     {
         /// <summary>
-        ///  系统内部管理应用    
-        ///       （合作商，系统代理商也可使用）
+        ///  系统内部管理应用
         /// </summary>
         SystemManager = 0,
 
         /// <summary>
-       ///系统应用
+        ///系统应用
         /// </summary>
         System = 30,
 
         /// <summary>
-        ///  内部应用（本身作为平台上的一个租户存在
+        ///  内部应用 
         /// </summary>
         Inner = 60,
 
         /// <summary>
-        ///   外部应用（租户自定义外部应用）
+        ///   外部应用
         /// </summary>
         Outer = 90,
 
         /// <summary>
         ///  代理应用
-        ///     可以代理租户应用（ 单一，如用户端单一域名单一租户，能够通过全局唯一标识识别租户(UserSite)
         /// </summary>
         Proxy = 120
-
-  
     }
 }
