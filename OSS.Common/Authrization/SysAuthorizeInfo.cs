@@ -345,26 +345,32 @@ namespace OSS.Common.Authrization
     public enum AppSourceType
     {
         /// <summary>
-        ///  内部管理应用
-        ///    有超级管理功能和同时多租户代理功能
+        ///  系统内部管理应用    
         ///       （合作商，系统代理商也可使用）
         /// </summary>
-        InerManager = 1,
+        SystemManager = 0,
 
         /// <summary>
-        ///  内部代理应用
-        ///     可以代理租户应用（ 单一，如用户端单一域名单一租户，能够通过全局唯一标识识别租户(UserSite)
+       ///系统应用
         /// </summary>
-        InnerProx = 2,
+        System = 30,
 
         /// <summary>
-        ///  内部应用（本身作为一个租户存在
+        ///  内部应用（本身作为平台上的一个租户存在
         /// </summary>
-        Inner = 4,
+        Inner = 60,
 
         /// <summary>
         ///   外部应用（租户自定义外部应用）
         /// </summary>
-        Outer = 8
+        Outer = 90,
+
+        /// <summary>
+        ///  代理应用
+        ///     可以代理租户应用（ 单一，如用户端单一域名单一租户，能够通过全局唯一标识识别租户(UserSite)
+        /// </summary>
+        Proxy = 120
+
+  
     }
 }
