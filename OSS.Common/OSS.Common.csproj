@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.3.3.6</Version>
+    <Version>1.3.3.7</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>修改应用来源类型</PackageReleaseNotes>
-    <AssemblyVersion>1.3.3.6</AssemblyVersion>
-    <FileVersion>1.3.3.6</FileVersion>
+    <PackageReleaseNotes>添加结果集扩展方法等</PackageReleaseNotes>
+    <AssemblyVersion>1.3.3.7</AssemblyVersion>
+    <FileVersion>1.3.3.7</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>

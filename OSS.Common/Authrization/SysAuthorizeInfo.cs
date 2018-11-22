@@ -49,6 +49,11 @@ namespace OSS.Common.Authrization
         /// </summary>
         public string Token { get; set; }
 
+        /// <summary>
+        ///  租户ID
+        /// </summary>
+        public long TenantId { get; set; }
+
 
         /// <summary>
         ///  请求跟踪编号
@@ -70,21 +75,12 @@ namespace OSS.Common.Authrization
         /// </summary>
         public string WebBrowser { get; set; }
 
-
-
-        /// <summary>
-        ///  租户ID 【仅 InnerProxy 时，才会通过外部传值，不参与签名】
-        /// </summary>
-        public long TenantId { get; set; }
-
+     
         /// <summary>
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
-
-
-
-
+        
 
         /// <summary>
         /// 应用客户端类型[非外部传值，不参与签名]
@@ -145,11 +141,13 @@ namespace OSS.Common.Authrization
                 case "ip":
                     IpAddress = val;
                     break;
+
+                case "tid":
+                    TenantId = val.ToInt64();
+                    break;
                 case "tn":
                     Token = val;
                     break;
-
-
                 case "tnum":
                     TraceNum = val;
                     break;
@@ -159,14 +157,11 @@ namespace OSS.Common.Authrization
                 case "tt":
                     TenantToken = val;
                     break;
+
                 case "wb":
                     WebBrowser = val;
                     break;
-
-
-                case "tid":
-                    TenantId = val.ToInt64();
-                    break;
+                    
 
                 case "sign":
                     Sign = val;
@@ -257,6 +252,11 @@ namespace OSS.Common.Authrization
             AddTicketProperty("av", appVersion, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("did", DeviceId, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ip", IpAddress, separator, strTicketParas, isUrlEncode);
+            if (TenantId>0)
+            {
+                AddTicketProperty("tid", TenantId.ToString(), separator, strTicketParas, isUrlEncode);
+            }
+         
 
             AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isUrlEncode);
@@ -272,10 +272,7 @@ namespace OSS.Common.Authrization
             var strTicketParas = new StringBuilder();
 
             GetSignContent(appSource, appVersion, separator, true);
-
-            if (TenantId > 0)
-                AddTicketProperty("tid", TenantId.ToString(), separator, strTicketParas, true);
-
+ 
             return strTicketParas;
         }
 
@@ -354,19 +351,20 @@ namespace OSS.Common.Authrization
         /// </summary>
         System = 30,
 
-        /// <summary>
-        ///  内部应用 
-        /// </summary>
-        Inner = 60,
-
-        /// <summary>
-        ///   外部应用
-        /// </summary>
-        Outer = 90,
 
         /// <summary>
         ///  代理应用
         /// </summary>
-        Proxy = 120
+        Proxy = 60,
+
+        /// <summary>
+        ///  内部应用 
+        /// </summary>
+        Inner = 90,
+
+        /// <summary>
+        ///   外部应用
+        /// </summary>
+        Outer = 120
     }
 }

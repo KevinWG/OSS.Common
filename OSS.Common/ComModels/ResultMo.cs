@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.ComModels
@@ -306,18 +307,6 @@ namespace OSS.Common.ComModels
 
 
         /// <summary>
-        ///  转化到结果实体
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="res"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public static ResultMo<TResult> ConvertToResultOnly<TResult>(this ResultMo res)
-        {
-            return ConvertToResult<ResultMo, TResult>(res,null);
-        }
-
-        /// <summary>
         /// 转化到结果实体
         /// </summary>
         /// <typeparam name="TPara"></typeparam>
@@ -330,7 +319,7 @@ namespace OSS.Common.ComModels
             where TPara : ResultMo
             where TResult : ResultMo,new()
         {
-            if (func != null && res.IsSuccess())
+            if (func != null)
                 return func(res);
 
             return new TResult(){
@@ -351,7 +340,7 @@ namespace OSS.Common.ComModels
             Func<TPara, TResult> func)
             where TResult : ResultMo,new()
         {
-            if (func != null && res.IsSuccess())
+            if (func != null)
                 return func(res.data);
 
             return new TResult()
@@ -372,5 +361,41 @@ namespace OSS.Common.ComModels
         {
             return ConvertToResultInherit<ResultMo, TResult>(res,null);
         }
+
+
+        /// <summary>
+        /// 转化到结果列表
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static ResultListMo<TResult> ConvertToResultList<TPara, TResult>(this ResultListMo<TPara> res,
+            Func<TPara, TResult> func)
+        {
+            var listRes= new ResultListMo<TResult>()
+            {
+                ret = res.ret,
+                msg = res.msg
+            };
+            if (func != null&& res.data!=null)
+                listRes.data = res.data.Select(func).ToList();
+
+            return listRes;
+        }
+
+        /// <summary>
+        /// 转化到结果列表
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static ResultListMo<TResult> ConvertToResultList<TPara, TResult>(this ResultListMo<TPara> res)
+        {
+            return new ResultListMo<TResult>(res.ret, res.msg);
+        }
+
     }
 }
