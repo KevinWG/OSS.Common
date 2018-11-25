@@ -269,11 +269,7 @@ namespace OSS.Common.Authrization
 
         private StringBuilder GetContent(string appSource, string appVersion, char separator)
         {
-            var strTicketParas = new StringBuilder();
-
-            GetSignContent(appSource, appVersion, separator, true);
- 
-            return strTicketParas;
+            return GetSignContent(appSource, appVersion, separator, true);
         }
 
         /// <summary>

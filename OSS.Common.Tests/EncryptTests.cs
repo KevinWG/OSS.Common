@@ -23,18 +23,14 @@ namespace OSS.Common.Tests
 
             var appInfo = new AppAuthorizeInfo
             {
-                AppClient = AppClientType.Android,
-                AppSource = "mmmmm",
-                AppVersion = "1.0.1",
                 DeviceId = "mmnsnd",
-                Token = "SeBCjJYRkujxEsgv9XupyHY7aMkdQuQcqGMu0wQMbhw=",
                 IpAddress = "127.0.0.1"
             };
 
-            var newSignData = appInfo.ToTicket(key);
+            var newSignData = appInfo.ToTicket("app_hlgu80900p0","1.0", key);
             appInfo.FromTicket(newSignData);
 
-            var result = appInfo.CheckSign(key);
+            Assert.IsTrue(appInfo.CheckSign(key));
         }
 
         [TestMethod]
@@ -60,9 +56,6 @@ namespace OSS.Common.Tests
             string result = AesRijndael.Encrypt("owxehuN4Ntt8Gx0AqBJ6O6Jv27Yg", key);
 
             string r = AesRijndael.Decrypt(result, key);
-
-            
-
         }
 
     }

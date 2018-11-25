@@ -77,7 +77,6 @@ namespace OSS.Common.Tests
         public List<TestItem> items { get; set; }
     }
 
-
     public class TestItem
     {
         public string house { get; set; }
