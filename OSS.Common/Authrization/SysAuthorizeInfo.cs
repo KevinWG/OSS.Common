@@ -303,7 +303,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///  未知
         /// </summary>
-        Unkonw = 0,
+        PC = 10,
 
         /// <summary>
         /// 苹果应用
