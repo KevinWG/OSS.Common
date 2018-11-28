@@ -340,7 +340,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///  系统内部管理应用
         /// </summary>
-        SystemManager = 0,
+        SystemManager = 1,
 
         /// <summary>
         ///系统应用
