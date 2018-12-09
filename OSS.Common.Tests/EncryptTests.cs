@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Authrization;
-using OSS.Common.ComUtils;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 
@@ -41,6 +41,16 @@ namespace OSS.Common.Tests
             //var page = new PageListModel<AppAuthorizeInfo>(100, new List<AppAuthorizeInfo>(), new
             //        SearchModel() {});
         }
+
+
+        [TestMethod]
+        public void Base64Tests()
+        {
+            string str1 =  "mn".ToBase64(Encoding.UTF8).Base64UrlSafeEncode();
+
+            string str2 = str1.Base64UrlSafeDecode().FromBase64(Encoding.UTF8);
+        }
+
 
         [TestMethod]
         public void Sha1Test()

@@ -314,7 +314,7 @@ namespace OSS.Common.Extention
             var len = bStr.Length % 4;
             if (len>0)
             {
-                bStr += "====".Remove(len);
+                bStr += "====".Substring(len);
             }
             return bStr;
         }
