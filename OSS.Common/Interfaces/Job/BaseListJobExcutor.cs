@@ -12,7 +12,7 @@ namespace OSS.Common.Interfaces.Job
         /// <summary>
         ///  运行状态
         /// </summary>
-        public bool IsRuning { get; protected set; }
+        public bool IsRuning { get; private set; }
 
 
         private int triggerTimes { get; set; } = 0;
