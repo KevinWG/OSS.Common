@@ -125,7 +125,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///   成员Id
         /// </summary>
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 成员扩展信息

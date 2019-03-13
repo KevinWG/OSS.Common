@@ -52,7 +52,7 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///  租户ID
         /// </summary>
-        public long TenantId { get; set; }
+        public string TenantId { get; set; }
 
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace OSS.Common.Authrization
                     break;
 
                 case "tid":
-                    TenantId = val.ToInt64();
+                    TenantId = val;
                     break;
                 case "tn":
                     Token = val;
@@ -252,11 +252,8 @@ namespace OSS.Common.Authrization
             AddTicketProperty("av", appVersion, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("did", DeviceId, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ip", IpAddress, separator, strTicketParas, isUrlEncode);
-            if (TenantId>0)
-            {
-                AddTicketProperty("tid", TenantId.ToString(), separator, strTicketParas, isUrlEncode);
-            }
-         
+            AddTicketProperty("tid", TenantId, separator, strTicketParas, isUrlEncode);
+
 
             AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isUrlEncode);
