@@ -110,7 +110,7 @@ namespace OSS.Common.ComModels
         /// 构造函数
         /// </summary>
         /// <param name="id"></param>
-        public ResultIdMo(long id)
+        public ResultIdMo(string id)
         {
             this.id = id;
         }
@@ -139,7 +139,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 返回的关键值，如返回添加是否成功并返回id
         /// </summary>
-        public long id { get; set; }
+        public string id { get; set; }
     }
 
 
