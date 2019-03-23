@@ -123,9 +123,17 @@ namespace OSS.Common.Authrization
         public int AuthenticationType { get; set; }
 
         /// <summary>
-        ///   成员Id
+        ///  Id
         /// </summary>
         public string Id { get; set; }
+
+
+
+        /// <summary>
+        ///  名称
+        /// </summary>
+        public string Name { get; set; }
+
 
         /// <summary>
         /// 成员扩展信息
