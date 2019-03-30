@@ -123,16 +123,20 @@ namespace OSS.Common.Authrization
         public int AuthenticationType { get; set; }
 
         /// <summary>
-        ///  Id
+        ///  授权编号
         /// </summary>
         public string Id { get; set; }
-
+        
+        /// <summary>
+        ///  展示名称
+        /// </summary>
+        public string Name { get; set; }
 
 
         /// <summary>
-        ///  名称
+        ///  展示图片
         /// </summary>
-        public string Name { get; set; }
+        public string Img { get; set; }
 
 
         /// <summary>
