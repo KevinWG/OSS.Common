@@ -65,10 +65,10 @@ namespace OSS.Common.Authrization
         /// </summary>
         public long TimeSpan { get; set; }
 
-        /// <summary>
-        ///   租户Token[仅对内部应用有效]
-        /// </summary>
-        public string TenantToken { get; set; }
+        ///// <summary>
+        /////   租户Token[仅对内部应用有效]
+        ///// </summary>
+        //public string TenantToken { get; set; }
 
         /// <summary>
         /// 浏览器类型   可选
@@ -154,9 +154,9 @@ namespace OSS.Common.Authrization
                 case "ts":
                     TimeSpan = val.ToInt64();
                     break;
-                case "tt":
-                    TenantToken = val;
-                    break;
+                //case "tt":
+                //    TenantToken = val;
+                //    break;
 
                 case "wb":
                     WebBrowser = val;
@@ -190,7 +190,7 @@ namespace OSS.Common.Authrization
                 TraceNum = this.TraceNum,
 
                 WebBrowser = this.WebBrowser,
-                TenantToken = this.TenantToken,
+                //TenantToken = this.TenantToken,
                 AppType = this.AppType
             };
 
@@ -258,7 +258,7 @@ namespace OSS.Common.Authrization
             AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("tt", TenantToken, separator, strTicketParas, isUrlEncode);
+            //AddTicketProperty("tt", TenantToken, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("wb", WebBrowser, separator, strTicketParas, isUrlEncode);
 
             return strTicketParas;
