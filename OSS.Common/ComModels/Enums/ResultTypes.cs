@@ -84,17 +84,7 @@ namespace OSS.Common.ComModels.Enums
         /// </summary>
         [OSDescript("账号/权限冻结")]
         AuthFreezed = 1440,
-        
-        /// <summary>
-        /// 租户下线关闭状态
-        /// </summary>
-        [OSDescript("租户关闭")] TenantOff = 1450,
-
-        /// <summary>
-        /// 租户欠费
-        /// </summary>
-        [OSDescript("租户欠费")] TenantArrearage = 1452,
-
+ 
         /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
