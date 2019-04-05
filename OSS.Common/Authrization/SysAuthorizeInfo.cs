@@ -75,12 +75,12 @@ namespace OSS.Common.Authrization
         /// </summary>
         public string WebBrowser { get; set; }
 
-     
+
         /// <summary>
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
-        
+
 
         /// <summary>
         /// 应用客户端类型[非外部传值，不参与签名]
@@ -161,7 +161,7 @@ namespace OSS.Common.Authrization
                 case "wb":
                     WebBrowser = val;
                     break;
-                    
+
 
                 case "sign":
                     Sign = val;
@@ -335,28 +335,27 @@ namespace OSS.Common.Authrization
     public enum AppSourceType
     {
         /// <summary>
-        ///  系统内部管理应用
+        ///  平台应用（对内全租户管理）
         /// </summary>
         SystemManager = 1,
 
         /// <summary>
-        ///系统应用
+        ///  平台应用（对内多租户）
         /// </summary>
         System = 30,
-
-
+        
         /// <summary>
-        ///  代理应用
+        ///  平台应用 （对外多租户）
         /// </summary>
         Proxy = 60,
 
         /// <summary>
-        ///  内部应用 
+        ///  内部应用 （对内单一租户）
         /// </summary>
         Inner = 90,
 
         /// <summary>
-        ///   外部应用
+        ///   外部应用（对外单一租户）
         /// </summary>
         Outer = 120
     }
