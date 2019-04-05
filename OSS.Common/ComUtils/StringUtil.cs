@@ -110,6 +110,8 @@ namespace OSS.Common.ComUtils
                 throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
 
             long value = 0;
+            code = code.ToUpper();
+   
             for (var i = count - 1; i >= 0; i--)
             {
                 var num = arrStrs.IndexOf(code[i]);
