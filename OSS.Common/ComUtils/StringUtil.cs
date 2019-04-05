@@ -50,7 +50,7 @@ namespace OSS.Common.ComUtils
 
 
         // 排除【0，O】I 4 这类
-        private const string _arrCodeStr = "12356789ABCDEFGHJKLMNPQRSTUVWXYZ";
+        private const string _arrCodeStr = "12356789abcdefghjklmnpqrstuvwxyz";
 
         /// <summary>
         /// 数字转化为短码
@@ -110,7 +110,6 @@ namespace OSS.Common.ComUtils
                 throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
 
             long value = 0;
-            code = code.ToUpper();
    
             for (var i = count - 1; i >= 0; i--)
             {
