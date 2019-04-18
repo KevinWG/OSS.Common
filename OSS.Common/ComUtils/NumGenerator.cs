@@ -173,7 +173,6 @@ namespace OSS.Common.ComUtils
         }
 
 
-
         private static readonly long _timeStartTicks = new DateTime(2018, 1, 1).ToUniversalTime().Ticks;
 
         /// <summary>
