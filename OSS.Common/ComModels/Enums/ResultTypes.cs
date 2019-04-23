@@ -15,7 +15,38 @@ using OSS.Common.Extention;
 namespace OSS.Common.ComModels.Enums
 {
     /// <summary>
-    ///   结果类型
+    ///   系统结果类型
+    /// </summary>
+    public enum SysResultTypes
+    {
+        /// <summary>
+        /// 成功
+        /// </summary>
+        [OSDescript("正常")] None = 0,
+        
+        /// <summary>
+        /// 无法连接
+        /// </summary>
+        [OSDescript("无法连接")] ConnectError = 100,
+
+        /// <summary>
+        /// 超时
+        /// </summary>
+        [OSDescript("超时")] TimeOut = 200,
+        
+        /// <summary>
+        /// 任务失败
+        /// </summary>
+        [OSDescript("任务失败")] TaskFailed = 300,
+
+        /// <summary>
+        /// 内部错误（服务器错误）
+        /// </summary>
+        [OSDescript("内部错误")] InnerError = 500,
+    }
+
+    /// <summary>
+    ///   业务结果类型
     /// </summary>
     public enum ResultTypes
     {
@@ -77,18 +108,52 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 权限不足
         /// </summary>
-        [OSDescript("权限不足")] NoRight = 1430,
+        [OSDescript("权限不足")] NoPermission = 1430,
 
         /// <summary>
         /// 账号/权限冻结
         /// </summary>
         [OSDescript("账号/权限冻结")]
         AuthFreezed = 1440,
- 
-        /// <summary>
-        /// 内部错误（服务器错误）
-        /// </summary>
-        [OSDescript("内部错误")] InnerError = 1500,
 
+        /// <summary>
+        /// 系统错误
+        /// </summary>
+        [OSDescript("系统错误")] InnerError = 1500
     }
+
+
+
+    /// <summary>
+    ///   ResultMo 扩展
+    /// </summary>
+    public static class ResultExtention
+    {
+        /// <summary>
+        ///  【业务结果】是否是Success
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static bool IsSuccess(this ResultMo res) =>
+            res.ret == 0;
+
+        /// <summary>
+        /// 【业务结果】是否是对应的类型
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsResultType(this ResultMo res, ResultTypes type) =>
+            res.ret == (int)type;
+
+        /// <summary>
+        /// 【系统结果】是否是对应的类型
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsSysResultType(this ResultMo res, SysResultTypes type) =>
+            res.sys_ret == (int)type;
+    }
+
 }

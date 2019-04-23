@@ -32,9 +32,9 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
-        public ResultMo(int ret, string message = "")
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultMo(int ret, string message)
         {
             this.ret = ret;
             this.msg = message;
@@ -44,16 +44,41 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
-        public ResultMo(ResultTypes ret, string message = "")
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultMo(ResultTypes ret, string message)
+            : this((int) ret, message)
         {
-            this.ret = (int) ret;
+        }
+
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultMo(int sysRet, int ret = 0, string message = null)
+        {
+            this.sys_ret = sysRet;
+            this.ret = ret;
             this.msg = message;
         }
 
         /// <summary>
-        /// 返回结果
+        /// 构造函数
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultMo(SysResultTypes sysRet, ResultTypes ret = 0, string message = null)
+            : this((int) sysRet, (int) ret, message)
+        {
+        }
+
+        private int _ret;
+        /// <summary>
+        /// 业务结果
         /// 一般情况下：
         ///  0  成功
         ///  13xx   参数相关错误 
@@ -62,7 +87,21 @@ namespace OSS.Common.ComModels
         ///  16xx   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
         /// </summary>
-        public int ret { get; set; }
+        public int ret {
+            get
+            {
+                if (sys_ret != 0 && _ret == 0)
+                    _ret=(int) ResultTypes.InnerError;
+
+                return _ret;
+            }
+            set => _ret = value;
+        }
+
+        /// <summary>
+        ///  系统结果
+        /// </summary>
+        public int sys_ret { get; set; }
 
         /// <summary>
         /// 状态信息(错误描述等)
@@ -70,28 +109,6 @@ namespace OSS.Common.ComModels
         public string msg { get; set; }
     }
 
-    /// <summary>
-    ///   ResultMo 扩展
-    /// </summary>
-    public static class ResultExtention
-    {
-        /// <summary>
-        ///  是否是Success
-        /// </summary>
-        /// <param name="res"></param>
-        /// <returns></returns>
-        public static bool IsSuccess(this ResultMo res)=>
-            res.ret == 0;
-
-        /// <summary>
-        /// 是否是对应的结果类型
-        /// </summary>
-        /// <param name="res"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsResultType(this ResultMo res, ResultTypes type) =>
-            res.ret == (int) type;
-    }
 
 
     /// <summary>
@@ -99,45 +116,61 @@ namespace OSS.Common.ComModels
     /// </summary>
     public class ResultIdMo : ResultMo
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public ResultIdMo()
         {
         }
 
         /// <summary>
-        /// 构造函数
+        /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id</param>
         public ResultIdMo(string id)
         {
             this.id = id;
         }
 
-
         /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
-        public ResultIdMo(int ret, string message):base(ret,message)
+        /// 结果实体
+        /// </summary>        
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultIdMo(int ret, string message) : base(ret, message)
         {
         }
 
-
         /// <summary>
-        /// 构造函数
+        /// 结果实体
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
         public ResultIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
 
         /// <summary>
-        /// 返回的关键值，如返回添加是否成功并返回id
+        /// 结果实体
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 结果实体
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
+        {
+        }
+
+        /// <summary>
+        /// Id
         /// </summary>
         public string id { get; set; }
     }
@@ -154,13 +187,13 @@ namespace OSS.Common.ComModels
         /// </summary>
         public ResultMo()
         {
-        
+
         }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">数据信息</param>
         public ResultMo(TType data)
         {
             this.data = data;
@@ -169,8 +202,8 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
         public ResultMo(int ret, string message = "")
             : base(ret, message)
         {
@@ -179,10 +212,31 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
         public ResultMo(ResultTypes ret, string message = "")
             : base(ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
         {
         }
 
@@ -197,7 +251,7 @@ namespace OSS.Common.ComModels
     /// 自定义泛型的结果实体
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public class ResultListMo<TType> : ResultMo
+    public class ResultListMo<TType> : ResultMo<IList<TType>>
     {
         /// <summary>
         /// 构造函数
@@ -219,8 +273,8 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
         public ResultListMo(int ret, string message = "")
             : base(ret, message)
         {
@@ -229,17 +283,34 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
         public ResultListMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
 
         /// <summary>
-        ///  结果类型数据
+        /// 
         /// </summary>
-        public IList<TType> data { get; set; }
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultListMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sysRet">系统错误编码</param>
+        /// <param name="ret">业务错误编码</param>
+        /// <param name="message">错误信息</param>
+        public ResultListMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
+        {
+        }
+
     }
 
 
@@ -261,12 +332,13 @@ namespace OSS.Common.ComModels
             var ot = new ResultMo<TResult>
             {
                 ret = res.ret,
-                msg = res.msg
+                msg = res.msg,
+                sys_ret = res.sys_ret
             };
 
             if (func != null && res.IsSuccess())
                 ot.data = func(res);
-            
+
             return ot;
         }
 
@@ -286,7 +358,8 @@ namespace OSS.Common.ComModels
             var ot = new ResultMo<TResult>
             {
                 ret = res.ret,
-                msg = res.msg
+                msg = res.msg,
+                sys_ret = res.sys_ret
             };
 
             if (func != null && res.IsSuccess())
@@ -294,6 +367,7 @@ namespace OSS.Common.ComModels
 
             return ot;
         }
+
         /// <summary>
         /// 转化到结果实体
         /// </summary>
@@ -302,7 +376,7 @@ namespace OSS.Common.ComModels
         /// <returns></returns>
         public static ResultMo<TResult> ConvertToResult<TResult>(this ResultMo res)
         {
-            return ConvertToResult<ResultMo, TResult>(res,null);
+            return ConvertToResult<ResultMo, TResult>(res, null);
         }
 
 
@@ -317,15 +391,23 @@ namespace OSS.Common.ComModels
         public static TResult ConvertToResultInherit<TPara, TResult>(this TPara res,
             Func<TPara, TResult> func)
             where TPara : ResultMo
-            where TResult : ResultMo,new()
+            where TResult : ResultMo, new()
         {
+            var oRes = default(TResult);
             if (func != null)
-                return func(res);
+                oRes = func(res);
 
-            return new TResult(){
-                ret = res.ret,
-                msg = res.msg
-            };
+            if (oRes == null)
+                oRes = new TResult();
+
+            if (oRes.ret > 0)
+                return oRes;
+
+            oRes.ret = res.ret;
+            oRes.msg = res.msg;
+            oRes.sys_ret = res.sys_ret;
+
+            return oRes;
         }
 
         /// <summary>
@@ -338,16 +420,23 @@ namespace OSS.Common.ComModels
         /// <returns></returns>
         public static TResult ConvertToResultInherit<TPara, TResult>(this ResultMo<TPara> res,
             Func<TPara, TResult> func)
-            where TResult : ResultMo,new()
+            where TResult : ResultMo, new()
         {
+            var oRes = default(TResult);
             if (func != null)
-                return func(res.data);
+                oRes = func(res.data);
 
-            return new TResult()
-            {
-                ret = res.ret,
-                msg = res.msg
-            };
+            if (oRes == null)
+                oRes = new TResult();
+
+            if (oRes.ret > 0)
+                return oRes;
+
+            oRes.ret = res.ret;
+            oRes.msg = res.msg;
+            oRes.sys_ret = res.sys_ret;
+
+            return oRes;
         }
 
         /// <summary>
@@ -359,7 +448,7 @@ namespace OSS.Common.ComModels
         public static TResult ConvertToResultInherit<TResult>(this ResultMo res)
             where TResult : ResultMo, new()
         {
-            return ConvertToResultInherit<ResultMo, TResult>(res,null);
+            return ConvertToResultInherit<ResultMo, TResult>(res, null);
         }
 
 
@@ -374,12 +463,14 @@ namespace OSS.Common.ComModels
         public static ResultListMo<TResult> ConvertToResultList<TPara, TResult>(this ResultListMo<TPara> res,
             Func<TPara, TResult> func)
         {
-            var listRes= new ResultListMo<TResult>()
+            var listRes = new ResultListMo<TResult>()
             {
                 ret = res.ret,
-                msg = res.msg
+                msg = res.msg,
+                sys_ret = res.sys_ret
             };
-            if (func != null&& res.data!=null)
+
+            if (func != null && res.data != null)
                 listRes.data = res.data.Select(func).ToList();
 
             return listRes;
@@ -394,7 +485,7 @@ namespace OSS.Common.ComModels
         /// <returns></returns>
         public static ResultListMo<TResult> ConvertToResultList<TPara, TResult>(this ResultListMo<TPara> res)
         {
-            return new ResultListMo<TResult>(res.ret, res.msg);
+            return new ResultListMo<TResult>(res.sys_ret, res.ret, res.msg);
         }
 
     }
