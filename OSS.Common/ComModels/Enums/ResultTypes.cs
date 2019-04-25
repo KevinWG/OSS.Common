@@ -23,7 +23,7 @@ namespace OSS.Common.ComModels.Enums
         /// 成功
         /// </summary>
         [OSDescript("正常")] None = 0,
-        
+
         /// <summary>
         /// 无法连接
         /// </summary>
@@ -33,16 +33,26 @@ namespace OSS.Common.ComModels.Enums
         /// 超时
         /// </summary>
         [OSDescript("超时")] TimeOut = 200,
-        
+
         /// <summary>
         /// 任务失败
         /// </summary>
         [OSDescript("任务失败")] TaskFailed = 300,
 
         /// <summary>
+        ///  等待重试
+        /// </summary>
+        [OSDescript("等待重试")] WaitRetry = 400,
+
+        /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
-        [OSDescript("内部错误")] InnerError = 500,
+        [OSDescript("系统错误")] InnerError = 500,
+
+        /// <summary>
+        ///  等待重试
+        /// </summary>
+        [OSDescript("等待响应")] WaitingResponse = 600,
     }
 
     /// <summary>
