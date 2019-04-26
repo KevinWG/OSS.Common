@@ -17,9 +17,26 @@ namespace OSS.Common.ComUtils
             get
             {
                 if (instanceCreater == null)
-                    throw new Exception(string.Concat( " 并没有设置", typeof(T).Name, "对应的映射类型！ "));
+                    throw new Exception(string.Concat(" 并没有设置", typeof(T).Name, "对应的映射类型！ "));
                 return instanceCreater();
             }
+        }
+
+        /// <summary>
+        ///  获取类型实例
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static bool TryGet(out T t)
+        {
+            if (instanceCreater == null)
+            {
+                t = default(T);
+                return false;
+            }
+
+            t = instanceCreater();
+            return true;
         }
 
 
@@ -37,7 +54,7 @@ namespace OSS.Common.ComUtils
             if (instanceCreater == null)
                 instanceCreater = () =>
                 {
-                    if(isSingle) return new TInstance();
+                    if (isSingle) return new TInstance();
 
                     if (instance != null) return instance;
                     return instance = new TInstance();
