@@ -20,9 +20,14 @@ namespace OSS.Common.ComModels.Enums
     public enum SysResultTypes
     {
         /// <summary>
-        /// 成功
+        /// 运行正常
         /// </summary>
-        [OSDescript("正常")] None = 0,
+        [OSDescript("运行正常")] Success = 0,
+
+        /// <summary>
+        ///  配置异常
+        /// </summary>
+        [OSDescript("配置异常")] ConfigError = 10,
 
         /// <summary>
         /// 无法连接
@@ -30,29 +35,29 @@ namespace OSS.Common.ComModels.Enums
         [OSDescript("无法连接")] ConnectError = 100,
 
         /// <summary>
-        /// 超时
+        /// 无响应
         /// </summary>
-        [OSDescript("超时")] TimeOut = 200,
+        [OSDescript("无响应")] NoResponse = 110,
+        
+        /// <summary>
+        ///  超时
+        /// </summary>
+        [OSDescript("系统超时")] TimeOut = 200,
+        
+        /// <summary>
+        ///  等待激活
+        /// </summary>
+        [OSDescript("运行暂停")] RunPause = 300,
 
         /// <summary>
-        /// 任务失败
+        /// 运行失败
         /// </summary>
-        [OSDescript("任务失败")] TaskFailed = 300,
-
-        /// <summary>
-        ///  等待重试
-        /// </summary>
-        [OSDescript("等待重试")] WaitRetry = 400,
-
+        [OSDescript("运行失败")] RunFailed = 310,
+        
         /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
-        [OSDescript("系统错误")] InnerError = 500,
-
-        /// <summary>
-        ///  等待重试
-        /// </summary>
-        [OSDescript("等待响应")] WaitingResponse = 600,
+        [OSDescript("内部错误")] InnerError = 500
     }
 
     /// <summary>
