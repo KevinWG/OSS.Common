@@ -22,7 +22,7 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 运行正常
         /// </summary>
-        [OSDescript("运行正常")] Success = 0,
+        [OSDescript("运行正常")] Ok = 0,
 
         /// <summary>
         ///  配置异常
@@ -160,6 +160,15 @@ namespace OSS.Common.ComModels.Enums
         /// <returns></returns>
         public static bool IsResultType(this ResultMo res, ResultTypes type) =>
             res.ret == (int)type;
+
+
+        /// <summary>
+        ///  【系统结果】xi
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static bool IsSysOk(this ResultMo res) =>
+            res.sys_ret == 0;
 
         /// <summary>
         /// 【系统结果】是否是对应的类型
