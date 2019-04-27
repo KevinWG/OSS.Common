@@ -38,14 +38,14 @@ namespace OSS.Common.ComModels.Enums
         /// 无响应
         /// </summary>
         [OSDescript("无响应")] NoResponse = 110,
-        
+
         /// <summary>
-        ///  超时
+        ///  系统超时
         /// </summary>
         [OSDescript("系统超时")] TimeOut = 200,
-        
+
         /// <summary>
-        ///  等待激活
+        ///  运行暂停
         /// </summary>
         [OSDescript("运行暂停")] RunPause = 300,
 
@@ -53,7 +53,7 @@ namespace OSS.Common.ComModels.Enums
         /// 运行失败
         /// </summary>
         [OSDescript("运行失败")] RunFailed = 310,
-        
+
         /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
