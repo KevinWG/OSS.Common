@@ -91,12 +91,15 @@ namespace OSS.Common.ComModels
             get
             {
                 if (sys_ret != 0 && _ret == 0)
-                    _ret=(int) ResultTypes.InnerError;
+                    _ret=(int)GetRetFromSysRet((SysResultTypes)sys_ret);
 
                 return _ret;
             }
             set => _ret = value;
         }
+
+
+
 
         /// <summary>
         ///  系统结果
@@ -107,6 +110,23 @@ namespace OSS.Common.ComModels
         /// 状态信息(错误描述等)
         /// </summary>
         public string msg { get; set; }
+
+
+        private ResultTypes GetRetFromSysRet(SysResultTypes sysRet)
+        {
+            switch (sysRet)
+            {
+                case SysResultTypes.ConfigError:
+                    return ResultTypes.ParaError;
+                case SysResultTypes.WaitActivate:
+                case SysResultTypes.WaitRun:
+                case SysResultTypes.RunFailed:
+                case SysResultTypes.RunPause:
+                    return ResultTypes.ObjectStateError;
+                  default: return ResultTypes.InnerError;
+                  
+            }
+        }
     }
 
 

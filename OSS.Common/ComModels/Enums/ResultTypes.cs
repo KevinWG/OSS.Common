@@ -45,6 +45,16 @@ namespace OSS.Common.ComModels.Enums
         [OSDescript("系统超时")] TimeOut = 200,
 
         /// <summary>
+        ///  等待激活
+        /// </summary>
+        [OSDescript("等待激活")] WaitActivate= 230,
+
+        /// <summary>
+        ///  等待运行
+        /// </summary>
+        [OSDescript("等待运行")] WaitRun = 250,
+        
+        /// <summary>
         ///  运行暂停
         /// </summary>
         [OSDescript("运行暂停")] RunPause = 300,
