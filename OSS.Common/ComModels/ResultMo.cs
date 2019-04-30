@@ -23,17 +23,17 @@ namespace OSS.Common.ComModels
     public class ResultMo
     {
         /// <summary>
-        /// 空构造函数
+        /// 构造结果类
         /// </summary>
         public ResultMo()
         {
         }
 
         /// <summary>
-        /// 构造函数
+        ///  构造结果类
         /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="message">结果信息描述</param>
         public ResultMo(int ret, string message)
         {
             this.ret = ret;
@@ -42,10 +42,10 @@ namespace OSS.Common.ComModels
 
 
         /// <summary>
-        /// 构造函数
+        ///  构造结果类
         /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="message">结果信息描述</param>
         public ResultMo(ResultTypes ret, string message)
             : this((int) ret, message)
         {
@@ -53,12 +53,21 @@ namespace OSS.Common.ComModels
 
 
         /// <summary>
-        /// 构造函数
+        ///  构造结果类
         /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
-        public ResultMo(int sysRet, int ret = 0, string message = null)
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="message">结果信息描述</param>
+        public ResultMo(SysResultTypes sysRet, string message = null)
+            : this((int)sysRet, 0, message)
+        {
+        }
+        /// <summary>
+        ///  构造结果类
+        /// </summary>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="message">结果信息描述</param>
+        public ResultMo(int sysRet, int ret, string message)
         {
             this.sys_ret = sysRet;
             this.ret = ret;
@@ -66,12 +75,12 @@ namespace OSS.Common.ComModels
         }
 
         /// <summary>
-        /// 构造函数
+        ///  构造结果类
         /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
-        public ResultMo(SysResultTypes sysRet, ResultTypes ret = 0, string message = null)
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="message">结果信息描述</param>
+        public ResultMo(SysResultTypes sysRet, ResultTypes ret , string message)
             : this((int) sysRet, (int) ret, message)
         {
         }
@@ -136,56 +145,44 @@ namespace OSS.Common.ComModels
     /// </summary>
     public class ResultIdMo : ResultMo
     {
+        /// <inheritdoc />
+        /// <summary>
+        /// 构造结果类
+        /// </summary>
         public ResultIdMo()
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id">Id</param>
-        public ResultIdMo(string id)
-        {
-            this.id = id;
-        }
+        /// <inheritdoc />
+        public ResultIdMo(string id) => this.id = id;
 
-        /// <summary>
-        /// 结果实体
-        /// </summary>        
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+
+        /// <inheritdoc />
         public ResultIdMo(int ret, string message) : base(ret, message)
         {
         }
 
-        /// <summary>
-        /// 结果实体
-        /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
 
-        /// <summary>
-        /// 结果实体
-        /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
-        /// <summary>
-        /// 结果实体
-        /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
+        {
+        }
+
+
+        /// <inheritdoc />
+        public ResultIdMo(SysResultTypes sysRet,string message)
+            : base(sysRet,  message)
         {
         }
 
@@ -196,70 +193,47 @@ namespace OSS.Common.ComModels
     }
 
 
-    /// <summary>
-    /// 自定义泛型的结果实体
-    /// </summary>
-    /// <typeparam name="TType"></typeparam>
+    /// <inheritdoc />
     public class ResultMo<TType> : ResultMo
     {
-        /// <summary>
-        /// 构造函数
-        /// </summary>
+        /// <inheritdoc />
         public ResultMo()
         {
 
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="data">数据信息</param>
+        /// <inheritdoc />
         public ResultMo(TType data)
         {
             this.data = data;
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultMo(int ret, string message = "")
             : base(ret, message)
         {
         }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
         }
-
+        /// <inheritdoc />
+        public ResultMo(SysResultTypes sysRet, string message)
+            : base(sysRet,  message)
+        {
+        }
         /// <summary>
         ///  结果类型数据
         /// </summary>
@@ -267,67 +241,46 @@ namespace OSS.Common.ComModels
     }
 
 
-    /// <summary>
-    /// 自定义泛型的结果实体
-    /// </summary>
-    /// <typeparam name="TType"></typeparam>
+    /// <inheritdoc />
     public class ResultListMo<TType> : ResultMo<IList<TType>>
     {
-        /// <summary>
-        /// 构造函数
-        /// </summary>
+        /// <inheritdoc />
         public ResultListMo()
         {
 
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="data"></param>
+        /// <inheritdoc />
         public ResultListMo(IList<TType> data)
         {
             this.data = data;
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultListMo(int ret, string message = "")
             : base(ret, message)
         {
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultListMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultListMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sysRet">系统错误编码</param>
-        /// <param name="ret">业务错误编码</param>
-        /// <param name="message">错误信息</param>
+        /// <inheritdoc />
         public ResultListMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultListMo(SysResultTypes sysRet,  string message)
+            : base(sysRet, message)
         {
         }
 
