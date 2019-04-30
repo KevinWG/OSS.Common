@@ -26,14 +26,26 @@ namespace OSS.Common.Extention
         public int sys_ret { get; set; }
         public int ret { get; set; }
         public string msg { get; set; }
-        
+
+
+        /// <summary>
+        ///  构造异常结果类
+        /// </summary>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="msg">结果信息描述</param>
         public ResultException(int sysRet, int ret, string msg) : base(msg)
         {
             sys_ret = sysRet;
             this.ret = ret;
             this.msg = msg;
         }
-
+        /// <summary>
+        ///  构造异常结果类
+        /// </summary>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="msg">结果信息描述</param>
         public ResultException(SysResultTypes sysRet, ResultTypes ret, string msg) : base(msg)
         {
             sys_ret = (int)sysRet;
@@ -42,7 +54,20 @@ namespace OSS.Common.Extention
         }
 
         /// <summary>
-        ///  转化为结果实体
+        ///  构造异常结果类
+        /// </summary>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="msg">结果信息描述</param>
+        public ResultException(SysResultTypes sysRet,  string msg) : base(msg)
+        {
+            sys_ret = (int)sysRet;
+            this.ret = (int)ret;
+            this.msg = msg;
+        }
+
+
+        /// <summary>
+        ///  转化为结果实例
         /// </summary>
         /// <returns></returns>
         public ResultMo ConvertToReult()
@@ -51,9 +76,16 @@ namespace OSS.Common.Extention
         }
     }
 
-
+    /// <summary>
+    ///  异常结果扩展类
+    /// </summary>
     public static class ResultExceptionExtention
     {
+        /// <summary>
+        ///  结果类直接转化为 异常结果实例
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
         public static ResultException ConvertToException(this ResultMo res)
         {
             return new ResultException(res.sys_ret,res.ret,res.msg);
