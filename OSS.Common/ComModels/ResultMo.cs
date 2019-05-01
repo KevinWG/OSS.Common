@@ -132,7 +132,9 @@ namespace OSS.Common.ComModels
                 case SysResultTypes.RunFailed:
                 case SysResultTypes.RunPause:
                     return ResultTypes.ObjectStateError;
-                  default: return ResultTypes.InnerError;
+                case SysResultTypes.NoResponse:
+                    return ResultTypes.ObjectNull;
+                default: return ResultTypes.InnerError;
                   
             }
         }
