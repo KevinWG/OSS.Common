@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using OSS.Common.Extention;
 
 namespace OSS.Common.ComModels.Enums
@@ -25,59 +26,39 @@ namespace OSS.Common.ComModels.Enums
         [OSDescript("运行正常")] Ok = 0,
 
         /// <summary>
-        ///  配置异常
-        /// </summary>
-        [OSDescript("配置异常")] ConfigError = 10,
-
-        /// <summary>
         /// 无法连接
         /// </summary>
-        [OSDescript("无法连接")] ConnectError = 100,
+        [OSDescript("无法连接")] NetworkError = 10000,
 
         /// <summary>
         /// 无响应
         /// </summary>
-        [OSDescript("无响应")] NoResponse = 110,
+        [OSDescript("无响应")] NoResponse = 11000,
 
         /// <summary>
-        ///  系统超时
+        ///  连接超时
         /// </summary>
-        [OSDescript("系统超时")] TimeOut = 200,
+        [OSDescript("连接超时")] TimeOut = 12000,
 
         /// <summary>
-        ///  等待激活
+        ///  数据库错误
         /// </summary>
-        [OSDescript("等待激活")] WaitActivate= 230,
+        [OSDescript("数据库错误")] DataSourceError = 20000,
 
         /// <summary>
-        ///  等待运行
+        /// 应用异常
         /// </summary>
-        [OSDescript("等待运行")] WaitRun = 250,
-        
-        /// <summary>
-        ///  运行暂停
-        /// </summary>
-        [OSDescript("运行暂停")] RunPause = 300,
+        [OSDescript("应用异常")] ApplicationError = 30000,
+
 
         /// <summary>
-        /// 运行失败
+        /// 配置错误
         /// </summary>
-        [OSDescript("运行失败")] RunFailed = 310,
+        [OSDescript("配置错误")] AppConfigError = 30000,
 
-        /// <summary>
-        /// 运行取消
-        /// </summary>
-        [OSDescript("运行取消")] RunCanceled = 320,
 
-        /// <summary>
-        /// 运行回退
-        /// </summary>
-        [OSDescript("运行回退")] RunReverted = 330,
 
-        /// <summary>
-        /// 内部错误（服务器错误）
-        /// </summary>
-        [OSDescript("内部错误")] InnerError = 500
+
     }
 
     /// <summary>
@@ -103,12 +84,13 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 添加失败
         /// </summary>
-        [OSDescript("添加失败")] AddFail = 1320,
+        [Obsolete("建议使用OperateFailed")] [OSDescript("添加失败")] AddFail = 1320,
 
         /// <summary>
         /// 更新失败
         /// </summary>
-        [OSDescript("更新失败")] UpdateFail = 1330,
+        [Obsolete("建议使用OperateFailed")] [OSDescript("更新失败")] UpdateFail = 1330,
+
 
         /// <summary>
         /// 对象不存在
@@ -148,8 +130,12 @@ namespace OSS.Common.ComModels.Enums
         /// <summary>
         /// 账号/权限冻结
         /// </summary>
-        [OSDescript("账号/权限冻结")]
-        AuthFreezed = 1440,
+        [OSDescript("账号/权限冻结")] AuthFreezed = 1440,
+
+        /// <summary>
+        /// 更新失败
+        /// </summary>
+        [OSDescript("操作失败")] OperateFailed = 1450,
 
         /// <summary>
         /// 系统错误
@@ -179,7 +165,7 @@ namespace OSS.Common.ComModels.Enums
         /// <param name="type"></param>
         /// <returns></returns>
         public static bool IsResultType(this ResultMo res, ResultTypes type) =>
-            res.ret == (int)type;
+            res.ret == (int) type;
 
 
         /// <summary>
@@ -197,7 +183,7 @@ namespace OSS.Common.ComModels.Enums
         /// <param name="type"></param>
         /// <returns></returns>
         public static bool IsSysResultType(this ResultMo res, SysResultTypes type) =>
-            res.sys_ret == (int)type;
+            res.sys_ret == (int) type;
     }
 
 }

@@ -65,6 +65,18 @@ namespace OSS.Common.Extention
             this.msg = msg;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ret"></param>
+        /// <param name="msg"></param>
+        public ResultException(ResultTypes ret, string msg) : base(msg)
+        {
+            sys_ret = 0;
+            this.ret = (int)ret;
+            this.msg = msg;
+        }
+
 
         /// <summary>
         ///  转化为结果实例

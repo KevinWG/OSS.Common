@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.Extention
 {
@@ -63,7 +64,7 @@ namespace OSS.Common.Extention
 #else
             if (!enType.GetTypeInfo().IsEnum)
 #endif
-                throw new ArgumentException("获取枚举字典，参数必须是枚举类型！");
+                throw new ResultException(ResultTypes.ParaError,"获取枚举字典，参数必须是枚举类型！");
             
             var key = string.Concat(enType.FullName, isIntValue);
             enumDirs.TryGetValue(key, out var dirs);

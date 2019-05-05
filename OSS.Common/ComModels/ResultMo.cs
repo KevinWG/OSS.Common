@@ -100,7 +100,7 @@ namespace OSS.Common.ComModels
             get
             {
                 if (sys_ret != 0 && _ret == 0)
-                    _ret=(int)GetRetFromSysRet((SysResultTypes)sys_ret);
+                    _ret=(int)ResultTypes.InnerError;
 
                 return _ret;
             }
@@ -119,28 +119,7 @@ namespace OSS.Common.ComModels
         /// 状态信息(错误描述等)
         /// </summary>
         public string msg { get; set; }
-
-
-        private ResultTypes GetRetFromSysRet(SysResultTypes sysRet)
-        {
-            switch (sysRet)
-            {
-                case SysResultTypes.ConfigError:
-                    return ResultTypes.ParaError;
-                case SysResultTypes.WaitActivate:
-                case SysResultTypes.WaitRun:
-                case SysResultTypes.RunCanceled:
-                case SysResultTypes.RunReverted:
-                case SysResultTypes.RunFailed:
-                case SysResultTypes.RunPause:
-                    return ResultTypes.ObjectStateError;
-                case SysResultTypes.NoResponse:
-                    return ResultTypes.ObjectNull;
-               
-                default: return ResultTypes.InnerError;
-                  
-            }
-        }
+        
     }
 
 
