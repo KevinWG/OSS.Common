@@ -1,5 +1,5 @@
 ﻿
-#region Copyright (C) 2019 Kevin (OSS开源系列) 公众号：osscoder
+#region Copyright (C) 2019 Kevin (OSS开源系列) 公众号：OSSCore
 
 /***************************************************************************
 *　　	文件功能描述：xml序列化辅助类
@@ -73,6 +73,34 @@ namespace OSS.Common.Extention
         public ResultMo ConvertToReult()
         {
             return new ResultMo(sys_ret,ret,msg);
+        }
+
+        /// <summary>
+        /// 转化为结果实例
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <returns></returns>
+        public ResultMo<TRes> ConvertToReult<TRes>()
+        {
+            return new ResultMo<TRes>(sys_ret, ret, msg);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <returns></returns>
+        public TRes ConvertToReultInherit<TRes>()
+            where TRes:ResultMo,new()
+
+        {
+            var res = new TRes
+            {
+                ret = ret,
+                sys_ret = sys_ret,
+                msg = msg
+            };
+            return res;
         }
     }
 

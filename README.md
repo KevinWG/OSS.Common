@@ -1,7 +1,7 @@
 # OS.Common
 通用基础实现，当前是以标准库的形式提供，在net46分支下有标准库和Framework 4.6的两个版本实现吧  
-如果有问题，也可以在公众号(osscoder)中提问:  
-![osscoder](http://img1.static.osscoder.com/wei_qr.jpg)  
+如果有问题，也可以在公众号(OSSCore)中提问:  
+![OSSCore](http://img1.static.OSSCore.com/wei_qr.jpg)  
 
 当前类库主要提供以下的内容：  
 1. 基础用户系统设备信息实体定义。

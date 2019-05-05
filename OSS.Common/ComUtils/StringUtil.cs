@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2017 Kevin (OSS开源系列) 公众号：osscoder
+﻿#region Copyright (C) 2017 Kevin (OSS开源系列) 公众号：OSSCore
 
 /***************************************************************************
 *　　	文件功能描述：字符串通用功能

@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：osscoder
+﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：OSSCore
 
 /***************************************************************************
 *　　	文件功能描述：通用返回结果实体
@@ -375,16 +375,15 @@ namespace OSS.Common.ComModels
             if (func != null)
                 oRes = func(res);
 
-            if (oRes == null)
-                oRes = new TResult();
-
-            if (oRes.ret > 0)
+            if (oRes != null)
                 return oRes;
 
-            oRes.ret = res.ret;
-            oRes.msg = res.msg;
-            oRes.sys_ret = res.sys_ret;
-
+            oRes = new TResult
+            {
+                ret = res.ret,
+                msg = res.msg,
+                sys_ret = res.sys_ret
+            };
             return oRes;
         }
 
@@ -404,16 +403,15 @@ namespace OSS.Common.ComModels
             if (func != null)
                 oRes = func(res.data);
 
-            if (oRes == null)
-                oRes = new TResult();
-
-            if (oRes.ret > 0)
+            if (oRes != null)
                 return oRes;
 
-            oRes.ret = res.ret;
-            oRes.msg = res.msg;
-            oRes.sys_ret = res.sys_ret;
-
+            oRes = new TResult
+            {
+                ret = res.ret,
+                msg = res.msg,
+                sys_ret = res.sys_ret
+            };
             return oRes;
         }
 
