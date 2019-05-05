@@ -129,11 +129,14 @@ namespace OSS.Common.ComModels
                     return ResultTypes.ParaError;
                 case SysResultTypes.WaitActivate:
                 case SysResultTypes.WaitRun:
+                case SysResultTypes.RunCanceled:
+                case SysResultTypes.RunReverted:
                 case SysResultTypes.RunFailed:
                 case SysResultTypes.RunPause:
                     return ResultTypes.ObjectStateError;
                 case SysResultTypes.NoResponse:
                     return ResultTypes.ObjectNull;
+               
                 default: return ResultTypes.InnerError;
                   
             }
