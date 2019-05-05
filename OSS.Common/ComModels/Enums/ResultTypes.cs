@@ -65,6 +65,16 @@ namespace OSS.Common.ComModels.Enums
         [OSDescript("运行失败")] RunFailed = 310,
 
         /// <summary>
+        /// 运行取消
+        /// </summary>
+        [OSDescript("运行取消")] RunCanceled = 320,
+
+        /// <summary>
+        /// 运行回退
+        /// </summary>
+        [OSDescript("运行回退")] RunReverted = 330,
+
+        /// <summary>
         /// 内部错误（服务器错误）
         /// </summary>
         [OSDescript("内部错误")] InnerError = 500
