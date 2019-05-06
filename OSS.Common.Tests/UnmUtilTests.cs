@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OSS.Common.ComModels;
 
 namespace OSS.Common.Tests
 {
@@ -8,7 +9,8 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void TestMethod1()
         {
-           
+            var test=new TestConfig();
+            
             //var snowStr1 = NumUtil.SnowNum();
             //var snowStr2 =  NumUtil.SnowNum();
             //Assert.IsTrue(snowStr2 != snowStr1);
@@ -20,5 +22,12 @@ namespace OSS.Common.Tests
             //var subTimeNum = NumUtil.SubTimeNum(timeNum1);
             //Assert.IsTrue(timeNum1 % 10000 == subTimeNum % 10000);
         }
+
+
+    }
+
+    public class TestConfig : BaseApiConfigProvider<AppConfig, TestConfig>
+    {
+
     }
 }

@@ -77,17 +77,53 @@ namespace OSS.Common.ComModels
         ByAgent
     }
 
+    [Obsolete("建议使用BaseApiConfigProvider")]
+    public class BaseConfigProvider<TConfigType, TConfigOwnerType>:BaseMetaProvider<TConfigType, TConfigOwnerType> 
+        where TConfigType : class
+        where TConfigOwnerType : class
+    {
+        /// <inheritdoc />
+        public BaseConfigProvider(TConfigType config):base(config)
+        {
+        }
+        /// <summary>
+        /// 微信接口配置
+        ///  优先级： 上下文设置  =》 实例设置 =》 默认设置
+        /// </summary>
+        public TConfigType ApiConfig => GetConfig();
+    }
+
+    /// <inheritdoc />
+    public class BaseApiConfigProvider<TConfigType, TConfigOwnerType> : BaseMetaProvider<TConfigType, TConfigOwnerType>
+        where TConfigType : class
+        where TConfigOwnerType : class
+    {
+        /// <inheritdoc />
+        public BaseApiConfigProvider()
+        {
+        }
+
+        /// <inheritdoc />
+        public BaseApiConfigProvider(TConfigType config):base(config)
+        {
+        }
+
+        /// <summary>
+        /// 微信接口配置
+        ///  优先级： 上下文设置  =》 实例设置 =》 默认设置
+        /// </summary>
+        public TConfigType ApiConfig => GetConfig();
+    }
 
     /// <summary>
     ///   通用配置基类
     /// </summary>
     /// <typeparam name="TConfigType"></typeparam>
-    /// <typeparam name="TConfigOwnerType">配置的使用者（防止在同一线程中同一配置类型有两个不同的使用者设置上下文配置信息）</typeparam>
-    public class BaseConfigProvider<TConfigType,TConfigOwnerType>
+    /// <typeparam name="TConfigOwnerType">配置的使用者类型（防止在同一线程中同一配置类型有两个不同的使用者设置上下文配置信息）</typeparam>
+    public class BaseMetaProvider<TConfigType,TConfigOwnerType>
         where TConfigType : class
         where TConfigOwnerType : class
     {
-
         #region  接口配置信息
 
         private static readonly AsyncLocal<TConfigType> _contextConfig = new AsyncLocal<TConfigType>();
@@ -101,37 +137,19 @@ namespace OSS.Common.ComModels
         {
             _contextConfig.Value = config;
         }
-
+        
         /// <summary>
-        /// 微信接口配置
-        ///  优先级： 上下文设置  =》 实例设置 =》 默认设置
+        /// 构造函数
         /// </summary>
-        public TConfigType ApiConfig
+        public BaseMetaProvider()
         {
-            get
-            {
-                if (_contextConfig.Value != null)
-                {
-                    return _contextConfig.Value;
-                }
-
-                if (_config != null 
-                    || (_config = GetDefaultConfig()) != null)
-                {
-                    return _config;
-                }
-
-                throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或者SetContextConfig方法设置当前上下文配置信息");
-            }
         }
-
-
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="config"></param>
-        public BaseConfigProvider(TConfigType config)
+        public BaseMetaProvider(TConfigType config)
         {
             if (config != null)
                 _config = config;
@@ -153,6 +171,22 @@ namespace OSS.Common.ComModels
         protected virtual TConfigType GetDefaultConfig()
         {
             return null;
+        }
+
+        internal TConfigType GetConfig()
+        {
+            if (_contextConfig.Value != null)
+            {
+                return _contextConfig.Value;
+            }
+
+            if (_config != null
+                || (_config = GetDefaultConfig()) != null)
+            {
+                return _config;
+            }
+
+            throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或者SetContextConfig方法设置当前上下文配置信息");
         }
 
         /// <summary>
