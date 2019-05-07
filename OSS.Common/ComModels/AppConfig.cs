@@ -12,6 +12,7 @@
 #endregion
 
 using System;
+using System.Collections.Concurrent;
 using System.Threading;
 using OSS.Common.Plugs;
 
@@ -78,7 +79,7 @@ namespace OSS.Common.ComModels
     }
 
     [Obsolete("建议使用BaseApiConfigProvider")]
-    public class BaseConfigProvider<TConfigType, TConfigOwnerType>:BaseMetaProvider<TConfigType, TConfigOwnerType> 
+    public class BaseConfigProvider<TConfigType, TConfigOwnerType>:BaseMetaProvider<TConfigType> 
         where TConfigType : class
         where TConfigOwnerType : class
     {
@@ -86,6 +87,7 @@ namespace OSS.Common.ComModels
         public BaseConfigProvider(TConfigType config):base(config)
         {
         }
+
         /// <summary>
         /// 微信接口配置
         ///  优先级： 上下文设置  =》 实例设置 =》 默认设置
@@ -94,9 +96,8 @@ namespace OSS.Common.ComModels
     }
 
     /// <inheritdoc />
-    public class BaseApiConfigProvider<TConfigType, TConfigOwnerType> : BaseMetaProvider<TConfigType, TConfigOwnerType>
+    public class BaseApiConfigProvider<TConfigType> : BaseMetaProvider<TConfigType>
         where TConfigType : class
-        where TConfigOwnerType : class
     {
         /// <inheritdoc />
         public BaseApiConfigProvider()
@@ -109,7 +110,7 @@ namespace OSS.Common.ComModels
         }
 
         /// <summary>
-        /// 微信接口配置
+        /// 接口配置
         ///  优先级： 上下文设置  =》 实例设置 =》 默认设置
         /// </summary>
         public TConfigType ApiConfig => GetConfig();
@@ -119,37 +120,23 @@ namespace OSS.Common.ComModels
     ///   通用配置基类
     /// </summary>
     /// <typeparam name="TConfigType"></typeparam>
-    /// <typeparam name="TConfigOwnerType">配置的使用者类型（防止在同一线程中同一配置类型有两个不同的使用者设置上下文配置信息）</typeparam>
-    public class BaseMetaProvider<TConfigType,TConfigOwnerType>
+    public class BaseMetaProvider<TConfigType>
         where TConfigType : class
-        where TConfigOwnerType : class
     {
-        #region  接口配置信息
-
-        private static AsyncLocal<TConfigType> _contextConfig = null;// new AsyncLocal<TConfigType>();
         private TConfigType _config;
 
-        private static readonly object _lockObj=new object();
+        private static AsyncLocal<ConcurrentDictionary<Type, TConfigType>>
+            _contextConfig = null; // new AsyncLocal<TConfigType>();
+
+
 
         /// <summary>
-        ///  设置上下文配置信息，当前配置在当前上下文中有效
+        ///   当前模块名称
         /// </summary>
-        /// <param name="config"></param>
-        public static void SetContextConfig(TConfigType config)
-        {
-            if (_contextConfig == null)
-            {
-                lock (_lockObj)
-                {
-                    if (_contextConfig == null)
-                    {
+        public string ModuleName { get; set; } = ModuleNames.Default;
 
-                        _contextConfig = new AsyncLocal<TConfigType>();
-                    }
-                }
-            }
-            _contextConfig.Value = config;
-        }
+        private static readonly object _lockObj = new object();
+
 
         /// <summary>
         /// 构造函数
@@ -168,29 +155,16 @@ namespace OSS.Common.ComModels
                 _config = config;
         }
 
-
-        #endregion
-
         /// <summary>
-        ///   当前模块名称
-        /// </summary>
-        public string ModuleName { get; set; } = ModuleNames.Default;
-
-        /// <summary>
-        /// 获取默认配置信息
-        /// 如果上下文配置不存在，且构造函数也没有传入配置信息，执行此方法
+        /// 获取配置信息
         /// </summary>
         /// <returns></returns>
-        protected virtual TConfigType GetDefaultConfig()
-        {
-            return null;
-        }
-
         protected TConfigType GetConfig()
         {
-            if (_contextConfig?.Value != null)
+            var contextConfig = GetContextConfig();
+            if (contextConfig != null)
             {
-                return _contextConfig.Value;
+                return contextConfig;
             }
 
             if (_config != null
@@ -213,8 +187,56 @@ namespace OSS.Common.ComModels
                 {
                     return ConfigProviderMode.Context;
                 }
+
                 return _config != null ? ConfigProviderMode.Instance : ConfigProviderMode.Default;
             }
+        }
+
+
+
+        /// <summary>
+        /// 获取默认配置信息
+        ///    如果上下文配置不存在，且构造函数也没有传入配置信息，执行此方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual TConfigType GetDefaultConfig()
+        {
+            return null;
+        }
+
+        /// <summary>
+        ///  设置上下文配置信息，当前配置在当前上下文中有效
+        /// </summary>
+        /// <param name="config"></param>
+        public void SetContextConfig(TConfigType config)
+        {
+            if (_contextConfig == null)
+            {
+                lock (_lockObj)
+                {
+                    if (_contextConfig == null)
+                    {
+
+                        _contextConfig = new AsyncLocal<ConcurrentDictionary<Type, TConfigType>>
+                        {
+                            Value = new ConcurrentDictionary<Type, TConfigType>()
+                        };
+                    }
+                }
+            }
+
+            _contextConfig.Value.AddOrUpdate(GetType(), config, (t, c) => config);
+        }
+
+        internal TConfigType GetContextConfig()
+        {
+            var dir = _contextConfig?.Value;
+            if (dir == null)
+            {
+                return null;
+            }
+
+            return dir.TryGetValue(GetType(), out TConfigType va) ? va : null;
         }
     }
 
