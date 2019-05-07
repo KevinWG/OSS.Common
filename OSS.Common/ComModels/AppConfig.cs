@@ -126,8 +126,10 @@ namespace OSS.Common.ComModels
     {
         #region  接口配置信息
 
-        private static readonly AsyncLocal<TConfigType> _contextConfig = new AsyncLocal<TConfigType>();
+        private static AsyncLocal<TConfigType> _contextConfig = null;// new AsyncLocal<TConfigType>();
         private TConfigType _config;
+
+        private static readonly object _lockObj=new object();
 
         /// <summary>
         ///  设置上下文配置信息，当前配置在当前上下文中有效
@@ -135,9 +137,20 @@ namespace OSS.Common.ComModels
         /// <param name="config"></param>
         public static void SetContextConfig(TConfigType config)
         {
+            if (_contextConfig == null)
+            {
+                lock (_lockObj)
+                {
+                    if (_contextConfig == null)
+                    {
+
+                        _contextConfig = new AsyncLocal<TConfigType>();
+                    }
+                }
+            }
             _contextConfig.Value = config;
         }
-        
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -173,9 +186,9 @@ namespace OSS.Common.ComModels
             return null;
         }
 
-        internal TConfigType GetConfig()
+        protected TConfigType GetConfig()
         {
-            if (_contextConfig.Value != null)
+            if (_contextConfig?.Value != null)
             {
                 return _contextConfig.Value;
             }
