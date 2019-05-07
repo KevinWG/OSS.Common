@@ -58,9 +58,10 @@ namespace OSS.Common.ComModels
         /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="message">结果信息描述</param>
         public ResultMo(SysResultTypes sysRet, string message = null)
-            : this((int)sysRet, 0, message)
+            : this((int) sysRet, 0, message)
         {
         }
+
         /// <summary>
         ///  构造结果类
         /// </summary>
@@ -80,14 +81,16 @@ namespace OSS.Common.ComModels
         /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="ret">【业务】结果标识</param>
         /// <param name="message">结果信息描述</param>
-        public ResultMo(SysResultTypes sysRet, ResultTypes ret , string message)
+        public ResultMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : this((int) sysRet, (int) ret, message)
         {
         }
 
         private int _ret;
+
         /// <summary>
-        /// 业务结果
+        /// 【业务结果】
+        ///  如果 sys_ret != (int)SysResultTypes.Ok , 且 ret 未设置或设置0 ，则最终 ret = (int) ResultTypes.InnerError
         /// 一般情况下：
         ///  0  成功
         ///  13xx   参数相关错误 
@@ -95,12 +98,14 @@ namespace OSS.Common.ComModels
         ///  15xx   服务器内部相关错误信息
         ///  16xx   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
+        ///
         /// </summary>
-        public int ret {
+        public int ret
+        {
             get
             {
                 if (sys_ret != 0 && _ret == 0)
-                    _ret=(int)ResultTypes.InnerError;
+                    _ret = (int) ResultTypes.InnerError;
 
                 return _ret;
             }
@@ -119,7 +124,7 @@ namespace OSS.Common.ComModels
         /// 状态信息(错误描述等)
         /// </summary>
         public string msg { get; set; }
-        
+
     }
 
 
@@ -165,8 +170,8 @@ namespace OSS.Common.ComModels
 
 
         /// <inheritdoc />
-        public ResultIdMo(SysResultTypes sysRet,string message)
-            : base(sysRet,  message)
+        public ResultIdMo(SysResultTypes sysRet, string message)
+            : base(sysRet, message)
         {
         }
 
@@ -197,6 +202,7 @@ namespace OSS.Common.ComModels
             : base(ret, message)
         {
         }
+
         /// <inheritdoc />
         public ResultMo(ResultTypes ret, string message = "")
             : base(ret, message)
@@ -213,11 +219,13 @@ namespace OSS.Common.ComModels
             : base(sysRet, ret, message)
         {
         }
+
         /// <inheritdoc />
         public ResultMo(SysResultTypes sysRet, string message)
-            : base(sysRet,  message)
+            : base(sysRet, message)
         {
         }
+
         /// <summary>
         ///  结果类型数据
         /// </summary>
@@ -251,6 +259,7 @@ namespace OSS.Common.ComModels
             : base(ret, message)
         {
         }
+
         /// <inheritdoc />
         public ResultListMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
@@ -263,7 +272,7 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
-        public ResultListMo(SysResultTypes sysRet,  string message)
+        public ResultListMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
         }
@@ -443,5 +452,80 @@ namespace OSS.Common.ComModels
             return new ResultListMo<TResult>(res.sys_ret, res.ret, res.msg);
         }
 
+
+        /// <summary>
+        /// 直接设置泛型结果信息，并返回
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="sysRet"></param>
+        /// <param name="ret"></param>
+        /// <param name="eMsg"></param>
+        /// <returns></returns>
+        public static TRes WithResult<TRes>(this TRes res, int sysRet, int ret, string eMsg)
+            where TRes : ResultMo
+        {
+            res.msg = eMsg;
+            res.ret = ret;
+            res.sys_ret = sysRet;
+            return res;
+        }
+
+        /// <summary>
+        /// 直接设置泛型结果信息，并返回
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="ret"></param>
+        /// <param name="eMsg"></param>
+        /// <returns></returns>
+        public static TRes WithResult<TRes>(this TRes res, int ret, string eMsg)
+            where TRes : ResultMo
+        {
+            return res.WithResult((int) SysResultTypes.Ok, ret, eMsg);
+        }
+
+        /// <summary>
+        /// 直接设置泛型结果信息，并返回
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="sysRet"></param>
+        /// <param name="ret"></param>
+        /// <param name="eMsg"></param>
+        /// <returns></returns>
+        public static TRes WithResult<TRes>(this TRes res, SysResultTypes sysRet, ResultTypes ret, string eMsg)
+            where TRes : ResultMo
+        {
+            return res.WithResult((int) sysRet, (int) ret, eMsg);
+        }
+
+        /// <summary>
+        ///  设置泛型结果信息，并返回
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="sysRet"></param>
+        /// <param name="eMsg"></param>
+        /// <returns></returns>
+        public static TRes WithResult<TRes>(this TRes res, SysResultTypes sysRet, string eMsg)
+            where TRes : ResultMo
+        {
+            return res.WithResult((int) sysRet, (int) ResultTypes.Success, eMsg);
+        }
+
+        /// <summary>
+        /// 设置泛型结果信息，并返回
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="ret"></param>
+        /// <param name="eMsg"></param>
+        /// <returns></returns>
+        public static TRes WithResult<TRes>(this TRes res, ResultTypes ret, string eMsg)
+            where TRes : ResultMo
+        {
+            return res.WithResult((int) SysResultTypes.Ok, (int) ret, eMsg);
+        }
     }
 }
