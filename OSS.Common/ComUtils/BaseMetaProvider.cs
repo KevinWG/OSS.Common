@@ -54,7 +54,7 @@ namespace OSS.Common.ComModels
         where TConfigType : class
     {
         private TConfigType _config;
-        private static AsyncLocal<ConcurrentDictionary<object, TConfigType>>
+        private static AsyncLocal<Dictionary<object, TConfigType>>
             _contextConfig = null; // new AsyncLocal<TConfigType>();
 
         /// <summary>
@@ -140,15 +140,19 @@ namespace OSS.Common.ComModels
                     {
                         if (_contextConfig == null)
                         {
-                            _contextConfig = new AsyncLocal<ConcurrentDictionary<object, TConfigType>>();
+                            _contextConfig = new AsyncLocal<Dictionary<object, TConfigType>>();
                         }
-                        _contextConfig.Value = new ConcurrentDictionary<object, TConfigType>();
+
+                        _contextConfig.Value = new Dictionary<object, TConfigType>();
                     }
                 }
             }
 
             ConfigMode = ConfigProviderMode.Context;
-            _contextConfig.Value.AddOrUpdate(this, config, (t, c) => config);
+            if (_contextConfig.Value.ContainsKey(this))
+                _contextConfig.Value[this] = config;
+            else
+                _contextConfig.Value.Add(this, config);
         }
 
         private TConfigType GetContextConfig()
