@@ -22,7 +22,7 @@ namespace OSS.Common.ComUtils
     {       
         // 符号位(1位) + Timestamp(41位 最长70年) + WorkId( 3 位) + sequence （9 位）  = 编号Id (64位)
 
-        public SmallNumGenerator(long workId) : base(workId, 9, 3)
+        public SmallNumGenerator(int workId) : base(workId, 9, 3)
         {
         }
     }
@@ -36,7 +36,7 @@ namespace OSS.Common.ComUtils
         /// 构造函数
         /// </summary>
         /// <param name="workId">当前的工作id 最大值不能超过（2的11次方 - 1）</param>
-        public NumGenerator(long workId) : base(workId, 12, 10)
+        public NumGenerator(int workId) : base(workId, 12, 10)
         {
         }
     }
@@ -90,7 +90,7 @@ namespace OSS.Common.ComUtils
         /// <summary>
         /// 构造函数
         /// </summary>
-        protected BaseNumGenerator(long workId, int seqBitLength, int worIdBitLength)
+        protected BaseNumGenerator(int workId, int seqBitLength, int worIdBitLength)
         {
             InitailConfig(seqBitLength, worIdBitLength);
 
