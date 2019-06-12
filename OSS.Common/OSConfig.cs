@@ -33,13 +33,12 @@ namespace OSS.Common
         ///   缓存模块提供者
         /// </summary>
         public static Func<string, ICachePlug> CacheProvider { get; set; }
-        
+
         /// <summary>
         ///   配置信息模块提供者
         /// </summary>
         public static Func<string, IDirConfigPlug> DirConfigProvider { get; set; }
+
         #endregion
-
-
     }
 }

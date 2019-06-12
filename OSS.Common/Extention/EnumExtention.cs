@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using OSS.Common.ComModels.Enums;
+using OSS.Common.ComModels;
 
 namespace OSS.Common.Extention
 {

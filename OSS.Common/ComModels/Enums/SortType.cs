@@ -9,6 +9,7 @@
 *****************************************************************************/
 
 #endregion
+
 namespace OSS.Common.ComModels.Enums
 {
     /// <summary>
