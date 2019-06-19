@@ -124,8 +124,90 @@ namespace OSS.Common.ComModels
     }
 
     /// <inheritdoc />
-    public class ResultIdMo: ResultIdMo<string>
+    public class ResultStrIdMo : ResultIdMo<string>
     {
+        /// <inheritdoc />
+        public ResultStrIdMo() 
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultStrIdMo(string id) : base(id)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultStrIdMo(int ret, string message) : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultStrIdMo(ResultTypes ret, string message)
+            : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultStrIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultStrIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
+        {
+        }
+
+
+        /// <inheritdoc />
+        public ResultStrIdMo(SysResultTypes sysRet, string message)
+            : base(sysRet, message)
+        {
+        }
+
+    }
+    /// <inheritdoc />
+    public class ResultIdMo: ResultIdMo<long>
+    {
+        /// <inheritdoc />
+        public ResultIdMo()
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(long id) : base(id)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(int ret, string message) : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(ResultTypes ret, string message)
+            : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
+        {
+        }
+
+
+        /// <inheritdoc />
+        public ResultIdMo(SysResultTypes sysRet, string message)
+            : base(sysRet, message)
+        {
+        }
+
     }
 
     /// <summary>
