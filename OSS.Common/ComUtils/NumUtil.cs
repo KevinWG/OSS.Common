@@ -4,7 +4,6 @@ using OSS.Common.Extention;
 
 namespace OSS.Common.ComUtils
 {
-
     /// <summary>
     ///  唯一数字编码生成静态通用类
     /// </summary>

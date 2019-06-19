@@ -110,10 +110,7 @@ namespace OSS.Common.ComModels
             }
             set => _ret = value;
         }
-
-
-
-
+        
         /// <summary>
         ///  系统结果
         /// </summary>
@@ -126,12 +123,15 @@ namespace OSS.Common.ComModels
 
     }
 
-
+    /// <inheritdoc />
+    public class ResultIdMo: ResultIdMo<string>
+    {
+    }
 
     /// <summary>
     /// 带Id的结果实体
     /// </summary>
-    public class ResultIdMo : ResultMo
+    public class ResultIdMo<IdType> : ResultMo
     {
         /// <inheritdoc />
         /// <summary>
@@ -142,7 +142,7 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
-        public ResultIdMo(string id) => this.id = id;
+        public ResultIdMo(IdType id) => this.id = id;
 
 
         /// <inheritdoc />
@@ -177,7 +177,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// Id
         /// </summary>
-        public string id { get; set; }
+        public IdType id { get; set; }
     }
 
 
