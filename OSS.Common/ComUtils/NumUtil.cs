@@ -10,16 +10,13 @@ namespace OSS.Common.ComUtils
     /// </summary>
     public static class NumUtil
     {
-
         private static readonly long _timeStartTicks = new DateTime(2019, 1, 1).ToUniversalTime().Ticks;
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
-        //  todo  添加配置文件获取 workid
-
-        /// <summary>		
-        /// 随机数字		
-        /// </summary>		
-        /// <returns></returns>		
+        /// <summary>
+        /// 随机数字
+        /// </summary>
+        /// <returns></returns>
         public static string RandomNum(int length = 4)
         {
             var num = new StringBuilder(length);
@@ -27,14 +24,24 @@ namespace OSS.Common.ComUtils
             {
                 num.Append(_rnd.Next(0, 9));
             }
-
             return num.ToString();
         }
 
 
-        public static int SnowWorkId { get; set; } = 0;
 
-        private static readonly NumGenerator generator = new NumGenerator(SnowWorkId);
+        private static NumGenerator _generator = new NumGenerator(0);
+        private static SmallNumGenerator _smallGenerator = new SmallNumGenerator(0);
+
+        /// <summary>
+        ///  设置当前snowflow算法默认workid
+        /// </summary>
+        /// <param name="workId"></param>
+        public static void SetDefaultWorkId(int workId)
+        {
+            _generator.WorkId = workId;
+            _smallGenerator.WorkId = workId;
+        }
+
 
         /// <summary>
         /// twitter 的snowflake唯一Id算法(排除机器位)
@@ -42,12 +49,8 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static long SnowNum()
         {
-            return generator.NextNum();
+            return _generator.NextNum();
         }
-
-
-
-        private static readonly SmallNumGenerator smallGenerator = new SmallNumGenerator(SnowWorkId);
 
         /// <summary>
         /// twitter 的snowflake唯一Id算法(排除机器位)
@@ -55,7 +58,7 @@ namespace OSS.Common.ComUtils
         /// <returns></returns>
         public static long SmallSnowNum()
         {
-            return smallGenerator.NextNum();
+            return _smallGenerator.NextNum();
         }
 
 

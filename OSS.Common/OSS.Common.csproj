@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.3.5.18</Version>
+    <Version>1.3.5.19</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>基础模型泛型处理</PackageReleaseNotes>
-    <AssemblyVersion>1.3.5.18</AssemblyVersion>
-    <FileVersion>1.3.5.18</FileVersion>
+    <PackageReleaseNotes>优化Id生成worId处理</PackageReleaseNotes>
+    <AssemblyVersion>1.3.5.19</AssemblyVersion>
+    <FileVersion>1.3.5.19</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
