@@ -17,7 +17,7 @@ namespace OSS.Common.ComModels
 {
     #region  和租户相关的基类
     /// <inheritdoc />
-    public class BaseUIdAndStateMo : BaseUIdMo
+    public class BaseUIdAndStateMo<IdType> : BaseUIdMo<IdType>
     {
         /// <summary>
         /// 状态信息
@@ -25,7 +25,7 @@ namespace OSS.Common.ComModels
         public CommonStatus status { get; set; }
     }
     /// <inheritdoc />
-    public class BaseUIdMo : BaseMo
+    public class BaseUIdMo<IdType> : BaseMo<IdType>
     {
         /// <summary>
         ///  用户Id
@@ -35,7 +35,7 @@ namespace OSS.Common.ComModels
 
 
     /// <inheritdoc />
-    public class BaseStateMo: BaseMo
+    public class BaseStateMo<IdType> : BaseMo<IdType>
     {
         /// <summary>
         /// 状态信息
@@ -45,12 +45,12 @@ namespace OSS.Common.ComModels
 
     #endregion
     
-    public class BaseMo
+    public class BaseMo<IdType>
     {
         /// <summary>
         /// 主键Id
         /// </summary>
-        public string id { get; set; }
+        public IdType id { get; set; }
 
         ///// <summary>
         /////  租户Id
