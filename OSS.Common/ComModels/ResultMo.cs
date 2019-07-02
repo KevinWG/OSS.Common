@@ -124,50 +124,50 @@ namespace OSS.Common.ComModels
     }
 
     /// <inheritdoc />
-    public class ResultStrIdMo : ResultIdMo<string>
+    public class ResultLongIdMo : ResultIdMo<long>
     {
         /// <inheritdoc />
-        public ResultStrIdMo() 
+        public ResultLongIdMo() 
         {
         }
 
         /// <inheritdoc />
-        public ResultStrIdMo(string id) : base(id)
+        public ResultLongIdMo(long id) : base(id)
         {
         }
 
         /// <inheritdoc />
-        public ResultStrIdMo(int ret, string message) : base(ret, message)
+        public ResultLongIdMo(int ret, string message) : base(ret, message)
         {
         }
 
         /// <inheritdoc />
-        public ResultStrIdMo(ResultTypes ret, string message)
+        public ResultLongIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
-        public ResultStrIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        public ResultLongIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
-        public ResultStrIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
+        public ResultLongIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
         }
 
 
         /// <inheritdoc />
-        public ResultStrIdMo(SysResultTypes sysRet, string message)
+        public ResultLongIdMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
         }
 
     }
     /// <inheritdoc />
-    public class ResultIdMo: ResultIdMo<long>
+    public class ResultIdMo: ResultIdMo<string>
     {
         /// <inheritdoc />
         public ResultIdMo()
@@ -175,7 +175,7 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
-        public ResultIdMo(long id) : base(id)
+        public ResultIdMo(string id) : base(id)
         {
         }
 
