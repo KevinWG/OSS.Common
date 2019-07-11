@@ -23,6 +23,7 @@ namespace OSS.Common.Plugs.CachePlug
     /// <summary>
     /// 
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Cache 命名空间下 DefaultCachePlug ")]
     public class DefaultCachePlug : ICachePlug
     {
 #if !NETFW

@@ -12,6 +12,7 @@
 #endregion
 
 
+using System;
 using OSS.Common.ComModels;
 
 namespace OSS.Common.Plugs.DirConfigPlug
@@ -19,9 +20,9 @@ namespace OSS.Common.Plugs.DirConfigPlug
     /// <summary>
     /// 字典配置接口
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 IDirConfigPlug ")]
     public interface IDirConfigPlug
     {
-
         /// <summary>
         /// 添加字典配置
         /// </summary>

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace OSS.Common.Interfaces.Job
 {
+ 
     /// <summary>
     ///  列表循环处理任务执行
     ///  从 GetExcuteSource() 获取执行数据源，循环并通过 ExcuteItem() 执行个体任务，直到没有数据源返回
@@ -9,41 +12,61 @@ namespace OSS.Common.Interfaces.Job
     /// </summary>
     public abstract class BaseListJobExcutor<IType> : IJobExecutor
     {
+        private bool _isExcuteOnce;
+
+        /// <summary>
+        ///  列表任务执行者
+        /// </summary>
+        public BaseListJobExcutor():this(false)
+        {
+        }
+        
+        /// <summary>
+        ///  列表任务执行者
+        /// </summary>
+        /// <param name="excuteOnce">是否只获取一次数据源</param>
+        public BaseListJobExcutor(bool excuteOnce)
+        {
+            _isExcuteOnce = excuteOnce;
+        }
         /// <summary>
         ///  运行状态
         /// </summary>
         public bool IsRuning { get; private set; }
-
-
-        private int triggerTimes { get; set; } = 0;
+        
 
         /// <summary>
         ///   开始任务
         /// </summary>
-        public void StartJob()
+        public async void StartJob(CancellationToken cancellationToken)
         {
             //  任务依然在执行中，不需要再次唤起
             if (IsRuning)
                 return;
 
             IsRuning = true;
-            IList<IType> list = null; // 结清实体list
+            IList<IType> list; // 结清实体list
 
-            OnBegin(triggerTimes++);
-            do
+            OnBegin();
+            while (IsRuning && (list = GetExcuteSource())?.Count > 0)
             {
                 for (var i = 0; IsRuning && i < list?.Count; i++)
                 {
-                    ExcuteItem(list[i], i);
+                     ExcuteItem(list[i], i);
                 }
-                list = GetExcuteSource();
-            } while (IsRuning && list?.Count > 0);
-            OnEnd(triggerTimes);
+
+                if (_isExcuteOnce)
+                {
+                    break;
+                }
+            }
+
+            OnEnd();
             IsRuning = false;
         }
 
         /// <summary>
-        ///   获取list数据源
+        ///   获取list数据源, 此方法会被循环调用
         /// </summary>
         /// <returns></returns>
         protected virtual IList<IType> GetExcuteSource()
@@ -60,29 +83,31 @@ namespace OSS.Common.Interfaces.Job
         {
         }
 
+
+
         /// <summary>
         /// 结束任务
         /// </summary>
-        public void StopJob()
+        public Task StopJob(CancellationToken cancellationToken)
         {
             IsRuning = false;
+            return Task.CompletedTask;
         }
-
 
 
         /// <summary>
         ///  此轮任务开始
         /// </summary>
-        protected virtual void OnBegin(int triggerTimes)
+        protected virtual void OnBegin()
         {
-
         }
 
         /// <summary>
         ///  此轮任务结束
         /// </summary>
-        protected virtual void OnEnd(int triggerTimes)
+        protected virtual void OnEnd()
         {
         }
+        
     }
 }

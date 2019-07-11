@@ -126,7 +126,7 @@ namespace OSS.Common.ComModels
         private TConfigType _config;
 
         private static AsyncLocal<ConcurrentDictionary<Type, TConfigType>>
-            _contextConfig = null; // new AsyncLocal<TConfigType>();
+            _contextConfig; // new AsyncLocal<TConfigType>();
 
 
 
@@ -183,7 +183,7 @@ namespace OSS.Common.ComModels
         {
             get
             {
-                if (_contextConfig.Value != null)
+                if (_contextConfig?.Value != null)
                 {
                     return ConfigProviderMode.Context;
                 }
