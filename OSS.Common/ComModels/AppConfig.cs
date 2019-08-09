@@ -78,5 +78,4 @@ namespace OSS.Common.ComModels
         ByAgent
     }
 
-
 }

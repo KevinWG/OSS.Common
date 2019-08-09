@@ -19,10 +19,14 @@ namespace OSS.Common.ComUtils
     /// 生成兼容js的编号（53bit）
     /// </summary>
     public class SmallNumGenerator : BaseNumGenerator
-    {       
-        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId( 3 位) + sequence （9 位）  = 编号Id (64位)
+    {
+        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId( 3 位) + sequence （9 位）  = 编号Id (53位)
 
-        public SmallNumGenerator(long workId) : base(workId, 9, 3)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="workId">当前的工作id 最大值不能超过（7   2^3-1）</param>
+        public SmallNumGenerator(int workId) : base(workId, 9, 3)
         {
         }
     }
@@ -32,11 +36,13 @@ namespace OSS.Common.ComUtils
     /// </summary>
     public class NumGenerator : BaseNumGenerator
     {
+        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId(10) + sequence(12) = 编号Id (64位)
+
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="workId">当前的工作id 最大值不能超过（2的11次方 - 1）</param>
-        public NumGenerator(long workId) : base(workId, 12, 10)
+        /// <param name="workId">当前的工作id 最大值不能超过（2^10 - 1）</param>
+        public NumGenerator(int workId) : base(workId, 12, 10)
         {
         }
     }
@@ -46,8 +52,6 @@ namespace OSS.Common.ComUtils
     /// </summary>
     public class BaseNumGenerator
     {
-        // 符号位(1位) + Timestamp(41位 最长70年) + WorkId() + sequence  = 编号Id (64位)
-
         //【sequence 部分】  随机序列 
         private long _maxSequence; // 最大值
         private int _sequenceBitLength; //长度
@@ -55,6 +59,7 @@ namespace OSS.Common.ComUtils
         // 【WorkId部分】 工作Id 
         private long _maxWorkerId;    // 最大值
         private int _workerIdBitLength; // 长度
+
         /// <summary>
         ///  workerId需要偏移的位置
         /// </summary>
@@ -80,7 +85,7 @@ namespace OSS.Common.ComUtils
         /// <summary>
         ///  获取当前的工作ID
         /// </summary>
-        public long WorkId { get; }
+        public long WorkId { get; internal set; }
 
 
         private long _sequence;   //  时间戳下 序号值
@@ -90,7 +95,7 @@ namespace OSS.Common.ComUtils
         /// <summary>
         /// 构造函数
         /// </summary>
-        protected BaseNumGenerator(long workId, int seqBitLength, int worIdBitLength)
+        protected BaseNumGenerator(int workId, int seqBitLength, int worIdBitLength)
         {
             InitailConfig(seqBitLength, worIdBitLength);
 

@@ -13,7 +13,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.ComModels
 {
@@ -111,10 +110,7 @@ namespace OSS.Common.ComModels
             }
             set => _ret = value;
         }
-
-
-
-
+        
         /// <summary>
         ///  系统结果
         /// </summary>
@@ -127,12 +123,98 @@ namespace OSS.Common.ComModels
 
     }
 
+    /// <inheritdoc />
+    public class ResultLongIdMo : ResultIdMo<long>
+    {
+        /// <inheritdoc />
+        public ResultLongIdMo() 
+        {
+        }
 
+        /// <inheritdoc />
+        public ResultLongIdMo(long id) : base(id)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultLongIdMo(int ret, string message) : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultLongIdMo(ResultTypes ret, string message)
+            : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultLongIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultLongIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
+        {
+        }
+
+
+        /// <inheritdoc />
+        public ResultLongIdMo(SysResultTypes sysRet, string message)
+            : base(sysRet, message)
+        {
+        }
+
+    }
+
+    /// <inheritdoc />
+    public class ResultIdMo: ResultIdMo<string>
+    {
+        /// <inheritdoc />
+        public ResultIdMo()
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(string id) : base(id)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(int ret, string message) : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(ResultTypes ret, string message)
+            : base(ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
+        {
+        }
+
+        /// <inheritdoc />
+        public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
+            : base(sysRet, ret, message)
+        {
+        }
+
+
+        /// <inheritdoc />
+        public ResultIdMo(SysResultTypes sysRet, string message)
+            : base(sysRet, message)
+        {
+        }
+
+    }
 
     /// <summary>
     /// 带Id的结果实体
     /// </summary>
-    public class ResultIdMo : ResultMo
+    public class ResultIdMo<IdType> : ResultMo
     {
         /// <inheritdoc />
         /// <summary>
@@ -143,7 +225,7 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
-        public ResultIdMo(string id) => this.id = id;
+        public ResultIdMo(IdType id) => this.id = id;
 
 
         /// <inheritdoc />
@@ -178,7 +260,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// Id
         /// </summary>
-        public string id { get; set; }
+        public IdType id { get; set; }
     }
 
 
@@ -528,4 +610,8 @@ namespace OSS.Common.ComModels
             return res.WithResult((int) SysResultTypes.Ok, (int) ret, eMsg);
         }
     }
+
+
+
+
 }

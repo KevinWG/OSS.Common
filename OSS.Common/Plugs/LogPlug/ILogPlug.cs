@@ -11,11 +11,14 @@
 
 #endregion
 
+using System;
+
 namespace OSS.Common.Plugs.LogPlug
 {
     /// <summary>
     /// 日志写实现接口
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 ILogPlug ")]
     public interface ILogPlug
     {
         /// <summary>

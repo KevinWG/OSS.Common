@@ -18,6 +18,7 @@ namespace OSS.Common.Plugs.CachePlug
     /// <summary>
     /// 缓存插件接口
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Cache 命名空间下 ICachePlug ")]
     public interface ICachePlug
     {
         /// <summary>

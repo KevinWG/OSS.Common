@@ -14,7 +14,6 @@
 
 using System;
 using OSS.Common.ComModels;
-using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.Extention
 {

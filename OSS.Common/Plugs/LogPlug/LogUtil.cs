@@ -11,7 +11,7 @@
 
 #endregion
 
-using System.Threading.Tasks;
+using System;
 
 namespace OSS.Common.Plugs.LogPlug
 {
@@ -19,6 +19,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 日志等级
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 LogLevelEnum ")]
     public enum LogLevelEnum
     {
         /// <summary>
@@ -45,6 +46,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 日志实体
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 LogInfo ")]
     public sealed class LogInfo
     {
         /// <summary>
@@ -99,6 +101,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 日志写模块
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 LogUtil ")]
     public static class LogUtil
     {
         private static readonly DefaultLogPlug defaultCache = new DefaultLogPlug();

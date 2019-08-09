@@ -22,6 +22,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 系统默认写日志模块
     /// </summary>
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 DefaultLogPlug ")]
     public class DefaultLogPlug : ILogPlug
     {
         private readonly string _logBaseDirPath = null;

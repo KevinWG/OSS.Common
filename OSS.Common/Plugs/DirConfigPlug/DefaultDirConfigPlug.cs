@@ -15,7 +15,6 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using OSS.Common.ComModels;
-using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.Plugs.DirConfigPlug
 {
@@ -23,6 +22,8 @@ namespace OSS.Common.Plugs.DirConfigPlug
     /// <summary>
     /// 默认配置处理
     /// </summary>
+
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 DefaultDirConfigPlug ")]
     public class DefaultDirConfigPlug : IDirConfigPlug
     {
         private static readonly string _defaultPath;
