@@ -52,13 +52,14 @@ namespace OSS.Common.ComModels
     {
         private TConfigType _config;
         private static AsyncLocal<Dictionary<object, TConfigType>>
-            _contextConfig = null; // new AsyncLocal<TConfigType>();
+            _contextConfig; // new AsyncLocal<TConfigType>();
 
         /// <summary>
         ///   当前模块名称
         /// </summary>
+        [Obsolete]
         public string ModuleName { get; set; } = ModuleNames.Default;
-  
+
         /// <summary>
         ///  配置模式    
         /// </summary>
@@ -157,16 +158,6 @@ namespace OSS.Common.ComModels
 
         #endregion
         
-        private TConfigType GetContextConfig()
-        {
-            var dir = _contextConfig?.Value;
-            if (dir == null)
-            {
-                return null;
-            }
-            return dir.TryGetValue(this, out TConfigType va) ? va : null;
-        }
-        
         #region 扩展虚方法
 
         /// <summary>
@@ -180,6 +171,16 @@ namespace OSS.Common.ComModels
         }
 
         #endregion
+
+        private TConfigType GetContextConfig()
+        {
+            var dir = _contextConfig?.Value;
+            if (dir == null)
+            {
+                return null;
+            }
+            return dir.TryGetValue(this, out TConfigType va) ? va : null;
+        }
     }
 
     /// <summary>
