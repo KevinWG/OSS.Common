@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 
-    <Version>2.0.0.0</Version>
+    <Version>2.0.1</Version>
 
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
 
-    <PackageReleaseNotes>添加新的任务处理，修改全局配置处理</PackageReleaseNotes>
+    <PackageReleaseNotes>完善任务处理的取消处理</PackageReleaseNotes>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
 

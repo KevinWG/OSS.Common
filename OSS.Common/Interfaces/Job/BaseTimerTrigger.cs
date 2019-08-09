@@ -147,7 +147,7 @@ namespace OSS.Common.Interfaces.Job
         {
             try
             {
-                _jobExcutor?.StartJob(_cancellationToken);
+                _jobExcutor?.StartJob(_cancellationToken).Wait(_cancellationToken);
             }
             catch (Exception e)
             {

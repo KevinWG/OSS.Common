@@ -28,6 +28,7 @@ namespace OSS.Common.Interfaces.Job
         {
             _isExcuteOnce = excuteOnce;
         }
+
         /// <summary>
         ///  运行状态
         /// </summary>

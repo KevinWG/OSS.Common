@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using OSS.Common.Plugs;
 
 namespace OSS.Common.ComModels
 {
-
     [Obsolete("建议使用BaseApiConfigProvider")]
     public class BaseConfigProvider<TConfigType, TConfigOwnerType> : BaseMetaProvider<TConfigType>
         where TConfigType : class
@@ -114,16 +111,10 @@ namespace OSS.Common.ComModels
             throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或者SetContextConfig方法设置当前上下文配置信息");
         }
 
-        /// <summary>
-        /// 设置实例配置信息
-        /// </summary>
-        /// <param name="config"></param>
-        protected void SetConfig(TConfigType config)
-        {
-            ConfigMode = ConfigProviderMode.Instance;
-            _config = config;
-        }
 
+        #region 赋值操作
+
+        
         private static readonly object _lockObj = new object();
 
         /// <summary>
@@ -154,7 +145,18 @@ namespace OSS.Common.ComModels
             else
                 _contextConfig.Value.Add(this, config);
         }
+        /// <summary>
+        /// 设置实例配置信息
+        /// </summary>
+        /// <param name="config"></param>
+        private void SetConfig(TConfigType config)
+        {
+            ConfigMode = ConfigProviderMode.Instance;
+            _config = config;
+        }
 
+        #endregion
+        
         private TConfigType GetContextConfig()
         {
             var dir = _contextConfig?.Value;
@@ -164,7 +166,8 @@ namespace OSS.Common.ComModels
             }
             return dir.TryGetValue(this, out TConfigType va) ? va : null;
         }
-
+        
+        #region 扩展虚方法
 
         /// <summary>
         /// 获取默认配置信息
@@ -175,6 +178,8 @@ namespace OSS.Common.ComModels
         {
             return null;
         }
+
+        #endregion
     }
 
     /// <summary>
