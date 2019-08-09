@@ -12,7 +12,7 @@ namespace OSS.Common.Interfaces.Job
         /// <summary>
         /// 开始任务
         /// </summary>
-        void StartJob(CancellationToken cancellationToken);
+        Task StartJob(CancellationToken cancellationToken);
 
         /// <summary>
         ///  结束任务
@@ -22,21 +22,21 @@ namespace OSS.Common.Interfaces.Job
 
     internal class InternalExecutor : IJobExecutor
     {
-        private readonly Action<CancellationToken> _startAction;
+        private readonly Func<CancellationToken, Task> _startAction;
 
         private readonly Func<CancellationToken, Task> _stopAction;
 
 
         /// <inheritdoc />
-        public InternalExecutor(Action<CancellationToken> startAction, Func<CancellationToken, Task> stopAction)
+        public InternalExecutor(Func<CancellationToken, Task> startAction, Func<CancellationToken, Task> stopAction)
         {
             _startAction = startAction;
             _stopAction = stopAction;
         }
-        
-        public void StartJob(CancellationToken cancellationToken)
+
+        public Task StartJob(CancellationToken cancellationToken)
         {
-            _startAction?.Invoke(cancellationToken);
+            return _startAction?.Invoke(cancellationToken) ?? Task.CompletedTask;
         }
 
         public Task StopJob(CancellationToken cancellationToken)
