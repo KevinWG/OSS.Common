@@ -72,6 +72,13 @@ namespace OSS.Common.Interfaces.Job
         #endregion
 
 
+        protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Action<CancellationToken> startAction)
+        {
+            _dueTime = dueTime;
+            _periodTime = periodTime;
+            _jobExcutor = new InternalExecutor(startAction, null);
+        }
+
         #region  基础方法
 
         /// <summary>

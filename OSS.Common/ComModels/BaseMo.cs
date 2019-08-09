@@ -72,5 +72,4 @@ namespace OSS.Common.ComModels
         /// </summary>
         public string app_source { get; set; }
     }
-    
 }

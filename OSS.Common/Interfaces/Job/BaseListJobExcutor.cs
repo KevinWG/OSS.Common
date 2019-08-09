@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace OSS.Common.Interfaces.Job
 {
+ 
     /// <summary>
     ///  列表循环处理任务执行
     ///  从 GetExcuteSource() 获取执行数据源，循环并通过 ExcuteItem() 执行个体任务，直到没有数据源返回
@@ -33,7 +34,6 @@ namespace OSS.Common.Interfaces.Job
         ///  运行状态
         /// </summary>
         public bool IsRuning { get; private set; }
-
 
         /// <summary>
         ///   开始任务
@@ -79,6 +79,8 @@ namespace OSS.Common.Interfaces.Job
         /// <param name="index">在数据源中的索引</param>
         protected abstract Task ExcuteItem(IType item, int index);
    
+
+
 
         /// <summary>
         /// 结束任务

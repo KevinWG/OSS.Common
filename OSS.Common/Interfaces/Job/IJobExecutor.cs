@@ -23,10 +23,8 @@ namespace OSS.Common.Interfaces.Job
     internal class InternalExecutor : IJobExecutor
     {
         private readonly Func<CancellationToken, Task> _startAction;
-
         private readonly Func<CancellationToken, Task> _stopAction;
-
-
+        
         /// <inheritdoc />
         public InternalExecutor(Func<CancellationToken, Task> startAction, Func<CancellationToken, Task> stopAction)
         {
