@@ -29,30 +29,31 @@ namespace OSS.Common.Interfaces.Job
         {
             _isExcuteOnce = excuteOnce;
         }
+
         /// <summary>
         ///  运行状态
         /// </summary>
         public bool IsRuning { get; private set; }
-        
 
         /// <summary>
         ///   开始任务
         /// </summary>
-        public async void StartJob(CancellationToken cancellationToken)
+        public async Task StartJob(CancellationToken cancellationToken)
         {
             //  任务依然在执行中，不需要再次唤起
             if (IsRuning)
                 return;
 
             IsRuning = true;
+            int page=0;
             IList<IType> list; // 结清实体list
 
-            OnBegin();
-            while (IsRuning && (list = GetExcuteSource())?.Count > 0)
+            await OnBegin();
+            while (IsRuning && (list =await GetExcuteSource(page++))?.Count > 0)
             {
                 for (var i = 0; IsRuning && i < list?.Count; i++)
                 {
-                     ExcuteItem(list[i], i);
+                    await ExcuteItem(list[i], i);
                 }
 
                 if (_isExcuteOnce)
@@ -61,7 +62,7 @@ namespace OSS.Common.Interfaces.Job
                 }
             }
 
-            OnEnd();
+            await OnEnd();
             IsRuning = false;
         }
 
@@ -69,19 +70,15 @@ namespace OSS.Common.Interfaces.Job
         ///   获取list数据源, 此方法会被循环调用
         /// </summary>
         /// <returns></returns>
-        protected virtual IList<IType> GetExcuteSource()
-        {
-            return null;
-        }
+        protected abstract Task<IList<IType>> GetExcuteSource(int page);
 
         /// <summary>
         ///  个体任务执行
         /// </summary>
         /// <param name="item">单个实体</param>
         /// <param name="index">在数据源中的索引</param>
-        protected virtual void ExcuteItem(IType item, int index)
-        {
-        }
+        protected abstract Task ExcuteItem(IType item, int index);
+   
 
 
 
@@ -98,15 +95,17 @@ namespace OSS.Common.Interfaces.Job
         /// <summary>
         ///  此轮任务开始
         /// </summary>
-        protected virtual void OnBegin()
+        protected virtual Task OnBegin()
         {
+            return Task.CompletedTask;
         }
 
         /// <summary>
         ///  此轮任务结束
         /// </summary>
-        protected virtual void OnEnd()
+        protected virtual Task OnEnd()
         {
+            return Task.CompletedTask;
         }
         
     }

@@ -31,12 +31,46 @@ namespace OSS.Common.Interfaces.Job
             _jobExcutor = jobExcutor;
         }
         
-        protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Action<CancellationToken> startAction, Func<CancellationToken, Task> stopAction)
+        protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Func<CancellationToken, Task> startAction, Func<CancellationToken, Task> stopAction)
         {
             _dueTime = dueTime;
             _periodTime = periodTime;
             _jobExcutor = new InternalExecutor(startAction, stopAction);
         }
+
+        protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Func<CancellationToken, Task> startAction)
+        {
+            _dueTime = dueTime;
+            _periodTime = periodTime;
+            _jobExcutor = new InternalExecutor(startAction, null);
+        }
+
+        #region 扩展方法
+
+        /// <summary>
+        /// 指定时分秒和当前的时间差
+        /// </summary>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        protected static TimeSpan PointTimeSpan(int hour, int minute, int second)
+        {
+            const int fullDaySeconds = 24 * 60 * 60;
+
+            var now = DateTime.Now;
+            var startSeconds = now.Hour * 60 * 60 + now.Minute * 60 + now.Second;
+            var endSeconds = (hour * 60 * 60 + minute * 60 + second * 60) % fullDaySeconds;//防止输入溢出一天的周期
+
+            var spanSeconds = endSeconds - startSeconds;
+            if (spanSeconds < 0)
+                spanSeconds += fullDaySeconds;
+
+            return TimeSpan.FromSeconds(spanSeconds);
+        }
+
+        #endregion
+
 
         protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Action<CancellationToken> startAction)
         {
@@ -120,12 +154,16 @@ namespace OSS.Common.Interfaces.Job
         {
             try
             {
-                _jobExcutor?.StartJob(_cancellationToken);
+                _jobExcutor?.StartJob(_cancellationToken).Wait(_cancellationToken);
             }
             catch (Exception e)
             {
                 LogUtil.Error($"执行任务({nameof(GetType)})时出错，信息：{e}", String.Empty, "System_TimerJob");
             }
         }
+
+
+
+
     }
 }
