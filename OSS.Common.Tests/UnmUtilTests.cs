@@ -26,7 +26,7 @@ namespace OSS.Common.Tests
 
     }
 
-    public class TestConfig : BaseApiConfigProvider<AppConfig, TestConfig>
+    public class TestConfig : BaseApiConfigProvider<AppConfig>
     {
 
     }
