@@ -83,7 +83,7 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public ResultMo ConvertToReult()
         {
-            return new ResultMo(sys_ret,ret,msg);
+            return new ResultMo().WithResult(sys_ret,ret,msg);
         }
 
         /// <summary>
@@ -93,17 +93,16 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public ResultMo<TRes> ConvertToReult<TRes>()
         {
-            return new ResultMo<TRes>(sys_ret, ret, msg);
+            return new ResultMo<TRes>().WithResult(sys_ret, ret, msg);
         }
 
         /// <summary>
-        /// 
+        /// 转化为结果实例
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
         public TRes ConvertToReultInherit<TRes>()
             where TRes:ResultMo,new()
-
         {
             var res = new TRes
             {

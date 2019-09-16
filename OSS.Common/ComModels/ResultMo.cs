@@ -33,6 +33,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="ret">【业务】结果标识</param>
         /// <param name="message">结果信息描述</param>
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(int ret, string message)
         {
             this.ret = ret;
@@ -45,6 +46,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="ret">【业务】结果标识</param>
         /// <param name="message">结果信息描述</param>
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(ResultTypes ret, string message)
             : this((int) ret, message)
         {
@@ -56,6 +58,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="message">结果信息描述</param>
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(SysResultTypes sysRet, string message = null)
             : this((int) sysRet, 0, message)
         {
@@ -67,6 +70,7 @@ namespace OSS.Common.ComModels
         /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="ret">【业务】结果标识</param>
         /// <param name="message">结果信息描述</param>
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(int sysRet, int ret, string message)
         {
             this.sys_ret = sysRet;
@@ -80,6 +84,7 @@ namespace OSS.Common.ComModels
         /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="ret">【业务】结果标识</param>
         /// <param name="message">结果信息描述</param>
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : this((int) sysRet, (int) ret, message)
         {
@@ -137,22 +142,27 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultLongIdMo(int ret, string message) : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+
+        [Obsolete("使用 WithResult 方法")]
         public ResultLongIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultLongIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultLongIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
@@ -160,6 +170,7 @@ namespace OSS.Common.ComModels
 
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultLongIdMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
@@ -181,22 +192,26 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(int ret, string message) : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
@@ -204,13 +219,14 @@ namespace OSS.Common.ComModels
 
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
         }
 
     }
-  
+
 
     /// <summary>
     /// 带Id的结果实体
@@ -229,23 +245,29 @@ namespace OSS.Common.ComModels
         public ResultIdMo(IdType id) => this.id = id;
 
 
+        #region 过时方法
+
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(int ret, string message) : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(ResultTypes ret, string message)
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
@@ -253,10 +275,14 @@ namespace OSS.Common.ComModels
 
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultIdMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
         }
+
+        #endregion
+
 
         /// <summary>
         /// Id
@@ -281,29 +307,34 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(int ret, string message = "")
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
@@ -332,29 +363,34 @@ namespace OSS.Common.ComModels
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultListMo(int ret, string message = "")
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultListMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultListMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultListMo(SysResultTypes sysRet, ResultTypes ret, string message)
             : base(sysRet, ret, message)
         {
         }
 
         /// <inheritdoc />
+        [Obsolete("使用 WithResult 方法")]
         public ResultListMo(SysResultTypes sysRet, string message)
             : base(sysRet, message)
         {
@@ -368,30 +404,7 @@ namespace OSS.Common.ComModels
     /// </summary>
     public static class ResultMoMap
     {
-        /// <summary>
-        ///   将结果实体转换成其他结果实体
-        /// </summary>
-        /// <typeparam name="TResult">输出对象</typeparam>
-        /// <typeparam name="TPara"></typeparam>
-        /// <returns>输出对象</returns>
-        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this TPara res,
-            Func<TPara, TResult> func)
-            where TPara : ResultMo
-        {
-            var ot = new ResultMo<TResult>
-            {
-                ret = res.ret,
-                msg = res.msg,
-                sys_ret = res.sys_ret
-            };
-
-            if (func != null && res.IsSuccess())
-                ot.data = func(res);
-
-            return ot;
-        }
-
-
+        #region Old 转化处理
 
         /// <summary>
         /// 转化到结果实体
@@ -401,42 +414,7 @@ namespace OSS.Common.ComModels
         /// <param name="res"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> res,
-            Func<TPara, TResult> func)
-        {
-            var ot = new ResultMo<TResult>
-            {
-                ret = res.ret,
-                msg = res.msg,
-                sys_ret = res.sys_ret
-            };
-
-            if (func != null && res.IsSuccess())
-                ot.data = func(res.data);
-
-            return ot;
-        }
-
-        /// <summary>
-        /// 转化到结果实体
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="res"></param>
-        /// <returns></returns>
-        public static ResultMo<TResult> ConvertToResult<TResult>(this ResultMo res)
-        {
-            return ConvertToResult<ResultMo, TResult>(res, null);
-        }
-
-
-        /// <summary>
-        /// 转化到结果实体
-        /// </summary>
-        /// <typeparam name="TPara"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="res"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
+        [Obsolete("请使用 new TResult().WithResult() ")]
         public static TResult ConvertToResultInherit<TPara, TResult>(this TPara res,
             Func<TPara, TResult> func)
             where TPara : ResultMo
@@ -458,6 +436,7 @@ namespace OSS.Common.ComModels
             return oRes;
         }
 
+
         /// <summary>
         /// 转化到结果实体
         /// </summary>
@@ -466,6 +445,7 @@ namespace OSS.Common.ComModels
         /// <param name="res"></param>
         /// <param name="func"></param>
         /// <returns></returns>
+        [Obsolete("请使用 new TResult().WithResult() ")]
         public static TResult ConvertToResultInherit<TPara, TResult>(this ResultMo<TPara> res,
             Func<TPara, TResult> func)
             where TResult : ResultMo, new()
@@ -492,10 +472,73 @@ namespace OSS.Common.ComModels
         /// <typeparam name="TResult"></typeparam>
         /// <param name="res"></param>
         /// <returns></returns>
+        [Obsolete("请使用 new TResult().WithResult() ")]
         public static TResult ConvertToResultInherit<TResult>(this ResultMo res)
             where TResult : ResultMo, new()
         {
             return ConvertToResultInherit<ResultMo, TResult>(res, null);
+        }
+
+
+        /// <summary>
+        ///   将结果实体转换成其他结果实体
+        /// </summary>
+        /// <typeparam name="TResult">输出对象</typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <returns>输出对象</returns>
+        [Obsolete("请使用 new TResult().WithResult() ")]
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this TPara res,
+            Func<TPara, TResult> func)
+            where TPara : ResultMo
+        {
+            var ot = new ResultMo<TResult>
+            {
+                ret = res.ret,
+                msg = res.msg,
+                sys_ret = res.sys_ret
+            };
+
+            if (func != null && res.IsSuccess())
+                ot.data = func(res);
+
+            return ot;
+        }
+
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        [Obsolete("请使用 new ResultMo<TResult>().WithResult() ")]
+        public static ResultMo<TResult> ConvertToResult<TPara, TResult>(this ResultMo<TPara> res,
+            Func<TPara, TResult> func)
+        {
+            var ot = new ResultMo<TResult>
+            {
+                ret = res.ret,
+                msg = res.msg,
+                sys_ret = res.sys_ret
+            };
+
+            if (func != null && res.IsSuccess())
+                ot.data = func(res.data);
+
+            return ot;
+        }
+
+        /// <summary>
+        /// 转化到结果实体
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        [Obsolete("请使用 new ResultMo<TResult>().WithResult() ")]
+        public static ResultMo<TResult> ConvertToResult<TResult>(this ResultMo res)
+        {
+            return ConvertToResult<ResultMo, TResult>(res, null);
         }
 
 
@@ -507,6 +550,7 @@ namespace OSS.Common.ComModels
         /// <param name="res"></param>
         /// <param name="func"></param>
         /// <returns></returns>
+        [Obsolete("请使用 new ResultListMo<TResult>().WithResult() ")]
         public static ResultListMo<TResult> ConvertToResultList<TPara, TResult>(this ResultListMo<TPara> res,
             Func<TPara, TResult> func)
         {
@@ -530,10 +574,17 @@ namespace OSS.Common.ComModels
         /// <typeparam name="TResult"></typeparam>
         /// <param name="res"></param>
         /// <returns></returns>
+        [Obsolete("请使用 new ResultListMo<TResult>().WithResult() ")]
         public static ResultListMo<TResult> ConvertToResultList<TPara, TResult>(this ResultListMo<TPara> res)
         {
             return new ResultListMo<TResult>(res.sys_ret, res.ret, res.msg);
         }
+
+
+
+        #endregion
+
+        #region withresult 基础扩展
 
 
         /// <summary>
@@ -565,7 +616,7 @@ namespace OSS.Common.ComModels
         public static TRes WithResult<TRes>(this TRes res, int ret, string eMsg)
             where TRes : ResultMo
         {
-            return res.WithResult((int) SysResultTypes.Ok, ret, eMsg);
+            return res.WithResult((int)SysResultTypes.Ok, ret, eMsg);
         }
 
         /// <summary>
@@ -580,7 +631,7 @@ namespace OSS.Common.ComModels
         public static TRes WithResult<TRes>(this TRes res, SysResultTypes sysRet, ResultTypes ret, string eMsg)
             where TRes : ResultMo
         {
-            return res.WithResult((int) sysRet, (int) ret, eMsg);
+            return res.WithResult((int)sysRet, (int)ret, eMsg);
         }
 
         /// <summary>
@@ -594,7 +645,7 @@ namespace OSS.Common.ComModels
         public static TRes WithResult<TRes>(this TRes res, SysResultTypes sysRet, string eMsg)
             where TRes : ResultMo
         {
-            return res.WithResult((int) sysRet, (int) ResultTypes.Success, eMsg);
+            return res.WithResult((int)sysRet, (int)ResultTypes.Success, eMsg);
         }
 
         /// <summary>
@@ -608,8 +659,72 @@ namespace OSS.Common.ComModels
         public static TRes WithResult<TRes>(this TRes res, ResultTypes ret, string eMsg)
             where TRes : ResultMo
         {
-            return res.WithResult((int) SysResultTypes.Ok, (int) ret, eMsg);
+            return res.WithResult((int)SysResultTypes.Ok, (int)ret, eMsg);
         }
+
+
+        #endregion
+
+        #region 实例属性转化
+
+        
+
+        /// <summary>
+        /// 处理结果转化
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <typeparam name="TRes"></typeparam>
+        /// <returns></returns>
+        public static TRes WithResult<TRes>(this TRes res,ResultMo tPara )
+            where TRes : ResultMo
+        {
+            return res.WithResult(tPara.sys_ret, tPara.ret, tPara.msg);
+        }
+
+        /// <summary>
+        /// 处理结果转化
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <param name="func"></param>
+        /// <param name="isNullCheck">是否检查参数 data 为空</param>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <returns></returns>
+        public static ResultMo<TRes> WithResult<TRes, TPara>(this ResultMo<TRes> res, ResultMo<TPara> tPara,
+            Func<TPara, TRes> func, bool isNullCheck = true)
+
+        {
+            WithResult(res, tPara.sys_ret, tPara.ret, tPara.msg);
+
+            if (isNullCheck && tPara.data == null)
+                return res;
+
+            res.data = func.Invoke(tPara.data);
+            return res;
+        }
+
+        /// <summary>
+        /// 处理结果转化
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static ResultListMo<TRes> WithResult<TRes, TPara>(this ResultListMo<TRes> res, ResultListMo<TPara> tPara,
+            Func<TPara, TRes> func)
+        {
+            WithResult(res, tPara.sys_ret, tPara.ret, tPara.msg);
+
+            res.data = tPara.data?.Select(func).ToList();
+
+            return res;
+        }
+
+        #endregion
     }
 
 

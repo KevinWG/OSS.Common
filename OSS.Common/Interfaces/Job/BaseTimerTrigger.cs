@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using OSS.Common.Plugs.LogPlug;
 
 namespace OSS.Common.Interfaces.Job
 {
@@ -30,14 +29,15 @@ namespace OSS.Common.Interfaces.Job
             _periodTime = periodTime;
             _jobExcutor = jobExcutor;
         }
-        
+
+        /// <inheritdoc />
         protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Func<CancellationToken, Task> startAction, Func<CancellationToken, Task> stopAction)
         {
             _dueTime = dueTime;
             _periodTime = periodTime;
             _jobExcutor = new InternalExecutor(startAction, stopAction);
         }
-
+        /// <inheritdoc />
         protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Func<CancellationToken, Task> startAction)
         {
             _dueTime = dueTime;
@@ -70,14 +70,6 @@ namespace OSS.Common.Interfaces.Job
         }
 
         #endregion
-
-
-        protected BaseTimerTrigger(TimeSpan dueTime, TimeSpan periodTime, Action<CancellationToken> startAction)
-        {
-            _dueTime = dueTime;
-            _periodTime = periodTime;
-            _jobExcutor = new InternalExecutor(startAction, null);
-        }
 
         #region  基础方法
 
@@ -122,14 +114,7 @@ namespace OSS.Common.Interfaces.Job
         /// <returns></returns>
         public virtual async Task StartAsync(CancellationToken cancellationToken)
         {
-            try
-            {
-              await  StartTimerTrigger(cancellationToken);
-            }
-            catch (Exception e)
-            {
-                LogUtil.Error($"启动定时任务({nameof(GetType)})时出错，信息：{e}", string.Empty, "System_TimerJob");
-            }
+            await StartTimerTrigger(cancellationToken);
         }
 
         /// <summary>
@@ -139,27 +124,13 @@ namespace OSS.Common.Interfaces.Job
         /// <returns></returns>
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            try
-            {
-                await _jobExcutor.StopJob(cancellationToken);
-                StopTimerTrigger();
-            }
-            catch (Exception e)
-            {
-                LogUtil.Error($"停止定时任务({nameof(GetType)})时出错，信息：{e}", String.Empty, "System_TimerJob");
-            }
+            await _jobExcutor.StopJob(cancellationToken);
+            StopTimerTrigger();
         }
 
         private void ExcuteJob(object obj)
         {
-            try
-            {
-                _jobExcutor?.StartJob(_cancellationToken).Wait(_cancellationToken);
-            }
-            catch (Exception e)
-            {
-                LogUtil.Error($"执行任务({nameof(GetType)})时出错，信息：{e}", String.Empty, "System_TimerJob");
-            }
+            _jobExcutor?.StartJob(_cancellationToken).Wait(_cancellationToken);
         }
 
 

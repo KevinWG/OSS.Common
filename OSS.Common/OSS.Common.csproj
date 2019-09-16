@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>完善任务处理的取消处理</PackageReleaseNotes>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <PackageReleaseNotes>完善新的结果处理方法</PackageReleaseNotes>
+    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <FileVersion>2.0.2.0</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>

@@ -11,6 +11,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OSS.Common.ComModels.Enums;
 
 namespace OSS.Common.ComModels
@@ -73,7 +74,7 @@ namespace OSS.Common.ComModels
     /// <summary>
     ///  分页实体
     /// </summary>
-    public class PageListMo<TModel> : ResultMo where TModel : class, new()
+    public class PageListMo<TModel> : ResultListMo<TModel>
     {
 
         /// <summary>
@@ -83,20 +84,23 @@ namespace OSS.Common.ComModels
         {
         }
 
-
         /// <summary>
         ///   出错时  构造函数    
         /// </summary>
         /// <param name="ret"></param>
         /// <param name="message"></param>
+        [Obsolete("使用 WithResult 方法")]
         public PageListMo(ResultTypes ret, string message = "")
             : base(ret, message)
         {
         }
+
+        [Obsolete("使用 WithResult 方法")]
         public PageListMo(int ret, string message = "")
             : base(ret, message)
         {
         }
+
         /// <summary>
         ///   正常赋值时的实体
         /// </summary>
@@ -107,12 +111,6 @@ namespace OSS.Common.ComModels
             data = list;
             this.total = totalCount;
         }
-
-        /// <summary>
-        /// 实体列表
-        /// </summary>
-        public List<TModel> data { get; set; }
-        
 
         /// <summary>
         /// 总数
@@ -134,21 +132,38 @@ namespace OSS.Common.ComModels
         /// <param name="pageList"></param>
         /// <param name="convertFun"></param>
         /// <returns></returns>
+        [Obsolete("new PageListMo<TResult>().WithPageList()")]
         public static PageListMo<TResult> ConvertToPageList<TPara, TResult>(this PageListMo<TPara> pageList,
             Func<TPara, TResult> convertFun)
             where TResult : class, new()
             where TPara : class, new()
         {
-            if (convertFun == null)
-            {
-                throw new ArgumentNullException(nameof(convertFun), "转化方法不能为空！");
-            }
+            var pageRes = new PageListMo<TResult>().WithResult(pageList.ret, pageList.msg);
 
-            if (!pageList.IsSuccess() || pageList.data == null)
-                return new PageListMo<TResult>(pageList.ret, pageList.msg);
+            pageRes.data = pageList.data?.Select(convertFun).ToList();
+            pageRes.total = pageList.total;
 
-            var resultList = pageList.data.ConvertAll(e=>convertFun(e));
-            return new PageListMo<TResult>(pageList.total, resultList);
+            return pageRes;
+        }
+
+        /// <summary>
+        ///  处理结果转化
+        /// </summary>
+        /// <typeparam name="TPara"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pageRes"></param>
+        /// <param name="pageList"></param>
+        /// <param name="convertFun"></param>
+        /// <returns></returns>
+        public static PageListMo<TResult> WithPageList<TPara, TResult>(this PageListMo<TResult> pageRes, PageListMo<TPara> pageList,
+            Func<TPara, TResult> convertFun)
+            where TResult : class, new()
+            where TPara : class, new()
+        {
+            pageRes.WithResult(pageList, convertFun);
+
+            pageRes.total = pageList.total;
+            return pageRes;
         }
     }
 
