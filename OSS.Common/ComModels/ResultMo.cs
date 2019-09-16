@@ -202,55 +202,6 @@ namespace OSS.Common.ComModels
         {
         }
 
-        /// <inheritdoc />
-        public ResultLongIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
-            : base(sysRet, ret, message)
-        {
-        }
-
-
-        /// <inheritdoc />
-        public ResultLongIdMo(SysResultTypes sysRet, string message)
-            : base(sysRet, message)
-        {
-        }
-
-    }
-    /// <inheritdoc />
-    public class ResultIdMo: ResultIdMo<string>
-    {
-        /// <inheritdoc />
-        public ResultIdMo()
-        {
-        }
-
-        /// <inheritdoc />
-        public ResultIdMo(string id) : base(id)
-        {
-        }
-
-        /// <inheritdoc />
-        public ResultIdMo(int ret, string message) : base(ret, message)
-        {
-        }
-
-        /// <inheritdoc />
-        public ResultIdMo(ResultTypes ret, string message)
-            : base(ret, message)
-        {
-        }
-
-        /// <inheritdoc />
-        public ResultIdMo(int sysRet, int ret, string message) : base(sysRet, ret, message)
-        {
-        }
-
-        /// <inheritdoc />
-        public ResultIdMo(SysResultTypes sysRet, ResultTypes ret, string message)
-            : base(sysRet, ret, message)
-        {
-        }
-
 
         /// <inheritdoc />
         public ResultIdMo(SysResultTypes sysRet, string message)
@@ -259,14 +210,7 @@ namespace OSS.Common.ComModels
         }
 
     }
-
-        /// <inheritdoc />
-        public ResultIdMo(SysResultTypes sysRet, string message)
-            : base(sysRet, message)
-        {
-        }
-
-    }
+  
 
     /// <summary>
     /// 带Id的结果实体
