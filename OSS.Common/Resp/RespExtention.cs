@@ -19,7 +19,7 @@
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsResultType(this Resp res, RespTypes type) =>
+        public static bool IsRespType(this Resp res, RespTypes type) =>
             res.ret == (int)type;
 
 
@@ -37,7 +37,7 @@
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysResultType(this Resp res, SysRespTypes type) =>
+        public static bool IsSysRespType(this Resp res, SysRespTypes type) =>
             res.sys_ret == (int)type;
     }
 

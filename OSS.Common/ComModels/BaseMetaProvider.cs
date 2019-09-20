@@ -82,6 +82,17 @@ namespace OSS.Common.ComModels
         {
             SetConfig(config);
         }
+        /// <summary>
+        /// 设置实例配置信息
+        /// </summary>
+        /// <param name="config"></param>
+        private void SetConfig(TConfigType config)
+        {
+            ConfigMode = ConfigProviderMode.Instance;
+            _config    = config;
+        }
+
+
 
         /// <summary>
         /// 获取配置信息
@@ -146,15 +157,7 @@ namespace OSS.Common.ComModels
             else
                 _contextConfig.Value.Add(this, config);
         }
-        /// <summary>
-        /// 设置实例配置信息
-        /// </summary>
-        /// <param name="config"></param>
-        private void SetConfig(TConfigType config)
-        {
-            ConfigMode = ConfigProviderMode.Instance;
-            _config = config;
-        }
+      
 
         #endregion
         
