@@ -11,11 +11,6 @@
 
 #endregion
 
-using System;
-using System.Collections.Concurrent;
-using System.Threading;
-using OSS.Common.Plugs;
-
 namespace OSS.Common.ComModels
 {
     /// <summary>

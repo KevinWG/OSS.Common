@@ -59,11 +59,8 @@ namespace OSS.Common.Extention
         /// <returns></returns>
         public static Dictionary<string, string> ToEnumDirs(this Type enType, bool isIntValue = true)
         {
-#if NETFW
-            if (!enType.IsEnum)
-#else
+
             if (!enType.GetTypeInfo().IsEnum)
-#endif
                 throw new ResultException(ResultTypes.ParaError,"获取枚举字典，参数必须是枚举类型！");
             
             var key = string.Concat(enType.FullName, isIntValue);
@@ -79,11 +76,9 @@ namespace OSS.Common.Extention
             {
                 var name = Enum.GetName(enType, value);
                 var resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
-#if NETFW
-                var attr = enType.GetField(name)?.GetCustomAttribute<OSDescriptAttribute>();
-#else
+
                 var attr = enType.GetTypeInfo().GetDeclaredField(name)?.GetCustomAttribute<OSDescriptAttribute>();
-#endif
+
                 dirs.Add(resultValue, attr == null ? name : attr.Description);
             }
             enumDirs.TryAdd(key, dirs);

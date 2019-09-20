@@ -9,27 +9,27 @@
 *****************************************************************************/
 
 #endregion
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using OSS.Common.ComModels.Enums;
 
-namespace OSS.Common.ComModels
+namespace OSS.Common.Resp
 {
     /// <summary>
     /// 搜索实体
     /// </summary>
-    [Obsolete("建议使用 SearchReq 请求实体")]
-    public class SearchMo
+    public class SearchReq
     {
         /// <summary>
         ///   构造函数
         /// </summary>
-        public SearchMo()
+        public SearchReq()
         {
             filters = new Dictionary<string, string>();
             orders = new Dictionary<string, SortType>();
         }
+
 
         private int _curntPage = 1;
 
@@ -54,10 +54,9 @@ namespace OSS.Common.ComModels
         }
 
         /// <summary>
-        ///    获取起始行
+        /// 是否请求获取数量
         /// </summary>
-        public int GetStartRow()=>(cur_page - 1) * size;
-        
+        public bool req_count { get; set; } = true;
 
         /// <summary>
         /// 排序集合      适用于多个查询条件
@@ -68,38 +67,27 @@ namespace OSS.Common.ComModels
         /// 搜索关键字集合      适用于多个查询条件
         /// </summary>
         public Dictionary<string, string> filters { get; set; }
+
+
+
+        /// <summary>
+        ///    获取起始行
+        /// </summary>
+        public int GetStartRow() => (cur_page - 1) * size;
     }
-    
+
 
 
     /// <summary>
     ///  分页实体
     /// </summary>
-    [Obsolete("建议使用 PageListResp<TModel> 分页实体")]
-    public class PageListMo<TModel> : ResultListMo<TModel>
+    public class PageListResp<TModel> : ListResp<TModel>
     {
 
         /// <summary>
         ///    空构造函数  照顾  json序列化 
         /// </summary>
-        public PageListMo()
-        {
-        }
-
-        /// <summary>
-        ///   出错时  构造函数    
-        /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="message"></param>
-        [Obsolete("使用 WithResult 方法")]
-        public PageListMo(ResultTypes ret, string message = "")
-            : base(ret, message)
-        {
-        }
-
-        [Obsolete("使用 WithResult 方法")]
-        public PageListMo(int ret, string message = "")
-            : base(ret, message)
+        public PageListResp()
         {
         }
 
@@ -108,7 +96,7 @@ namespace OSS.Common.ComModels
         /// </summary>
         /// <param name="list"></param>
         /// <param name="totalCount"></param>
-        public PageListMo(long totalCount, List<TModel> list)
+        public PageListResp(long totalCount, IList<TModel> list)
         {
             data = list;
             this.total = totalCount;
@@ -124,32 +112,10 @@ namespace OSS.Common.ComModels
     /// <summary>
     /// 分页实体扩展
     /// </summary>
-    public static class PageListMoMap
+    public static class PageListRespMap
     {
         /// <summary>
-        ///   转化pageList列表实体
-        /// </summary>
-        /// <typeparam name="TPara"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="pageList"></param>
-        /// <param name="convertFun"></param>
-        /// <returns></returns>
-        [Obsolete("new PageListMo<TResult>().WithPageList()")]
-        public static PageListMo<TResult> ConvertToPageList<TPara, TResult>(this PageListMo<TPara> pageList,
-            Func<TPara, TResult> convertFun)
-            where TResult : class, new()
-            where TPara : class, new()
-        {
-            var pageRes = new PageListMo<TResult>().WithResult(pageList.ret, pageList.msg);
-
-            pageRes.data = pageList.data?.Select(convertFun).ToList();
-            pageRes.total = pageList.total;
-
-            return pageRes;
-        }
-
-        /// <summary>
-        ///  处理结果转化
+        ///  处理响应转化
         /// </summary>
         /// <typeparam name="TPara"></typeparam>
         /// <typeparam name="TResult"></typeparam>
@@ -157,7 +123,7 @@ namespace OSS.Common.ComModels
         /// <param name="pageList"></param>
         /// <param name="convertFun"></param>
         /// <returns></returns>
-        public static PageListMo<TResult> WithPageList<TPara, TResult>(this PageListMo<TResult> pageRes, PageListMo<TPara> pageList,
+        public static PageListResp<TResult> WithPageList<TPara, TResult>(this PageListResp<TResult> pageRes, PageListResp<TPara> pageList,
             Func<TPara, TResult> convertFun)
             where TResult : class, new()
             where TPara : class, new()

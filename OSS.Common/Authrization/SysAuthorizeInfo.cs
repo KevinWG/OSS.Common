@@ -54,7 +54,6 @@ namespace OSS.Common.Authrization
         /// </summary>
         public string TenantId { get; set; }
 
-
         /// <summary>
         ///  请求跟踪编号
         /// </summary>
@@ -64,24 +63,12 @@ namespace OSS.Common.Authrization
         /// 时间戳
         /// </summary>
         public long TimeSpan { get; set; }
-
-        ///// <summary>
-        /////   租户Token[仅对内部应用有效]
-        ///// </summary>
-        //public string TenantToken { get; set; }
-
-        /// <summary>
-        /// 浏览器类型   可选
-        /// </summary>
-        public string WebBrowser { get; set; }
-
-
+        
         /// <summary>
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
-
-
+        
         /// <summary>
         /// 应用客户端类型[非外部传值，不参与签名]
         /// </summary>
@@ -90,10 +77,8 @@ namespace OSS.Common.Authrization
         /// <summary>
         ///   应用类型 [非外部传值，不参与签名]
         /// </summary>
-        public AppSourceType AppType { get; set; }
-
-
-
+        public AppSourceType AppType { get; set; } = AppSourceType.SystemManager;
+        
         #endregion
 
         #region  字符串处理
@@ -154,15 +139,7 @@ namespace OSS.Common.Authrization
                 case "ts":
                     TimeSpan = val.ToInt64();
                     break;
-                //case "tt":
-                //    TenantToken = val;
-                //    break;
-
-                case "wb":
-                    WebBrowser = val;
-                    break;
-
-
+ 
                 case "sign":
                     Sign = val;
                     break;
@@ -189,8 +166,6 @@ namespace OSS.Common.Authrization
                 Token = this.Token,
                 TraceNum = this.TraceNum,
 
-                WebBrowser = this.WebBrowser,
-                //TenantToken = this.TenantToken,
                 AppType = this.AppType
             };
 
@@ -258,8 +233,6 @@ namespace OSS.Common.Authrization
             AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isUrlEncode);
             AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas, isUrlEncode);
-            //AddTicketProperty("tt", TenantToken, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("wb", WebBrowser, separator, strTicketParas, isUrlEncode);
 
             return strTicketParas;
         }
