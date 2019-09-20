@@ -63,7 +63,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         ///  配置模式    
         /// </summary>
-        public ConfigProviderMode ConfigMode { get; private set; }
+        public ConfigProviderMode ConfigMode { get; private set; } = ConfigProviderMode.Default;
 
 
         /// <summary>
@@ -71,7 +71,6 @@ namespace OSS.Common.ComModels
         /// </summary>
         public BaseMetaProvider()
         {
-            ConfigMode = ConfigProviderMode.Default;
         }
 
         /// <summary>
@@ -91,9 +90,7 @@ namespace OSS.Common.ComModels
             ConfigMode = ConfigProviderMode.Instance;
             _config    = config;
         }
-
-
-
+        
         /// <summary>
         /// 获取配置信息
         /// </summary>
@@ -120,7 +117,7 @@ namespace OSS.Common.ComModels
             if (t!=null)
                 return t;
 
-            throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或者SetContextConfig方法设置当前上下文配置信息");
+            throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或重写GetDefaultConfig返回默认设置，或者SetContextConfig方法设置当前上下文配置信息");
         }
 
 
