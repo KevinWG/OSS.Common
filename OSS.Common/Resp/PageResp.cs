@@ -128,7 +128,7 @@ namespace OSS.Common.Resp
             where TResult : class, new()
             where TPara : class, new()
         {
-            pageRes.WithResult(pageList, convertFun);
+            pageRes.WithResp(pageList, convertFun);
 
             pageRes.total = pageList.total;
             return pageRes;

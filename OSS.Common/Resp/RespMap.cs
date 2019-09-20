@@ -22,7 +22,7 @@ namespace OSS.Common.Resp
         /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResult<TRes>(this TRes res, int sysRet, int ret, string eMsg)
+        public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string eMsg)
             where TRes : Resp
         {
             res.msg = eMsg;
@@ -39,10 +39,10 @@ namespace OSS.Common.Resp
         /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResult<TRes>(this TRes res, int ret, string eMsg)
+        public static TRes WithResp<TRes>(this TRes res, int ret, string eMsg)
             where TRes : Resp
         {
-            return res.WithResult((int) SysRespTypes.Ok, ret, eMsg);
+            return res.WithResp((int) SysRespTypes.Ok, ret, eMsg);
         }
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace OSS.Common.Resp
         /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResult<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string eMsg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string eMsg)
             where TRes : Resp
         {
-            return res.WithResult((int) sysRet, (int) ret, eMsg);
+            return res.WithResp((int) sysRet, (int) ret, eMsg);
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace OSS.Common.Resp
         /// <param name="sysRet"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResult<TRes>(this TRes res, SysRespTypes sysRet, string eMsg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, string eMsg)
             where TRes : Resp
         {
-            return res.WithResult((int) sysRet, (int) RespTypes.Success, eMsg);
+            return res.WithResp((int) sysRet, (int) RespTypes.Success, eMsg);
         }
 
         /// <summary>
@@ -82,10 +82,10 @@ namespace OSS.Common.Resp
         /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResult<TRes>(this TRes res, RespTypes ret, string eMsg)
+        public static TRes WithResp<TRes>(this TRes res, RespTypes ret, string eMsg)
             where TRes : Resp
         {
-            return res.WithResult((int) SysRespTypes.Ok, (int) ret, eMsg);
+            return res.WithResp((int) SysRespTypes.Ok, (int) ret, eMsg);
         }
 
 
@@ -102,10 +102,10 @@ namespace OSS.Common.Resp
         /// <param name="tPara"></param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResult<TRes>(this TRes res, Resp tPara)
+        public static TRes WithResp<TRes>(this TRes res, Resp tPara)
             where TRes : Resp
         {
-            return res.WithResult(tPara.sys_ret, tPara.ret, tPara.msg);
+            return res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
         }
 
         /// <summary>
@@ -118,11 +118,11 @@ namespace OSS.Common.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResult<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
             Func<TPara, TRes> func, bool isNullCheck = true)
 
         {
-            WithResult(res, tPara.sys_ret, tPara.ret, tPara.msg);
+            WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
 
             if (isNullCheck && tPara.data == null)
                 return res;
@@ -140,10 +140,10 @@ namespace OSS.Common.Resp
         /// <param name="tPara"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static ListResp<TRes> WithResult<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
+        public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
             Func<TPara, TRes> func)
         {
-            WithResult(res, tPara.sys_ret, tPara.ret, tPara.msg);
+            WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
 
             res.data = tPara.data?.Select(func).ToList();
 
