@@ -9,6 +9,7 @@
 3. 常规实体DTO转化，静态扩展方法（时间，字符串等等处理）
 4. 基础日志，缓存，配置辅助静态类及默认方案实现
 5. 全局结果，分页实体定义
+
 ## Authrization
  用户授权信息模块，可以在上下文中使用MemberShiper，其中主要包含两个属性：  
 
@@ -19,13 +20,12 @@
  MemberShiper 中提供了GetToken方法，方便加密用户Id，同时有一个对应的GetTokenDetail来从token中解密用户id信息  
  使用的是加密方式为Aes加密
 
+## Resp
+ 通用响应实体Resp（还包括IdResp,LongIdResp,ListResp，PageListResp），以及对应相关扩展方法实现。
+
 
 ## ComModels
- 系统默认实体信息如应用配置实体，分页实体，结果实体，方便全局使用  
- 其中结果实体ResultMo包含两个属性比较重要：  
- ret-状态码，在ResultTypes的枚举中已经把常见的状态信息做了简单定义  
-	其中0表示为Success，同时定义了个IsSuccess()的方法扩展，此值为快速判断返回是否正确  
- msg-对应状态码的消息  
+ 系统默认实体信息如应用配置实体，基类BaseMo，及通用状态枚举
 
 ## Encrypt
  系统加密基础库，主要包含：  
