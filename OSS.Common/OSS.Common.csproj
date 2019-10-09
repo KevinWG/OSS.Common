@@ -3,19 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.1.1</Version>
+    <Version>2.1.2</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Kevin</Authors>
     <Company>OSSCoder</Company>
     <Product>OSS开源系列</Product>
     <Description>通用基础类库</Description>
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
-    <PackageIconUrl>http://img1.static.osscoder.com/logo.jpg</PackageIconUrl>
+    <PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>修改扩展方法</PackageReleaseNotes>
-    <AssemblyVersion>2.1.1.0</AssemblyVersion>
-    <FileVersion>2.1.1.0</FileVersion>
+    <PackageReleaseNotes>完善新的结果枚举</PackageReleaseNotes>
+    <AssemblyVersion>2.1.2.0</AssemblyVersion>
+    <FileVersion>2.1.2.0</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 

@@ -43,7 +43,7 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  数据库错误
         /// </summary>
-        [OSDescript("数据库错误")] DataSourceError = 20000,
+        [OSDescript("数据源错误")] DataSourceError = 20000,
 
         /// <summary>
         /// 应用异常
@@ -82,30 +82,19 @@ namespace OSS.Common.Resp
         [OSDescript("参数错误")] ParaError = 1301,
 
         /// <summary>
-        /// 添加失败
-        /// </summary>
-        [Obsolete("建议使用OperateFailed")] [OSDescript("添加失败")] AddFail = 1320,
-
-        /// <summary>
-        /// 更新失败
-        /// </summary>
-        [Obsolete("建议使用OperateFailed")] [OSDescript("更新失败")] UpdateFail = 1330,
-
-
-        /// <summary>
         /// 对象不存在
         /// </summary>
-        [OSDescript("对象不存在")] ObjectNull = 1404,
+        [OSDescript("不存在对象")] ObjectNull = 1404,
 
         /// <summary>
         /// 对象已存在
         /// </summary>
-        [OSDescript("对象已存在")] ObjectExsit = 1410,
+        [OSDescript("已经存在")] ObjectExsit = 1410,
 
         /// <summary>
         /// 对象状态不正常
         /// </summary>
-        [OSDescript("对象状态不正常")] ObjectStateError = 1420,
+        [OSDescript("状态异常")] ObjectStateError = 1420,
 
         /// <summary>
         ///  未知操作
@@ -120,7 +109,7 @@ namespace OSS.Common.Resp
         /// <summary>
         /// 未登录
         /// </summary>
-        [OSDescript("未登录")] UnAuthorize = 1425,
+        [OSDescript("未登录")] UnLogin = 1425,
 
         /// <summary>
         /// 权限不足
@@ -140,9 +129,6 @@ namespace OSS.Common.Resp
         /// <summary>
         /// 系统错误
         /// </summary>
-        [OSDescript("系统错误")] InnerError = 1500
+        [OSDescript("内部异常")] InnerError = 1500
     }
-
-
-
 }
