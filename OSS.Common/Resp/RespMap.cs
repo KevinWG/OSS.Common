@@ -151,6 +151,22 @@ namespace OSS.Common.Resp
         }
 
         #endregion
+
+
+        /// <summary>
+        ///  赋值data
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static TRes WithData<TRes, TData>(this TRes res, TData data)
+        where TRes:Resp<TData>
+        {
+            res.data = data;
+            return res;
+        }
     }
 
 
