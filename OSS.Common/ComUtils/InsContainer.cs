@@ -7,58 +7,85 @@ namespace OSS.Common.ComUtils
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public static class InsContainer<T>
+        where T: new()
     {
         /// <summary>
         ///  具体实例 
         /// 根据设置时参数会返回具体单例还是新的实例
         /// </summary>
-        public static T Instance
-        {
+        public static T Instance {
             get
             {
-                if (instanceCreater == null)
-                    throw new Exception(string.Concat(" 并没有设置", typeof(T).Name, "对应的映射类型！ "));
-                return instanceCreater();
+                if (_insCreater != null)
+                {
+                    return _insCreater();
+                }
+                if (_instance == null)
+                {
+                    lock (_objLock)
+                    {
+                        if (_instance == null)
+                        {
+                            return _instance = new T();
+                        }
+                    }
+                }
+                return _instance;
             }
         }
 
-        /// <summary>
-        ///  获取类型实例
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static bool TryGet(out T t)
-        {
-            if (instanceCreater == null)
-            {
-                t = default(T);
-                return false;
-            }
+        private static T _instance;
+        private static Func<T> _insCreater;
 
-            t = instanceCreater();
-            return true;
-        }
-
-
-        private static Func<T> instanceCreater;
-        private static T instance;
-
+        private static readonly object _objLock=new object();
         /// <summary>
         ///  设置具体类型映射关系
         /// </summary>
         /// <typeparam name="TInstance"></typeparam>
-        /// <param name="isSingle">是否是单例模式</param>
-        public static void Set<TInstance>(bool isSingle = true)
+        /// <param name="insCreater"></param>
+        public static void Set<TInstance>(Func<T> insCreater)
+            where TInstance : T
+        {
+            if (insCreater == null)
+            {
+                throw new ArgumentNullException(nameof(insCreater), "参数不能为空！");
+            }
+            _insCreater = insCreater;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TInstance"></typeparam>
+        /// <param name="isSingle"></param>
+        public static void Set<TInstance>(bool isSingle=true)
             where TInstance : T, new()
         {
-            if (instanceCreater == null)
-                instanceCreater = () =>
+            if (!isSingle)
+            {
+                _insCreater = () => new TInstance();
+            }
+            else
+            {
+                _insCreater = () =>
                 {
-                    if (isSingle) return new TInstance();
+                    if (_instance == null)
+                    {
+                        lock (_objLock)
+                        {
+                            if (_instance == null)
+                            {
 
-                    if (instance != null) return instance;
-                    return instance = new TInstance();
+                                return _instance = new TInstance();
+                            }
+                        }
+                    }
+                    return _instance;
                 };
+            }
+          
         }
+
+
+
     }
 }
