@@ -192,7 +192,7 @@ namespace OSS.Common.Resp
         /// <param name="rExc"></param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithExeption<TRes>(this TRes res, RespException rExc)
+        public static TRes WithException<TRes>(this TRes res, RespException rExc)
             where TRes : Resp
         {
             return res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);

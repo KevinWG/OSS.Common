@@ -76,41 +76,6 @@ namespace OSS.Common.Resp
         }
 
 
-        /// <summary>
-        ///  转化为结果实例
-        /// </summary>
-        /// <returns></returns>
-        public Resp ConvertToReult()
-        {
-            return new Resp().WithResp(sys_ret,ret,msg);
-        }
-
-        /// <summary>
-        /// 转化为结果实例
-        /// </summary>
-        /// <typeparam name="TRes"></typeparam>
-        /// <returns></returns>
-        public Resp<TRes> ConvertToReult<TRes>()
-        {
-            return new Resp<TRes>().WithResp(sys_ret, ret, msg);
-        }
-
-        /// <summary>
-        /// 转化为结果实例
-        /// </summary>
-        /// <typeparam name="TRes"></typeparam>
-        /// <returns></returns>
-        public TRes ConvertToReultInherit<TRes>()
-            where TRes:Resp,new()
-        {
-            var res = new TRes
-            {
-                ret = ret,
-                sys_ret = sys_ret,
-                msg = msg
-            };
-            return res;
-        }
     }
 
 
