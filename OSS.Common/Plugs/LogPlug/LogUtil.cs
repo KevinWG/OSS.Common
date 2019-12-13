@@ -101,7 +101,7 @@ namespace OSS.Common.Plugs.LogPlug
     /// <summary>
     /// 日志写模块
     /// </summary>
-    [Obsolete("请使用 OSS.Tools.Log 命名空间下 LogUtil ")]
+    [Obsolete("请使用 OSS.Tools.Log 命名空间下 LogHelper ")]
     public static class LogUtil
     {
         private static readonly DefaultLogPlug defaultCache = new DefaultLogPlug();

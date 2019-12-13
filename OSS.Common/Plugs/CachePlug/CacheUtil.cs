@@ -18,7 +18,7 @@ namespace OSS.Common.Plugs.CachePlug
     /// <summary>
     /// 缓存的辅助类
     /// </summary>
-    [Obsolete("请使用 OSS.Tools.Cache 命名空间下 CacheUtil ")]
+    [Obsolete("请使用 OSS.Tools.Cache 命名空间下 CacheHelper ")]
     public static class CacheUtil
     {
         private static readonly DefaultCachePlug defaultCache = new DefaultCachePlug();

@@ -13,6 +13,8 @@
 
 #endregion
 
+using System;
+
 namespace OSS.Common.Plugs
 {
     /// <summary>
@@ -28,27 +30,26 @@ namespace OSS.Common.Plugs
         /// <summary>
         ///  支付中心模块
         /// </summary>
-        public const string PayCenter = "pay_center";
-        
+        [Obsolete] public const string PayCenter = "pay_center";
+
         /// <summary>
         ///  社会化中心
         /// </summary>
-        public const string SocialCenter = "social_center";
+        [Obsolete] public const string SocialCenter = "social_center";
 
         /// <summary>
         ///  用户中心模块
         /// </summary>
-        public const string User = "user";
+        [Obsolete] public const string User = "user";
 
         /// <summary>
         /// 订单模块
         /// </summary>
-        public const string Order = "order";
-        
+        [Obsolete] public const string Order = "order";
+
         /// <summary>
         /// 产品模块
         /// </summary>
-        public const string Product = "order";
+        [Obsolete] public const string Product = "order";
     }
-
 }
