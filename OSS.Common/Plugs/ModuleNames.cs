@@ -20,7 +20,7 @@ namespace OSS.Common.Plugs
     /// <summary>
     /// 缓存Module名称
     /// </summary>
-    public class ModuleNames
+    [Obsolete]public class ModuleNames
     {
         /// <summary>
         /// 系统默认模块
