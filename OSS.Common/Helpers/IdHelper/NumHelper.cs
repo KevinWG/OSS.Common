@@ -7,7 +7,7 @@ namespace OSS.Common.Helpers.IdHelper
     /// <summary>
     ///  唯一数字编码生成静态通用类
     /// </summary>
-    public static class NumUtil
+    public static class NumHelper
     {
         private static readonly long _timeStartTicks = new DateTime(2019, 1, 1).ToUniversalTime().Ticks;
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
