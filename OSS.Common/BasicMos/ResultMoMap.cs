@@ -7,7 +7,7 @@ namespace OSS.Common.ComModels
     /// <summary>
     ///  结果实体映射类
     /// </summary>
-    public static class ResultMoMap
+    [Obsolete]public static class ResultMoMap
     {
         #region Old 转化处理
 

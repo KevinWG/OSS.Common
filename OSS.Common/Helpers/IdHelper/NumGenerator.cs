@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2017 Kevin (OSS开源系列) 公众号：OSSCore
+﻿#region Copyright (C) 2019 公众号：OSSCore
 
 /***************************************************************************
 *　　	文件功能描述：全局辅助类 - 唯一数字编号生成类
@@ -13,12 +13,11 @@
 
 using System;
 
-namespace OSS.Common.ComUtils
+namespace OSS.Common.Helpers.IdHelper
 {
     /// <summary>
     /// 生成兼容js的编号（53bit）
     /// </summary>
-    [Obsolete]
     public class SmallNumGenerator : BaseNumGenerator
     {
         // 符号位(1位) + Timestamp(41位 最长70年) + WorkId( 3 位) + sequence （9 位）  = 编号Id (53位)
@@ -35,7 +34,6 @@ namespace OSS.Common.ComUtils
     /// <summary>
     ///  唯一编码生成类
     /// </summary>
-    [Obsolete]
     public class NumGenerator : BaseNumGenerator
     {
         // 符号位(1位) + Timestamp(41位 最长70年) + WorkId(10) + sequence(12) = 编号Id (64位)
@@ -52,7 +50,6 @@ namespace OSS.Common.ComUtils
     /// <summary>
     ///  数字编号生成基类
     /// </summary>
-    [Obsolete]
     public class BaseNumGenerator
     {
         //【sequence 部分】  随机序列 

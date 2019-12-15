@@ -11,7 +11,7 @@
 
 #endregion
 
-namespace OSS.Common.ComModels
+namespace OSS.Common.BasicMos
 {
     /// <summary>
     /// 通用应用账号配置信息  

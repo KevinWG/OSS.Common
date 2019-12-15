@@ -20,12 +20,13 @@ namespace OSS.Common.Plugs
     /// <summary>
     /// 缓存Module名称
     /// </summary>
-    [Obsolete]public class ModuleNames
+    [Obsolete]
+    public class ModuleNames
     {
         /// <summary>
         /// 系统默认模块
         /// </summary>
-        public const string Default = "default";
+        [Obsolete] public const string Default = "default";
 
         /// <summary>
         ///  支付中心模块

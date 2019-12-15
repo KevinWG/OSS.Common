@@ -13,13 +13,12 @@
 using System;
 using System.Text;
 
-namespace OSS.Common.ComUtils
+namespace OSS.Common.Extention
 {
     /// <summary>
     /// 字符串通用功能
     /// </summary>
-    [Obsolete]
-    public static class StringUtil
+    public static class StringCodeExtention
     {
 
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
@@ -46,7 +45,6 @@ namespace OSS.Common.ComUtils
             {
                 num.Append(_arrChar[_rnd.Next(0, 59)]);
             }
-
             return num.ToString();
         }
 
@@ -70,16 +68,16 @@ namespace OSS.Common.ComUtils
         /// <param name="num"></param>
         /// <param name="arrStrs">转换时映射字母，32位，不可重复</param>
         /// <returns></returns>
-        public static string ToCode(this long num, string arrStrs = null)
+        public static string ToCode(this long num, string arrStrs=null)
         {
             if (string.IsNullOrEmpty(arrStrs))
                 arrStrs = _arrCodeStr;
-
-            if (arrStrs.Length != 32)
+            
+            if (arrStrs.Length!=32)
                 throw new ArgumentOutOfRangeException(nameof(arrStrs), "映射字符必须是32位，且不能重复！");
 
             const long codeTemp = 0x1F;
-            var        code     = new StringBuilder(13);
+            var code = new StringBuilder(13);
 
             while (num > 0)
             {
@@ -88,7 +86,6 @@ namespace OSS.Common.ComUtils
 
                 num >>= 5;
             }
-
             return code.ToString();
         }
 
@@ -98,12 +95,12 @@ namespace OSS.Common.ComUtils
         /// <param name="code"></param>
         /// <param name="arrStrs">转换时映射字母，32位，不可重复</param>
         /// <returns></returns>
-        public static long ToCodeNum(this string code, string arrStrs = null)
+        public static long ToCodeNum(this string code, string arrStrs=null)
         {
             if (string.IsNullOrEmpty(arrStrs))
                 arrStrs = _arrCodeStr;
 
-            if (arrStrs.Length != 32)
+            if ( arrStrs.Length != 32)
                 throw new ArgumentOutOfRangeException(nameof(arrStrs), "映射字符必须是32位，且不能重复！");
 
             if (string.IsNullOrEmpty(code))
@@ -113,7 +110,7 @@ namespace OSS.Common.ComUtils
                 throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
 
             long value = 0;
-
+   
             for (var i = count - 1; i >= 0; i--)
             {
                 var num = arrStrs.IndexOf(code[i]);
@@ -122,7 +119,6 @@ namespace OSS.Common.ComUtils
 
                 value = (value << 5) ^ num;
             }
-
             return value;
         }
     }

@@ -20,6 +20,7 @@ namespace OSS.Common.Extention
     /// <summary>
     ///  结果异常类
     /// </summary>
+    [Obsolete]
     public class ResultException:Exception
     {
         public int sys_ret { get; set; }

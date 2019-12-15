@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSS.Common.ComUtils;
 using OSS.Common.Extention;
+using OSS.Common.Helpers;
 
 namespace OSS.Common.Tests
 {
@@ -61,7 +61,7 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void TreeNumTest()
         {
-            var t1 = TreeNumUtil.GenerateNextNum(0);
+            var t1 = TreeNumHelper.GenerateNextNum(0);
 
             //var res1 =   .UrlEncode();
             //var res2 = Uri.EscapeUriString(testStr);

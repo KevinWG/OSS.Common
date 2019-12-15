@@ -10,7 +10,7 @@
 
 #endregion
 
-namespace OSS.Common.ComModels.Enums
+namespace OSS.Common.BasicMos.Enums
 {
     /// <summary>
     /// 排序类型

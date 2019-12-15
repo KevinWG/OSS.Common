@@ -1,12 +1,24 @@
-﻿using System;
+﻿#region Copyright (C) 2019 (OSS开源系列) 公众号：OSSCore
 
-namespace OSS.Common.ComUtils
+/***************************************************************************
+*　　	文件功能描述：全局辅助类 - Ioc简单实例容器
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*       
+*****************************************************************************/
+
+#endregion
+
+using System;
+
+namespace OSS.Common.Helpers.Instance
 {
     /// <summary>
     ///   Ioc简单实例容器实现
     /// </summary>
     /// <typeparam name="T"></typeparam>
-  [Obsolete]
     public static class InsContainer<T>
     {
         private static Func<T> _insCreater;
@@ -64,32 +76,5 @@ namespace OSS.Common.ComUtils
         }
     }
 
-    /// <summary>
-    /// 单例基础实现
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class SingleInstance<T>
-        where T : new()
-    {
-        private static T _instance;
-        private static readonly object _objLock = new object();
-
-        public static T Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (_objLock)
-                    {
-                        if (_instance == null)
-                        {
-                            return _instance = new T();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-    }
+   
 }

@@ -1,13 +1,12 @@
-﻿using System;
+﻿using OSS.Common.Extention;
+using System;
 using System.Text;
-using OSS.Common.Extention;
 
-namespace OSS.Common.ComUtils
+namespace OSS.Common.Helpers.IdHelper
 {
     /// <summary>
     ///  唯一数字编码生成静态通用类
     /// </summary>
-    [Obsolete("使用NumHelper")] 
     public static class NumUtil
     {
         private static readonly long _timeStartTicks = new DateTime(2019, 1, 1).ToUniversalTime().Ticks;
@@ -29,8 +28,8 @@ namespace OSS.Common.ComUtils
 
 
 
-        private static NumGenerator _generator = new NumGenerator(0);
-        private static SmallNumGenerator _smallGenerator = new SmallNumGenerator(0);
+        private static readonly NumGenerator _generator = new NumGenerator(0);
+        private static readonly SmallNumGenerator _smallGenerator = new SmallNumGenerator(0);
 
         /// <summary>
         ///  设置当前snowflow算法默认workid

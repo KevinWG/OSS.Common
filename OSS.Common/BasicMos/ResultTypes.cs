@@ -18,7 +18,7 @@ namespace OSS.Common.ComModels
     /// <summary>
     ///   系统结果类型
     /// </summary>
-    public enum SysResultTypes
+   [Obsolete] public enum SysResultTypes
     {
         /// <summary>
         /// 运行正常
@@ -64,6 +64,7 @@ namespace OSS.Common.ComModels
     /// <summary>
     ///   业务结果类型
     /// </summary>
+    [Obsolete]
     public enum ResultTypes
     {
         /// <summary>

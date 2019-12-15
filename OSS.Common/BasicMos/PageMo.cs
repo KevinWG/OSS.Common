@@ -12,7 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using OSS.Common.ComModels.Enums;
+using OSS.Common.BasicMos.Enums;
 
 namespace OSS.Common.ComModels
 {

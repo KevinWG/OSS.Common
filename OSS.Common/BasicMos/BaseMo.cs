@@ -11,9 +11,9 @@
 
 #endregion
 
-using OSS.Common.ComModels.Enums;
+using OSS.Common.BasicMos.Enums;
 
-namespace OSS.Common.ComModels
+namespace OSS.Common.BasicMos
 {
     #region  和租户相关的基类
     /// <inheritdoc />

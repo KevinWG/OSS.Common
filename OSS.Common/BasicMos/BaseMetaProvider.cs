@@ -22,7 +22,7 @@ namespace OSS.Common.ComModels
         public TConfigType ApiConfig => GetConfig();
     }
 
-    /// <inheritdoc />
+    [Obsolete("使用OSS.Common.BaseImpls命名空间下 BaseApiConfigProvider")]
     public class BaseApiConfigProvider<TConfigType> : BaseMetaProvider<TConfigType>
         where TConfigType : class
     {
@@ -47,6 +47,7 @@ namespace OSS.Common.ComModels
     ///   通用配置基类
     /// </summary>
     /// <typeparam name="TConfigType"></typeparam>
+  [Obsolete("使用OSS.Common.BaseImpls命名空间下BaseMetaProvider ")] 
     public class BaseMetaProvider<TConfigType>
         where TConfigType : class
     {

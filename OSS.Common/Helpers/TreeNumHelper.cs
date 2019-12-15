@@ -13,12 +13,12 @@
 
 using OSS.Common.Extention;
 
-namespace OSS.Common.ComUtils
+namespace OSS.Common.Helpers
 {
     /// <summary>
     ///   树形数字位
     /// </summary>
-    public static class TreeNumUtil
+    public static class TreeNumHelper
     {
         //  2位位置索引+ 14位数字位    16位是js接收的最大长度（2的53次方，已排除以9开头的部分最大数）
         private const int _positionMod = 100;
