@@ -46,9 +46,10 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void Base64Tests()
         {
-            string str1 =  "mn".ToBase64(Encoding.UTF8).Base64UrlSafeEncode();
+            string str1 =  "m".ToSafeUrlBase64();
 
-            string str2 = str1.Base64UrlSafeDecode().FromBase64(Encoding.UTF8);
+            string str2 = str1.FromSafeUrlBase64();
+            Assert.IsTrue(str2=="m");
         }
 
 
