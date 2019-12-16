@@ -68,7 +68,7 @@ namespace OSS.Common.ComUtils
     /// 单例基础实现
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SingleInstance<T>
+    [Obsolete]public class SingleInstance<T>
         where T : new()
     {
         private static T _instance;
