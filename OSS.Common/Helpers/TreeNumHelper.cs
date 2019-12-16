@@ -26,11 +26,21 @@ namespace OSS.Common.Helpers
 
         private const string _paddingNumStr = "00000000000000000000000";
 
+        /// <summary>
+        ///  创建下一个数字编码
+        /// </summary>
+        /// <param name="previousNum"></param>
+        /// <returns></returns>
         public static long GenerateNextNum(long previousNum)
         {
             return GenerateNum(previousNum, TreeNumType.Next);
         }
 
+        /// <summary>
+        ///  创建初始数字编码
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
         public static long GenerateFirstSubNum(long parentId)
         {
             return GenerateNum(parentId, TreeNumType.Sub);
@@ -105,7 +115,7 @@ namespace OSS.Common.Helpers
                 position > 0 ? preNumStr.Substring(0, position) : string.Empty,
                 curNodeNum,
                 paddingStr,
-                position );
+                position);
 
 
             #endregion
@@ -115,7 +125,7 @@ namespace OSS.Common.Helpers
 
         public static int GetPositionIndex(long treeNum)
         {
-            return (int)(treeNum % _positionMod);
+            return (int) (treeNum % _positionMod);
         }
 
 
