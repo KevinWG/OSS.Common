@@ -1,4 +1,16 @@
-﻿using System;
+﻿#region Copyright (C) 2017  公众号：OSSCore
+
+/***************************************************************************
+*　　	文件功能描述：字符串编码扩展功能
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*****************************************************************************/
+
+#endregion
+
+using System;
 using System.Text;
 
 namespace OSS.Common.Extention
