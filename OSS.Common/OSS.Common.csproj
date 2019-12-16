@@ -3,19 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.2.0.1</Version>
+    <Version>2.2.0.2</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Authors>Kevin</Authors>
-    <Company>OSSCoder</Company>
+    <Authors>OSSCore</Authors>
+    <Company>OSSCore</Company>
     <Product>OSS开源系列</Product>
     <Description>通用基础类库</Description>
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
     <PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>优化helper及其他类名称和结构</PackageReleaseNotes>
-    <AssemblyVersion>2.2.0.1</AssemblyVersion>
-    <FileVersion>2.2.0.1</FileVersion>
+    <PackageReleaseNotes>签名认证添加扩展参数</PackageReleaseNotes>
+    <AssemblyVersion>2.2.0.2</AssemblyVersion>
+    <FileVersion>2.2.0.2</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 

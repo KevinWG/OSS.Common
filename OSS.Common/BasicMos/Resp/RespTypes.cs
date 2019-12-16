@@ -82,9 +82,15 @@ namespace OSS.Common.Resp
         [OSDescript("参数错误")] ParaError = 1301,
 
         /// <summary>
+        ///  签名过期
+        /// </summary>
+        [OSDescript("签名过期")] SignExpired = 1302,
+
+        /// <summary>
         /// 对象不存在
         /// </summary>
         [OSDescript("不存在对象")] ObjectNull = 1404,
+  
 
         /// <summary>
         /// 对象已存在

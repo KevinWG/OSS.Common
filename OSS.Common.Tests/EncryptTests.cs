@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Authrization;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
+using OSS.Common.Resp;
 
 namespace OSS.Common.Tests
 {
@@ -27,10 +28,10 @@ namespace OSS.Common.Tests
                 IpAddress = "127.0.0.1"
             };
 
-            var newSignData = appInfo.ToTicket("app_hlgu80900p0","1.0", key);
+            var newSignData = appInfo.ToTicket("app_hlgu80900p0","1.0", key,"ext");
             appInfo.FromTicket(newSignData);
 
-            Assert.IsTrue(appInfo.CheckSign(key));
+            Assert.IsTrue(appInfo.CheckSign(key,60, "ext").IsSuccess());
         }
 
         [TestMethod]

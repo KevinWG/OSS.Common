@@ -17,6 +17,7 @@ using OSS.Common.Extention;
 
 namespace OSS.Common.Authrization
 {
+    using OSS.Common.Resp;
     /// <summary>
     ///   应用的授权认证信息
     /// </summary>
@@ -25,12 +26,12 @@ namespace OSS.Common.Authrization
         #region  参与签名属性
 
         /// <summary>
-        ///   应用来源
+        ///   【请求方】应用来源
         /// </summary>
         public string AppSource { get; set; }
 
         /// <summary>
-        ///   应用版本
+        ///  【请求方】应用版本
         /// </summary>
         public string AppVersion { get; set; }
 
@@ -63,12 +64,12 @@ namespace OSS.Common.Authrization
         /// 时间戳
         /// </summary>
         public long TimeSpan { get; set; }
-        
+
         /// <summary>
         ///  sign标识
         /// </summary>
         public string Sign { get; set; }
-        
+
         /// <summary>
         /// 应用客户端类型[非外部传值，不参与签名]
         /// </summary>
@@ -78,7 +79,7 @@ namespace OSS.Common.Authrization
         ///   应用类型 [非外部传值，不参与签名]
         /// </summary>
         public AppSourceType AppType { get; set; } = AppSourceType.SystemManager;
-        
+
         #endregion
 
         #region  字符串处理
@@ -139,7 +140,7 @@ namespace OSS.Common.Authrization
                 case "ts":
                     TimeSpan = val.ToInt64();
                     break;
- 
+
                 case "sign":
                     Sign = val;
                     break;
@@ -154,16 +155,16 @@ namespace OSS.Common.Authrization
         {
             var newOne = new AppAuthorizeInfo
             {
-                AppClient = this.AppClient,
-                AppSource = this.AppSource,
+                AppClient  = this.AppClient,
+                AppSource  = this.AppSource,
                 AppVersion = this.AppVersion,
-                DeviceId = this.DeviceId,
-                IpAddress = this.IpAddress,
+                DeviceId   = this.DeviceId,
+                IpAddress  = this.IpAddress,
 
-                Sign = this.Sign,
+                Sign     = this.Sign,
                 TenantId = this.TenantId,
                 TimeSpan = this.TimeSpan,
-                Token = this.Token,
+                Token    = this.Token,
                 TraceNum = this.TraceNum,
 
                 AppType = this.AppType
@@ -177,36 +178,64 @@ namespace OSS.Common.Authrization
 
         #region  签名相关
 
+        private const int defaultExpSecs = 60 * 60 * 24;
 
         /// <summary>
         ///   检验是否合法
         /// </summary>
         /// <returns></returns>
+        [Obsolete]
         public bool CheckSign(string secretKey, char separator = ';')
         {
-            var strTicketParas = GetSignContent(AppSource, AppVersion, separator, false);
-
-            var signData = HMACSHA.EncryptBase64(strTicketParas.ToString(), secretKey);
-
-            return Sign == signData;
+            return CheckSign(secretKey, defaultExpSecs,null, separator).IsSuccess();
         }
 
 
         /// <summary>
+        ///   检验是否合法
+        /// </summary>
+        /// <param name="secretKey"></param>
+        /// <param name="signExpiredSeconds"></param>
+        /// <param name="extSignData">参与签名的扩展数据（ 原签名数据 + "&amp;" + extSignData ）</param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public Resp CheckSign(string secretKey, int signExpiredSeconds, string extSignData = null, char separator = ';')
+        {
+            if (TimeSpan + signExpiredSeconds < DateTime.Now.ToUtcSeconds())
+                return new Resp(RespTypes.SignExpired, "签名已过期失效！");
+
+            var signContent = GetContent(AppSource, AppVersion, separator, true);
+            if (!string.IsNullOrEmpty(extSignData))
+                signContent.Append("&").Append(extSignData);
+
+            var signData = HMACSHA.EncryptBase64(signContent.ToString(), secretKey);
+
+            return Sign == signData ? new Resp() : new Resp(RespTypes.SignError, "签名错误！");
+        }
+
+        /// <summary>
         /// 生成签名后的字符串
         /// </summary>
+        /// <param name="appSource">当前应用来源</param>
+        /// <param name="appVersion"></param>
+        /// <param name="secretKey"></param>
+        /// <param name="extSignData">参与签名的扩展数据（ 原签名数据 + "&amp;" + extSignData ）</param>
+        /// <param name="separator"></param>
         /// <returns></returns>
-        public string ToTicket(string appSource, string appVersion, string secretKey, char separator = ';')
+        public string ToTicket(string appSource, string appVersion, string secretKey, string extSignData = null, char separator = ';')
         {
             TimeSpan = DateTime.Now.ToUtcSeconds();
-            var encrpStr = GetSignContent(appSource, appVersion, separator, false);
+            
+            var signContent = GetContent(appSource, appVersion, separator,true);
+            if (!string.IsNullOrEmpty(extSignData))
+                signContent.Append("&").Append(extSignData);
 
-            Sign = HMACSHA.EncryptBase64(encrpStr.ToString(), secretKey);
+            Sign = HMACSHA.EncryptBase64(signContent.ToString(), secretKey);
 
-            var content = GetContent(appSource, appVersion, separator);
-            AddTicketProperty("sign", Sign, separator, content, true);
+            var ticket = GetContent(appSource, appVersion, separator,false);
+            AddTicketProperty("sign", Sign, separator, ticket, false);
 
-            return content.ToString();
+            return ticket.ToString();
         }
 
 
@@ -217,30 +246,26 @@ namespace OSS.Common.Authrization
         /// <param name="appSource"></param>
         /// <param name="appVersion"></param>
         /// <param name="separator"></param>
-        /// <param name="isUrlEncode">是否url转义，传递的值需要转义，签名时不需要</param>
+        /// <param name="isForSign">是否签名校验时调用，签名校验时不进行url转义，否则需要转义</param>
         /// <returns></returns>
-        private StringBuilder GetSignContent(string appSource, string appVersion, char separator, bool isUrlEncode)
+        private StringBuilder GetContent(string appSource, string appVersion, char separator, bool isForSign)
         {
             var strTicketParas = new StringBuilder();
 
-            AddTicketProperty("as", appSource, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("av", appVersion, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("did", DeviceId, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("ip", IpAddress, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("tid", TenantId, separator, strTicketParas, isUrlEncode);
-
-
-            AddTicketProperty("tn", Token, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isUrlEncode);
-            AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas, isUrlEncode);
+            AddTicketProperty("as", appSource, separator, strTicketParas, isForSign);
+            AddTicketProperty("av", appVersion, separator, strTicketParas, isForSign);
+            AddTicketProperty("did", DeviceId, separator, strTicketParas, isForSign);
+            AddTicketProperty("ip", IpAddress, separator, strTicketParas, isForSign);
+            AddTicketProperty("tid", TenantId, separator, strTicketParas, isForSign);
+            
+            AddTicketProperty("tn", Token, separator, strTicketParas, isForSign);
+            AddTicketProperty("tnum", TraceNum, separator, strTicketParas, isForSign);
+            AddTicketProperty("ts", TimeSpan.ToString(), separator, strTicketParas, isForSign);
 
             return strTicketParas;
         }
 
-        private StringBuilder GetContent(string appSource, string appVersion, char separator)
-        {
-            return GetSignContent(appSource, appVersion, separator, true);
-        }
+     
 
         /// <summary>
         ///   追加要加密的串
@@ -249,17 +274,16 @@ namespace OSS.Common.Authrization
         /// <param name="value"></param>
         /// <param name="separator"></param>
         /// <param name="strTicketParas"></param>
-        /// <param name="isUrlEncode">是否参与加密字符串</param>
+        /// <param name="isForSign">是否参与加密字符串</param>
         private static void AddTicketProperty(string name, string value, char separator, StringBuilder strTicketParas,
-            bool isUrlEncode)
+            bool isForSign)
         {
             if (string.IsNullOrEmpty(value)) return;
 
             if (strTicketParas.Length > 0)
-            {
                 strTicketParas.Append(separator);
-            }
-            strTicketParas.Append(name).Append("=").Append(isUrlEncode ? value.UrlEncode() : value);
+
+            strTicketParas.Append(name).Append("=").Append(isForSign ? value: value.UrlEncode());
         }
 
         #endregion
