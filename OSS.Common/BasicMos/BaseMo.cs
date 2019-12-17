@@ -16,14 +16,7 @@ using OSS.Common.BasicMos.Enums;
 
 namespace OSS.Common.BasicMos
 {
-    /// <inheritdoc />
-    public class BaseStateMo<IdType> : BaseMo<IdType>
-    {
-        /// <summary>
-        /// 状态信息
-        /// </summary>
-        public CommonStatus status { get; set; }
-    }
+ 
 
     /// <summary>
     ///  基础实体
@@ -54,5 +47,15 @@ namespace OSS.Common.BasicMos
         ///  用户Id
         /// </summary>
         public string u_id { get; set; }
+    }
+
+    /// <inheritdoc />
+    [Obsolete("转移至 OSS.Infrastructure 类库下")]
+    public class BaseStateMo<IdType> : BaseMo<IdType>
+    {
+        /// <summary>
+        /// 状态信息
+        /// </summary>
+        public CommonStatus status { get; set; }
     }
 }
