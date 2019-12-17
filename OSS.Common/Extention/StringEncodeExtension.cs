@@ -88,40 +88,61 @@ namespace OSS.Common.Extention
 
 
         /// <summary>
-        ///   转换字符串为Base64编码，同时处理（+，/,=）和url中冲突的字符
+        ///   转换字符串为Base64编码，同时处理和url中冲突的字符（+，/,=）
         /// </summary>
         /// <param name="data"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
         public static string ToSafeUrlBase64(this string data, Encoding encoding = null)
         {
-            return data.ToBase64(encoding).Replace('+', '-').Replace('/', '_').TrimEnd('=');
+            return data.ToBase64(encoding).ReplaceBase64ToUrlSafe();
         }
 
 
         /// <summary>
         ///    解码Base64编码（特殊url冲突处理过的Base64编码）到字符串
         /// </summary>
-        /// <param name="baseString"></param>
+        /// <param name="safeBaseString"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string FromSafeUrlBase64(this string baseString, Encoding encoding = null)
+        public static string FromSafeUrlBase64(this string safeBaseString, Encoding encoding = null)
         {
-            var bStr = baseString.Replace('-', '+').Replace('_', '/');
-            var len = bStr.Length % 4;
+            return safeBaseString.ReplaceBase64UrlSafeBack().FromBase64(encoding);
+        }
+
+        /// <summary>
+        ///   处理Base64字符串和url中冲突的字符（+，/,=）
+        /// </summary>
+        /// <param name="base64String"></param>
+        /// <returns></returns>
+        public static string ReplaceBase64ToUrlSafe(this string base64String)
+        {
+            return base64String.Replace('+', '-').Replace('/', '_').TrimEnd('=');
+        }
+
+        /// <summary>
+        ///   将url冲突处理过的Base64编码替换回正常Base64
+        /// </summary>
+        /// <param name="safeBase64String"></param>
+        /// <returns></returns>
+        public static string ReplaceBase64UrlSafeBack(this string safeBase64String)
+        {
+            var bStr = safeBase64String.Replace('-', '+').Replace('_', '/');
+            var len  = bStr.Length % 4;
             if (len > 0)
             {
                 bStr += "====".Substring(len);
             }
-            return bStr.FromBase64(encoding);
+            return bStr;
         }
+
 
         /// <summary>
         ///   替换base64位字符串中的特殊符号 Url友好
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        [Obsolete("直接使用ToSafeUrlBase64")]
+        [Obsolete("请使用ReplaceBase64ToUrlSafe")]
         public static string Base64UrlSafeEncode(this string data)
         {
             return data.Replace('+', '-').Replace('/', '_').TrimEnd('=');
@@ -132,7 +153,7 @@ namespace OSS.Common.Extention
         /// </summary>
         /// <param name="baseString"></param>
         /// <returns></returns>
-        [Obsolete("直接使用FromSafeUrlBase64")]
+        [Obsolete("请使用ReplaceBase64UrlSafeBack")]
         public static string Base64UrlSafeDecode(this string baseString)
         {
             var bStr= baseString.Replace('-', '+').Replace('_', '/');
