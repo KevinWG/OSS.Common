@@ -20,6 +20,7 @@ namespace OSS.Common.Authrization
     /// <summary>
     /// 当前系统访问上下文信息
     /// </summary>
+    [Obsolete("请使用OSS.Infrastructuer类库下AppContext，MemberContext 分别获取应用和用户上下文信息")]
     public static class MemberShiper
     {
         #region  当前应用授权信息

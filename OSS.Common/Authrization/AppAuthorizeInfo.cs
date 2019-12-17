@@ -21,6 +21,7 @@ namespace OSS.Common.Authrization
     /// <summary>
     ///   应用的授权认证信息
     /// </summary>
+    [Obsolete("转移至OSS.Infrastructuer类库下AppIdentity")]
     public class AppAuthorizeInfo
     {
         #region  参与签名属性
@@ -292,6 +293,7 @@ namespace OSS.Common.Authrization
     /// <summary>
     /// 应用客户端类型
     /// </summary>
+    [Obsolete("转移至OSS.Infrastructuer类库下")]
     public enum AppClientType
     {
         /// <summary>
@@ -329,6 +331,7 @@ namespace OSS.Common.Authrization
     /// <summary>
     ///  应用来源类型
     /// </summary>
+    [Obsolete("转移至OSS.Infrastructuer类库下")]
     public enum AppSourceType
     {
         /// <summary>

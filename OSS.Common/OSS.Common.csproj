@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.2.0.2</Version>
+    <Version>2.2.0.3</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>签名认证添加扩展参数</PackageReleaseNotes>
-    <AssemblyVersion>2.2.0.2</AssemblyVersion>
-    <FileVersion>2.2.0.2</FileVersion>
+    <PackageReleaseNotes>备注过期转移功能</PackageReleaseNotes>
+    <AssemblyVersion>2.2.0.3</AssemblyVersion>
+    <FileVersion>2.2.0.3</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 

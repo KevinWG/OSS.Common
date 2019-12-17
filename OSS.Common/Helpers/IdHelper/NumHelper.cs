@@ -1,6 +1,6 @@
-﻿using OSS.Common.Extention;
-using System;
+﻿using System;
 using System.Text;
+using OSS.Common.Extention;
 
 namespace OSS.Common.Helpers.IdHelper
 {
