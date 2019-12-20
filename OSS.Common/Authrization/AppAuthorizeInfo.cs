@@ -12,12 +12,12 @@
 
 using System;
 using System.Text;
+using OSS.Common.BasicMos.Resp;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
 
 namespace OSS.Common.Authrization
 {
-    using OSS.Common.Resp;
     /// <summary>
     ///   应用的授权认证信息
     /// </summary>
@@ -200,10 +200,10 @@ namespace OSS.Common.Authrization
         /// <param name="extSignData">参与签名的扩展数据（ 原签名数据 + "&amp;" + extSignData ）</param>
         /// <param name="separator"></param>
         /// <returns></returns>
-        public Resp CheckSign(string secretKey, int signExpiredSeconds, string extSignData = null, char separator = ';')
+        public BasicMos.Resp.Resp CheckSign(string secretKey, int signExpiredSeconds, string extSignData = null, char separator = ';')
         {
             if (TimeSpan + signExpiredSeconds < DateTime.Now.ToUtcSeconds())
-                return new Resp(RespTypes.SignExpired, "签名已过期失效！");
+                return new BasicMos.Resp.Resp(RespCode.SignExpired, "签名已过期失效！");
 
             var signContent = GetContent(AppSource, AppVersion, separator, true);
             if (!string.IsNullOrEmpty(extSignData))
@@ -211,7 +211,7 @@ namespace OSS.Common.Authrization
 
             var signData = HMACSHA.EncryptBase64(signContent.ToString(), secretKey);
 
-            return Sign == signData ? new Resp() : new Resp(RespTypes.SignError, "签名错误！");
+            return Sign == signData ? new BasicMos.Resp.Resp() : new BasicMos.Resp.Resp(RespCode.SignError, "签名错误！");
         }
 
         /// <summary>

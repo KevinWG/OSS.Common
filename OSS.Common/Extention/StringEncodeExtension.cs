@@ -22,14 +22,14 @@ namespace OSS.Common.Extention
     {
         #region Url 编码处理
 
-        
         /// <summary>
         /// Url编码处理
         /// </summary>
         public static string UrlEncode(this string input)
         {
             return string.IsNullOrEmpty(input)
-                ? string.Empty : Uri.EscapeDataString(input);
+                ? string.Empty
+                : Uri.EscapeDataString(input);
         }
 
         /// <summary>

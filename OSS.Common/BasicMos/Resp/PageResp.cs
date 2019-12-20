@@ -13,16 +13,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace OSS.Common.Resp
+namespace OSS.Common.BasicMos.Resp
 {
-  
-
     /// <summary>
     ///  分页实体
     /// </summary>
     public class PageListResp<TModel> : ListResp<TModel>
     {
-
         /// <summary>
         ///    空构造函数  照顾  json序列化 
         /// </summary>
@@ -57,14 +54,14 @@ namespace OSS.Common.Resp
         ///  处理响应转化
         /// </summary>
         /// <typeparam name="TPara"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TRes"></typeparam>
         /// <param name="pageRes"></param>
         /// <param name="pageList"></param>
         /// <param name="convertFun"></param>
         /// <returns></returns>
-        public static PageListResp<TResult> WithPageList<TPara, TResult>(this PageListResp<TResult> pageRes, PageListResp<TPara> pageList,
-            Func<TPara, TResult> convertFun)
-            where TResult : class, new()
+        public static PageListResp<TRes> WithPageList<TPara, TRes>(this PageListResp<TRes> pageRes, PageListResp<TPara> pageList,
+            Func<TPara, TRes> convertFun)
+            where TRes : class, new()
             where TPara : class, new()
         {
             pageRes.WithResp(pageList, convertFun);

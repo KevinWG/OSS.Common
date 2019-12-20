@@ -116,6 +116,7 @@ namespace OSS.Common.Authrization
     /// <summary>
     /// 成员通行证信息
     /// </summary>
+    [Obsolete("请使用OSS.Infrastructuer类库下MemberIdentity")]
     public class MemberIdentity
     {
         /// <summary>

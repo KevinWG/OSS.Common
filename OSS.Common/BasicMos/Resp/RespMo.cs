@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 
-namespace OSS.Common.Resp
+namespace OSS.Common.BasicMos.Resp
 {
     /// <summary>
     /// 响应实体
@@ -24,17 +24,17 @@ namespace OSS.Common.Resp
         /// </summary>
         public Resp()
         {
-            _ret = 0; // 初始化为正常
+            _code = 0; // 初始化为正常
         }
 
         /// <summary>
         ///  构造响应类
         /// </summary>
-        /// <param name="ret">【业务】响应标识</param>
+        /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(int ret, string message)
+        public Resp(int code, string message)
         {
-            this.ret = ret;
+            this.code = code;
             this.msg = message;
         }
 
@@ -42,29 +42,28 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  构造响应类
         /// </summary>
-        /// <param name="ret">【业务】响应标识</param>
+        /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(RespTypes ret, string message)
-            : this((int) ret, message)
+        public Resp(RespCode code, string message)
+            : this((int) code, message)
         {
         }
 
         /// <summary>
         ///  构造响应类
         /// </summary>
-        /// <param name="sysRet">【系统/框架】 响应标识</param>
+        /// <param name="sysCode">【系统/框架】 响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(SysRespTypes sysRet, string message = null)
+        public Resp(SysRespCode sysCode, string message = null)
         {
-            this.sys_ret = (int)sysRet;
+            this.sys_code = (int)sysCode;
             this.msg     = message;
         }
 
-        private int _ret;
+        private int _code;
 
         /// <summary>
         /// 【业务响应】
-        ///  如果 sys_ret != (int)SysResultTypes.Ok , 且 ret 未设置或设置0 ，则最终 ret = (int) ResultTypes.InnerError
         /// 一般情况下：
         ///  0  成功
         ///  13xx   参数相关错误 
@@ -73,22 +72,22 @@ namespace OSS.Common.Resp
         ///  16xx   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
         /// </summary>
-        public int ret
+        public int code
         {
             get
             {
-                if (sys_ret != 0 && _ret == 0)
-                    _ret = (int) RespTypes.InnerError;
+                if (sys_code != 0 && _code == 0)
+                    _code = (int) RespCode.InnerError;
 
-                return _ret;
+                return _code;
             }
-            set => _ret = value;
+            set => _code = value;
         }
         
         /// <summary>
         ///  系统响应
         /// </summary>
-        public int sys_ret { get; set; }
+        public int sys_code { get; set; }
 
         /// <summary>
         /// 状态信息(错误描述等)
@@ -124,10 +123,6 @@ namespace OSS.Common.Resp
         {
         }
     }
-
-
-
-
 
     /// <summary>
     /// 带Id的响应实体

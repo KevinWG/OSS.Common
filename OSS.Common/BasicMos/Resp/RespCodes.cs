@@ -10,15 +10,14 @@
 
 #endregion
 
-using System;
 using OSS.Common.Extention;
 
-namespace OSS.Common.Resp
+namespace OSS.Common.BasicMos.Resp
 {
     /// <summary>
     ///   系统响应类型
     /// </summary>
-    public enum SysRespTypes
+    public enum SysRespCode
     {
         /// <summary>
         /// 运行正常
@@ -64,7 +63,7 @@ namespace OSS.Common.Resp
     /// <summary>
     ///   业务响应类型
     /// </summary>
-    public enum RespTypes
+    public enum RespCode
     {
         /// <summary>
         /// 成功
