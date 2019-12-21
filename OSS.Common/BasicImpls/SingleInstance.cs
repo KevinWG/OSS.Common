@@ -11,7 +11,7 @@
 
 #endregion
 
-namespace OSS.Common.Helpers.Instance
+namespace OSS.Common.BasicImpls
 {
     /// <summary>
     /// 单例基础实现

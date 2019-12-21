@@ -1,7 +1,7 @@
 ﻿#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：OSSCore
 
 /***************************************************************************
-*　　	文件功能描述：通用结果枚举
+*　　	文件功能描述：通用响应枚举
 *
 *　　	创建人： Kevin
 *       创建人Email：1985088337@qq.com
@@ -10,15 +10,14 @@
 
 #endregion
 
-using System;
 using OSS.Common.Extention;
 
-namespace OSS.Common.ComModels
+namespace OSS.Common.BasicMos.Resp
 {
     /// <summary>
-    ///   系统结果类型
+    ///   系统响应类型
     /// </summary>
-   [Obsolete] public enum SysResultTypes
+    public enum SysRespTypes
     {
         /// <summary>
         /// 运行正常
@@ -43,7 +42,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         ///  数据库错误
         /// </summary>
-        [OSDescript("数据库错误")] DataSourceError = 20000,
+        [OSDescript("数据源错误")] DataSourceError = 20000,
 
         /// <summary>
         /// 应用异常
@@ -62,10 +61,9 @@ namespace OSS.Common.ComModels
     }
 
     /// <summary>
-    ///   业务结果类型
+    ///   业务响应类型
     /// </summary>
-    [Obsolete]
-    public enum ResultTypes
+    public enum RespTypes
     {
         /// <summary>
         /// 成功
@@ -83,30 +81,25 @@ namespace OSS.Common.ComModels
         [OSDescript("参数错误")] ParaError = 1301,
 
         /// <summary>
-        /// 添加失败
+        ///  签名过期
         /// </summary>
-        [Obsolete("建议使用OperateFailed")] [OSDescript("添加失败")] AddFail = 1320,
-
-        /// <summary>
-        /// 更新失败
-        /// </summary>
-        [Obsolete("建议使用OperateFailed")] [OSDescript("更新失败")] UpdateFail = 1330,
-
+        [OSDescript("签名过期")] SignExpired = 1302,
 
         /// <summary>
         /// 对象不存在
         /// </summary>
-        [OSDescript("对象不存在")] ObjectNull = 1404,
+        [OSDescript("不存在对象")] ObjectNull = 1404,
+  
 
         /// <summary>
         /// 对象已存在
         /// </summary>
-        [OSDescript("对象已存在")] ObjectExsit = 1410,
+        [OSDescript("已经存在")] ObjectExsit = 1410,
 
         /// <summary>
         /// 对象状态不正常
         /// </summary>
-        [OSDescript("对象状态不正常")] ObjectStateError = 1420,
+        [OSDescript("状态异常")] ObjectStateError = 1420,
 
         /// <summary>
         ///  未知操作
@@ -121,7 +114,7 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 未登录
         /// </summary>
-        [OSDescript("未登录")] UnAuthorize = 1425,
+        [OSDescript("未登录")] UnLogin = 1425,
 
         /// <summary>
         /// 权限不足
@@ -141,9 +134,6 @@ namespace OSS.Common.ComModels
         /// <summary>
         /// 系统错误
         /// </summary>
-        [OSDescript("系统错误")] InnerError = 1500
+        [OSDescript("内部异常")] InnerError = 1500
     }
-
-
-
 }

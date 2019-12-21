@@ -6,7 +6,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  响应实体映射类
     /// </summary>
-    public static class RespMap
+    public static class RespExtention
     {
         #region 判断结果
         
@@ -15,8 +15,8 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSuccess(this Resp res) =>
-            res.code== 0;
+        public static bool IsSuccess(this BasicMos.Resp.Resp res) =>
+            res.ret == 0;
 
         /// <summary>
         /// 【业务响应】是否是对应的类型
@@ -24,8 +24,8 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespCode(this Resp res, RespCode type) =>
-            res.code== (int) type;
+        public static bool IsRespType(this BasicMos.Resp.Resp res, RespTypes type) =>
+            res.ret == (int) type;
 
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this Resp res) =>
-            res.sys_code== 0;
+        public static bool IsSysOk(this BasicMos.Resp.Resp res) =>
+            res.sys_ret == 0;
 
         /// <summary>
         /// 【系统响应】是否是对应的类型
@@ -42,8 +42,8 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespCode(this Resp res, SysRespCode type) =>
-            res.sys_code== (int) type;
+        public static bool IsSysRespType(this BasicMos.Resp.Resp res, SysRespTypes type) =>
+            res.sys_ret == (int) type;
 
         #endregion
 
@@ -54,16 +54,16 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="sysCode"></param>
-        /// <param name="code"></param>
+        /// <param name="sysRet"></param>
+        /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int sysCode, int code, string eMsg)
-            where TRes : Resp
+        public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string eMsg)
+            where TRes : BasicMos.Resp.Resp
         {
             res.msg = eMsg;
-            res.code = code;
-            res.sys_code = sysCode;
+            res.ret = ret;
+            res.sys_ret = sysRet;
             return res;
         }
 
@@ -76,9 +76,9 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="eMsg"></param>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, int ret, string eMsg)
-            where TRes : Resp
+            where TRes : BasicMos.Resp.Resp
         {
-            return res.WithResp((int) SysRespCode.Ok, ret, eMsg);
+            return res.WithResp((int) SysRespTypes.Ok, ret, eMsg);
         }
 
         /// <summary>
@@ -86,14 +86,14 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="sysCode"></param>
-        /// <param name="code"></param>
+        /// <param name="sysRet"></param>
+        /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespCode sysCode, RespCode code, string eMsg)
-            where TRes : Resp
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string eMsg)
+            where TRes : BasicMos.Resp.Resp
         {
-            return res.WithResp((int) sysCode, (int) code, eMsg);
+            return res.WithResp((int) sysRet, (int) ret, eMsg);
         }
 
         /// <summary>
@@ -101,13 +101,13 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="sysCode"></param>
+        /// <param name="sysRet"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespCode sysCode, string eMsg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, string eMsg)
             where TRes : BasicMos.Resp.Resp
         {
-            return res.WithResp((int) sysCode, (int) RespCode.Success, eMsg);
+            return res.WithResp((int) sysRet, (int) RespTypes.Success, eMsg);
         }
 
         /// <summary>
@@ -118,10 +118,10 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="ret"></param>
         /// <param name="eMsg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, RespCode ret, string eMsg)
-            where TRes : Resp
+        public static TRes WithResp<TRes>(this TRes res, RespTypes ret, string eMsg)
+            where TRes : BasicMos.Resp.Resp
         {
-            return res.WithResp((int) SysRespCode.Ok, (int) ret, eMsg);
+            return res.WithResp((int) SysRespTypes.Ok, (int) ret, eMsg);
         }
 
 
@@ -136,10 +136,10 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tPara"></param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, Resp tPara)
-            where TRes : Resp
+        public static TRes WithResp<TRes>(this TRes res, BasicMos.Resp.Resp tPara)
+            where TRes : BasicMos.Resp.Resp
         {
-            return res.WithResp(tPara.sys_code, tPara.code, tPara.msg);
+            return res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace OSS.Common.BasicMos.Resp
             Func<TPara, TRes> func, bool isNullCheck = true)
 
         {
-            WithResp(res, tPara.sys_code, tPara.code, tPara.msg);
+            WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
 
             if (isNullCheck && tPara.data == null)
                 return res;
@@ -177,7 +177,7 @@ namespace OSS.Common.BasicMos.Resp
         public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
             Func<TPara, TRes> func)
         {
-            WithResp(res, tPara.sys_code, tPara.code, tPara.msg);
+            WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
 
             res.data = tPara.data?.Select(func).ToList();
 
@@ -195,9 +195,10 @@ namespace OSS.Common.BasicMos.Resp
         public static TRes WithException<TRes>(this TRes res, RespException rExc)
             where TRes : BasicMos.Resp.Resp
         {
-            return res.WithResp(rExc.sys_code, rExc.code, rExc.msg);
+            return res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
         }
         #endregion
+
 
         /// <summary>
         ///  赋值data

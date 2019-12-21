@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using OSS.Common.Plugs;
 
 namespace OSS.Common.BasicImpls
 {
@@ -41,7 +40,7 @@ namespace OSS.Common.BasicImpls
         ///   当前模块名称
         /// </summary>
         [Obsolete]
-        public string ModuleName { get; set; } = ModuleNames.Default;
+        public string ModuleName { get; set; } = "default";
 
         /// <summary>
         ///  配置模式    

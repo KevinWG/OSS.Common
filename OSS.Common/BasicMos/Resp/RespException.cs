@@ -21,77 +21,72 @@ namespace OSS.Common.BasicMos.Resp
     /// </summary>
     public class RespException:Exception
     {
-        private int _code = 0;
-        /// <summary>
-        /// 
-        /// </summary>
-        public int sys_code { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int code { 
+        private int _ret;
+        public int ret
+        {
             get
             {
-                if (sys_code != 0 && _code == 0)
-                    _code = (int) RespCode.InnerError;
+                if (sys_ret != 0 && _ret == 0)
+                    _ret = (int) RespTypes.InnerError;
 
-                return _code;
+                return _ret;
             }
-            set => _code = value;
+            set => _ret = value;
         }
-        /// <summary>
-        /// 
-        /// </summary>
+
         public string msg { get; set; }
-
-
+        public int sys_ret { get; set; }
         /// <summary>
         ///  构造异常结果类
         /// </summary>
-        /// <param name="sysCode">【系统/框架】 结果标识</param>
-        /// <param name="code">【业务】结果标识</param>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="ret">【业务】结果标识</param>
         /// <param name="msg">结果信息描述</param>
-        public RespException(int sysCode, int code, string msg) : base(msg)
+        public RespException(int sysRet, int ret, string msg) : base(msg)
         {
-            sys_code = sysCode;
-            this.code = code;
+            sys_ret = sysRet;
+            this.ret = ret;
+            this.msg = msg;
+        }
+        /// <summary>
+        ///  构造异常结果类
+        /// </summary>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="msg">结果信息描述</param>
+        public RespException(SysRespTypes sysRet, RespTypes ret, string msg) : base(msg)
+        {
+            sys_ret = (int)sysRet;
+            this.ret = (int)ret;
             this.msg = msg;
         }
 
         /// <summary>
         ///  构造异常结果类
         /// </summary>
-        /// <param name="sysCode">【系统/框架】 结果标识</param>
-        /// <param name="code">【业务】结果标识</param>
+        /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="msg">结果信息描述</param>
-        public RespException(SysRespCode sysCode, RespCode code, string msg) : base(msg)
+        public RespException(SysRespTypes sysRet,  string msg) : base(msg)
         {
-            sys_code = (int)sysCode;
-            this.code = (int)code;
-            this.msg = msg;
-        }
-
-        /// <summary>
-        ///  构造异常结果类
-        /// </summary>
-        /// <param name="sysCode">【系统/框架】 结果标识</param>
-        /// <param name="msg">结果信息描述</param>
-        public RespException(SysRespCode sysCode,  string msg) : base(msg)
-        {
-            sys_code = (int)sysCode;
+            sys_ret = (int)sysRet;
+            this.ret = (int)ret;
             this.msg = msg;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="ret"></param>
         /// <param name="msg"></param>
-        public RespException(RespCode code, string msg) : base(msg)
+        public RespException(RespTypes ret, string msg) : base(msg)
         {
-            sys_code = 0;
-            this.code = (int) code;
-            this.msg = msg;
+            sys_ret = 0;
+            this.ret = (int)ret;
+             this.msg = msg;
         }
+
+
     }
+
+
 }
