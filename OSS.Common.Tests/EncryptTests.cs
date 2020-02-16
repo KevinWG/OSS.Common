@@ -2,9 +2,9 @@
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Authrization;
-using OSS.Common.BasicMos.Resp;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;
+using OSS.Common.Resp;
 
 namespace OSS.Common.Tests
 {

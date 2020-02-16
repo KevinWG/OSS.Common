@@ -11,16 +11,12 @@
 
 #endregion
 
-using System;
-using OSS.Common.BasicMos.Enums;
-
 namespace OSS.Common.BasicMos
 {
     /// <summary>
     ///  基础实体
     /// </summary>
     /// <typeparam name="IdType"></typeparam>
-    [Obsolete("转移至 OSS.Infrastructure 类库下")]
     public class BaseMo<IdType>
     {
         /// <summary>
@@ -29,32 +25,4 @@ namespace OSS.Common.BasicMos
         public IdType id { get; set; }
     }
 
-    /// <inheritdoc />
-    [Obsolete("转移至 OSS.Infrastructure 类库下")]
-    public class BaseUIdAndStateMo<IdType> : BaseUIdMo<IdType>
-    {
-        /// <summary>
-        /// 状态信息
-        /// </summary>
-        public CommonStatus status { get; set; }
-    }
-    /// <inheritdoc />
-    [Obsolete("转移至 OSS.Infrastructure 类库下")]
-    public class BaseUIdMo<IdType> : BaseMo<IdType>
-    {
-        /// <summary>
-        ///  用户Id
-        /// </summary>
-        public string u_id { get; set; }
-    }
-
-    /// <inheritdoc />
-    [Obsolete("转移至 OSS.Infrastructure 类库下")]
-    public class BaseStateMo<IdType> : BaseMo<IdType>
-    {
-        /// <summary>
-        /// 状态信息
-        /// </summary>
-        public CommonStatus status { get; set; }
-    }
 }
