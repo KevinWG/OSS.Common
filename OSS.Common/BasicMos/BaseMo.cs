@@ -16,12 +16,11 @@ using OSS.Common.BasicMos.Enums;
 
 namespace OSS.Common.BasicMos
 {
- 
-
     /// <summary>
     ///  基础实体
     /// </summary>
     /// <typeparam name="IdType"></typeparam>
+    [Obsolete("转移至 OSS.Infrastructure 类库下")]
     public class BaseMo<IdType>
     {
         /// <summary>

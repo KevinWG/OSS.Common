@@ -11,12 +11,15 @@
 #endregion
 
 
+using System;
+
 namespace OSS.Common.BasicMos.Enums
 {
     /// <summary>
     ///     通用状态码 （如果需要更多状态需要自定义枚举，此值不再新增）
     ///     不同的领域对象可能会一到多个
     /// </summary>
+    [Obsolete("转移至 OSS.Infrastructure 类库下")]
     public enum CommonStatus
     {
         /// <summary>
