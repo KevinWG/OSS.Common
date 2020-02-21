@@ -136,10 +136,24 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tPara"></param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, BasicMos.Resp.Resp tPara)
+        public static TRes WithResp<TRes>(this TRes res, Resp tPara)
             where TRes : BasicMos.Resp.Resp
         {
             return res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
+        }
+
+        /// <summary>
+        /// 处理响应转化
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <param name="errMsg"></param>
+        /// <typeparam name="TRes"></typeparam>
+        /// <returns></returns>
+        public static TRes WithResp<TRes>(this TRes res, Resp tPara, string errMsg)
+            where TRes : BasicMos.Resp.Resp
+        {
+            return res.WithResp(tPara.sys_ret, tPara.ret, errMsg ?? tPara.msg);
         }
 
         /// <summary>

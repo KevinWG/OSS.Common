@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.3.1.1</Version>
+    <Version>2.3.1.2</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <AssemblyVersion>2.3.1.1</AssemblyVersion>
-    <FileVersion>2.3.1.1</FileVersion>
+    <PackageReleaseNotes>添加扩展方法</PackageReleaseNotes>
+    <AssemblyVersion>2.3.1.2</AssemblyVersion>
+    <FileVersion>2.3.1.2</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 
