@@ -54,10 +54,6 @@ namespace OSS.Common.BasicMos.Resp
         /// 配置错误
         /// </summary>
         [OSDescript("配置错误")] AppConfigError = 30000,
-
-
-
-
     }
 
     /// <summary>
@@ -70,11 +66,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         [OSDescript("成功")] Success = 0,
 
-        /// <summary>
-        ///  签名错误
-        /// </summary>
-        [OSDescript("签名错误")] SignError = 1300,
-
+     
         /// <summary>
         /// 参数错误
         /// </summary>
@@ -86,10 +78,21 @@ namespace OSS.Common.BasicMos.Resp
         [OSDescript("签名过期")] SignExpired = 1302,
 
         /// <summary>
+        ///  签名错误
+        /// </summary>
+        [OSDescript("签名错误")] SignError = 1303,
+
+
+
+        /// <summary>
         /// 对象不存在
         /// </summary>
-        [OSDescript("不存在对象")] ObjectNull = 1404,
-  
+        [OSDescript("对象为空")] ObjectNull = 1404,
+
+        /// <summary>
+        /// 对象不存在
+        /// </summary>
+        [OSDescript("列表为空")] ListNull = 1406,
 
         /// <summary>
         /// 对象已存在
@@ -101,21 +104,19 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         [OSDescript("状态异常")] ObjectStateError = 1420,
 
-        /// <summary>
-        ///  未知操作
-        /// </summary>
-        [OSDescript("未知操作")] UnKnowOperate = 1422,
 
-        /// <summary>
-        ///  未知来源
-        /// </summary>
-        [OSDescript("未知来源")] UnKnowSource = 1423,
+   
 
         /// <summary>
         /// 未登录
         /// </summary>
         [OSDescript("未登录")] UnLogin = 1425,
 
+        /// <summary>
+        /// 未登录
+        /// </summary>
+        [OSDescript("登录失败")] LoginFailed = 1426,
+        
         /// <summary>
         /// 权限不足
         /// </summary>
@@ -130,10 +131,22 @@ namespace OSS.Common.BasicMos.Resp
         /// 更新失败
         /// </summary>
         [OSDescript("操作失败")] OperateFailed = 1450,
+        
 
         /// <summary>
         /// 系统错误
         /// </summary>
-        [OSDescript("内部异常")] InnerError = 1500
+        [OSDescript("内部异常")] InnerError = 1500,
+        
+
+        /// <summary>
+        ///  未知操作
+        /// </summary>
+        [OSDescript("未知操作")] UnKnowOperate = 1600,
+
+        /// <summary>
+        ///  未知来源
+        /// </summary>
+        [OSDescript("未知来源")] UnKnowSource = 1610,
     }
 }
