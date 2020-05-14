@@ -105,8 +105,6 @@ namespace OSS.Common.BasicMos.Resp
         [OSDescript("状态异常")] ObjectStateError = 1420,
 
 
-   
-
         /// <summary>
         /// 未登录
         /// </summary>
