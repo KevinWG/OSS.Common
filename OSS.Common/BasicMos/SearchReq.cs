@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OSS.Common.BasicMos.Enums;
 
 namespace OSS.Common.BasicMos
@@ -23,6 +24,16 @@ namespace OSS.Common.BasicMos
         /// <summary>
         /// 当前页
         /// </summary>
+        public int current
+        {
+            get => _curntPage <= 0 ? 1 : _curntPage;
+            set => _curntPage = value;
+        }
+
+        /// <summary>
+        /// 当前页
+        /// </summary>
+        [Obsolete("请使用 current ")]
         public int cur_page
         {
             get => _curntPage <= 0 ? 1 : _curntPage;
@@ -55,12 +66,10 @@ namespace OSS.Common.BasicMos
         /// </summary>
         public Dictionary<string, string> filters { get; set; }
 
-
-
         /// <summary>
         ///    获取起始行
         /// </summary>
-        public int GetStartRow() => (cur_page - 1) * size;
+        public int GetStartRow() => (current - 1) * size;
     }
 
 
