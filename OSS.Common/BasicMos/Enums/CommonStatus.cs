@@ -21,38 +21,23 @@ namespace OSS.Common.BasicMos.Enums
     public enum CommonStatus
     {
         /// <summary>
-        ///     删除状态
+        ///     删除标识 【软删除】
         /// </summary>
         Delete = -1000,
 
         /// <summary>
-        ///  自定义扩展  【取消】
+        /// 自定义扩展   【未生效】
         /// </summary>
-        Canceled = -100,
+        UnActived = -100,
 
         /// <summary>
-        /// 自定义扩展   【审核失败】
-        /// </summary>
-        Failed = -10,
-
-        /// <summary>
-        ///   正常原始状态
+        ///   默认初始状态
         /// </summary>
         Original = 0,
 
         /// <summary>
-        /// 初步提交待审核状态 【提交待确认】【提交待审核】
+        ///  终结状态
         /// </summary>
-        WaitConfirm = 10,
-
-        /// <summary>
-        ///  确认通过激活状态  【确认成功】【审核通过】【已上架/线】
-        /// </summary>
-        Confirmed = 20,
-
-        /// <summary>
-        ///  完成结束状态
-        /// </summary>
-        Finished = 100
+        Finished = 10000
     }
 }
