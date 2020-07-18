@@ -11,6 +11,7 @@
 #endregion
 
 using System;
+using OSS.Common.Extention;
 
 namespace OSS.Common.BasicMos.Enums
 {
@@ -21,23 +22,23 @@ namespace OSS.Common.BasicMos.Enums
     public enum CommonStatus
     {
         /// <summary>
-        ///     删除标识 【软删除】
+        ///    删除
         /// </summary>
-        Delete = -1000,
+        [OSDescript("已删除")] Deleted = -1000,
 
         /// <summary>
-        /// 自定义扩展   【未生效】
+        /// 待激活
         /// </summary>
-        UnActived = -100,
+        [OSDescript("待激活")] UnActived = -100,
 
         /// <summary>
-        ///   默认初始状态
+        ///   正常
         /// </summary>
-        Original = 0,
+        [OSDescript("正常")] Original = 0,
 
         /// <summary>
-        ///  终结状态
+        ///  结束
         /// </summary>
-        Finished = 10000
+        [OSDescript("已结束")] Finished = 10000
     }
 }
