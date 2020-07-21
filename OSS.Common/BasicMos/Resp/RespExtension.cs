@@ -6,7 +6,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  响应实体映射类
     /// </summary>
-    public static class RespExtention
+    public static class RespExtension
     {
         #region 判断结果
         
@@ -15,8 +15,16 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSuccess(this BasicMos.Resp.Resp res) =>
+        public static bool IsSuccess(this Resp res) =>
             res.ret == 0;
+
+        /// <summary>
+        ///  【业务响应】数据是否为空
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static bool IsDataNull<TType>(this Resp<TType> res) =>
+            res.data == null || res.ret == (int) RespTypes.ObjectNull;
 
         /// <summary>
         /// 【业务响应】是否是对应的类型
@@ -24,7 +32,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this BasicMos.Resp.Resp res, RespTypes type) =>
+        public static bool IsRespType(this Resp res, RespTypes type) =>
             res.ret == (int) type;
 
 
@@ -33,7 +41,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this BasicMos.Resp.Resp res) =>
+        public static bool IsSysOk(this Resp res) =>
             res.sys_ret == 0;
 
         /// <summary>
@@ -212,8 +220,7 @@ namespace OSS.Common.BasicMos.Resp
             return res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
         }
         #endregion
-
-
+        
         /// <summary>
         ///  赋值data
         /// </summary>

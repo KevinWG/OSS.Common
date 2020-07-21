@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using OSS.Common.Extention;
 
 namespace OSS.Common.BasicMos.Resp
@@ -92,12 +93,13 @@ namespace OSS.Common.BasicMos.Resp
         /// <summary>
         /// 对象不存在
         /// </summary>
+        [Obsolete]
         [OSDescript("列表为空")] ListNull = 1406,
 
         /// <summary>
         /// 对象已存在
         /// </summary>
-        [OSDescript("已经存在")] ObjectExsit = 1410,
+        [OSDescript("已经存在")] ObjectExist = 1410,
 
         /// <summary>
         /// 对象状态不正常
