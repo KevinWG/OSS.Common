@@ -58,14 +58,7 @@ namespace OSS.Common.Tests
             //var res1 =   .UrlEncode();
             //var res2 = Uri.EscapeUriString(testStr);
         }
-        [TestMethod]
-        public void TreeNumTest()
-        {
-            var t1 = TreeNumHelper.GenerateNextNum(0);
-
-            //var res1 =   .UrlEncode();
-            //var res2 = Uri.EscapeUriString(testStr);
-        }
+      
 
 
     }
