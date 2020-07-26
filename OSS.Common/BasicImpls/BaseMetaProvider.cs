@@ -32,7 +32,7 @@ namespace OSS.Common.BasicImpls
     public class BaseMetaProvider<TConfigType>
         where TConfigType : class
     {
-        private TConfigType _config;
+        private TConfigType _configInstance;
         private static AsyncLocal<Dictionary<object, TConfigType>>
             _contextConfig; // new AsyncLocal<TConfigType>();
 
@@ -61,51 +61,63 @@ namespace OSS.Common.BasicImpls
         /// <param name="config"></param>
         public BaseMetaProvider(TConfigType config)
         {
-            SetConfig(config);
+            SetInstanceConfig(config);
         }
         /// <summary>
         /// 设置实例配置信息
         /// </summary>
         /// <param name="config"></param>
-        private void SetConfig(TConfigType config)
+        private void SetInstanceConfig(TConfigType config)
         {
             ConfigMode = ConfigProviderMode.Instance;
-            _config    = config;
+            _configInstance = config;
         }
-        
+
         /// <summary>
         /// 获取配置信息
         /// </summary>
         /// <returns></returns>
         protected TConfigType GetConfig()
         {
-            TConfigType t=null;
+            TConfigType t = default;
             switch (ConfigMode)
             {
                 case ConfigProviderMode.Default:
-                    t= GetDefaultConfig();
+                    t = GetDefaultConfig();
                     break;
                 case ConfigProviderMode.Context:
                     t = GetContextConfig();
                     break;
                 case ConfigProviderMode.Instance:
-                    t = _config;
+                    t = _configInstance;
                     break;
             }
 
-            if (t == null)
-                t = GetDefaultConfig();
-            
-            if (t!=null)
+            t ??= _configInstance ?? GetDefaultConfig();
+
+            if (t != null)
                 return t;
 
-            throw new ArgumentNullException("当前配置信息为空，请通过构造函数中赋值，或重写GetDefaultConfig返回默认设置，或者SetContextConfig方法设置当前上下文配置信息");
+            throw new ArgumentNullException(
+                "当前配置信息为空，请通过构造函数中赋值，或重写GetDefaultConfig返回默认设置，或者SetContextConfig方法设置当前上下文配置信息");
         }
 
+        #region 扩展虚方法
+
+        /// <summary>
+        /// 获取默认配置信息
+        ///    如果上下文配置不存在，且构造函数也没有传入配置信息，执行此方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual TConfigType GetDefaultConfig()
+        {
+            return null;
+        }
+
+        #endregion
 
         #region 赋值操作
 
-        
         private static readonly object _lockObj = new object();
 
         /// <summary>
@@ -120,10 +132,7 @@ namespace OSS.Common.BasicImpls
                 {
                     if (_contextConfig?.Value == null)
                     {
-                        if (_contextConfig == null)
-                        {
-                            _contextConfig = new AsyncLocal<Dictionary<object, TConfigType>>();
-                        }
+                        _contextConfig ??= new AsyncLocal<Dictionary<object, TConfigType>>();
 
                         _contextConfig.Value = new Dictionary<object, TConfigType>();
                     }
@@ -140,19 +149,7 @@ namespace OSS.Common.BasicImpls
 
         #endregion
         
-        #region 扩展虚方法
-
-        /// <summary>
-        /// 获取默认配置信息
-        ///    如果上下文配置不存在，且构造函数也没有传入配置信息，执行此方法
-        /// </summary>
-        /// <returns></returns>
-        protected virtual TConfigType GetDefaultConfig()
-        {
-            return null;
-        }
-
-        #endregion
+     
 
         private TConfigType GetContextConfig()
         {
