@@ -51,6 +51,29 @@ namespace OSS.Common.BasicMos.Resp
         /// <summary>
         ///  构造异常结果类
         /// </summary>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="msg">结果信息描述</param>
+        public RespException( int ret, string msg) : base(msg)
+        {
+            this.ret = ret;
+            this.msg = msg;
+        }
+
+        /// <summary>
+        ///  构造异常结果类
+        /// </summary>
+        /// <param name="msg">结果信息描述</param>
+        public RespException(string msg) : base(msg)
+        {
+            this.sys_ret = (int) SysRespTypes.ApplicationError;
+            this.msg = msg;
+        }
+
+
+
+        /// <summary>
+        ///  构造异常结果类
+        /// </summary>
         /// <param name="sysRet">【系统/框架】 结果标识</param>
         /// <param name="ret">【业务】结果标识</param>
         /// <param name="msg">结果信息描述</param>
@@ -72,12 +95,11 @@ namespace OSS.Common.BasicMos.Resp
             this.ret = (int)ret;
             this.msg = msg;
         }
-
         /// <summary>
-        /// 
+        ///  构造异常结果类
         /// </summary>
-        /// <param name="ret"></param>
-        /// <param name="msg"></param>
+        /// <param name="ret">【业务】结果标识</param>
+        /// <param name="msg">结果信息描述</param>
         public RespException(RespTypes ret, string msg) : base(msg)
         {
             sys_ret = 0;
@@ -85,6 +107,16 @@ namespace OSS.Common.BasicMos.Resp
              this.msg = msg;
         }
 
+        /// <summary>
+        ///  构造异常结果类
+        /// </summary>
+        /// <param name="res"> 结果实体 </param>
+        public RespException(Resp res) : base(res.msg)
+        {
+            sys_ret = res.sys_ret;
+            this.ret = res.ret;
+            this.msg = res.msg;
+        }
 
     }
 
