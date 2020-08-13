@@ -10,7 +10,7 @@
     <Product>OSS开源系列</Product>
     <Description>通用基础类库</Description>
     <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
-    <PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
     <PackageReleaseNotes>优化属性</PackageReleaseNotes>
@@ -20,6 +20,8 @@
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 
     <LangVersion>latestmajor</LangVersion>
+
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -37,5 +39,6 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+
 
 </Project>
