@@ -11,7 +11,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 
 namespace OSS.Common.BasicMos.Resp
 {
@@ -97,63 +96,6 @@ namespace OSS.Common.BasicMos.Resp
 
     }
 
-    /// <inheritdoc />
-    [Obsolete("使用 LongResp ")]
-    public class LongIdResp : IdResp<long>
-    {
-        /// <inheritdoc />
-        public LongIdResp() 
-        {
-        }
-
-        /// <inheritdoc />
-        public LongIdResp(long id) : base(id)
-        {
-        }
-    }
-
-    /// <inheritdoc />
-    [Obsolete("使用 StrResp ")]
-    public class IdResp: IdResp<string>
-    {
-        /// <inheritdoc />
-        public IdResp()
-        {
-        }
-
-        /// <inheritdoc />
-        public IdResp(string id) : base(id)
-        {
-        }
-    }
-
-
-
-
-
-    /// <summary>
-    /// 带Id的响应实体
-    /// </summary>
-    [Obsolete]
-    public class IdResp<IdType> : Resp
-    {
-        /// <inheritdoc />
-        /// <summary>
-        /// 构造响应类
-        /// </summary>
-        public IdResp()
-        {
-        }
-
-        /// <inheritdoc />
-        public IdResp(IdType id) => this.id = id;
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public IdType id { get; set; }
-    }
-
     /// <summary>
     ///  响应实体协变接口
     /// </summary>
@@ -183,26 +125,12 @@ namespace OSS.Common.BasicMos.Resp
         public TType data { get; set; }
     }
 
-
-    /// <inheritdoc />
-    public class ListResp<TType> : Resp<IList<TType>>
-    {
-        /// <inheritdoc />
-        public ListResp()
-        {
-        }
-
-        /// <inheritdoc />
-        public ListResp(IList<TType> data)
-        {
-            this.data = data;
-        }
-    }
     /// <summary>
     ///  长整形的结果实例
     /// </summary>
     public class LongResp : Resp<long>
     {
+        /// <inheritdoc />
         public LongResp()
         {
         }
@@ -217,6 +145,7 @@ namespace OSS.Common.BasicMos.Resp
     /// </summary>
     public class IntResp : Resp<int>
     {
+        /// <inheritdoc />
         public IntResp()
         {
         }
@@ -231,6 +160,7 @@ namespace OSS.Common.BasicMos.Resp
     /// </summary>
     public class StrResp : Resp<string>
     {
+        /// <inheritdoc />
         public StrResp()
         {
         }
