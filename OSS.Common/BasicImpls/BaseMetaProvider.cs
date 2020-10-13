@@ -5,6 +5,7 @@ using System.Threading;
 namespace OSS.Common.BasicImpls
 {
     /// <inheritdoc />
+  [Obsolete("使用 BaseMetaImpl ")] 
     public class BaseApiConfigProvider<TConfigType> : BaseMetaProvider<TConfigType>
         where TConfigType : class
     {
@@ -29,6 +30,7 @@ namespace OSS.Common.BasicImpls
     ///   通用配置基类
     /// </summary>
     /// <typeparam name="TConfigType"></typeparam>
+    [Obsolete("使用 BaseMetaImpl ")]
     public class BaseMetaProvider<TConfigType>
         where TConfigType : class
     {
