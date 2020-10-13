@@ -11,6 +11,8 @@
 
 #endregion
 
+using System;
+
 namespace OSS.Common.BasicImpls
 {
     /// <summary>
@@ -23,22 +25,37 @@ namespace OSS.Common.BasicImpls
         private static T _instance;
         private static readonly object _objLock = new object();
 
-        public static T Instance
+        /// <summary>
+        ///  获取单例实例
+        /// </summary>
+        /// <param name="initialCreator"></param>
+        /// <returns></returns>
+        public static T GetInstance(Func<T> initialCreator = null)
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
+                lock (_objLock)
                 {
-                    lock (_objLock)
+                    if (_instance != null) 
+                        return _instance;
+
+                    if (initialCreator == null)
+                        return _instance = new T();
+
+                    _instance = initialCreator.Invoke();
+                    if (_instance==null)
                     {
-                        if (_instance == null)
-                        {
-                            return _instance = new T();
-                        }
+                        throw new ArgumentException("initialCreator 委托函数返回值为空，无法创建实例！");
                     }
+                    return _instance;
                 }
-                return _instance;
             }
+            return _instance;
         }
+
+        /// <summary>
+        /// 单例实例
+        /// </summary>
+        public static T Instance => GetInstance();
     }
 }

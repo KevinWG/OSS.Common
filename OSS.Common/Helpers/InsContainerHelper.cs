@@ -33,7 +33,7 @@ namespace OSS.Common.Helpers
 
 
         /// <summary>
-        ///  设置容器内映射的具体类型
+        ///  设置容器内映射的实例创建方法
         /// </summary>
         /// <typeparam name="TInstance"></typeparam>
         /// <param name="insCreater"></param>
@@ -41,6 +41,17 @@ namespace OSS.Common.Helpers
             where TInstance : T
         {
             _insCreater = insCreater ?? throw new ArgumentNullException(nameof(insCreater), "参数不能为空！");
+        }
+
+        /// <summary>
+        ///  设置容器内映射的具体类型
+        /// </summary>
+        /// <typeparam name="TInstance"></typeparam>
+        /// <param name="ins"></param>
+        public static void Set<TInstance>(T ins)
+            where TInstance : T
+        {
+            _insCreater = ()=>ins;
         }
 
         private static T _instance;
