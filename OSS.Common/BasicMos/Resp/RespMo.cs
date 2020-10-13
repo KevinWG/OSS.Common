@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 
 namespace OSS.Common.BasicMos.Resp
@@ -97,6 +98,7 @@ namespace OSS.Common.BasicMos.Resp
     }
 
     /// <inheritdoc />
+    [Obsolete("使用 LongResp ")]
     public class LongIdResp : IdResp<long>
     {
         /// <inheritdoc />
@@ -111,6 +113,7 @@ namespace OSS.Common.BasicMos.Resp
     }
 
     /// <inheritdoc />
+    [Obsolete("使用 StrResp ")]
     public class IdResp: IdResp<string>
     {
         /// <inheritdoc />
@@ -131,6 +134,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     /// 带Id的响应实体
     /// </summary>
+    [Obsolete]
     public class IdResp<IdType> : Resp
     {
         /// <inheritdoc />
@@ -193,6 +197,48 @@ namespace OSS.Common.BasicMos.Resp
         {
             this.data = data;
         }
+    }
+    /// <summary>
+    ///  长整形的结果实例
+    /// </summary>
+    public class LongResp : Resp<long>
+    {
+        public LongResp()
+        {
+        }
+        /// <inheritdoc />
+        public LongResp(long data)
+        {
+            this.data = data;
+        }
+    }
+    /// <summary>
+    ///  整形的结果实例
+    /// </summary>
+    public class IntResp : Resp<int>
+    {
+        public IntResp()
+        {
+        }
+        /// <inheritdoc />
+        public IntResp(int data)
+        {
+            this.data = data;
+        }
+    }
+    /// <summary>
+    ///  字符串的结果实例
+    /// </summary>
+    public class StrResp : Resp<string>
+    {
+        public StrResp()
+        {
+        }
 
+        /// <inheritdoc />
+        public StrResp(string data)
+        {
+            this.data = data;
+        }
     }
 }
