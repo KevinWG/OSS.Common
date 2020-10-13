@@ -3,19 +3,7 @@ using OSS.Common.BasicMos.Resp;
 
 namespace OSS.Common.BasicImpls
 {
-    /// <summary>
-    /// 元配置信息提供接口定义
-    /// </summary>
-    /// <typeparam name="TMetaType">元配置信息类型</typeparam>
-    public interface IMetaProvider<TMetaType>
-        where TMetaType : class
-    {
-        /// <summary>
-        ///  获取元配置数据的接口方法
-        /// </summary>
-        /// <returns></returns>
-        public Task<Resp<TMetaType>> GetMeta();
-    }
+
 
     /// <summary>
     ///  通用配置实现基类
