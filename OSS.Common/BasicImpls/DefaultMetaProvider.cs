@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using OSS.Common.BasicMos.Resp;
 
 namespace OSS.Common.BasicImpls
@@ -18,6 +20,27 @@ namespace OSS.Common.BasicImpls
     }
 
     /// <summary>
+    /// 元数据缓存类型
+    /// </summary>
+    public enum CustomMetaCacheType
+    {
+        /// <summary>
+        ///  无处理
+        /// </summary>
+        None,
+
+        /// <summary>
+        ///  当前线程内缓存
+        /// </summary>
+        ThreadStatic,
+
+        /// <summary>
+        ///  上下文（请求线程链下）内缓存
+        /// </summary>
+        AsyncLocal,
+    }
+
+    /// <summary>
     ///  带默认Meta属性的MetaProvider实现
     /// </summary>
     /// <typeparam name="TMetaType"></typeparam>
@@ -29,19 +52,51 @@ namespace OSS.Common.BasicImpls
         /// </summary>
         public TMetaType DefaultMeta { get; set; }
 
+        /// <summary>
+        ///  通过 GetCustomMeta 方法获取的结果缓存类型
+        /// </summary>
+        public CustomMetaCacheType CacheType { get; protected set; } = CustomMetaCacheType.ThreadStatic;
 
+        [ThreadStatic]
+        private static TMetaType _threadStaticMeta;
+        private static AsyncLocal<TMetaType>  _asyncLocalMeta;
+
+        /// <inheritdoc />
         public async Task<Resp<TMetaType>> GetMeta()
         {
-            var metaRes = await GetCustomMeta();
+            var metaRes = await GetCustomMetaWithCache();
             if (metaRes != null)
             {
                 return metaRes;
             }
 
-            if (DefaultMeta != null)
-                return new Resp<TMetaType>(DefaultMeta);
+            return DefaultMeta != null ? new Resp<TMetaType>(DefaultMeta)
+                : new Resp<TMetaType>().WithResp(RespTypes.ObjectNull, "未发现任何配置信息，请重写GetCustomMeta方法，或配置DefaultMeta！");
+        }
 
-            return new Resp<TMetaType>().WithResp(RespTypes.ObjectNull, "未发现任何配置信息，请重写GetCustomMeta方法，或配置DefaultMeta！");
+        private async Task<Resp<TMetaType>> GetCustomMetaWithCache()
+        {
+            if (CacheType == CustomMetaCacheType.ThreadStatic && _threadStaticMeta != null)
+                return new Resp<TMetaType>(_threadStaticMeta);
+
+            if (CacheType == CustomMetaCacheType.AsyncLocal && _asyncLocalMeta?.Value != null)
+                return new Resp<TMetaType>(_asyncLocalMeta.Value);
+
+            var metaRes = await GetCustomMeta();
+            if (metaRes == null)
+                return null;
+
+            if (!metaRes.IsSuccess()) 
+                return metaRes;
+
+            if (CacheType == CustomMetaCacheType.ThreadStatic)
+                _threadStaticMeta = metaRes.data;
+
+            if (CacheType != CustomMetaCacheType.AsyncLocal) return metaRes;
+
+            _asyncLocalMeta       ??= new AsyncLocal<TMetaType>();
+            _asyncLocalMeta.Value =   metaRes.data;
+            return metaRes;
         }
 
         /// <summary>
