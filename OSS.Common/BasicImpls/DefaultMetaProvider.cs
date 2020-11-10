@@ -48,11 +48,6 @@ namespace OSS.Common.BasicImpls
         where TMetaType : class
     {
         /// <summary>
-        ///  默认Meta信息，优先级低于GetCustomMeta方法返回值
-        /// </summary>
-        public TMetaType DefaultMeta { get; set; }
-
-        /// <summary>
         ///  通过 GetCustomMeta 方法获取的结果缓存类型
         /// </summary>
         public CustomMetaCacheType CacheType { get; protected set; } = CustomMetaCacheType.ThreadStatic;
@@ -65,13 +60,7 @@ namespace OSS.Common.BasicImpls
         public async Task<Resp<TMetaType>> GetMeta()
         {
             var metaRes = await GetCustomMetaWithCache();
-            if (metaRes != null)
-            {
-                return metaRes;
-            }
-
-            return DefaultMeta != null ? new Resp<TMetaType>(DefaultMeta)
-                : new Resp<TMetaType>().WithResp(RespTypes.ObjectNull, "未发现任何配置信息，请重写GetCustomMeta方法，或配置DefaultMeta！");
+            return metaRes ?? new Resp<TMetaType>().WithResp(RespTypes.ObjectNull, "未发现任何配置信息，请重写GetCustomMeta方法，或配置DefaultMeta！");
         }
 
         private async Task<Resp<TMetaType>> GetCustomMetaWithCache()
