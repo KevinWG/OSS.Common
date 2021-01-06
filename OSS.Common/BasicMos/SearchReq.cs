@@ -18,6 +18,11 @@ namespace OSS.Common.BasicMos
             orders  = new Dictionary<string, SortType>();
         }
 
+        public SearchReq(int size, int currentPage) : this()
+        {
+            this.size = size;
+            this.current = currentPage;
+        }
 
         private int _curntPage = 1;
 
