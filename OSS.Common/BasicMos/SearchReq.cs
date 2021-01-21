@@ -7,14 +7,14 @@ namespace OSS.Common.BasicMos
     /// <summary>
     /// 搜索实体
     /// </summary>
-    public class SearchReq
+    public class SearchReq<FType>
     {
         /// <summary>
         ///   构造函数
         /// </summary>
         public SearchReq()
         {
-            filters = new Dictionary<string, string>();
+            //filters = new Dictionary<string, string>();
             orders  = new Dictionary<string, SortType>();
         }
 
@@ -66,15 +66,31 @@ namespace OSS.Common.BasicMos
         /// </summary>
         public Dictionary<string, SortType> orders { get; set; }
 
+
         /// <summary>
-        /// 搜索关键字集合      适用于多个查询条件
+        /// 过滤器
         /// </summary>
-        public Dictionary<string, string> filters { get; set; }
+        public FType filter { get; set; }
 
         /// <summary>
         ///    获取起始行
         /// </summary>
         public int GetStartRow() => (current - 1) * size;
+    }
+
+
+    public class SearchReq : SearchReq<Dictionary<string, string>>
+    {
+        public SearchReq()
+        {
+            filter = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// 搜索关键字集合      适用于多个查询条件
+        /// </summary>
+        [Obsolete("请使用filter代替")]
+        public Dictionary<string, string> filters { get { return filter; } }
     }
 
 
