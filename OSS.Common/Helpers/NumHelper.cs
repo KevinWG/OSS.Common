@@ -1,7 +1,20 @@
-﻿using System;
+﻿#region Copyright (C) 2019 (OSS开源系列) 公众号：OSSCore
+
+/***************************************************************************
+*　　	文件功能描述：全局辅助类 - 编码生成辅助
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*       
+*****************************************************************************/
+
+#endregion
+
+using System;
 using System.Text;
 using OSS.Common.BasicImpls;
-using OSS.Common.Extention;
+using OSS.Common.Extension;
 
 namespace OSS.Common.Helpers
 {

@@ -19,12 +19,13 @@ using System.Reflection;
 #endregion
 
 
-namespace OSS.Common.Extension.Validate
+namespace OSS.Common.Extention.Volidate
 {
     /// <summary>
     /// 
     /// </summary>
-    public static class ValidateExtension
+    [Obsolete("迁移至OSS.Common.Extension命名空间下")]
+    public static class VolidateExtention
     {
         /// <summary>
         /// 是否通过验证
@@ -32,6 +33,7 @@ namespace OSS.Common.Extension.Validate
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Obsolete("迁移至OSS.Common.Extension命名空间下")]
         public static bool IsOsValidate<T>(this T t) where T : class, new()
         {
             if (t == null)
@@ -43,7 +45,7 @@ namespace OSS.Common.Extension.Validate
 
             foreach (var fd in files)
             {
-                var attrs = TypeHelper.GetPropertyAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
+                var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
 
                 var fd1 = fd;
                 if (
@@ -62,6 +64,7 @@ namespace OSS.Common.Extension.Validate
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
+        [Obsolete("迁移至OSS.Common.Extension命名空间下")]
         public static List<string> ValidateOsMessage<T>(this T t) where T : class, new()
         {
             List<string> resultList = new List<string>();
@@ -77,7 +80,7 @@ namespace OSS.Common.Extension.Validate
 
             foreach (var fd in files)
             {
-                var attrs = TypeHelper.GetPropertyAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
+                var attrs = TypeHelper.GetPropertiAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
 
                 var fd1 = fd;
                 foreach (var requireAttr in from requireAttr in attrs.OfType<BaseValidateAttribute>()
@@ -98,10 +101,11 @@ namespace OSS.Common.Extension.Validate
     /// <summary>
     /// 
     /// </summary>
+    [Obsolete("迁移至OSS.Common.Extension命名空间下")]
     public static class TypeHelper
     {
         private static ConcurrentDictionary<string, object[]> attrDirs = new ConcurrentDictionary<string, object[]>();
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -109,7 +113,8 @@ namespace OSS.Common.Extension.Validate
         /// <param name="fd"></param>
         /// <param name="attributeType"></param>
         /// <returns></returns>
-        public static object[] GetPropertyAttributes(string typeName, PropertyInfo fd, Type attributeType)
+        [Obsolete("迁移至OSS.Common.Extension命名空间下")]
+        public static object[] GetPropertiAttributes(string typeName, PropertyInfo fd, Type attributeType)
         {
             string key = string.Concat(typeName, fd.Name);
 
@@ -136,9 +141,11 @@ namespace OSS.Common.Extension.Validate
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [Obsolete("迁移至OSS.Common.Extension命名空间下")]
         public static PropertyInfo[] GetProperties(Type type)
         {
-            proDictionaries.TryGetValue(type.FullName, out var properties);
+            PropertyInfo[] properties;
+            proDictionaries.TryGetValue(type.FullName, out properties);
             if (properties != null)
             {
                 return properties;

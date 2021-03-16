@@ -18,6 +18,7 @@ namespace OSS.Common.BasicMos
             orders  = new Dictionary<string, SortType>();
         }
 
+        /// <inheritdoc />
         public SearchReq(int size, int currentPage) : this()
         {
             this.size = size;

@@ -10,8 +10,8 @@
 
 #endregion
 
-using System;
-using OSS.Common.Extention;
+
+using OSS.Common.Extension;
 
 namespace OSS.Common.BasicMos.Enums
 {
@@ -24,21 +24,21 @@ namespace OSS.Common.BasicMos.Enums
         /// <summary>
         ///    删除
         /// </summary>
-        [OSDescript("已删除")] Deleted = -1000,
+        [OSDescribe("已删除")] Deleted = -1000,
 
         /// <summary>
         /// 待激活
         /// </summary>
-        [OSDescript("待激活")] UnActived = -100,
+        [OSDescribe("待激活")] UnActived = -100,
 
         /// <summary>
         ///   正常
         /// </summary>
-        [OSDescript("正常")] Original = 0,
+        [OSDescribe("正常")] Original = 0,
 
         /// <summary>
         ///  结束
         /// </summary>
-        [OSDescript("已结束")] Finished = 10000
+        [OSDescribe("已结束")] Finished = 10000
     }
 }

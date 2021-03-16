@@ -1,4 +1,16 @@
-﻿using OSS.Common.Extention;
+﻿#region Copyright (C) 2021 (OSS开源系列) 公众号：OSSCore
+
+/***************************************************************************
+*　　	文件功能描述：全局辅助类 - 树形编码生成辅助
+*
+*　　	创建人： Kevin
+*       创建人Email：1985088337@qq.com
+*       
+*       
+*****************************************************************************/
+
+#endregion
+using OSS.Common.Extension;
 using System;
 
 namespace OSS.Common.Helpers

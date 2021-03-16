@@ -77,7 +77,7 @@ namespace OSS.Common.Extension
                 var name = Enum.GetName(enType, value);
                 var resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
 
-                var attr = enType.GetTypeInfo().GetDeclaredField(name)?.GetCustomAttribute<OSDescriptAttribute>();
+                var attr = enType.GetTypeInfo().GetDeclaredField(name)?.GetCustomAttribute<OSDescribeAttribute>();
 
                 dirs.Add(resultValue, attr == null ? name : attr.Description);
             }
@@ -100,9 +100,10 @@ namespace OSS.Common.Extension
     ///   自定义描述属性
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
-    public class OSDescriptAttribute : Attribute
+    public class OSDescribeAttribute : Attribute
     {
-        public OSDescriptAttribute(string description)
+        /// <inheritdoc />
+        public OSDescribeAttribute(string description)
         {
             this.Description = description;
         }
