@@ -13,14 +13,14 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            var num = TreeNumHelper.GenerateNum(0, 0);
+            var num = TreeNumHelper.GenerateSmallNum(0, 0);
             Assert.IsTrue(num==1000000000000000);
             
             
-            num = TreeNumHelper.GenerateNum(1999000000000000, 0);
+            num = TreeNumHelper.GenerateSmallNum(1999000000000000, 0);
             Assert.IsTrue(num == 1999010000000000);
 
-            num = TreeNumHelper.GenerateNum(1999000000000000, 1999099900000000);
+            num = TreeNumHelper.GenerateSmallNum(1999000000000000, 1999099900000000);
             Assert.IsTrue(num == 1999011110000000);
 
             var firstRange = TreeNumHelper.FormatSubNumRange(1000000000000000);
@@ -28,9 +28,6 @@ namespace OSS.Common.Tests
 
             var lastRange = TreeNumHelper.FormatSubNumRange(1099999999999900);
             Assert.IsTrue(lastRange.maxSubNum == 1099999999999909 && lastRange.minSubNum == 1099999999999901);
-
-
-            
         }
 
         [TestMethod]

@@ -20,16 +20,42 @@ namespace OSS.Common.Helpers
     /// </summary>
     public class TreeNumHelper
     {
-        private const string _paddingNumStr = "0000000000000000";
-        private const int    _numLength     = 16; // 2 ^ 53 16字符长度
+        private const string _paddingNumStr = "0000000000000000000";
+
+        private const int _numLength      = 19; // long 最大值 19位
+        private const int _numSmallLength = 16; // 2 ^ 53 -1    16字符长度
+
+        /// <summary>
+        ///  生成小于 2^53 次方的编码
+        ///    js 安全的数值
+        /// </summary>
+        /// <param name="parentNum"></param>
+        /// <param name="maxPreNum"></param>
+        /// <returns></returns>
+        public static long GenerateSmallNum(long parentNum, long maxPreNum)
+        {
+            return GenerateNum(parentNum, maxPreNum, _numSmallLength);
+        }
+
+        /// <summary>
+        ///  生成long最大长度的编码（19位长度）
+        /// </summary>
+        /// <param name="parentNum"></param>
+        /// <param name="maxPreNum"></param>
+        /// <returns></returns>
+        public static long GenerateNum(long parentNum, long maxPreNum)
+        {
+            return GenerateNum(parentNum, maxPreNum, _numLength);
+        }
 
         /// <summary>
         ///  生成编号
         /// </summary>
         /// <param name="parentNum"></param>
         /// <param name="maxPreNum"></param>
+        /// <param name="numLength">编码长度</param>
         /// <returns></returns>
-        public static long GenerateNum(long parentNum, long maxPreNum)
+        private static long GenerateNum(long parentNum, long maxPreNum, int numLength)
         {
             string newNumStr;
 
@@ -62,7 +88,7 @@ namespace OSS.Common.Helpers
             else if (maxPreNum <= 0 && parentNum > 0)
             {
                 var parentRealNumStr = parentNum.ToString().TrimEnd('0');
-                if (parentRealNumStr.Length + 2 > _numLength)
+                if (parentRealNumStr.Length + 2 > numLength)
                 {
                     throw new ArgumentOutOfRangeException("编号超出可设置的最大子集");
                 }
@@ -74,22 +100,21 @@ namespace OSS.Common.Helpers
                 newNumStr = "1";
             }
 
-            if (newNumStr.Length > _numLength)
+            if (newNumStr.Length > numLength)
                 throw new ArgumentOutOfRangeException("编号超出可设置的最大子集");
 
-            if (newNumStr.Length < _numLength)
+            if (newNumStr.Length < numLength)
             {
                 return string.Concat(newNumStr
-                        , _paddingNumStr.Substring(0, _numLength - newNumStr.Length))
+                        , _paddingNumStr.Substring(0, numLength - newNumStr.Length))
                     .ToInt64();
             }
 
             return newNumStr.ToInt64();
-
         }
 
-        private const string _minSubPaddingNumStr = "1111111111111111";
-        private const string _maxSubPaddingNumStr = "9999999999999999";
+        private const string _minSubPaddingNumStr = "1111111111111111111";
+        private const string _maxSubPaddingNumStr = "9999999999999999999";
 
         /// <summary>
         ///  获取子节点编号区域范围
@@ -98,9 +123,11 @@ namespace OSS.Common.Helpers
         /// <returns></returns>
         public static (long minSubNum, long maxSubNum) FormatSubNumRange(long parentNum)
         {
-            var realParentNum = parentNum.ToString().TrimEnd('0');
+            var parentNumStr  = parentNum.ToString();
+            var numLength     = parentNumStr.Length;
+            var realParentNum = parentNumStr.TrimEnd('0');
 
-            var paddingLength = _numLength - realParentNum.Length - 1;
+            var paddingLength = numLength - realParentNum.Length - 1;
             if (paddingLength <= 0)
                 return (parentNum, parentNum);
 
@@ -118,22 +145,23 @@ namespace OSS.Common.Helpers
         /// <returns></returns>
         public static long[] FormatParents(long treeNum)
         {
-            var treeNumStr = treeNum.ToString();
+            var treeNumStr    = treeNum.ToString();
+            var numLength     = treeNumStr.Length;
             var realParentNum = treeNumStr.TrimEnd('0');
 
-            var realParentNumSplits = realParentNum.Split(new []{ '0' },StringSplitOptions.RemoveEmptyEntries);
-            if (realParentNumSplits.Length<=1)
+            var realParentNumSplits = realParentNum.Split(new[] {'0'}, StringSplitOptions.RemoveEmptyEntries);
+            if (realParentNumSplits.Length <= 1)
             {
-                return new []{ 0L };
+                return new[] {0L};
             }
 
             var tempStr = string.Empty;
-            var strRes=new long[realParentNumSplits.Length-1];
-            
-            for (var i = 0; i < realParentNumSplits.Length-1; i++)
+            var strRes  = new long[realParentNumSplits.Length - 1];
+
+            for (var i = 0; i < realParentNumSplits.Length - 1; i++)
             {
-                tempStr =string.Concat(tempStr,"0", realParentNumSplits[i]);
-                strRes[i] = string.Concat(tempStr, _paddingNumStr.Substring(0,_numLength - tempStr.Length)).ToInt64();
+                tempStr   = string.Concat(tempStr, "0", realParentNumSplits[i]);
+                strRes[i] = string.Concat(tempStr, _paddingNumStr.Substring(0, numLength - tempStr.Length)).ToInt64();
             }
 
             return strRes;
