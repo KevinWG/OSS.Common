@@ -14,12 +14,12 @@
 
 using System;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// 字符串数字转化扩展
     /// </summary>
-    public static class StringNumberExtention
+    public static class StringNumberExtension
     {
         #region  字符串数字转化部分
 

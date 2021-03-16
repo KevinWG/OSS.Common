@@ -13,12 +13,12 @@
 #endregion
 using System;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// 时间秒数转化
     /// </summary>
-    public static class DateTimeExtention
+    public static class DateTimeExtension
     {
         private static readonly long startTicks = new DateTime(1970, 1, 1).Ticks;
 

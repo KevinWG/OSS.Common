@@ -14,12 +14,12 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// xml  转化扩展
     /// </summary>
-    public static class XmlConvertExtention
+    public static class XmlConvertExtension
     {
         /// <summary>
         /// 对象序列化成xml字符串
@@ -66,6 +66,7 @@ namespace OSS.Common.Extention
         /// xml字符串转化到对象
         /// </summary>
         /// <param name="xml"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public static object DeserializeXml(this string xml, Type type)
         {

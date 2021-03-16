@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     ///  列表扩展方法
     /// </summary>
-    public static class ListExtention
+    public static class ListExtension
     {
         /// <summary>
         /// List合并

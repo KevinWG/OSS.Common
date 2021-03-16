@@ -19,12 +19,12 @@ using System.Reflection;
 #endregion
 
 
-namespace OSS.Common.Extention.Volidate
+namespace OSS.Common.Extension.Validate
 {
     /// <summary>
     /// 
     /// </summary>
-    public static class VolidateExtention
+    public static class ValidateExtension
     {
         /// <summary>
         /// 是否通过验证

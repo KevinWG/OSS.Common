@@ -13,12 +13,12 @@
 using System;
 using System.Text;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// 字符串通用功能
     /// </summary>
-    public static class StringCodeExtention
+    public static class StringCodeExtension
     {
 
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);

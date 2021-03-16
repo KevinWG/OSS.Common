@@ -50,14 +50,14 @@ namespace OSS.Common.Tests
 
 
 
-        [TestMethod]
-        public void EncodingTest()
-        {
-            string testStr = "* ~测试";
+        //[TestMethod]
+        //public void EncodingTest()
+        //{
+        //    string testStr = "* ~测试";
 
-            //var res1 =   .UrlEncode();
-            //var res2 = Uri.EscapeUriString(testStr);
-        }
+        //    //var res1 =   .UrlEncode();
+        //    //var res2 = Uri.EscapeUriString(testStr);
+        //}
       
 
 

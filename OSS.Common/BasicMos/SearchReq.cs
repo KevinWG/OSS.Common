@@ -79,8 +79,10 @@ namespace OSS.Common.BasicMos
     }
 
 
+    /// <inheritdoc />
     public class SearchReq : SearchReq<Dictionary<string, string>>
     {
+        /// <inheritdoc />
         public SearchReq()
         {
             filter = new Dictionary<string, string>();

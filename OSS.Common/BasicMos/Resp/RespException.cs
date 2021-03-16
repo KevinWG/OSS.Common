@@ -22,6 +22,9 @@ namespace OSS.Common.BasicMos.Resp
     public class RespException:Exception
     {
         private int _ret;
+        /// <summary>
+        ///  业务结果标识
+        /// </summary>
         public int ret
         {
             get
@@ -34,8 +37,16 @@ namespace OSS.Common.BasicMos.Resp
             set => _ret = value;
         }
 
+        /// <summary>
+        /// 结果信息
+        /// </summary>
         public string msg { get; set; }
+
+        /// <summary>
+        ///  系统标识
+        /// </summary>
         public int sys_ret { get; set; }
+
         /// <summary>
         ///  构造异常结果类
         /// </summary>

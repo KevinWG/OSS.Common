@@ -15,7 +15,7 @@
 #endregion
 
 
-namespace OSS.Common.Extention.Volidate
+namespace OSS.Common.Extension.Validate
 {
      /// <summary>
      /// 
@@ -23,6 +23,9 @@ namespace OSS.Common.Extention.Volidate
      [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
     public abstract class BaseValidateAttribute : Attribute
     {
+        /// <summary>
+        ///  错误消息
+        /// </summary>
         protected string errorMessage;
         internal abstract bool Validate(string propertyName, object propertyValue);
 

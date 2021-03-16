@@ -14,12 +14,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     ///   任务等待扩展
     /// </summary>
-    public static class TaskExtention
+    public static class TaskExtension
     {
         /// <summary>
         ///   等待异步执行结果

@@ -13,7 +13,7 @@
 using System;
 using System.Text;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// url扩展

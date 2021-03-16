@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Text;
 using OSS.Common.BasicMos.Resp;
 
-namespace OSS.Common.Extention
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// 枚举扩展方法类
     /// </summary>
-    public static class EnumExtention
+    public static class EnumExtension
     {
 
         /// <summary>
