@@ -5,8 +5,8 @@ namespace OSS.Common.Helpers
 {
     public class TreeNumHelper
     {
-        private const string _paddingNumStr = "00000000000000000000000";
-        private const int _numLength = 16; // 2 ^ 53 16字符长度
+        private const string _paddingNumStr = "0000000000000000";
+        private const int    _numLength     = 16; // 2 ^ 53 16字符长度
 
         /// <summary>
         ///  生成编号
@@ -30,7 +30,7 @@ namespace OSS.Common.Helpers
                 {
                     // 涉及进位处理
                     var lastNodeIndex = realNumStr.LastIndexOf('0') + 1;
-                    var lastNodeNum = realNumStr.Substring(lastNodeIndex).ToInt64() + 2;
+                    var lastNodeNum   = realNumStr.Substring(lastNodeIndex).ToInt64() + 2;
 
                     // 999+2=1001 特殊情况处理
                     var lastNodeNumStr = (lastNodeNum % 100 == 1)
@@ -64,21 +64,36 @@ namespace OSS.Common.Helpers
 
             if (newNumStr.Length < _numLength)
             {
-                return string.Concat(newNumStr,
-                        _paddingNumStr.Substring(0, _numLength - newNumStr.Length)
-                        )
+                return string.Concat(newNumStr
+                        , _paddingNumStr.Substring(0, _numLength - newNumStr.Length))
                     .ToInt64();
             }
+
             return newNumStr.ToInt64();
 
         }
 
+        private const string _minSubPaddingNumStr = "1111111111111111";
+        private const string _maxSubPaddingNumStr = "9999999999999999";
 
+        /// <summary>
+        ///  获取子节点编号区域范围
+        /// </summary>
+        /// <param name="parentNum"></param>
+        /// <returns></returns>
+        public static (long minSubNum, long maxSubNum) FormatSubNumRange(long parentNum)
+        {
+            var realParentNum = parentNum.ToString().TrimEnd('0');
 
-        //public static long SubNumRange(long parentNum)
-        //{
-        //    var realnum
-        //}
+            var paddingLength = _numLength - realParentNum.Length - 1;
+            if (paddingLength <= 0)
+                return (parentNum, parentNum);
+
+            var minNum = string.Concat(realParentNum, "0", _minSubPaddingNumStr.Substring(0, paddingLength)).ToInt64();
+            var maxNum = string.Concat(realParentNum, "0", _maxSubPaddingNumStr.Substring(0, paddingLength)).ToInt64();
+
+            return (minNum, maxNum);
+        }
 
 
     }
