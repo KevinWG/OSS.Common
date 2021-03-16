@@ -3,6 +3,9 @@ using System;
 
 namespace OSS.Common.Helpers
 {
+    /// <summary>
+    ///  树形编码生成辅助类
+    /// </summary>
     public class TreeNumHelper
     {
         private const string _paddingNumStr = "0000000000000000";
@@ -94,6 +97,36 @@ namespace OSS.Common.Helpers
 
             return (minNum, maxNum);
         }
+
+
+        /// <summary>
+        ///  获取子节点编号区域范围
+        /// </summary>
+        /// <param name="treeNum"></param>
+        /// <returns></returns>
+        public static long[] FormatParents(long treeNum)
+        {
+            var treeNumStr = treeNum.ToString();
+            var realParentNum = treeNumStr.TrimEnd('0');
+
+            var realParentNumSplits = realParentNum.Split(new []{ '0' },StringSplitOptions.RemoveEmptyEntries);
+            if (realParentNumSplits.Length<=1)
+            {
+                return new []{ 0L };
+            }
+
+            var tempStr = string.Empty;
+            var strRes=new long[realParentNumSplits.Length-1];
+            
+            for (var i = 0; i < realParentNumSplits.Length-1; i++)
+            {
+                tempStr =string.Concat(tempStr,"0", realParentNumSplits[i]);
+                strRes[i] = string.Concat(tempStr, _paddingNumStr.Substring(0,_numLength - tempStr.Length)).ToInt64();
+            }
+
+            return strRes;
+        }
+
 
 
     }

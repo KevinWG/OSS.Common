@@ -28,8 +28,20 @@ namespace OSS.Common.Tests
 
             var lastRange = TreeNumHelper.FormatSubNumRange(1099999999999900);
             Assert.IsTrue(lastRange.maxSubNum == 1099999999999909 && lastRange.minSubNum == 1099999999999901);
+
+
+            
         }
 
+        [TestMethod]
+        public void FormatParentsTest()
+        {
+            var firParents = TreeNumHelper.FormatParents(1000000000000000);
+            Assert.IsTrue(firParents[0]==0);
+
+            var parents = TreeNumHelper.FormatParents(1010101011100000);
+            Assert.IsTrue(parents.Length == 4);
+        }
     }
 
 
