@@ -19,7 +19,7 @@ namespace OSS.Common.Extention
     /// 时间秒数转化
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class DateTimeExtension
+    public static class DateTimeExtention
     {
         private static readonly long startTicks = new DateTime(1970, 1, 1).Ticks;
 

@@ -19,7 +19,7 @@ namespace OSS.Common.Extention
     /// 字符串通用功能
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class StringCodeExtension
+    public static class StringCodeExtention
     {
 
         private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);

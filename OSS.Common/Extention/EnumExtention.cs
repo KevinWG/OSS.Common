@@ -12,7 +12,7 @@ namespace OSS.Common.Extention
     /// 枚举扩展方法类
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class EnumExtension
+    public static class EnumExtention
     {
 
         /// <summary>

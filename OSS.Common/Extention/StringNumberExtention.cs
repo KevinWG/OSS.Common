@@ -20,7 +20,7 @@ namespace OSS.Common.Extention
     /// 字符串数字转化扩展
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class StringNumberExtension
+    public static class StringNumberExtention
     {
         #region  字符串数字转化部分
 

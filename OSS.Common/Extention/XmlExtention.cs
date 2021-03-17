@@ -20,7 +20,7 @@ namespace OSS.Common.Extention
     /// xml  转化扩展
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class XmlConvertExtension
+    public static class XmlConvertExtention
     {
         /// <summary>
         /// 对象序列化成xml字符串

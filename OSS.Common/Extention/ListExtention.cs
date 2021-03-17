@@ -7,7 +7,7 @@ namespace OSS.Common.Extention
     ///  列表扩展方法
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class ListExtension
+    public static class ListExtention
     {
         /// <summary>
         /// List合并

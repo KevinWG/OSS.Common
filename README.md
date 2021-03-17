@@ -28,7 +28,7 @@
  系统加密基础库，主要包含：  
  md5（Md5）,aes（AesRijndael）,sha1（Sha1）,hmac（HMACSHA）-加盐sha加密方式这几种加密算法  
 
-## Extention
+## Extension
  系统扩展方法，主要包含：  
  字符串转化扩展，如： "0".ToInt32()，"xxx".Base64UrlEncode()等  
  时间转化扩展，如：DateTime.Now.ToUtcSeconds() 等  

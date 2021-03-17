@@ -20,7 +20,7 @@ namespace OSS.Common.Extention
     ///   任务等待扩展
     /// </summary>
     [Obsolete("迁移至OSS.Common.Extension命名空间下")]
-    public static class TaskExtension
+    public static class TaskExtention
     {
         /// <summary>
         ///   等待异步执行结果
