@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSS.Common.Encrypt;
-using OSS.Common.Extention;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Helpers;
 
 namespace OSS.Common.Tests
@@ -24,7 +20,7 @@ namespace OSS.Common.Tests
             Assert.IsTrue(num == 1999011110000000);
 
             var firstRange = TreeNumHelper.FormatSubNumRange(1000000000000000);
-            Assert.IsTrue(firstRange.maxSubNum == 1099999999999999&& firstRange.minSubNum == 1011111111111111);
+            Assert.IsTrue(firstRange.maxSubNum == 1099999999999999&& firstRange.minSubNum == 1010000000000000);
 
             var lastRange = TreeNumHelper.FormatSubNumRange(1099999999999900);
             Assert.IsTrue(lastRange.maxSubNum == 1099999999999909 && lastRange.minSubNum == 1099999999999901);
