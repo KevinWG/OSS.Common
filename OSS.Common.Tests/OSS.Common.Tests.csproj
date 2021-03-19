@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\IndentExtensionTests.cs" />
     <Compile Include="ExtensionTests.cs" />
     <Compile Include="TreeNumTests.cs" />
     <Compile Include="EncryptTests.cs" />
