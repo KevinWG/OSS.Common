@@ -84,6 +84,11 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         [OSDescribe("签名错误")] SignError = 1303,
 
+        /// <summary>
+        /// 超出范围
+        /// </summary>
+        [OSDescribe("超出范围")] 
+        ParaOutOfRange = 1310,
 
 
         /// <summary>
@@ -106,6 +111,7 @@ namespace OSS.Common.BasicMos.Resp
         /// 对象状态不正常
         /// </summary>
         [OSDescribe("状态异常")] ObjectStateError = 1420,
+
 
 
         /// <summary>
@@ -132,6 +138,8 @@ namespace OSS.Common.BasicMos.Resp
         /// 更新失败
         /// </summary>
         [OSDescribe("操作失败")] OperateFailed = 1450,
+
+
         
 
         /// <summary>
