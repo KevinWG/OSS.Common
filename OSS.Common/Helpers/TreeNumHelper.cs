@@ -113,7 +113,6 @@ namespace OSS.Common.Helpers
             return newNumStr.ToInt64();
         }
 
-        private const string _minSubPaddingNumStr = "1111111111111111111";
         private const string _maxSubPaddingNumStr = "9999999999999999999";
 
         /// <summary>
@@ -127,12 +126,12 @@ namespace OSS.Common.Helpers
             var numLength     = parentNumStr.Length;
             var realParentNum = parentNumStr.TrimEnd('0');
 
-            var paddingLength = numLength - realParentNum.Length - 1;
+            var paddingLength = numLength - realParentNum.Length ;
             if (paddingLength <= 0)
                 return (parentNum, parentNum);
 
-            var minNum = string.Concat(realParentNum, "0", _minSubPaddingNumStr.Substring(0, paddingLength)).ToInt64();
-            var maxNum = string.Concat(realParentNum, "0", _maxSubPaddingNumStr.Substring(0, paddingLength)).ToInt64();
+            var minNum = string.Concat(realParentNum, "01", _paddingNumStr.Substring(0, paddingLength-2)).ToInt64();
+            var maxNum = string.Concat(realParentNum, "0", _maxSubPaddingNumStr.Substring(0, paddingLength-1)).ToInt64();
 
             return (minNum, maxNum);
         }
