@@ -81,19 +81,19 @@ namespace OSS.Common.BasicMos
 
 
     /// <inheritdoc />
-    public class SearchReq : SearchReq<Dictionary<string, object>>
+    public class SearchReq : SearchReq<Dictionary<string, string>>
     {
         /// <inheritdoc />
         public SearchReq()
         {
-            filter = new Dictionary<string, object>();
+            filter = new Dictionary<string, string>();
         }
 
         /// <summary>
         /// 搜索关键字集合      适用于多个查询条件
         /// </summary>
         [Obsolete("请使用filter代替")]
-        public Dictionary<string, object> filters { get { return filter; } }
+        public Dictionary<string, string> filters => filter;
     }
 
 
