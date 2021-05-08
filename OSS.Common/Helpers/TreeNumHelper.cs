@@ -151,7 +151,7 @@ namespace OSS.Common.Helpers
             var realParentNumSplits = realParentNum.Split(new[] {'0'}, StringSplitOptions.RemoveEmptyEntries);
             if (realParentNumSplits.Length <= 1)
             {
-                return new[] {0L};
+                return new long[] {};
             }
 
             var tempStr = string.Empty;
