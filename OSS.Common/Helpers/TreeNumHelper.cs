@@ -154,16 +154,18 @@ namespace OSS.Common.Helpers
                 return new long[] {};
             }
 
-            var tempStr = string.Empty;
-            var strRes  = new long[realParentNumSplits.Length - 1];
+            var tempStr = realParentNumSplits[0];
+            var parentIds  = new long[realParentNumSplits.Length - 1];
 
             for (var i = 0; i < realParentNumSplits.Length - 1; i++)
             {
-                tempStr   = string.Concat(tempStr, "0", realParentNumSplits[i]);
-                strRes[i] = string.Concat(tempStr, _paddingNumStr.Substring(0, numLength - tempStr.Length)).ToInt64();
+                if (i>0)
+                {
+                    tempStr = string.Concat(tempStr, "0", realParentNumSplits[i]);
+                }
+                parentIds[i] = string.Concat(tempStr, _paddingNumStr.Substring(0, numLength - tempStr.Length)).ToInt64();
             }
-
-            return strRes;
+            return parentIds;
         }
 
 

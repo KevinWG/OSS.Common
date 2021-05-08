@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.3.2.17</Version>
+    <Version>2.3.2.18</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>搜索实体老版本兼容</PackageReleaseNotes>
-    <AssemblyVersion>2.3.2.17</AssemblyVersion>
-    <FileVersion>2.3.2.17</FileVersion>
+    <PackageReleaseNotes>修复树形编码获取父节点的长度问题</PackageReleaseNotes>
+    <AssemblyVersion>2.3.2.18</AssemblyVersion>
+    <FileVersion>2.3.2.18</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 
