@@ -64,12 +64,12 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="sysRet"></param>
         /// <param name="ret"></param>
-        /// <param name="eMsg"></param>
+        /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string eMsg)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string msg)
+            where TRes : Resp
         {
-            res.msg = eMsg;
+            res.msg = msg;
             res.ret = ret;
             res.sys_ret = sysRet;
             return res;
@@ -81,12 +81,14 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
         /// <param name="ret"></param>
-        /// <param name="eMsg"></param>
+        /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int ret, string eMsg)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithResp<TRes>(this TRes res, int ret, string msg)
+            where TRes : Resp
         {
-            return res.WithResp((int) SysRespTypes.Ok, ret, eMsg);
+            res.ret = ret;
+            res.msg = msg;
+            return res;
         }
 
         /// <summary>
@@ -96,12 +98,12 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="sysRet"></param>
         /// <param name="ret"></param>
-        /// <param name="eMsg"></param>
+        /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string eMsg)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string msg)
+            where TRes : Resp
         {
-            return res.WithResp((int) sysRet, (int) ret, eMsg);
+            return res.WithResp((int) sysRet, (int) ret, msg);
         }
 
         /// <summary>
@@ -110,12 +112,14 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
         /// <param name="sysRet"></param>
-        /// <param name="eMsg"></param>
+        /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, string eMsg)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, string msg)
+            where TRes : Resp
         {
-            return res.WithResp((int) sysRet, (int) RespTypes.Success, eMsg);
+            res.sys_ret = (int)sysRet;
+            res.msg = msg;
+            return res;
         }
 
         /// <summary>
@@ -124,15 +128,48 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
         /// <param name="ret"></param>
-        /// <param name="eMsg"></param>
+        /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, RespTypes ret, string eMsg)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithResp<TRes>(this TRes res, RespTypes ret, string msg)
+            where TRes : Resp
         {
-            return res.WithResp((int) SysRespTypes.Ok, (int) ret, eMsg);
+            res.ret = (int)ret;
+            res.msg = msg;
+            return res;
         }
 
+        /// <summary>
+        /// 设置不成功时的响应消息内容
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="msg"> 新的消息内容 </param>
+        /// <returns></returns>
+        public static TRes WithMsg<TRes>(this TRes res, string msg)
+            where TRes : Resp
+        {
+            res.msg = msg;
+            return res;
+        }
 
+        /// <summary>
+        /// 设置不成功时的响应消息内容
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
+        /// <returns></returns>
+        public static TRes WithErrMsg<TRes>(this TRes res, string errMsg)
+            where TRes : Resp
+        {
+            if (!res.IsSuccess())
+            {
+                res.msg = errMsg;
+            }
+            return res;
+        }
+
+ 
         #endregion
 
         #region 实例属性转化
@@ -142,12 +179,14 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <param name="tPara"></param>
+        /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, Resp tPara)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithResp<TRes>(this TRes res, Resp tPara, string errMsg = null)
+            where TRes : Resp
         {
-            return res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
+            res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
+            return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
         /// <summary>
@@ -155,13 +194,48 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <param name="tPara"></param>
-        /// <param name="errMsg"></param>
+        /// <param name="func"></param>
+        /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <returns></returns>
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
+             Func<TPara, TRes> func,string errMsg = null)
+        {            
+            res.data = func.Invoke(tPara.data);
+            return res.WithResp(tPara, errMsg);
+        }
+
+        /// <summary>
+        /// 处理响应转化
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <param name="func"></param>
+        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
+        /// <returns></returns>
+        public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
+            Func<TPara, TRes> func, string errMsg = null)
+        {            
+            res.data = tPara.data?.Select(func).ToList();
+            return res.WithResp(tPara, errMsg);
+        }
+
+        /// <summary>
+        /// 处理响应转化
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="rExc"></param>
+        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, Resp tPara, string errMsg)
-            where TRes : BasicMos.Resp.Resp
+        public static TRes WithException<TRes>(this TRes res, RespException rExc, string errMsg = null)
+            where TRes : Resp
         {
-            return res.WithResp(tPara.sys_ret, tPara.ret, errMsg ?? tPara.msg);
+            res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
+            return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
         /// <summary>
@@ -174,53 +248,21 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
+        [Obsolete]
         public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
-            Func<TPara, TRes> func, bool isNullCheck = true)
-
+             Func<TPara, TRes> func, bool isNullCheck = true)
         {
             WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
 
             if (isNullCheck && tPara.data == null)
-                return res;
+                return  res ;
 
             res.data = func.Invoke(tPara.data);
             return res;
         }
 
-        /// <summary>
-        /// 处理响应转化
-        /// </summary>
-        /// <typeparam name="TRes"></typeparam>
-        /// <typeparam name="TPara"></typeparam>
-        /// <param name="res"></param>
-        /// <param name="tPara"></param>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
-            Func<TPara, TRes> func)
-        {
-            WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
-
-            res.data = tPara.data?.Select(func).ToList();
-
-            return res;
-        }
-
-
-        /// <summary>
-        /// 处理响应转化
-        /// </summary>
-        /// <param name="res"></param>
-        /// <param name="rExc"></param>
-        /// <typeparam name="TRes"></typeparam>
-        /// <returns></returns>
-        public static TRes WithException<TRes>(this TRes res, RespException rExc)
-            where TRes : BasicMos.Resp.Resp
-        {
-            return res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
-        }
         #endregion
-        
+
         /// <summary>
         ///  赋值data
         /// </summary>
@@ -236,6 +278,4 @@ namespace OSS.Common.BasicMos.Resp
             return res;
         }
     }
-
-
 }
