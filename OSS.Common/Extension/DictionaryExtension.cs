@@ -12,6 +12,7 @@
 #endregion
 
 
+using System;
 using System.Collections.Generic;
 
 namespace OSS.Common.Extension
@@ -47,6 +48,34 @@ namespace OSS.Common.Extension
             catch 
             {              
             }
+            return false;
+        }
+
+        /// <summary>
+        ///  转化字典值处理
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <typeparam name="TReturnValue"></typeparam>
+        /// <param name="dic"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static bool TryGetValue<TKey, TValue,TReturnValue>(this IDictionary<TKey, TValue> dic,TKey key, out TReturnValue value, Func<TValue,TReturnValue> converter)
+        {
+            try
+            {
+                if (dic.TryGetValue(key, out TValue val)) 
+                {
+                    value = converter(val);
+                    return true;
+                }            
+            }
+            catch
+            {
+            }
+            value = default;
             return false;
         }
     }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.3.2.19</Version>
+    <Version>2.3.2.20</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
     <PackageReleaseNotes>添加字典扩展函数</PackageReleaseNotes>
-    <AssemblyVersion>2.3.2.19</AssemblyVersion>
-    <FileVersion>2.3.2.19</FileVersion>
+    <AssemblyVersion>2.3.2.20</AssemblyVersion>
+    <FileVersion>2.3.2.20</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 
