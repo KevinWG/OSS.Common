@@ -245,7 +245,7 @@ namespace OSS.Common.BasicMos.Resp
         }
 
         /// <summary>
-        /// 处理响应转化
+        /// 处理响应转化(循环List执行 convertFunc )
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
