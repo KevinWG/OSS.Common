@@ -193,40 +193,6 @@ namespace OSS.Common.BasicMos.Resp
         /// 处理响应转化
         /// </summary>
         /// <param name="res"></param>
-        /// <param name="tPara"></param>
-        /// <param name="func"></param>
-        /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
-        /// <typeparam name="TRes"></typeparam>
-        /// <typeparam name="TPara"></typeparam>
-        /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
-             Func<TPara, TRes> func,string errMsg = null)
-        {            
-            res.data = func.Invoke(tPara.data);
-            return res.WithResp(tPara, errMsg);
-        }
-
-        /// <summary>
-        /// 处理响应转化
-        /// </summary>
-        /// <typeparam name="TRes"></typeparam>
-        /// <typeparam name="TPara"></typeparam>
-        /// <param name="res"></param>
-        /// <param name="tPara"></param>
-        /// <param name="func"></param>
-        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
-        /// <returns></returns>
-        public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
-            Func<TPara, TRes> func, string errMsg = null)
-        {            
-            res.data = tPara.data?.Select(func).ToList();
-            return res.WithResp(tPara, errMsg);
-        }
-
-        /// <summary>
-        /// 处理响应转化
-        /// </summary>
-        /// <param name="res"></param>
         /// <param name="rExc"></param>
         /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
         /// <typeparam name="TRes"></typeparam>
@@ -238,28 +204,64 @@ namespace OSS.Common.BasicMos.Resp
             return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
+        #region 附带 data 转化处理
+
         /// <summary>
         /// 处理响应转化
         /// </summary>
         /// <param name="res"></param>
         /// <param name="tPara"></param>
-        /// <param name="func"></param>
-        /// <param name="isNullCheck">是否检查参数 data 为空</param>
+        /// <param name="convertFunc"></param>
+        /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
+        /// <param name="isNullCheck">调用方法（convertFunc）之前是否检查数据是否为空</param>
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        [Obsolete]
         public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
-             Func<TPara, TRes> func, bool isNullCheck = true)
+             Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
         {
-            WithResp(res, tPara.sys_ret, tPara.ret, tPara.msg);
-
-            if (isNullCheck && tPara.data == null)
-                return  res ;
-
-            res.data = func.Invoke(tPara.data);
-            return res;
+            if ((isNullCheck && tPara.data != null)
+                || !isNullCheck)
+            {
+                res.data = convertFunc.Invoke(tPara.data);
+            }
+            return res.WithResp(tPara, errMsg);
         }
+
+        /// <summary>
+        /// 处理响应转化
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <param name="convertFunc"></param>
+        /// <param name="isNullCheck">调用方法（convertFunc）之前是否检查数据是否为空</param>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <returns></returns>
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
+           Func<TPara, TRes> convertFunc, bool isNullCheck=true)
+        {
+            return res.WithResp(tPara, convertFunc, null, isNullCheck);
+        }
+
+        /// <summary>
+        /// 处理响应转化
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TPara"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="tPara"></param>
+        /// <param name="convertFunc"></param>
+        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
+        /// <returns></returns>
+        public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
+            Func<TPara, TRes> convertFunc, string errMsg = null)
+        {
+            res.data = tPara.data?.Select(convertFunc).ToList();
+            return res.WithResp(tPara, errMsg);
+        }
+
+        #endregion
 
         #endregion
 
