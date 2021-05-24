@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OSS.Common.BasicMos.Resp
 {
@@ -169,7 +170,24 @@ namespace OSS.Common.BasicMos.Resp
             return res;
         }
 
- 
+        /// <summary>
+        /// 设置不成功时的响应消息内容
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="tRes"></param>
+        /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
+        /// <returns></returns>
+        public static async Task<TRes> WithErrMsg<TRes>(this Task<TRes> tRes, string errMsg)
+            where TRes : Resp
+        {
+            var res = await tRes;
+            if (!res.IsSuccess())
+            {
+                res.msg = errMsg;
+            }
+            return res;
+        }
+
         #endregion
 
         #region 实例属性转化
@@ -278,6 +296,19 @@ namespace OSS.Common.BasicMos.Resp
         {
             res.data = data;
             return res;
+        }
+
+
+        /// <summary>
+        ///  结果实体转化成异步任务结果实体
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static Task<TRes> ToTaskResp<TRes>(this TRes res)
+            where TRes : Resp
+        {
+            return Task.FromResult(res);
         }
     }
 }
