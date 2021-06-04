@@ -42,57 +42,102 @@ namespace OSS.Common.Helpers
 
 
 
-        private static readonly NumGenerator _generator = new NumGenerator(0);
+        private static readonly NumGenerator      _generator      = new NumGenerator(0);
         private static readonly SmallNumGenerator _smallGenerator = new SmallNumGenerator(0);
 
         /// <summary>
-        ///  设置当前snowflow算法默认workid
+        ///  获取 twitter 的snowflake唯一Id算法实例(排除机器位)
         /// </summary>
-        /// <param name="workId"></param>
-        public static void SetDefaultWorkId(int workId)
+        /// <returns></returns>
+        public static NumGenerator GetSnowNumGenerator(int workId)
         {
-            _generator.WorkId = workId;
-            _smallGenerator.WorkId = workId;
+            return new NumGenerator(workId);
+        }
+        
+        /// <summary>
+        ///  获取 twitter 的snowflake唯一Id算法实例(排除机器位)
+        ///   id大小不超过 2^52次方-1
+        /// </summary>
+        /// <returns></returns>
+        public static SmallNumGenerator GetSmallSnowNumGenerator(int workId)
+        {
+            return new SmallNumGenerator(workId);
         }
 
 
+
+
+
+
         /// <summary>
-        /// twitter 的snowflake唯一Id算法(排除机器位)
+        /// twitter 的snowflake算法 workid=0 的算法实例：
+        /// 生成的Id(排除机器位)
         /// </summary>
         /// <returns></returns>
         public static long SnowNum()
         {
-            return _generator.NextNum();
+            return _generator.NewNum();
         }
 
         /// <summary>
-        /// twitter 的snowflake唯一Id算法(排除机器位)
+        /// twitter 的snowflake算法 workid=0 的算法实例：
+        /// 根据指定时间戳，获取能够成的id范围
+        /// </summary>
+        /// <param name="milliseconds"></param>
+        /// <returns></returns>
+        public static (long min, long max) GetSnowNumRange(long milliseconds)
+        {
+            return _generator.GetNumRange(milliseconds);
+        }
+
+        /// <summary>
+        /// twitter 的snowflake算法 workid=0 的算法实例：
+        /// 生成的大小不超过 2^52次方-1 的Id(排除机器位)
         /// </summary>
         /// <returns></returns>
         public static long SmallSnowNum()
         {
-            return _smallGenerator.NextNum();
+            return _smallGenerator.NewNum();
         }
 
 
         /// <summary>
-        ///  时间戳数字编号（精度 毫秒
+        /// twitter 的snowflake算法 workid=0 的算法实例：
+        /// 根据指定时间戳，获取能够成的id范围
         /// </summary>
+        /// <param name="milliseconds"></param>
         /// <returns></returns>
-        public static long TimeMilSecsNum()
+        public static (long min, long max) GetSmallSnowNumRange(long milliseconds)
         {
-            return (DateTime.UtcNow.Ticks - _timeStartTicks) / 10000;
+            return _smallGenerator.GetNumRange(milliseconds);
         }
+
+
+
+
+
+
 
         /// <summary>
         ///  时间戳（秒）+ 主编号的后四位 生成的数字编号
         /// </summary>
         /// <param name="mainNum"></param>
         /// <returns></returns>
+        [Obsolete]
         public static long SubTimeNum(long mainNum)
         {
             var suffixNum = mainNum % 10000;
-            return string.Concat(TimeMilSecsNum(), suffixNum).ToInt64();
+            return string.Concat(DateTime.Now.ToUtcSeconds(), suffixNum).ToInt64();
+        }
+        /// <summary>
+        ///  时间戳数字编号（精度 毫秒
+        /// </summary>
+        /// <returns></returns>
+
+        [Obsolete("请使用 DateTime.ToUtcMilliSeconds（OSS.Common.Extension）扩展方法")]
+        public static long TimeMilSecsNum()
+        {
+            return (DateTime.UtcNow.Ticks - _timeStartTicks) / 10000;
         }
 
     }

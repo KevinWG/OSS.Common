@@ -73,12 +73,12 @@ namespace OSS.Common.BasicImpls
         private void InitailConfig(int seqBitLength, int worIdBitLength)
         {
             _sequenceBitLength = seqBitLength;
-            _maxSequence = -1L ^ (-1L << _sequenceBitLength);
+            _maxSequence       = -1L ^ (-1L << _sequenceBitLength);
 
             _workerIdBitLength = worIdBitLength;
-            _maxWorkerId = -1L ^ (-1L << _workerIdBitLength);
-            WorkerLeftShift = _sequenceBitLength;
+            _maxWorkerId       = -1L ^ (-1L << _workerIdBitLength);
 
+            WorkerLeftShift    = _sequenceBitLength;
             TimestampLeftShift = WorkerLeftShift + _workerIdBitLength;
         }
 
@@ -108,10 +108,10 @@ namespace OSS.Common.BasicImpls
 
 
         /// <summary>
-        ///  生成下一个编号
+        ///  生成编号
         /// </summary>
         /// <returns></returns>
-        public long NextNum()
+        public long NewNum()
         {
             long ts, seq;
             lock (obj)
@@ -124,12 +124,24 @@ namespace OSS.Common.BasicImpls
         }
 
         /// <summary>
+        ///  根据指定时间戳，获取能够成的id范围
+        /// </summary>
+        /// <param name="milliseconds"></param>
+        /// <returns></returns>
+        public (long min, long max) GetNumRange(long milliseconds)
+        {
+            var min = CombineNum(milliseconds, 0);
+            var max = CombineNum(milliseconds, _maxSequence);
+            return (min, max);
+        }
+
+        /// <summary>
         ///   组合数字ID
         /// </summary>
         /// <param name="timestamp"></param>
         /// <param name="sequence"></param>
         /// <returns></returns>
-        protected virtual long CombineNum(long timestamp, long sequence)
+        private long CombineNum(long timestamp, long sequence)
         {
             return (timestamp << TimestampLeftShift)
                          | (WorkId << WorkerLeftShift)
@@ -176,15 +188,14 @@ namespace OSS.Common.BasicImpls
             } while (timeTicks <= curTimeSpan);
             return timeTicks;
         }
-
-
+        
         private static readonly long _timeStartTicks = new DateTime(2018, 1, 1).ToUniversalTime().Ticks;
 
         /// <summary>
         ///  时间戳数字编号（精度 毫秒
         /// </summary>
         /// <returns></returns>
-        public static long TimeMilliNum()
+        private static long TimeMilliNum()
         {
             return (DateTime.UtcNow.Ticks - _timeStartTicks) / 10000;
         }
