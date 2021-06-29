@@ -12,10 +12,32 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OSS.Common.BasicMos.Resp
 {
-  
+    /// <summary>
+    ///  分页实体（附带列表对应通行token字典
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    public class PageTokenListResp<TModel> : PageListResp<TModel>
+    {
+        /// <inheritdoc />
+        public PageTokenListResp()
+        {
+        }
+
+
+        /// <inheritdoc />
+        public PageTokenListResp(long totalCount, IList<TModel> list):base(totalCount, list)
+        {
+        }
+
+        /// <summary>
+        ///  和结果列表对应的token字典
+        /// </summary>
+        public Dictionary<string, string> tokens { get;internal set; }
+    }
 
     /// <summary>
     ///  分页实体
@@ -72,6 +94,29 @@ namespace OSS.Common.BasicMos.Resp
             pageRes.total = pageList.total;
             return pageRes;
         }
+        
+        /// <summary>
+        ///  处理列表token处理
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pageRes"></param>
+        /// <param name="tokenKeySelector"></param>
+        /// <param name="tokenValueSelector"></param>
+        /// <returns></returns>
+        public static PageTokenListResp<TResult> WithToken< TResult>(this PageTokenListResp<TResult> pageRes,Func<TResult,string> tokenKeySelector,Func<TResult,string> tokenValueSelector)
+        {
+            if (tokenKeySelector==null|| tokenValueSelector==null)
+            {
+                throw new ArgumentNullException("tokenSelector can not be null!");
+            }
+            if (pageRes.data!=null)
+            {
+                pageRes.tokens = pageRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x));
+            }
+
+            return pageRes;
+        }
+
     }
 
 }
