@@ -20,6 +20,11 @@ namespace OSS.Common.BasicMos.Resp
     public class Resp
     {
         /// <summary>
+        ///  默认成功标识
+        /// </summary>
+        public static Resp Success { get; } = new Resp();
+
+        /// <summary>
         /// 构造响应类
         /// </summary>
         public Resp()

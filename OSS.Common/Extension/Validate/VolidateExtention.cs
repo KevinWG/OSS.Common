@@ -43,7 +43,7 @@ namespace OSS.Common.Extension.Validate
 
             foreach (var fd in files)
             {
-                var attrs = TypeHelper.GetPropertyAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
+                var attrs = TypeHelper.GetPropertyAttributes( fd, typeof (BaseValidateAttribute));
 
                 var fd1 = fd;
                 if (
@@ -64,7 +64,7 @@ namespace OSS.Common.Extension.Validate
         /// <returns></returns>
         public static List<string> ValidateOsMessage<T>(this T t) where T : class, new()
         {
-            List<string> resultList = new List<string>();
+            List<string> resultList = new();
             if (t == null)
             {
                 resultList.Add("对象不能为空！");
@@ -77,7 +77,7 @@ namespace OSS.Common.Extension.Validate
 
             foreach (var fd in files)
             {
-                var attrs = TypeHelper.GetPropertyAttributes(type.FullName, fd, typeof (BaseValidateAttribute));
+                var attrs = TypeHelper.GetPropertyAttributes(fd, typeof (BaseValidateAttribute));
 
                 var fd1 = fd;
                 foreach (var requireAttr in from requireAttr in attrs.OfType<BaseValidateAttribute>()
@@ -100,36 +100,31 @@ namespace OSS.Common.Extension.Validate
     /// </summary>
     public static class TypeHelper
     {
-        private static ConcurrentDictionary<string, object[]> attrDirs = new ConcurrentDictionary<string, object[]>();
+        private static ConcurrentDictionary<PropertyInfo, object[]> attrDirs = new();
         
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="typeName"></param>
         /// <param name="fd"></param>
         /// <param name="attributeType"></param>
         /// <returns></returns>
-        public static object[] GetPropertyAttributes(string typeName, PropertyInfo fd, Type attributeType)
+        public static object[] GetPropertyAttributes( PropertyInfo fd, Type attributeType)
         {
-            string key = string.Concat(typeName, fd.Name);
-
-            object[] attrs;
-
-            attrDirs.TryGetValue(key, out attrs);
-            if (attrs != null)
+            if (attrDirs.TryGetValue(fd, out object[] attrs))
             {
                 return attrs;
             }
+
             attrs = fd.GetCustomAttributes(attributeType, true).ToArray();
-            attrDirs.TryAdd(key, attrs);
+            attrDirs.TryAdd(fd, attrs);
             return attrs;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private static ConcurrentDictionary<string, PropertyInfo[]> proDictionaries =
-            new ConcurrentDictionary<string, PropertyInfo[]>();
+        private static ConcurrentDictionary<Type, PropertyInfo[]> proDictionaries =
+            new();
 
         /// <summary>
         /// 
@@ -138,14 +133,13 @@ namespace OSS.Common.Extension.Validate
         /// <returns></returns>
         public static PropertyInfo[] GetProperties(Type type)
         {
-            proDictionaries.TryGetValue(type.FullName, out var properties);
-            if (properties != null)
+            if (proDictionaries.TryGetValue(type, out var properties))
             {
                 return properties;
             }
             properties = type.GetProperties();
 
-            proDictionaries.TryAdd(type.FullName, properties);
+            proDictionaries.TryAdd(type, properties);
             return properties;
         }
 

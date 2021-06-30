@@ -90,17 +90,12 @@ namespace OSS.Common.BasicMos.Resp
         [OSDescribe("超出范围")] 
         ParaOutOfRange = 1310,
 
-
         /// <summary>
         /// 对象不存在
         /// </summary>
         [OSDescribe("对象为空")] ObjectNull = 1404,
 
-        /// <summary>
-        /// 对象不存在
-        /// </summary>
-        [Obsolete]
-        [OSDescribe("列表为空")] ListNull = 1406,
+     
 
         /// <summary>
         /// 对象已存在
@@ -138,10 +133,7 @@ namespace OSS.Common.BasicMos.Resp
         /// 更新失败
         /// </summary>
         [OSDescribe("操作失败")] OperateFailed = 1450,
-
-
         
-
         /// <summary>
         /// 系统错误
         /// </summary>
@@ -157,5 +149,13 @@ namespace OSS.Common.BasicMos.Resp
         ///  未知来源
         /// </summary>
         [OSDescribe("未知来源")] UnKnowSource = 1610,
+
+
+
+        /// <summary>
+        /// 对象不存在
+        /// </summary>
+        [Obsolete]
+        [OSDescribe("列表为空")] ListNull = 1406,
     }
 }

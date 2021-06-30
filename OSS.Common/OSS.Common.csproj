@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.3.3.6</Version>
+    <Version>2.3.3.7</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -13,7 +13,7 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes>添加列表实体扩展</PackageReleaseNotes>
+    <PackageReleaseNotes>添加默认成功实体属性</PackageReleaseNotes>
     <AssemblyVersion>2.3.3.6</AssemblyVersion>
     <FileVersion>2.3.3.6</FileVersion>
 
