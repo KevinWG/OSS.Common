@@ -10,8 +10,6 @@
 
 #endregion
 
-using System;
-
 namespace OSS.Common.BasicMos.Resp
 {
     /// <summary>
@@ -19,11 +17,6 @@ namespace OSS.Common.BasicMos.Resp
     /// </summary>
     public class Resp
     {
-        /// <summary>
-        ///  默认成功标识
-        /// </summary>
-        public static Resp Success { get; } = new Resp();
-
         /// <summary>
         /// 构造响应类
         /// </summary>
