@@ -10,6 +10,7 @@
 
 #endregion
 
+using OSS.Common.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace OSS.Common.BasicMos.Resp
     ///  列表结果实体（附带列表对应通行token字典
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public class TokenListResp<TType> : ListResp<TType>
+    public class TokenListResp<TType> : ListResp<TType>, IListPassTokens
     {   
         /// <inheritdoc />
         public TokenListResp()
@@ -32,10 +33,12 @@ namespace OSS.Common.BasicMos.Resp
         {
         }
 
-        /// <summary>
-        ///  和结果列表对应的token字典
-        /// </summary>
+        /// <inheritdoc />
         public Dictionary<string, string> tokens { get; internal set; }
+
+        /// <inheritdoc />
+        public Dictionary<string, Dictionary<string, string>> relate_tokens { get; internal set; }
+
     }
 
     /// <summary>
@@ -79,6 +82,34 @@ namespace OSS.Common.BasicMos.Resp
             if (listRes.data != null)
             {
                 listRes.tokens = listRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x));
+            }
+            return listRes;
+        }
+
+        /// <summary>
+        ///  处理列表token处理
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="listRes"></param>
+        /// <param name="relateKeyName">关联的key名称，以名称寻找对应的key值和通行token</param>
+        /// <param name="tokenKeySelector">对应relateKeyName对应的每行key值选择器</param>
+        /// <param name="tokenValueSelector">对应relateKeyName对应的每行token值生成器</param>
+        /// <returns></returns>
+        public static TokenListResp<TResult> WithRelateToken<TResult>(this TokenListResp<TResult> listRes, string relateKeyName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueSelector)
+        {
+            if (tokenKeySelector == null || tokenValueSelector == null)
+            {
+                throw new ArgumentNullException("tokenSelector can not be null!");
+            }
+
+            if (listRes.data != null)
+            {
+                if (listRes.relate_tokens == null)
+                {
+                    listRes.relate_tokens = new Dictionary<string, Dictionary<string, string>>();
+                }
+
+                listRes.relate_tokens.AddOrUpdate(relateKeyName, listRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x)));
             }
             return listRes;
         }

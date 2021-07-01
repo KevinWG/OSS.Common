@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OSS.Common.Extension;
 
 namespace OSS.Common.BasicMos.Resp
 {
@@ -20,23 +21,23 @@ namespace OSS.Common.BasicMos.Resp
     ///  分页实体（附带列表对应通行token字典
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public class PageTokenListResp<TModel> : PageListResp<TModel>
+    public class PageTokenListResp<TModel> : PageListResp<TModel>, IListPassTokens
     {
         /// <inheritdoc />
         public PageTokenListResp()
         {
         }
-
-
+        
         /// <inheritdoc />
         public PageTokenListResp(long totalCount, IList<TModel> list):base(totalCount, list)
         {
         }
-
-        /// <summary>
-        ///  和结果列表对应的token字典
-        /// </summary>
+        
+        /// <inheritdoc />
         public Dictionary<string, string> tokens { get;internal set; }
+
+        /// <inheritdoc />
+        public Dictionary<string, Dictionary<string, string>> relate_tokens { get; internal set; }
     }
 
     /// <summary>
@@ -69,6 +70,7 @@ namespace OSS.Common.BasicMos.Resp
         public long total { get; set; }
         
     }
+
 
     /// <summary>
     /// 分页实体扩展
@@ -109,11 +111,40 @@ namespace OSS.Common.BasicMos.Resp
             {
                 throw new ArgumentNullException("tokenSelector can not be null!");
             }
+
             if (pageRes.data!=null)
             {
                 pageRes.tokens = pageRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x));
             }
+            return pageRes;
+        }
 
+
+        /// <summary>
+        ///  处理列表token处理
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pageRes"></param>
+        /// <param name="relateKeyName">关联的key名称，以名称寻找对应的key值和通行token</param>
+        /// <param name="tokenKeySelector">对应relateKeyName对应的每行key值选择器</param>
+        /// <param name="tokenValueSelector">对应relateKeyName对应的每行token值生成器</param>
+        /// <returns></returns>
+        public static PageTokenListResp<TResult> WithRelateToken<TResult>(this PageTokenListResp<TResult> pageRes,string relateKeyName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueSelector)
+        {
+            if (tokenKeySelector == null || tokenValueSelector == null)
+            {
+                throw new ArgumentNullException("tokenSelector can not be null!");
+            }
+
+            if (pageRes.data != null)
+            {
+                if (pageRes.relate_tokens==null)
+                {
+                    pageRes.relate_tokens = new Dictionary<string, Dictionary<string, string>>();
+                }
+
+                pageRes.relate_tokens.AddOrUpdate(relateKeyName, pageRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x)));
+            }
             return pageRes;
         }
 
