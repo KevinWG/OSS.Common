@@ -96,28 +96,42 @@ namespace OSS.Common.BasicMos.Resp
             pageRes.total = pageList.total;
             return pageRes;
         }
-        
+
         /// <summary>
         ///  处理列表token处理
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="pageRes"></param>
-        /// <param name="tokenKeySelector"></param>
-        /// <param name="tokenValueSelector"></param>
+        /// <param name="keyValueSelector"></param>
+        /// <param name="keyValueTokenSelector"></param>
         /// <returns></returns>
-        public static PageTokenListResp<TResult> WithToken< TResult>(this PageTokenListResp<TResult> pageRes,Func<TResult,string> tokenKeySelector,Func<TResult,string> tokenValueSelector)
+        public static PageTokenListResp<TResult> WithToken< TResult>(this PageTokenListResp<TResult> pageRes,Func<TResult,string> keyValueSelector, Func<TResult,string> keyValueTokenSelector)
         {
-            if (tokenKeySelector==null|| tokenValueSelector==null)
+            if (keyValueSelector == null|| keyValueTokenSelector==null)
             {
                 throw new ArgumentNullException("tokenSelector can not be null!");
             }
 
             if (pageRes.data!=null)
             {
-                pageRes.tokens = pageRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x));
+                pageRes.tokens = GetTokenDics(pageRes.data, keyValueSelector, keyValueTokenSelector);
             }
             return pageRes;
         }
+
+
+
+        private static Dictionary<string, string> GetTokenDics<TResult>(IList<TResult> items, Func<TResult, string> KeyValueSelector, Func<TResult, string> keyValueTokenSelector)
+        {
+            var dics = new Dictionary<string, string>(items.Count);
+            foreach (var dataItem in items)
+            {
+                var key = KeyValueSelector(dataItem);
+                dics[key] = keyValueTokenSelector(dataItem);
+            }
+            return dics;
+        }
+        
 
 
         /// <summary>
@@ -126,12 +140,12 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TResult"></typeparam>
         /// <param name="pageRes"></param>
         /// <param name="relateKeyName">关联的key名称，以名称寻找对应的key值和通行token</param>
-        /// <param name="tokenKeySelector">对应relateKeyName对应的每行key值选择器</param>
-        /// <param name="tokenValueSelector">对应relateKeyName对应的每行token值生成器</param>
+        /// <param name="keyValueSelector">对应relateKeyName对应的每行key值选择器</param>
+        /// <param name="keyValueTokenSelector">对应relateKeyName对应的每行token值生成器</param>
         /// <returns></returns>
-        public static PageTokenListResp<TResult> WithRelateToken<TResult>(this PageTokenListResp<TResult> pageRes,string relateKeyName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueSelector)
+        public static PageTokenListResp<TResult> WithRelateToken<TResult>(this PageTokenListResp<TResult> pageRes,string relateKeyName, Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
         {
-            if (tokenKeySelector == null || tokenValueSelector == null)
+            if (keyValueSelector == null || keyValueTokenSelector == null)
             {
                 throw new ArgumentNullException("tokenSelector can not be null!");
             }
@@ -143,7 +157,7 @@ namespace OSS.Common.BasicMos.Resp
                     pageRes.relate_tokens = new Dictionary<string, Dictionary<string, string>>();
                 }
 
-                pageRes.relate_tokens.AddOrUpdate(relateKeyName, pageRes.data.ToDictionary(x => tokenKeySelector(x), x => tokenValueSelector(x)));
+                pageRes.relate_tokens[relateKeyName]= GetTokenDics(pageRes.data,keyValueSelector,  keyValueTokenSelector);
             }
             return pageRes;
         }

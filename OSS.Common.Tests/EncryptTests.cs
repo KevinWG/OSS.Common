@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Encrypt;
 using OSS.Common.Extention;

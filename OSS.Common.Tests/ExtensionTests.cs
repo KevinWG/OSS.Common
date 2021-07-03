@@ -17,7 +17,7 @@ namespace OSS.Common.Tests
             var obj = new TestXml();
 
             obj.Name = new XmlDocument().CreateCDataSection("ssssss");
-            obj.items = new List<TestItem>() { new TestItem() { house = "beijing", age = 20 } };
+            obj.items = new List<TestItemMo>() { new TestItemMo() { house = "beijing", age = 20 } };
 
             string reslt = obj.SerializeToXml();//"<xml><name><![CDATA[toUser]]></name> </xml>";
             var res = reslt.DeserializeXml<TestXml>();
@@ -75,13 +75,6 @@ namespace OSS.Common.Tests
         /// /
         /// </summary>
         [XmlElement("Items")]
-        public List<TestItem> items { get; set; }
-    }
-
-    public class TestItem
-    {
-        public string house { get; set; }
-
-        public int age { get; set; }
+        public List<TestItemMo> items { get; set; }
     }
 }
