@@ -12,8 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using OSS.Common.Extension;
 
 namespace OSS.Common.BasicMos.Resp
 {
@@ -21,23 +19,20 @@ namespace OSS.Common.BasicMos.Resp
     ///  分页实体（附带列表对应通行token字典
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public class PageTokenListResp<TModel> : PageListResp<TModel>, IListPassTokens
+    public class PageTokenListResp<TModel> : PageListResp<TModel>, IListPassTokens<TModel>
     {
         /// <inheritdoc />
         public PageTokenListResp()
         {
         }
-        
-        /// <inheritdoc />
-        public PageTokenListResp(long totalCount, IList<TModel> list):base(totalCount, list)
-        {
-        }
-        
-        /// <inheritdoc />
-        public Dictionary<string, string> tokens { get;internal set; }
 
         /// <inheritdoc />
-        public Dictionary<string, Dictionary<string, string>> relate_tokens { get; internal set; }
+        public PageTokenListResp(long totalCount, IList<TModel> list) : base(totalCount, list)
+        {
+        }
+
+        /// <inheritdoc />
+        public Dictionary<string, Dictionary<string, string>> pass_tokens { get; set; }
     }
 
     /// <summary>
@@ -60,7 +55,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="totalCount"></param>
         public PageListResp(long totalCount, IList<TModel> list)
         {
-            data = list;
+            data       = list;
             this.total = totalCount;
         }
 
@@ -68,7 +63,7 @@ namespace OSS.Common.BasicMos.Resp
         /// 总数
         /// </summary>
         public long total { get; set; }
-        
+
     }
 
 
@@ -86,7 +81,8 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="pageList"></param>
         /// <param name="convertFun"></param>
         /// <returns></returns>
-        public static PageListResp<TResult> WithPageList<TPara, TResult>(this PageListResp<TResult> pageRes, PageListResp<TPara> pageList,
+        public static PageListResp<TResult> WithPageList<TPara, TResult>(this PageListResp<TResult> pageRes,
+            PageListResp<TPara> pageList,
             Func<TPara, TResult> convertFun)
             where TResult : class, new()
             where TPara : class, new()
@@ -101,67 +97,17 @@ namespace OSS.Common.BasicMos.Resp
         ///  处理列表token处理
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
-        /// <param name="pageRes"></param>
-        /// <param name="keyValueSelector"></param>
-        /// <param name="keyValueTokenSelector"></param>
+        /// <param name="listRes"></param>
+        /// <param name="tokenColumnName">关联的key列名称</param>
+        /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
+        /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
-        public static PageTokenListResp<TResult> WithToken< TResult>(this PageTokenListResp<TResult> pageRes,Func<TResult,string> keyValueSelector, Func<TResult,string> keyValueTokenSelector)
+        public static PageTokenListResp<TResult> AddColumnPassToken<TResult>(this PageTokenListResp<TResult> listRes,
+            string tokenColumnName, Func<TResult, string> tokenKeySelector,
+            Func<TResult, string> tokenValueTokenSelector)
         {
-            if (keyValueSelector == null|| keyValueTokenSelector==null)
-            {
-                throw new ArgumentNullException("tokenSelector can not be null!");
-            }
-
-            if (pageRes.data!=null)
-            {
-                pageRes.tokens = GetTokenDics(pageRes.data, keyValueSelector, keyValueTokenSelector);
-            }
-            return pageRes;
+            listRes.InterAddColumnPassToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+            return listRes;
         }
-
-
-
-        private static Dictionary<string, string> GetTokenDics<TResult>(IList<TResult> items, Func<TResult, string> KeyValueSelector, Func<TResult, string> keyValueTokenSelector)
-        {
-            var dics = new Dictionary<string, string>(items.Count);
-            foreach (var dataItem in items)
-            {
-                var key = KeyValueSelector(dataItem);
-                dics[key] = keyValueTokenSelector(dataItem);
-            }
-            return dics;
-        }
-        
-
-
-        /// <summary>
-        ///  处理列表token处理
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="pageRes"></param>
-        /// <param name="relateKeyName">关联的key名称，以名称寻找对应的key值和通行token</param>
-        /// <param name="keyValueSelector">对应relateKeyName对应的每行key值选择器</param>
-        /// <param name="keyValueTokenSelector">对应relateKeyName对应的每行token值生成器</param>
-        /// <returns></returns>
-        public static PageTokenListResp<TResult> WithRelateToken<TResult>(this PageTokenListResp<TResult> pageRes,string relateKeyName, Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
-        {
-            if (keyValueSelector == null || keyValueTokenSelector == null)
-            {
-                throw new ArgumentNullException("tokenSelector can not be null!");
-            }
-
-            if (pageRes.data != null)
-            {
-                if (pageRes.relate_tokens==null)
-                {
-                    pageRes.relate_tokens = new Dictionary<string, Dictionary<string, string>>();
-                }
-
-                pageRes.relate_tokens[relateKeyName]= GetTokenDics(pageRes.data,keyValueSelector,  keyValueTokenSelector);
-            }
-            return pageRes;
-        }
-
     }
-
 }
