@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.3.3.11</Version>
+    <Version>2.3.3.12</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
     <PackageReleaseNotes>优化List关联token扩展</PackageReleaseNotes>
-    <AssemblyVersion>2.3.3.11</AssemblyVersion>
-    <FileVersion>2.3.3.11</FileVersion>
+    <AssemblyVersion>2.3.3.12</AssemblyVersion>
+    <FileVersion>2.3.3.12</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 

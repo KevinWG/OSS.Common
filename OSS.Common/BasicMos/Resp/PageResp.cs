@@ -92,7 +92,7 @@ namespace OSS.Common.BasicMos.Resp
             pageRes.total = pageList.total;
             return pageRes;
         }
-
+        
         /// <summary>
         ///  处理列表token处理
         /// </summary>
@@ -108,6 +108,36 @@ namespace OSS.Common.BasicMos.Resp
         {
             listRes.InterAddColumnPassToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
             return listRes;
+        }
+
+
+        /// <summary>
+        ///  转化为通行token分页列表
+        /// </summary>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="pageList"></param>
+        /// <returns></returns>
+        public static PageTokenListResp<TData> ToPageTokenList<TData>(this PageListResp<TData> pageList)
+        {
+            return new PageTokenListResp<TData>(pageList.total, pageList.data)
+                .WithResp(pageList);
+        }
+
+        /// <summary>
+        /// 转化通行token分页列表
+        /// -附带指定列的token处理
+        /// </summary>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="pageList"></param>
+        /// <param name="tokenColumnName">关联的key列名称</param>
+        /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
+        /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
+        /// <returns></returns>
+        public static PageTokenListResp<TData> ToPageTokenList<TData>(this PageListResp<TData> pageList, string tokenColumnName,
+            Func<TData, string> tokenKeySelector,
+            Func<TData, string> tokenValueTokenSelector)
+        {
+            return pageList.ToPageTokenList().AddColumnPassToken(tokenColumnName, tokenKeySelector,tokenValueTokenSelector);
         }
     }
 }
