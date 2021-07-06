@@ -106,7 +106,7 @@ namespace OSS.Common.BasicMos.Resp
             string tokenColumnName, Func<TResult, string> tokenKeySelector,
             Func<TResult, string> tokenValueTokenSelector)
         {
-            listRes.InterAddColumnPassToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+            IListPassTokensMap.AddColumnPassToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
             return listRes;
         }
 

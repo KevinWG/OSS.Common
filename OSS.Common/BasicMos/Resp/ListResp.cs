@@ -15,8 +15,6 @@ using System.Collections.Generic;
 
 namespace OSS.Common.BasicMos.Resp
 {
-   
-
     /// <summary>
     /// 列表结果实体
     /// </summary>
@@ -74,7 +72,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <returns></returns>
         public static TokenListResp<TResult> AddColumnPassToken<TResult>(this TokenListResp<TResult> listRes, string tokenColumnName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
         {
-             listRes.InterAddColumnPassToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+            IListPassTokensMap.AddColumnPassToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
              return listRes;
         }
         
