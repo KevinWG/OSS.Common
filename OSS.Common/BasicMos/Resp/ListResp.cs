@@ -97,7 +97,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
         /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
-        public static TokenListResp<TData> ToPageTokenList<TData>(this ListResp<TData> listRes, string tokenColumnName, Func<TData, string> tokenKeySelector,
+        public static TokenListResp<TData> ToTokenList<TData>(this ListResp<TData> listRes, string tokenColumnName, Func<TData, string> tokenKeySelector,
             Func<TData, string> tokenValueTokenSelector)
         {
             return listRes.ToTokenList().AddColumnPassToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
