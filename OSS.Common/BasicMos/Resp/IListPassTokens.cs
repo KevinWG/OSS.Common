@@ -58,7 +58,10 @@ namespace OSS.Common.BasicMos.Resp
             foreach (var dataItem in items)
             {
                 var key = keyValueSelector(dataItem);
-                dics[key] = keyValueTokenSelector(dataItem);
+                if (!string.IsNullOrEmpty(key))
+                {
+                    dics[key] = keyValueTokenSelector(dataItem);
+                }
             }
             return dics;
         }
