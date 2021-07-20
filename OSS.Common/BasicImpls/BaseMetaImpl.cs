@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using OSS.Common.BasicMos.Resp;
 
 namespace OSS.Common.BasicImpls
 {
-
-
     /// <summary>
     ///  通用配置实现基类
     /// </summary>
+    [Obsolete("废弃，属于过度设计，引入问题大于实际带来的效果！")]
     public abstract class BaseMetaImpl<TMetaType>
         where TMetaType : class
     {
@@ -41,9 +41,10 @@ namespace OSS.Common.BasicImpls
             }
 
             var defaultMeta = GetDefaultMeta();
-            return Task.FromResult(defaultMeta != null 
-                ? new Resp<TMetaType>(defaultMeta) 
-                : new Resp<TMetaType>().WithResp(RespTypes.ObjectNull, "未发现任何配置信息,你可在构造函数中注入IMetaProvider实现，也可以重写GetDefaultMeta方法来完成配置的提供!"));
+            return Task.FromResult(defaultMeta != null
+                ? new Resp<TMetaType>(defaultMeta)
+                : new Resp<TMetaType>().WithResp(RespTypes.ObjectNull,
+                    "未发现任何配置信息,你可在构造函数中注入IMetaProvider实现，也可以重写GetDefaultMeta方法来完成配置的提供!"));
         }
 
 

@@ -11,11 +11,14 @@
 
 #endregion
 
+using System;
+
 namespace OSS.Common.BasicMos
 {
     /// <summary>
     /// 通用应用账号配置信息  
     /// </summary>
+    [Obsolete("废弃，代理和被代理关系颠倒！")]
     public class AppConfig
     {
         /// <summary>
@@ -24,7 +27,7 @@ namespace OSS.Common.BasicMos
         public AppConfig()
         {
         }
-        
+
         /// <summary>
         ///  构造函数
         /// </summary>
@@ -32,7 +35,7 @@ namespace OSS.Common.BasicMos
         /// <param name="appSecret"></param>
         public AppConfig(string appId, string appSecret)
         {
-            AppId = appId;
+            AppId     = appId;
             AppSecret = appSecret;
         }
 
@@ -67,6 +70,7 @@ namespace OSS.Common.BasicMos
         ///  自管理
         /// </summary>
         BySelf,
+
         /// <summary>
         /// 代理操作
         /// </summary>

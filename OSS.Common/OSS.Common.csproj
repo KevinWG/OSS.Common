@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.3.3.16</Version>
+    <Version>2.3.3.17</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
@@ -13,9 +13,9 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
 
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <AssemblyVersion>2.3.3.16</AssemblyVersion>
-    <FileVersion>2.3.3.16</FileVersion>
+    <PackageReleaseNotes>优化结构</PackageReleaseNotes>
+    <AssemblyVersion>2.3.3.17</AssemblyVersion>
+    <FileVersion>2.3.3.17</FileVersion>
 
     <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 

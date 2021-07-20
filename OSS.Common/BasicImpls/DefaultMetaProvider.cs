@@ -9,6 +9,7 @@ namespace OSS.Common.BasicImpls
     /// 元配置信息提供接口定义
     /// </summary>
     /// <typeparam name="TMetaType">元配置信息类型</typeparam>
+    [Obsolete("废弃，属于过度设计，引入问题大于实际带来的效果！")]
     public interface IMetaProvider<TMetaType>
         where TMetaType : class
     {
@@ -44,6 +45,7 @@ namespace OSS.Common.BasicImpls
     ///  带默认Meta属性的MetaProvider实现
     /// </summary>
     /// <typeparam name="TMetaType"></typeparam>
+    [Obsolete("废弃，属于过度设计，引入问题大于实际带来的效果！")]
     public class DefaultMetaProvider<TMetaType> : IMetaProvider<TMetaType>
         where TMetaType : class
     {

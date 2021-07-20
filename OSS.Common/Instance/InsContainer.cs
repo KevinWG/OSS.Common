@@ -13,7 +13,7 @@
 
 using System;
 
-namespace OSS.Common.Helpers
+namespace OSS.Common
 {
     /// <summary>
     ///   Ioc简单实例容器实现
