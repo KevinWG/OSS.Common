@@ -13,12 +13,13 @@
 
 using System;
 
-namespace OSS.Common
+namespace OSS.Common.BasicImpls
 {
     /// <summary>
     /// 单例基础实现
     /// </summary>
     /// <typeparam name="T"></typeparam>
+   [Obsolete]
     public class SingleInstance<T>
         where T : new()
     {
