@@ -25,7 +25,7 @@ namespace OSS.Common.Extension
         /// <summary>
         /// Url编码处理
         /// </summary>
-        [Obsolete("请使用 EscapedUriStringOrDefault 或者 EscapedUriDataStringOrDefault")]
+        [Obsolete("请使用 SafeEscapeUriString 或者 SafeEscapeUriDataString")]
         public static string UrlEncode(this string input)
         {
             return string.IsNullOrEmpty(input)
@@ -37,7 +37,7 @@ namespace OSS.Common.Extension
         /// Url解码处理
         ///   不会把“+”转空格  可以自行 Replace('+',' ')
         /// </summary>
-        [Obsolete("请使用 UnescapedUriStringOrDefault ")]
+        [Obsolete("请使用 SafeUnescapeUriString ")]
         public static string UrlDecode(this string input)
         {
             return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
@@ -47,7 +47,7 @@ namespace OSS.Common.Extension
         /// Uri编码处理
         ///    "+" 不做处理
         /// </summary>
-        public static string EscapedUriStringOrDefault(this string input)
+        public static string SafeEscapeUriString(this string input)
         {
             return string.IsNullOrEmpty(input)
                 ? string.Empty
@@ -58,7 +58,7 @@ namespace OSS.Common.Extension
         /// Uri编码处理
         ///  "+" 转为 "%2B"
         /// </summary>
-        public static string EscapedUriDataStringOrDefault(this string input)
+        public static string SafeEscapeUriDataString(this string input)
         {
             return string.IsNullOrEmpty(input)
                 ? string.Empty
@@ -69,7 +69,7 @@ namespace OSS.Common.Extension
         /// Uri解码处理
         ///   "+" 不做处理，有需要的可以自行 Replace('+',' ')
         /// </summary>
-        public static string UnescapedUriStringOrDefault(this string input)
+        public static string SafeUnescapeUriString(this string input)
         {
             return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
         }
