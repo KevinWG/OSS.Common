@@ -25,6 +25,7 @@ namespace OSS.Common.Extension
         /// <summary>
         /// Url编码处理
         /// </summary>
+        [Obsolete("请使用 EscapedUriStringOrDefault 或者 EscapedUriDataStringOrDefault")]
         public static string UrlEncode(this string input)
         {
             return string.IsNullOrEmpty(input)
@@ -34,17 +35,50 @@ namespace OSS.Common.Extension
 
         /// <summary>
         /// Url解码处理
+        ///   不会把“+”转空格  可以自行 Replace('+',' ')
         /// </summary>
+        [Obsolete("请使用 UnescapedUriStringOrDefault ")]
         public static string UrlDecode(this string input)
         {
             return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
         }
 
+        /// <summary>
+        /// Uri编码处理
+        ///    "+" 不做处理
+        /// </summary>
+        public static string EscapedUriStringOrDefault(this string input)
+        {
+            return string.IsNullOrEmpty(input)
+                ? string.Empty
+                : Uri.EscapeUriString(input);
+        }
+
+        /// <summary>
+        /// Uri编码处理
+        ///  "+" 转为 "%2B"
+        /// </summary>
+        public static string EscapedUriDataStringOrDefault(this string input)
+        {
+            return string.IsNullOrEmpty(input)
+                ? string.Empty
+                : Uri.EscapeDataString(input);
+        }
+
+        /// <summary>
+        /// Uri解码处理
+        ///   "+" 不做处理，有需要的可以自行 Replace('+',' ')
+        /// </summary>
+        public static string UnescapedUriStringOrDefault(this string input)
+        {
+            return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
+        }
+        
         #endregion
 
 
         #region Base64编码
-        
+
         /// <summary>
         ///    转换字符串为Base64编码
         /// </summary>

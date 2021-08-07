@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicMos\Resp\RespTests.cs" />
+    <Compile Include="Extension\StringExtensionTests.cs" />
     <Compile Include="Extension\IndentExtensionTests.cs" />
     <Compile Include="ExtensionTests.cs" />
     <Compile Include="TestItemMo.cs" />
