@@ -10,13 +10,12 @@ namespace OSS.Common.Tests.Extension
         [TestMethod]
         public void TestMethod1()
         {
-            string testData = " test+";
+            string testData = " test=str+";
 
             var esStr     = testData.EscapedUriStringOrDefault();
             var esDataStr = testData.EscapedUriDataStringOrDefault();
 
             var data = testData.UnescapedUriStringOrDefault();
-
         }
 
     }

@@ -18,7 +18,7 @@ namespace OSS.Common.BasicMos
     /// <summary>
     /// 通用应用账号配置信息  
     /// </summary>
-    [Obsolete("废弃，代理和被代理关系颠倒！")]
+    [Obsolete("")]
     public class AppConfig
     {
         /// <summary>
