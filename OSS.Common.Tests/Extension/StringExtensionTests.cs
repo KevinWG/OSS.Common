@@ -12,10 +12,10 @@ namespace OSS.Common.Tests.Extension
         {
             string testData = " test=str+";
 
-            var esStr     = testData.EscapedUriStringOrDefault();
-            var esDataStr = testData.EscapedUriDataStringOrDefault();
+            var esStr     = testData.SafeEscapeUriString();
+            var esDataStr = testData.SafeEscapeUriDataString();
 
-            var data = testData.UnescapedUriStringOrDefault();
+            var data = testData.SafeUnescapeUriString();
         }
 
     }

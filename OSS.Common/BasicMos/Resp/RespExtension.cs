@@ -207,20 +207,21 @@ namespace OSS.Common.BasicMos.Resp
             return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
-        ///// <summary>
-        ///// 处理响应转化
-        ///// </summary>
-        ///// <param name="res"></param>
-        ///// <param name="rExc"></param>
-        ///// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
-        ///// <typeparam name="TRes"></typeparam>
-        ///// <returns></returns>
-        //public static TRes WithException<TRes>(this TRes res, RespException rExc, string errMsg = null)
-        //    where TRes : Resp
-        //{
-        //    res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
-        //    return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
-        //}
+        /// <summary>
+        /// 处理响应转化
+        /// </summary>
+        /// <param name="res"></param>
+        /// <param name="rExc"></param>
+        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
+        /// <typeparam name="TRes"></typeparam>
+        /// <returns></returns>
+        [Obsolete]
+        public static TRes WithException<TRes>(this TRes res, RespException rExc, string errMsg = null)
+            where TRes : Resp
+        {
+            res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
+            return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
+        }
 
         #region 附带 data 转化处理
 
