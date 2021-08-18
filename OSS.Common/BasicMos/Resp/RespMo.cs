@@ -15,8 +15,13 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     /// 响应实体
     /// </summary>
-    public class Resp
+    public class Resp: IReadonlyResp
     {
+        /// <summary>
+        ///  默认成功结果
+        /// </summary>
+        public static readonly IReadonlyResp Success = new Resp();
+
         /// <summary>
         /// 构造响应类
         /// </summary>
@@ -67,7 +72,7 @@ namespace OSS.Common.BasicMos.Resp
         ///  13xxx   参数相关错误 
         ///  14xxx   用户授权相关错误
         ///  15xxx   服务器内部相关错误信息
-        ///  16xxx   系统级定制错误信息，如升级维护等
+        ///  16xxx(及其他)   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
         /// </summary>
         public int ret
@@ -93,18 +98,12 @@ namespace OSS.Common.BasicMos.Resp
         public string msg { get; set; }
 
     }
-
-    /// <summary>
-    ///  响应实体协变接口
-    /// </summary>
-    /// <typeparam name="TType"></typeparam>
-    public interface IResp<out TType>{}
-
+    
     /// <summary>
     /// 响应实体泛型
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public class Resp<TType> : Resp, IResp<TType>
+    public class Resp<TType> : Resp, IReadonlyResp<TType>
     {
         /// <inheritdoc />
         public Resp()

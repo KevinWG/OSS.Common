@@ -51,7 +51,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this BasicMos.Resp.Resp res, SysRespTypes type) =>
+        public static bool IsSysRespType(this Resp res, SysRespTypes type) =>
             res.sys_ret == (int) type;
 
         #endregion
@@ -200,27 +200,27 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, Resp tPara, string errMsg = null)
+        public static TRes WithResp<TRes>(this TRes res, IReadonlyResp tPara, string errMsg = null)
             where TRes : Resp
         {
             res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
             return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
-        /// <summary>
-        /// 处理响应转化
-        /// </summary>
-        /// <param name="res"></param>
-        /// <param name="rExc"></param>
-        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
-        /// <typeparam name="TRes"></typeparam>
-        /// <returns></returns>
-        public static TRes WithException<TRes>(this TRes res, RespException rExc, string errMsg = null)
-            where TRes : Resp
-        {
-            res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
-            return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
-        }
+        ///// <summary>
+        ///// 处理响应转化
+        ///// </summary>
+        ///// <param name="res"></param>
+        ///// <param name="rExc"></param>
+        ///// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
+        ///// <typeparam name="TRes"></typeparam>
+        ///// <returns></returns>
+        //public static TRes WithException<TRes>(this TRes res, RespException rExc, string errMsg = null)
+        //    where TRes : Resp
+        //{
+        //    res.WithResp(rExc.sys_ret, rExc.ret, rExc.msg);
+        //    return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
+        //}
 
         #region 附带 data 转化处理
 
@@ -235,7 +235,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
              Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
         {
             if ((isNullCheck && tPara.data != null)
@@ -256,7 +256,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, Resp<TPara> tPara,
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
            Func<TPara, TRes> convertFunc, bool isNullCheck=true)
         {
             return res.WithResp(tPara, convertFunc, null, isNullCheck);
