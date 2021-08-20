@@ -20,7 +20,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <summary>
         ///  默认成功结果
         /// </summary>
-        public static readonly IReadonlyResp Success = new Resp();
+        public static readonly IReadonlyResp DefaultSuccess = new Resp();
 
         /// <summary>
         /// 构造响应类
