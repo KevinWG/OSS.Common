@@ -31,6 +31,15 @@ namespace OSS.Common.BasicMos.Resp
         {
         }
 
+
+        ///// <inheritdoc />
+        //public PageTokenListResp(PageListResp<TModel> pageRes) : base(pageRes.total, pageRes.data)
+        //{
+        //    ret     = pageRes.ret;
+        //    sys_ret = pageRes.sys_ret;
+        //    msg     = pageRes.msg;
+        //}
+
         /// <inheritdoc />
         public Dictionary<string, Dictionary<string, string>> pass_tokens { get; set; }
     }
@@ -53,10 +62,9 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="list"></param>
         /// <param name="totalCount"></param>
-        public PageListResp(long totalCount, IList<TModel> list)
+        public PageListResp(long totalCount, IList<TModel> list):base(list)
         {
-            data       = list;
-            this.total = totalCount;
+            total = totalCount;
         }
 
         /// <summary>
@@ -102,11 +110,11 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
         /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
-        public static PageTokenListResp<TResult> AddColumnPassToken<TResult>(this PageTokenListResp<TResult> listRes,
+        public static PageTokenListResp<TResult> AddColumnToken<TResult>(this PageTokenListResp<TResult> listRes,
             string tokenColumnName, Func<TResult, string> tokenKeySelector,
             Func<TResult, string> tokenValueTokenSelector)
         {
-            IListPassTokensMap.AddColumnPassToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+            IListPassTokensMap.AddColumnToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
             return listRes;
         }
 
@@ -137,7 +145,7 @@ namespace OSS.Common.BasicMos.Resp
             Func<TData, string> tokenKeySelector,
             Func<TData, string> tokenValueTokenSelector)
         {
-            return pageList.ToPageTokenList().AddColumnPassToken(tokenColumnName, tokenKeySelector,tokenValueTokenSelector);
+            return pageList.ToPageTokenList().AddColumnToken(tokenColumnName, tokenKeySelector,tokenValueTokenSelector);
         }
     }
 }

@@ -31,6 +31,8 @@ namespace OSS.Common.BasicMos.Resp
         {
             this.data = data;
         }
+
+
     }
 
 
@@ -44,6 +46,14 @@ namespace OSS.Common.BasicMos.Resp
         public TokenListResp()
         {
         }
+
+        ///// <inheritdoc />
+        //public TokenListResp(ListResp<TType> listRes) : base(listRes.data)
+        //{
+        //    ret     = listRes.ret;
+        //    sys_ret = listRes.sys_ret;
+        //    msg     = listRes.msg;
+        //}
 
         /// <inheritdoc />
         public TokenListResp(IList<TType> data) : base(data)
@@ -70,9 +80,9 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
         /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
-        public static TokenListResp<TResult> AddColumnPassToken<TResult>(this TokenListResp<TResult> listRes, string tokenColumnName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
+        public static TokenListResp<TResult> AddColumnToken<TResult>(this TokenListResp<TResult> listRes, string tokenColumnName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
         {
-            IListPassTokensMap.AddColumnPassToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+            IListPassTokensMap.AddColumnToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
              return listRes;
         }
         
@@ -100,7 +110,7 @@ namespace OSS.Common.BasicMos.Resp
         public static TokenListResp<TData> ToTokenList<TData>(this ListResp<TData> listRes, string tokenColumnName, Func<TData, string> tokenKeySelector,
             Func<TData, string> tokenValueTokenSelector)
         {
-            return listRes.ToTokenList().AddColumnPassToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+            return listRes.ToTokenList().AddColumnToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
         }
     }
 }

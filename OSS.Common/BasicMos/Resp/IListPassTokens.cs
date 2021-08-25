@@ -33,7 +33,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
         /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
-        public static IListPassTokens<TResult> AddColumnPassToken<TResult>(this IListPassTokens<TResult> listRes, string tokenColumnName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
+        public static IListPassTokens<TResult> AddColumnToken<TResult>(this IListPassTokens<TResult> listRes, string tokenColumnName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
         {
             if (string.IsNullOrEmpty(tokenColumnName)|| tokenKeySelector == null || tokenValueTokenSelector == null)
             {
