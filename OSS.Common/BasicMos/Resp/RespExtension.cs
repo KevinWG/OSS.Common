@@ -311,5 +311,17 @@ namespace OSS.Common.BasicMos.Resp
         {
             return Task.FromResult(res);
         }
+
+        /// <summary>
+        ///  转化简单Task结果实体
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="resTask"></param>
+        /// <returns></returns>
+        public static async Task<Resp> ToTaskResp<TRes>(this Task<TRes> resTask)
+            where TRes : Resp
+        {
+            return await resTask;
+        }
     }
 }
