@@ -24,7 +24,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <summary>
         /// 运行正常
         /// </summary>
-        [OSDescribe("运行正常")] Ok = 0,
+        [OSDescribe("OK")] Ok = 0,
 
         /// <summary>
         /// 无法连接

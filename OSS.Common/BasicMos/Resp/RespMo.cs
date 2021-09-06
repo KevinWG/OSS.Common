@@ -10,12 +10,15 @@
 
 #endregion
 
+using System;
+using OSS.Common.Extension;
+
 namespace OSS.Common.BasicMos.Resp
 {
     /// <summary>
     /// 响应实体
     /// </summary>
-    public class Resp: IReadonlyResp
+    public class Resp : IReadonlyResp
     {
         /// <summary>
         ///  默认成功结果
@@ -47,10 +50,11 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="ret">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(RespTypes ret, string message)
-            : this((int) ret, message)
+        public Resp(RespTypes ret, string message = null)
+            : this((int) ret, ret != RespTypes.Success && string.IsNullOrEmpty(message) ? ret.GetDesp() : message)
         {
         }
+
 
         /// <summary>
         ///  构造响应类
@@ -59,9 +63,21 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="message">响应信息描述</param>
         public Resp(SysRespTypes sysRet, string message = null)
         {
-            this.sys_ret = (int)sysRet;
-            this.msg     = message;
+            this.sys_ret = (int) sysRet;
+            this.msg     = sysRet != SysRespTypes.Ok && string.IsNullOrEmpty(message) ? sysRet.GetDesp() : message;
         }
+
+        /// <summary>
+        ///  构造响应类
+        /// </summary>
+        /// <param name="sysRet">【系统/框架】 响应标识</param>
+        /// <param name="message">响应信息描述</param>
+        /// <param name="ret">【业务】响应标识</param>
+        public Resp(SysRespTypes sysRet, string message = null, int ret = 0) : this(sysRet, message)
+        {
+            this.ret = ret;
+        }
+
 
         private int _ret;
 
@@ -86,7 +102,7 @@ namespace OSS.Common.BasicMos.Resp
             }
             set => _ret = value;
         }
-        
+
         /// <summary>
         ///  系统响应
         /// </summary>
@@ -98,7 +114,7 @@ namespace OSS.Common.BasicMos.Resp
         public string msg { get; set; }
 
     }
-    
+
     /// <summary>
     /// 响应实体泛型
     /// </summary>

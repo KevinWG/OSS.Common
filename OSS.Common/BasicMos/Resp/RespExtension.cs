@@ -75,23 +75,7 @@ namespace OSS.Common.BasicMos.Resp
             res.sys_ret = sysRet;
             return res;
         }
-
-        /// <summary>
-        /// 直接设置泛型响应信息，并返回
-        /// </summary>
-        /// <typeparam name="TRes"></typeparam>
-        /// <param name="res"></param>
-        /// <param name="ret"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int ret, string msg)
-            where TRes : Resp
-        {
-            res.ret = ret;
-            res.msg = msg;
-            return res;
-        }
-
+        
         /// <summary>
         /// 直接设置泛型响应信息，并返回
         /// </summary>
@@ -119,6 +103,22 @@ namespace OSS.Common.BasicMos.Resp
             where TRes : Resp
         {
             res.sys_ret = (int)sysRet;
+            res.msg = msg;
+            return res;
+        }
+
+        /// <summary>
+        /// 直接设置泛型响应信息，并返回
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="res"></param>
+        /// <param name="ret"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static TRes WithResp<TRes>(this TRes res, int ret, string msg)
+            where TRes : Resp
+        {
+            res.ret = ret;
             res.msg = msg;
             return res;
         }
