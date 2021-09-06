@@ -24,7 +24,7 @@ namespace OSS.Common.BasicMos.Enums
         /// <summary>
         ///    删除
         /// </summary>
-        [OSDescribe("已删除")] Deleted = -1000,
+        [OSDescribe("已删除")] Deleted = -10000,
 
         /// <summary>
         /// 待激活
@@ -35,7 +35,7 @@ namespace OSS.Common.BasicMos.Enums
         ///   正常
         /// </summary>
         [OSDescribe("正常")] Original = 0,
-
+        
         /// <summary>
         ///  结束
         /// </summary>
