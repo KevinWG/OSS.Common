@@ -16,7 +16,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSuccess(this Resp res) =>
+        public static bool IsSuccess(this IReadonlyResp res) =>
             res.ret == 0;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsDataNull<TType>(this Resp<TType> res) =>
+        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) =>
             res.data == null || res.ret == (int) RespTypes.ObjectNull;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this Resp res, RespTypes type) =>
+        public static bool IsRespType(this IReadonlyResp res, RespTypes type) =>
             res.ret == (int) type;
 
 
@@ -42,7 +42,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this Resp res) =>
+        public static bool IsSysOk(this IReadonlyResp res) =>
             res.sys_ret == 0;
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this Resp res, SysRespTypes type) =>
+        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) =>
             res.sys_ret == (int) type;
 
         #endregion
