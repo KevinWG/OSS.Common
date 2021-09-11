@@ -19,7 +19,7 @@ namespace OSS.Common.BasicMos.Resp
     ///  分页实体（附带列表对应通行token字典
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public class PageTokenListResp<TModel> : PageListResp<TModel>, IListPassTokens<TModel>
+    public class PageTokenListResp<TModel> : PageListResp<TModel>, ITokenList<TModel>
     {
         /// <inheritdoc />
         public PageTokenListResp()
@@ -96,29 +96,10 @@ namespace OSS.Common.BasicMos.Resp
             where TPara : class, new()
         {
             pageRes.WithResp(pageList, convertFun);
-
             pageRes.total = pageList.total;
             return pageRes;
         }
-        
-        /// <summary>
-        ///  处理列表token处理
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="listRes"></param>
-        /// <param name="tokenColumnName">关联的key列名称</param>
-        /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
-        /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
-        /// <returns></returns>
-        public static PageTokenListResp<TResult> AddColumnToken<TResult>(this PageTokenListResp<TResult> listRes,
-            string tokenColumnName, Func<TResult, string> tokenKeySelector,
-            Func<TResult, string> tokenValueTokenSelector)
-        {
-            IListPassTokensMap.AddColumnToken(listRes, tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
-            return listRes;
-        }
-
-
+       
         /// <summary>
         ///  转化为通行token分页列表
         /// </summary>
@@ -131,21 +112,21 @@ namespace OSS.Common.BasicMos.Resp
                 .WithResp(pageList);
         }
 
-        /// <summary>
-        /// 转化通行token分页列表
-        /// -附带指定列的token处理
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="pageList"></param>
-        /// <param name="tokenColumnName">关联的key列名称</param>
-        /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
-        /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
-        /// <returns></returns>
-        public static PageTokenListResp<TData> ToPageTokenList<TData>(this PageListResp<TData> pageList, string tokenColumnName,
-            Func<TData, string> tokenKeySelector,
-            Func<TData, string> tokenValueTokenSelector)
-        {
-            return pageList.ToPageTokenList().AddColumnToken(tokenColumnName, tokenKeySelector,tokenValueTokenSelector);
-        }
+        ///// <summary>
+        ///// 转化通行token分页列表
+        ///// -附带指定列的token处理
+        ///// </summary>
+        ///// <typeparam name="TData"></typeparam>
+        ///// <param name="pageList"></param>
+        ///// <param name="tokenColumnName">关联的key列名称</param>
+        ///// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
+        ///// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
+        ///// <returns></returns>
+        //public static PageTokenListResp<TData> ToPageTokenList<TData>(this PageListResp<TData> pageList, string tokenColumnName,
+        //    Func<TData, string> tokenKeySelector,
+        //    Func<TData, string> tokenValueTokenSelector)
+        //{
+        //    return pageList.ToPageTokenList().AddColumnToken(tokenColumnName, tokenKeySelector,tokenValueTokenSelector);
+        //}
     }
 }

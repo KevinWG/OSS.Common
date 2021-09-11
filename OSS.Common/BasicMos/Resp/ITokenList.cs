@@ -6,7 +6,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  列表通行token接口
     /// </summary>
-    public interface IListPassTokens<TType>
+    public interface ITokenList<TType>
     {
         /// <summary>
         ///  列表
@@ -28,17 +28,20 @@ namespace OSS.Common.BasicMos.Resp
         ///  处理列表token处理
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TTokenList"></typeparam>
         /// <param name="listRes"></param>
         /// <param name="tokenColumnName">关联的key列名称</param>
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
         /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
-        public static IListPassTokens<TResult> AddColumnToken<TResult>(this IListPassTokens<TResult> listRes, string tokenColumnName, Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
+        public static TTokenList AddColumnToken<TTokenList, TResult>(this TTokenList listRes, string tokenColumnName,
+            Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
+            where TTokenList : ITokenList<TResult>
         {
-            if (string.IsNullOrEmpty(tokenColumnName)|| tokenKeySelector == null || tokenValueTokenSelector == null)
-            {
-                throw new ArgumentNullException($"{nameof(tokenColumnName)},{nameof(tokenKeySelector)},{nameof(tokenValueTokenSelector)}"," 参数不能为空!");
-            }
+            if (string.IsNullOrEmpty(tokenColumnName) || tokenKeySelector == null || tokenValueTokenSelector == null)
+                throw new ArgumentNullException(
+                    $"{nameof(tokenColumnName)},{nameof(tokenKeySelector)},{nameof(tokenValueTokenSelector)}",
+                    " 参数不能为空!");
 
             if (listRes.data != null)
             {
@@ -47,12 +50,15 @@ namespace OSS.Common.BasicMos.Resp
                     listRes.pass_tokens = new Dictionary<string, Dictionary<string, string>>();
                 }
 
-                listRes.pass_tokens[tokenColumnName] = GeneratePassToken(listRes.data, tokenKeySelector, tokenValueTokenSelector);
+                listRes.pass_tokens[tokenColumnName] =
+                    GeneratePassToken(listRes.data, tokenKeySelector, tokenValueTokenSelector);
             }
+
             return listRes;
         }
 
-        public static Dictionary<string, string> GeneratePassToken<TResult>(this IList<TResult> items, Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
+        public static Dictionary<string, string> GeneratePassToken<TResult>(this IList<TResult> items,
+            Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
         {
             var dics = new Dictionary<string, string>(items.Count);
             foreach (var dataItem in items)
@@ -65,9 +71,5 @@ namespace OSS.Common.BasicMos.Resp
             }
             return dics;
         }
-
-
     }
-
-
 }
