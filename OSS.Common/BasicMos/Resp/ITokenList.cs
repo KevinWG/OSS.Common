@@ -22,7 +22,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     /// 通行token列表扩展
     /// </summary>
-    internal static class IListPassTokensMap
+    public static class IListPassTokensMap
     {
         /// <summary>
         ///  处理列表token处理
@@ -57,7 +57,9 @@ namespace OSS.Common.BasicMos.Resp
             return listRes;
         }
 
-        public static Dictionary<string, string> GeneratePassToken<TResult>(this IList<TResult> items,
+
+
+        private static Dictionary<string, string> GeneratePassToken<TResult>(this IList<TResult> items,
             Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
         {
             var dics = new Dictionary<string, string>(items.Count);
