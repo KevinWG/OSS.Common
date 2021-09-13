@@ -51,15 +51,22 @@ namespace OSS.Common.BasicMos.Resp
                 }
 
                 listRes.pass_tokens[tokenColumnName] =
-                    GeneratePassToken(listRes.data, tokenKeySelector, tokenValueTokenSelector);
+                    GenerateColumnToken(listRes.data, tokenKeySelector, tokenValueTokenSelector);
             }
 
             return listRes;
         }
 
 
-
-        private static Dictionary<string, string> GeneratePassToken<TResult>(this IList<TResult> items,
+        /// <summary>
+        ///  生成列表对应的token
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="keyValueSelector"></param>
+        /// <param name="keyValueTokenSelector"></param>
+        /// <returns></returns>
+        public static Dictionary<string, string> GenerateColumnToken<TResult>(this IList<TResult> items,
             Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
         {
             var dics = new Dictionary<string, string>(items.Count);
