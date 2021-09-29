@@ -2,9 +2,26 @@
 namespace OSS.Common.BasicMos
 {
     /// <summary>
+    ///  应用设置信息接口
+    /// </summary>
+    public interface IAppSecret
+    {
+        /// <summary>
+        /// 应用账号id
+        /// </summary>
+        public string app_id { get;  }
+
+        /// <summary>
+        /// 应用账号秘钥
+        /// </summary>
+        public string app_secret { get;  }
+    }
+
+
+    /// <summary>
     ///  应用设置信息
     /// </summary>
-    public class AppSecret
+    public class AppSecret: IAppSecret
     {
         /// <summary>
         /// 构造函数

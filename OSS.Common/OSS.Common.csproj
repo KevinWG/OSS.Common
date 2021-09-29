@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.5.5.7</Version>
+    <Version>2.5.5.8</Version>
 	  <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
     <Product>OSS开源系列</Product>
@@ -19,7 +19,7 @@
 
     <PackageIcon>logo.png</PackageIcon>
 
-    <PackageReleaseNotes>优化token列表扩展</PackageReleaseNotes>
+    <PackageReleaseNotes>添加基础配置信息接口</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
