@@ -20,12 +20,12 @@ namespace OSS.Common.BasicMos.Resp
             res.ret == 0;
 
         /// <summary>
-        ///  【业务响应】数据是否为空
+        ///  【业务响应】数据是否为空（即数据不存在
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) => res.data == null || res.ret == (int) RespTypes.OperateObjectNull;
-
+        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) => res.IsSysOk() &&  res.ret == (int) RespTypes.OperateObjectNull;
+        
         /// <summary>
         /// 【业务响应】是否是对应的类型
         /// </summary>
