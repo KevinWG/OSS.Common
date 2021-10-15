@@ -10,8 +10,6 @@
 
 #endregion
 
-
-using System;
 using OSS.Common.Extension;
 
 namespace OSS.Common.BasicMos.Resp
@@ -103,16 +101,24 @@ namespace OSS.Common.BasicMos.Resp
         UserUnActive = 1424,
 
         /// <summary>
+        /// 第三方授权待绑定
+        /// </summary>
+        [OSDescribe("第三方授权待绑定")]
+        UserFromSocialUnBind = 1426,
+
+        /// <summary>
         /// 账号信息缺失
         /// </summary>
         [OSDescribe("账号信息缺失")]
-        UserIncomplete = 1426,
+        UserIncomplete = 1428,
         
         /// <summary>
         /// 权限不足
         /// </summary>
         [OSDescribe("权限不足")]
-        UserNoPermission = 1428,
+        UserNoPermission = 1430,
+
+
 
 
 
