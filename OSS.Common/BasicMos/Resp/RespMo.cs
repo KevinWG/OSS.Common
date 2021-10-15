@@ -10,7 +10,6 @@
 
 #endregion
 
-using System;
 using OSS.Common.Extension;
 
 namespace OSS.Common.BasicMos.Resp
@@ -30,7 +29,8 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         public Resp()
         {
-            _ret = 0; // 初始化为正常
+            sys_ret = 0;
+            _ret    = 0; // 初始化为正常
         }
 
         /// <summary>
@@ -87,19 +87,12 @@ namespace OSS.Common.BasicMos.Resp
         ///  0  成功
         ///  13xxx   参数相关错误 
         ///  14xxx   用户授权相关错误
-        ///  15xxx   服务器内部相关错误信息
-        ///  16xxx(及其他)   系统级定制错误信息，如升级维护等
+        ///  15xxx   应用处理错误
         /// 也可依据第三方自行定义数值
         /// </summary>
         public int ret
         {
-            get
-            {
-                if (sys_ret != 0 && _ret == 0)
-                    _ret = (int) RespTypes.InnerError;
-
-                return _ret;
-            }
+            get { return sys_ret != 0 && ret == 0 ? sys_ret : _ret; }
             set => _ret = value;
         }
 

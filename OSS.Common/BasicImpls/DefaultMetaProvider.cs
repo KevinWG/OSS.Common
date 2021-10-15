@@ -62,7 +62,7 @@ namespace OSS.Common.BasicImpls
         public async Task<Resp<TMetaType>> GetMeta()
         {
             var metaRes = await GetCustomMetaWithCache();
-            return metaRes ?? new Resp<TMetaType>().WithResp(RespTypes.ObjectNull, "未发现任何配置信息，请重写GetCustomMeta方法，或配置DefaultMeta！");
+            return metaRes ?? new Resp<TMetaType>().WithResp(RespTypes.OperateObjectNull, "未发现任何配置信息，请重写GetCustomMeta方法，或配置DefaultMeta！");
         }
 
         private async Task<Resp<TMetaType>> GetCustomMetaWithCache()

@@ -24,8 +24,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) =>
-            res.data == null || res.ret == (int) RespTypes.ObjectNull;
+        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) => res.data == null || res.ret == (int) RespTypes.OperateObjectNull;
 
         /// <summary>
         /// 【业务响应】是否是对应的类型
@@ -33,8 +32,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IReadonlyResp res, RespTypes type) =>
-            res.ret == (int) type;
+        public static bool IsRespType(this IReadonlyResp res, RespTypes type) => res.ret == (int) type;
 
 
         /// <summary>
@@ -42,8 +40,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this IReadonlyResp res) =>
-            res.sys_ret == 0;
+        public static bool IsSysOk(this IReadonlyResp res) => res.sys_ret == 0;
 
         /// <summary>
         /// 【系统响应】是否是对应的类型
@@ -51,8 +48,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) =>
-            res.sys_ret == (int) type;
+        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) => res.sys_ret == (int) type;
 
 
         #endregion
@@ -330,48 +326,53 @@ namespace OSS.Common.BasicMos.Resp
 
         //===== 待作废
 
-        /// <summary>
-        ///  【业务响应】是否是Success
-        /// </summary>
-        /// <param name="res"></param>
-        /// <returns></returns>
-        public static bool IsSuccess(this Resp res) =>
-            res.ret == 0;
+        ///// <summary>
+        /////  【业务响应】是否是Success
+        ///// </summary>
+        ///// <param name="res"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static bool IsSuccess(this Resp res) =>
+        //    res.ret == 0;
 
-        /// <summary>
-        ///  【业务响应】数据是否为空
-        /// </summary>
-        /// <param name="res"></param>
-        /// <returns></returns>
-        public static bool IsDataNull<TType>(this Resp<TType> res) =>
-            res.data == null || res.ret == (int)RespTypes.ObjectNull;
+        ///// <summary>
+        /////  【业务响应】数据是否为空
+        ///// </summary>
+        ///// <param name="res"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static bool IsDataNull<TType>(this Resp<TType> res) =>
+        //    res.data == null || res.ret == (int)RespTypes.OperateObjectNull;
 
-        /// <summary>
-        /// 【业务响应】是否是对应的类型
-        /// </summary>
-        /// <param name="res"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsRespType(this Resp res, RespTypes type) =>
-            res.ret == (int)type;
+        ///// <summary>
+        ///// 【业务响应】是否是对应的类型
+        ///// </summary>
+        ///// <param name="res"></param>
+        ///// <param name="type"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static bool IsRespType(this Resp res, RespTypes type) =>
+        //    res.ret == (int)type;
 
 
-        /// <summary>
-        ///  【系统响应】
-        /// </summary>
-        /// <param name="res"></param>
-        /// <returns></returns>
-        public static bool IsSysOk(this Resp res) =>
-            res.sys_ret == 0;
+        ///// <summary>
+        /////  【系统响应】
+        ///// </summary>
+        ///// <param name="res"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static bool IsSysOk(this Resp res) =>
+        //    res.sys_ret == 0;
 
-        /// <summary>
-        /// 【系统响应】是否是对应的类型
-        /// </summary>
-        /// <param name="res"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsSysRespType(this Resp res, SysRespTypes type) =>
-            res.sys_ret == (int)type;
+        ///// <summary>
+        ///// 【系统响应】是否是对应的类型
+        ///// </summary>
+        ///// <param name="res"></param>
+        ///// <param name="type"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static bool IsSysRespType(this Resp res, SysRespTypes type) =>
+        //    res.sys_ret == (int)type;
 
     }
 }

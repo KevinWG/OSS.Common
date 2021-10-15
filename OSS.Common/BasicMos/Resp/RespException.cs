@@ -22,18 +22,13 @@ namespace OSS.Common.BasicMos.Resp
     public class RespException:Exception,IReadonlyResp
     {
         private int _ret;
+
         /// <summary>
         ///  业务结果标识
         /// </summary>
         public int ret
         {
-            get
-            {
-                if (sys_ret != 0 && _ret == 0)
-                    _ret = (int) RespTypes.InnerError;
-
-                return _ret;
-            }
+            get { return sys_ret != 0 && ret == 0 ? sys_ret : _ret; }
             set => _ret = value;
         }
 
@@ -76,7 +71,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="msg">结果信息描述</param>
         public RespException(string msg) : base(msg)
         {
-            this.sys_ret = (int) SysRespTypes.ApplicationError;
+            this.sys_ret = (int) SysRespTypes.AppError;
             this.msg = msg;
         }
 

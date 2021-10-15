@@ -43,7 +43,7 @@ namespace OSS.Common.BasicImpls
             var defaultMeta = GetDefaultMeta();
             return Task.FromResult(defaultMeta != null
                 ? new Resp<TMetaType>(defaultMeta)
-                : new Resp<TMetaType>().WithResp(RespTypes.ObjectNull,
+                : new Resp<TMetaType>().WithResp(RespTypes.OperateObjectNull,
                     "未发现任何配置信息,你可在构造函数中注入IMetaProvider实现，也可以重写GetDefaultMeta方法来完成配置的提供!"));
         }
 
