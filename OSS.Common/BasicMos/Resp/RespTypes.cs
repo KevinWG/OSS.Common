@@ -56,25 +56,24 @@ namespace OSS.Common.BasicMos.Resp
         [OSDescribe("成功")] Success = 0,
 
 
+
+
         /// <summary>
         /// 参数错误
         /// </summary>
         [OSDescribe("参数错误")] ParaError = 1300,
 
         /// <summary>
-        /// 超出范围
+        ///  参数过期
         /// </summary>
-        [OSDescribe("超出参数范围")] ParaOutOfRange = 1302,
+        [OSDescribe("参数过期")] ParaExpired = 1310,
 
         /// <summary>
         ///  签名错误
         /// </summary>
-        [OSDescribe("签名错误")] ParaSignError = 1310,
+        [OSDescribe("签名错误")] ParaSignError = 1312,
 
-        /// <summary>
-        ///  签名过期
-        /// </summary>
-        [OSDescribe("签名过期")] ParaSignExpired = 1312,
+
 
 
 
@@ -96,7 +95,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <summary>
         /// 第三方授权待绑定
         /// </summary>
-        [OSDescribe("第三方授权待绑定")] UserFromSocialUnBind = 1426,
+        [OSDescribe("第三方授权待绑定")] UserFromSocial = 1426,
 
         /// <summary>
         /// 账号信息缺失

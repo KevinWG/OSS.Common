@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>2.6.1.1</Version>
+    <Version>2.6.2</Version>
 	  <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
     <Product>OSS开源系列</Product>
@@ -19,7 +19,7 @@
 
     <PackageIcon>logo.png</PackageIcon>
 
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>完善错误类型</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
