@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSS.Common.Encrypt;
-using OSS.Common.Extention;
+using OSS.Common.Extension;
 
 namespace OSS.Common.Tests
 {

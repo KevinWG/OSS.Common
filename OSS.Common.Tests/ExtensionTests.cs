@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSS.Common.Extention;
-using OSS.Common.Helpers;
+using OSS.Common.Extension;
 
 namespace OSS.Common.Tests
 {
@@ -20,7 +19,7 @@ namespace OSS.Common.Tests
             obj.items = new List<TestItemMo>() { new TestItemMo() { house = "beijing", age = 20 } };
 
             string reslt = obj.SerializeToXml();//"<xml><name><![CDATA[toUser]]></name> </xml>";
-            var res = reslt.DeserializeXml<TestXml>();
+            _ = reslt.DeserializeXml<TestXml>();
         }
 
         [TestMethod]

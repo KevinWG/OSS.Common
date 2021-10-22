@@ -35,10 +35,8 @@ namespace OSS.Common
         /// <summary>
         ///  设置容器内映射的实例创建方法
         /// </summary>
-        /// <typeparam name="TInstance"></typeparam>
         /// <param name="insCreater"></param>
-        public static void Set<TInstance>(Func<T> insCreater)
-            where TInstance : T
+        public static void Set(Func<T> insCreater)
         {
             _insCreater = insCreater ?? throw new ArgumentNullException(nameof(insCreater), "参数不能为空！");
         }
@@ -48,7 +46,7 @@ namespace OSS.Common
         /// </summary>
         /// <typeparam name="TInstance"></typeparam>
         /// <param name="ins"></param>
-        public static void Set<TInstance>(T ins)
+        public static void Set<TInstance>(TInstance ins)
             where TInstance : T
         {
             _insCreater = ()=>ins;
