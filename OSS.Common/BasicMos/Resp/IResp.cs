@@ -12,13 +12,25 @@
 #endregion
 
 
+using System;
+
 namespace OSS.Common.BasicMos.Resp
 {
+    [Obsolete]
+    public interface IReadonlyResp<out TType> : IResp
+    {
+    }
+    [Obsolete]
+    public interface IReadonlyResp
+    {
+    }
+
+
     /// <summary>
     ///  只读结果响应实体接口
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public interface IReadonlyResp<out TType>: IReadonlyResp
+    public interface IResp<out TType>: IResp
     {
         /// <summary>
         ///  响应类型数据
@@ -29,7 +41,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  只读结果实体接口
     /// </summary>
-    public interface IReadonlyResp
+    public interface IResp
     {
         /// <summary>
         /// 【业务响应】

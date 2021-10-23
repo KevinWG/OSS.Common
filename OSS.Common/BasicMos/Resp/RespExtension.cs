@@ -16,7 +16,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSuccess(this IReadonlyResp res) =>
+        public static bool IsSuccess(this IResp res) =>
             res.ret == 0;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) => res.IsSysOk() &&  res.ret == (int) RespTypes.OperateObjectNull;
+        public static bool IsDataNull<TType>(this IResp<TType> res) => res.IsSysOk() &&  res.ret == (int) RespTypes.OperateObjectNull;
         
         /// <summary>
         /// 【业务响应】是否是对应的类型
@@ -32,7 +32,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IReadonlyResp res, RespTypes type) => res.ret == (int) type;
+        public static bool IsRespType(this IResp res, RespTypes type) => res.ret == (int) type;
 
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this IReadonlyResp res) => res.sys_ret == 0;
+        public static bool IsSysOk(this IResp res) => res.sys_ret == 0;
 
         /// <summary>
         /// 【系统响应】是否是对应的类型
@@ -48,7 +48,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) => res.sys_ret == (int) type;
+        public static bool IsSysRespType(this IResp res, SysRespTypes type) => res.sys_ret == (int) type;
 
 
         #endregion
@@ -197,7 +197,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, IReadonlyResp tPara, string errMsg = null)
+        public static TRes WithResp<TRes>(this TRes res, IResp tPara, string errMsg = null)
             where TRes : Resp
         {
             res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
@@ -285,7 +285,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara, Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IResp<TPara> tPara, Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
         {
             if ((isNullCheck && tPara.data != null)
                 || !isNullCheck)
@@ -305,7 +305,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IResp<TPara> tPara,
            Func<TPara, TRes> convertFunc, bool isNullCheck = true)
         {
             return res.WithResp(tPara, convertFunc, null, isNullCheck);
