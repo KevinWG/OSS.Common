@@ -17,12 +17,12 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     /// 响应实体
     /// </summary>
-    public class Resp : IResp
+    public class Resp : IReadonlyResp
     {
         /// <summary>
         ///  默认成功结果
         /// </summary>
-        public static readonly IResp DefaultSuccess = new Resp();
+        public static readonly IReadonlyResp DefaultSuccess = new Resp();
 
         /// <summary>
         /// 构造响应类
@@ -112,7 +112,7 @@ namespace OSS.Common.BasicMos.Resp
     /// 响应实体泛型
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public class Resp<TType> : Resp, IResp<TType>
+    public class Resp<TType> : Resp, IReadonlyResp<TType>
     {
         /// <inheritdoc />
         public Resp()

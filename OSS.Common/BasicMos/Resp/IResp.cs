@@ -16,21 +16,13 @@ using System;
 
 namespace OSS.Common.BasicMos.Resp
 {
-    [Obsolete]
-    public interface IReadonlyResp<out TType> : IResp
-    {
-    }
-    [Obsolete]
-    public interface IReadonlyResp
-    {
-    }
-
+   
 
     /// <summary>
     ///  只读结果响应实体接口
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public interface IResp<out TType>: IResp
+    public interface IReadonlyResp<out TType>: IReadonlyResp
     {
         /// <summary>
         ///  响应类型数据
@@ -41,7 +33,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  只读结果实体接口
     /// </summary>
-    public interface IResp
+    public interface IReadonlyResp
     {
         /// <summary>
         /// 【业务响应】

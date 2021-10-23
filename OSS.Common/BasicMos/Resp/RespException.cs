@@ -19,7 +19,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  结果异常类
     /// </summary>
-    public class RespException:Exception,IResp
+    public class RespException:Exception,IReadonlyResp
     {
         private int _ret;
 
