@@ -15,14 +15,14 @@ namespace OSS.Common.BasicMos
         public SearchReq()
         {
             //filters = new Dictionary<string, string>();
-            orders  = new Dictionary<string, SortType>();
+            orders = new Dictionary<string, SortType>();
         }
 
         /// <inheritdoc />
         public SearchReq(int size, int currentPage) : this()
         {
             this.size = size;
-            this.current = currentPage;
+            this.page = currentPage;
         }
 
         private int _curntPage = 1;
@@ -30,6 +30,7 @@ namespace OSS.Common.BasicMos
         /// <summary>
         /// 当前页
         /// </summary>
+        [Obsolete("请使用 page ")]
         public int current
         {
             get => _curntPage <= 0 ? 1 : _curntPage;
@@ -39,8 +40,7 @@ namespace OSS.Common.BasicMos
         /// <summary>
         /// 当前页
         /// </summary>
-        [Obsolete("请使用 current ")]
-        public int cur_page
+        public int page
         {
             get => _curntPage <= 0 ? 1 : _curntPage;
             set => _curntPage = value;
@@ -76,7 +76,7 @@ namespace OSS.Common.BasicMos
         /// <summary>
         ///    获取起始行
         /// </summary>
-        public int GetStartRow() => (current - 1) * size;
+        public int GetStartRow() => (page - 1) * size;
     }
 
 
