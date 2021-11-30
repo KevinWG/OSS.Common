@@ -14,8 +14,7 @@ namespace OSS.Common.BasicMos
         /// </summary>
         public SearchReq()
         {
-            //filters = new Dictionary<string, string>();
-            orders = new Dictionary<string, SortType>();
+
         }
 
         /// <inheritdoc />
@@ -61,12 +60,14 @@ namespace OSS.Common.BasicMos
         /// 是否请求获取数量
         /// </summary>
         public bool req_count { get; set; } = true;
-
+        private Dictionary<string, SortType> _orders;
         /// <summary>
         /// 排序集合      适用于多个查询条件
         /// </summary>
-        public Dictionary<string, SortType> orders { get; set; }
-
+        public Dictionary<string, SortType> orders
+        {
+            get { return _orders == null ? _orders = new Dictionary<string, SortType>() : _orders; }
+        }
 
         /// <summary>
         /// 过滤器
