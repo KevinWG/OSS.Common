@@ -65,7 +65,7 @@ namespace OSS.Common.Helpers
                 if (parentNum == 0 && realNumStr == "8")
                 {
                     // 最高位特殊情况处理
-                    newNumStr = "11"; // 排除 9,10   (浏览器最大不能超过2^53，最高位排除9，同时不能以0结尾，排除10）
+                    newNumStr = "11"; // 最高位排除 9  (同时不能以0结尾，排除10）
                 }
                 else if (realNumStr.EndsWith("9"))
                 {
@@ -168,6 +168,32 @@ namespace OSS.Common.Helpers
             return parentIds;
         }
 
+        /// <summary>
+        /// 补充简化的小树形码
+        /// </summary>
+        /// <param name="shortTreeNum"> 小树形码 </param>
+        /// <returns></returns>
+        public static long PaddingTreeNum(long shortTreeNum)
+        {
+            return PaddingTreeNum(shortTreeNum, _numLength);
+        }
+
+        /// <summary>
+        /// 补充简化的小树形码（最大值 小于 2^53-1
+        /// </summary>
+        /// <param name="smallShortTreeNum"> 小树形码 </param>
+        /// <returns></returns>
+        public static long PaddingSamllTreeNum(long smallShortTreeNum)
+        {
+            return PaddingTreeNum(smallShortTreeNum, _numSmallLength);
+        }
+
+        private static long PaddingTreeNum(long bareTreeNum,int length)
+        {
+            var strTreeNum = bareTreeNum.ToString();
+            return string.Concat(strTreeNum, _paddingNumStr.Substring(0, length - strTreeNum.Length))
+                .ToInt64();
+        }
 
 
     }
