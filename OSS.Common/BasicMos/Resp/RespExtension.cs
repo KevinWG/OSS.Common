@@ -10,7 +10,7 @@ namespace OSS.Common.BasicMos.Resp
     public static class RespExtension
     {
         #region 判断结果
-        
+
         /// <summary>
         ///  【业务响应】是否是Success
         /// </summary>
@@ -24,15 +24,26 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) => res.IsSysOk() &&  res.ret == (int) RespTypes.OperateObjectNull;
-        
+        [Obsolete]
+        public static bool IsDataNull<TType>(this IReadonlyResp<TType> res) =>
+            res.IsSysOk() && res.ret == (int)RespTypes.OperateObjectNull;
+
+
+        /// <summary>
+        ///  【业务响应】是否成功或者数据不存在(但系统状态OK)
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static bool IsSuccessOrDataNull<TType>(this IReadonlyResp<TType> res) =>
+            res.ret == 0 || (res.IsSysOk() && res.ret == (int)RespTypes.OperateObjectNull);
+
         /// <summary>
         /// 【业务响应】是否是对应的类型
         /// </summary>
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IReadonlyResp res, RespTypes type) => res.ret == (int) type;
+        public static bool IsRespType(this IReadonlyResp res, RespTypes type) => res.ret == (int)type;
 
 
         /// <summary>
@@ -48,7 +59,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) => res.sys_ret == (int) type;
+        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) => res.sys_ret == (int)type;
 
 
         #endregion
@@ -67,12 +78,12 @@ namespace OSS.Common.BasicMos.Resp
         public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string msg)
             where TRes : Resp
         {
-            res.msg = msg;
-            res.ret = ret;
+            res.msg     = msg;
+            res.ret     = ret;
             res.sys_ret = sysRet;
             return res;
         }
-        
+
         /// <summary>
         /// 直接设置泛型响应信息，并返回
         /// </summary>
@@ -85,7 +96,7 @@ namespace OSS.Common.BasicMos.Resp
         public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string msg)
             where TRes : Resp
         {
-            return res.WithResp((int) sysRet, (int) ret, msg);
+            return res.WithResp((int)sysRet, (int)ret, msg);
         }
 
         /// <summary>
@@ -100,7 +111,7 @@ namespace OSS.Common.BasicMos.Resp
             where TRes : Resp
         {
             res.sys_ret = (int)sysRet;
-            res.msg = msg;
+            res.msg     = msg;
             return res;
         }
 
@@ -164,6 +175,7 @@ namespace OSS.Common.BasicMos.Resp
             {
                 res.msg = errMsg;
             }
+
             return res;
         }
 
@@ -182,6 +194,7 @@ namespace OSS.Common.BasicMos.Resp
             {
                 res.msg = errMsg;
             }
+
             return res;
         }
 
@@ -224,6 +237,7 @@ namespace OSS.Common.BasicMos.Resp
             {
                 successFormatAction(tPara, res);
             }
+
             return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
@@ -236,12 +250,12 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="data"></param>
         /// <returns></returns>
         public static TRes WithData<TRes, TData>(this TRes res, TData data)
-            where TRes:Resp<TData>
+            where TRes : Resp<TData>
         {
             res.data = data;
             return res;
         }
-        
+
 
         #region Task 相关扩展
 
@@ -285,13 +299,15 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara, Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
+        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
+            Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
         {
             if ((isNullCheck && tPara.data != null)
                 || !isNullCheck)
             {
                 res.data = convertFunc.Invoke(tPara.data);
             }
+
             return res.WithResp(tPara, errMsg);
         }
 
@@ -306,7 +322,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
         public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
-           Func<TPara, TRes> convertFunc, bool isNullCheck = true)
+            Func<TPara, TRes> convertFunc, bool isNullCheck = true)
         {
             return res.WithResp(tPara, convertFunc, null, isNullCheck);
         }
