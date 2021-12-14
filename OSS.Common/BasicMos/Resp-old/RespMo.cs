@@ -11,18 +11,20 @@
 #endregion
 
 using OSS.Common.Extension;
+using System;
 
 namespace OSS.Common.BasicMos.Resp
 {
     /// <summary>
     /// 响应实体
     /// </summary>
+    [Obsolete]
     public class Resp : IReadonlyResp
     {
         /// <summary>
         ///  默认成功结果
         /// </summary>
-        public static readonly IReadonlyResp DefaultSuccess = new Resp();
+        public static readonly IReadonlyResp Success = new Resp();
 
         /// <summary>
         /// 构造响应类

@@ -12,7 +12,7 @@
 
 using OSS.Common.Extension;
 
-namespace OSS.Common.BasicMos.Resp
+namespace OSS.Common.Resp
 {
     /// <summary>
     ///   系统响应类型
@@ -54,8 +54,6 @@ namespace OSS.Common.BasicMos.Resp
         /// 成功
         /// </summary>
         [OSDescribe("成功")] Success = 0,
-
-
 
 
         /// <summary>

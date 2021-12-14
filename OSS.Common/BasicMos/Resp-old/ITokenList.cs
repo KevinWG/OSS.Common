@@ -6,6 +6,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  列表通行token接口
     /// </summary>
+    [Obsolete()]
     public interface ITokenList<TType>
     {
         /// <summary>
@@ -22,6 +23,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     /// 通行token列表扩展
     /// </summary>
+    [Obsolete()]
     public static class IListPassTokensMap
     {
         /// <summary>
@@ -34,6 +36,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
         /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
+        [Obsolete()]
         public static TTokenList AddColumnToken<TTokenList, TResult>(this TTokenList listRes, string tokenColumnName,
             Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
             where TTokenList : ITokenList<TResult>
@@ -66,6 +69,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="keyValueSelector"></param>
         /// <param name="keyValueTokenSelector"></param>
         /// <returns></returns>
+        [Obsolete()]
         public static Dictionary<string, string> GenerateColumnToken<TResult>(this IList<TResult> items,
             Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
         {

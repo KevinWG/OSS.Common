@@ -1,28 +1,15 @@
-﻿
-#region Copyright (C) 2016 Kevin (OSS开源系列) 公众号：OSSCore
-
-/***************************************************************************
-*　　	文件功能描述：通用返回响应实体
-*
-*　　	创建人： Kevin
-*       创建人Email：1985088337@qq.com
-*       
-*****************************************************************************/
-
-#endregion
-
-
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace OSS.Common.BasicMos.Resp
 {
-   
-
     /// <summary>
     ///  只读结果响应实体接口
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public interface IReadonlyResp<out TType>: IReadonlyResp
+    [Obsolete()]
+    public interface IReadonlyResp<out TType> : IReadonlyResp
     {
         /// <summary>
         ///  响应类型数据
@@ -33,6 +20,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  只读结果实体接口
     /// </summary>
+    [Obsolete]
     public interface IReadonlyResp
     {
         /// <summary>
@@ -53,11 +41,11 @@ namespace OSS.Common.BasicMos.Resp
         /// <summary>
         ///  系统响应
         /// </summary>
-        public int sys_ret { get;  }
+        public int sys_ret { get; }
 
         /// <summary>
         /// 状态信息(错误描述等)
         /// </summary>
-        public string msg { get;  }
+        public string msg { get; }
     }
 }

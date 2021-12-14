@@ -7,6 +7,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  响应实体映射类
     /// </summary>
+    [Obsolete]
     public static class RespExtension
     {
         #region 判断结果
@@ -16,6 +17,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
+        [Obsolete]
         public static bool IsSuccess(this IReadonlyResp res) =>
             res.ret == 0;
 
@@ -34,6 +36,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
+        [Obsolete]
         public static bool IsSuccessOrDataNull<TType>(this IReadonlyResp<TType> res) =>
             res.ret == 0 || (res.IsSysOk() && res.ret == (int)RespTypes.OperateObjectNull);
 
@@ -43,7 +46,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IReadonlyResp res, RespTypes type) => res.ret == (int)type;
+        [Obsolete] public static bool IsRespType(this IReadonlyResp res, RespTypes type) => res.ret == (int)type;
 
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace OSS.Common.BasicMos.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this IReadonlyResp res) => res.sys_ret == 0;
+        [Obsolete] public static bool IsSysOk(this IReadonlyResp res) => res.sys_ret == 0;
 
         /// <summary>
         /// 【系统响应】是否是对应的类型
@@ -59,7 +62,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) => res.sys_ret == (int)type;
+        [Obsolete] public static bool IsSysRespType(this IReadonlyResp res, SysRespTypes type) => res.sys_ret == (int)type;
 
 
         #endregion
@@ -75,6 +78,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="ret"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string msg)
             where TRes : Resp
         {
@@ -93,6 +97,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="ret"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string msg)
             where TRes : Resp
         {
@@ -107,6 +112,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="sysRet"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, string msg)
             where TRes : Resp
         {
@@ -123,6 +129,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="ret"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TRes>(this TRes res, int ret, string msg)
             where TRes : Resp
         {
@@ -139,6 +146,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="ret"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TRes>(this TRes res, RespTypes ret, string msg)
             where TRes : Resp
         {
@@ -154,6 +162,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="msg"> 新的消息内容 </param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithMsg<TRes>(this TRes res, string msg)
             where TRes : Resp
         {
@@ -168,6 +177,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithErrMsg<TRes>(this TRes res, string errMsg)
             where TRes : Resp
         {
@@ -186,6 +196,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="tRes"></param>
         /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
         /// <returns></returns>
+        [Obsolete]
         public static async Task<TRes> WithErrMsg<TRes>(this Task<TRes> tRes, string errMsg)
             where TRes : Resp
         {
@@ -210,6 +221,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TRes>(this TRes res, IReadonlyResp tPara, string errMsg = null)
             where TRes : Resp
         {
@@ -227,6 +239,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithResp<TPara, TRes>(this TRes res, TPara tPara, Action<TPara, TRes> successFormatAction,
             string errMsg = null)
             where TRes : Resp
@@ -249,6 +262,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="res"></param>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete]
         public static TRes WithData<TRes, TData>(this TRes res, TData data)
             where TRes : Resp<TData>
         {
@@ -265,6 +279,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
         /// <returns></returns>
+        [Obsolete]
         public static Task<TRes> ToTaskResp<TRes>(this TRes res)
             where TRes : Resp
         {
@@ -277,6 +292,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="resTask"></param>
         /// <returns></returns>
+        [Obsolete]
         public static async Task<Resp> ToTaskResp<TRes>(this Task<TRes> resTask)
             where TRes : Resp
         {
@@ -299,6 +315,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
+        [Obsolete]
         public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
             Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
         {
@@ -321,6 +338,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
+        [Obsolete]
         public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IReadonlyResp<TPara> tPara,
             Func<TPara, TRes> convertFunc, bool isNullCheck = true)
         {
@@ -337,6 +355,7 @@ namespace OSS.Common.BasicMos.Resp
         /// <param name="convertFunc"></param>
         /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
         /// <returns></returns>
+        [Obsolete]
         public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
             Func<TPara, TRes> convertFunc, string errMsg = null)
         {

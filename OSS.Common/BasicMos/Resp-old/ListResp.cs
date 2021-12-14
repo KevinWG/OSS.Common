@@ -19,6 +19,7 @@ namespace OSS.Common.BasicMos.Resp
     /// 列表结果实体
     /// </summary>
     /// <typeparam name="TType"></typeparam>
+    [Obsolete()]
     public class ListResp<TType> : Resp<IList<TType>>
     {
         /// <inheritdoc />
@@ -40,6 +41,7 @@ namespace OSS.Common.BasicMos.Resp
     ///  列表结果实体（附带列表对应通行token字典
     /// </summary>
     /// <typeparam name="TType"></typeparam>
+    [Obsolete()]
     public class TokenListResp<TType> : ListResp<TType>, ITokenList<TType>
     {
         /// <inheritdoc />
@@ -69,6 +71,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     /// 通行token列表扩展
     /// </summary>
+    [Obsolete]
     public static class TokenListRespMap
     {
         /// <summary>

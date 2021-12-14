@@ -13,7 +13,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OSS.Common.BasicMos.Resp
+namespace OSS.Common.Resp
 {
     /// <summary>
     ///  分页实体（附带列表对应通行token字典
