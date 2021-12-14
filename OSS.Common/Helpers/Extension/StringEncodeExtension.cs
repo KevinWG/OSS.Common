@@ -23,29 +23,7 @@ namespace OSS.Common.Extension
         #region Url 编码处理
 
         /// <summary>
-        /// Url编码处理
-        /// </summary>
-        [Obsolete("请使用 SafeEscapeUriString 或者 SafeEscapeUriDataString")]
-        public static string UrlEncode(this string input)
-        {
-            return string.IsNullOrEmpty(input)
-                ? string.Empty
-                : Uri.EscapeDataString(input);
-        }
-
-        /// <summary>
-        /// Url解码处理
-        ///   不会把“+”转空格  可以自行 Replace('+',' ')
-        /// </summary>
-        [Obsolete("请使用 SafeUnescapeUriString ")]
-        public static string UrlDecode(this string input)
-        {
-            return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
-        }
-
-        /// <summary>
-        /// Uri编码处理
-        ///    "+" 不做处理
+        /// Uri编码处理（协议部分字符不会被编码）
         /// </summary>
         public static string SafeEscapeUriString(this string input)
         {
@@ -55,8 +33,7 @@ namespace OSS.Common.Extension
         }
 
         /// <summary>
-        /// Uri编码处理
-        ///  "+" 转为 "%2B"
+        /// Uri数据编码处理(协议部分字符将被编码，如 http:// 会被转化)
         /// </summary>
         public static string SafeEscapeUriDataString(this string input)
         {
@@ -67,7 +44,6 @@ namespace OSS.Common.Extension
 
         /// <summary>
         /// Uri解码处理
-        ///   "+" 不做处理，有需要的可以自行 Replace('+',' ')
         /// </summary>
         public static string SafeUnescapeUriString(this string input)
         {
@@ -170,35 +146,6 @@ namespace OSS.Common.Extension
             return bStr;
         }
 
-
-        /// <summary>
-        ///   替换base64位字符串中的特殊符号 Url友好
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        [Obsolete("请使用ReplaceBase64ToUrlSafe")]
-        public static string Base64UrlSafeEncode(this string data)
-        {
-            return data.Replace('+', '-').Replace('/', '_').TrimEnd('=');
-        }
-
-        /// <summary>
-        ///   还原 base64 字符串中的特殊字符  Url不友好
-        /// </summary>
-        /// <param name="baseString"></param>
-        /// <returns></returns>
-        [Obsolete("请使用ReplaceBase64UrlSafeBack")]
-        public static string Base64UrlSafeDecode(this string baseString)
-        {
-            var bStr= baseString.Replace('-', '+').Replace('_', '/');
-            var len = bStr.Length % 4;
-            if (len > 0)
-            {
-                bStr += "====".Substring(len);
-            }
-            return bStr;
-        }
-        
         #endregion
 
     }
