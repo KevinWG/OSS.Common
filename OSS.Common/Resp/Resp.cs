@@ -79,7 +79,7 @@ namespace OSS.Common.Resp
         }
 
 
-        private int _ret;
+      
 
         /// <summary>
         /// 【业务响应】
@@ -92,9 +92,11 @@ namespace OSS.Common.Resp
         /// </summary>
         public int ret
         {
-            get { return sys_ret != 0 && ret == 0 ? sys_ret : _ret; }
+            get { return (sys_ret != 0 && _ret == 0) ? (int)RespTypes.OperateFailed : _ret; }
             set => _ret = value;
         }
+        private int _ret;
+
 
         /// <summary>
         ///  系统响应

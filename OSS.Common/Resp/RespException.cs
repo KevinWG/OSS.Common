@@ -37,6 +37,8 @@ namespace OSS.Common.Resp
         /// </summary>
         public string msg { get; set; }
 
+
+
         /// <summary>
         ///  系统标识
         /// </summary>

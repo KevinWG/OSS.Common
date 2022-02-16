@@ -20,7 +20,12 @@ namespace OSS.Common.Tests
         }
 
 
-    
+        [TestMethod]
+        public void RespTest()
+        {
+           var  res = new StrResp().WithResp(SysRespTypes.NetError, $"微信支付接口请求异常");
+        }
+
 
     }
 
