@@ -100,7 +100,7 @@ namespace OSS.Common.Extension
         /// <returns></returns>
         public static IList<TFlat> ToFlat<TIndent, TFlat>(this IList<TIndent> sourceList,
            Func<TIndent, TFlat> convert)
-            where TIndent : IIndentChild<TIndent>
+            where TIndent : IIndentWithChildren<TIndent>
         {
             var flatList = new List<TFlat>();
             foreach (var item in sourceList)
@@ -120,8 +120,14 @@ namespace OSS.Common.Extension
     }
 
 
-
-    public interface IIndentChild <TIndent>{ 
+    /// <summary>
+    ///  附带子类缩进实体
+    /// </summary>
+    /// <typeparam name="TIndent"></typeparam>
+    public interface IIndentWithChildren <TIndent>{ 
+        /// <summary>
+        /// 子级
+        /// </summary>
         public List<TIndent> children { get; set; }
     }
 

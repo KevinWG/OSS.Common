@@ -22,7 +22,7 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  默认成功结果
         /// </summary>
-        public static readonly IResp Success = new Resp();
+        public static readonly IResp default_success = new Resp();
 
         /// <summary>
         /// 构造响应类
@@ -79,8 +79,6 @@ namespace OSS.Common.Resp
         }
 
 
-      
-
         /// <summary>
         /// 【业务响应】
         /// 一般情况下：
@@ -92,7 +90,7 @@ namespace OSS.Common.Resp
         /// </summary>
         public int ret
         {
-            get { return (sys_ret != 0 && _ret == 0) ? (int)RespTypes.OperateFailed : _ret; }
+            get => (sys_ret != 0 && _ret == 0) ? (int)RespTypes.OperateFailed : _ret;
             set => _ret = value;
         }
         private int _ret;

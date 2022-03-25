@@ -114,6 +114,7 @@ namespace OSS.Common.BasicMos.Resp
     /// 响应实体泛型
     /// </summary>
     /// <typeparam name="TType"></typeparam>
+    [Obsolete]
     public class Resp<TType> : Resp, IReadonlyResp<TType>
     {
         /// <inheritdoc />
@@ -136,6 +137,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  长整形的结果实例
     /// </summary>
+    [Obsolete]
     public class LongResp : Resp<long>
     {
         /// <inheritdoc />
@@ -151,6 +153,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  整形的结果实例
     /// </summary>
+    [Obsolete]
     public class IntResp : Resp<int>
     {
         /// <inheritdoc />
@@ -166,6 +169,7 @@ namespace OSS.Common.BasicMos.Resp
     /// <summary>
     ///  字符串的结果实例
     /// </summary>
+    [Obsolete]
     public class StrResp : Resp<string>
     {
         /// <inheritdoc />

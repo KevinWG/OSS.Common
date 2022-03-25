@@ -28,6 +28,10 @@ namespace OSS.Common.Extension.Validate
         /// </summary>
         protected string errorMessage;
 
+        /// <summary>
+        /// 验证
+        /// </summary>
+        /// <returns></returns>
         public abstract bool Validate(string propertyName, object propertyValue);
 
         /// <summary>
