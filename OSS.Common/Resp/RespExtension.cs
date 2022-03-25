@@ -339,4 +339,16 @@ namespace OSS.Common.Resp
         #endregion
 
     }
+
+    /// <summary>
+    ///   结果实体辅助类
+    /// </summary>
+    public static class RespHelper
+    {
+        /// <summary>
+        ///  默认成功结果
+        /// </summary>
+        public static readonly IResp default_success = new Resp();
+    }
+
 }

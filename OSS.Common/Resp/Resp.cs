@@ -20,17 +20,10 @@ namespace OSS.Common.Resp
     public class Resp : IResp
     {
         /// <summary>
-        ///  默认成功结果
-        /// </summary>
-        public static readonly IResp default_success = new Resp();
-
-        /// <summary>
         /// 构造响应类
         /// </summary>
         public Resp()
         {
-            sys_ret = 0;
-            _ret    = 0; // 初始化为正常
         }
 
         /// <summary>
@@ -177,4 +170,7 @@ namespace OSS.Common.Resp
             this.data = data;
         }
     }
+
+
+
 }
