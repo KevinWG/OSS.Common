@@ -10,11 +10,14 @@
 
 #endregion
 
+using System;
+
 namespace OSS.Common.BasicMos.Enums
 {
     /// <summary>
     /// 排序类型
     /// </summary>
+    [Obsolete]
     public enum SortType
     {
         /// <summary>

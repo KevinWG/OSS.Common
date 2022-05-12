@@ -11,12 +11,15 @@
 
 #endregion
 
+using System;
+
 namespace OSS.Common.BasicMos
 {
     /// <summary>
     ///  基础实体
     /// </summary>
     /// <typeparam name="IdType"></typeparam>
+   [Obsolete]
     public class BaseMo<IdType>
     {
         /// <summary>

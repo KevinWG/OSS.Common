@@ -1,12 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OSS.Common.BasicMos
+namespace OSS.Common
 {
+    /// <summary>
+    /// 排序类型
+    /// </summary>
+    public enum SortType
+    {
+        /// <summary>
+        /// 倒序  由大到小
+        /// </summary>
+        DESC,
+
+        /// <summary>
+        /// 顺序  由小到大
+        /// </summary>
+        ASC
+    }
+
+
     /// <summary>
     /// 搜索实体
     /// </summary>
-    [Obsolete]
     public class SearchReq<FType>
     {
         /// <summary>
@@ -81,7 +97,6 @@ namespace OSS.Common.BasicMos
     }
 
     /// <inheritdoc />
-    [Obsolete]
     public class SearchReq : SearchReq<Dictionary<string, string>>
     {
         /// <inheritdoc />
