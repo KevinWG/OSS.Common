@@ -14,6 +14,7 @@ using OSS.Common.Extension;
 
 namespace OSS.Common.Resp
 {
+
     /// <summary>
     ///   系统响应类型
     /// </summary>
@@ -32,7 +33,7 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  超时
         /// </summary>
-        [OSDescribe("超时")] TimeOut = 200,
+        [OSDescribe("已超时")] TimeOut = 200,
 
         /// <summary>
         /// 未实现
@@ -54,6 +55,8 @@ namespace OSS.Common.Resp
         /// 成功
         /// </summary>
         [OSDescribe("成功")] Success = 0,
+
+
 
 
         /// <summary>
@@ -124,5 +127,8 @@ namespace OSS.Common.Resp
         /// 对象已存在
         /// </summary>
         [OSDescribe("已经存在")] OperateObjectExist = 1506,
+
+
+
     }
 }

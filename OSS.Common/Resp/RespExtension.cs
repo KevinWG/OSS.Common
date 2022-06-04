@@ -273,6 +273,7 @@ namespace OSS.Common.Resp
         }
 
         #endregion
+        
 
 
         #region 附带 data 转化处理
@@ -338,17 +339,6 @@ namespace OSS.Common.Resp
 
         #endregion
 
-    }
-
-    /// <summary>
-    ///   结果实体辅助类
-    /// </summary>
-    public static class RespHelper
-    {
-        /// <summary>
-        ///  默认成功结果
-        /// </summary>
-        public static readonly IResp default_success = new Resp();
     }
 
 }

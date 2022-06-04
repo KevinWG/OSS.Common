@@ -21,6 +21,13 @@ namespace OSS.Common
     /// <typeparam name="T"></typeparam>
     public static class InsContainer<T>
     {
+        /// <summary>
+        ///  全局服务提供者
+        /// </summary>
+        public static IServiceProvider ServiceProvider { get; set; }
+
+
+
         private static Func<T> _insCreater;
 
         /// <summary>

@@ -5,8 +5,8 @@
     /// </summary>
     /// <typeparam name="TReq"></typeparam>
     /// <typeparam name="TRes"></typeparam>
-    public interface IDoaminReq<in TReq, out TRes>
-        where TReq : IDoaminReq<TReq, TRes>
+    public interface IDomainReq<in TReq, out TRes>
+        where TReq : IDomainReq<TReq, TRes>
     {
     }
 }

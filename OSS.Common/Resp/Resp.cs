@@ -20,14 +20,14 @@ namespace OSS.Common.Resp
     public class Resp : IResp
     {
         /// <summary>
-        /// 构造响应类
+        /// 响应实体
         /// </summary>
         public Resp()
         {
         }
 
         /// <summary>
-        ///  构造响应类
+        ///  响应实体
         /// </summary>
         /// <param name="ret">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
@@ -39,18 +39,19 @@ namespace OSS.Common.Resp
 
 
         /// <summary>
-        ///  构造响应类
+        ///  响应实体
         /// </summary>
         /// <param name="ret">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
         public Resp(RespTypes ret, string message = null)
-            : this((int) ret, ret != RespTypes.Success && string.IsNullOrEmpty(message) ? ret.GetDesp() : message)
         {
+            this.ret = (int) ret;
+            this.msg = ret != RespTypes.Success && string.IsNullOrEmpty(message) ? ret.GetDesp() : message;
         }
 
 
         /// <summary>
-        ///  构造响应类
+        ///  响应实体
         /// </summary>
         /// <param name="sysRet">【系统/框架】 响应标识</param>
         /// <param name="message">响应信息描述</param>
@@ -60,15 +61,19 @@ namespace OSS.Common.Resp
             this.msg     = sysRet != SysRespTypes.Ok && string.IsNullOrEmpty(message) ? sysRet.GetDesp() : message;
         }
 
+
+        
         /// <summary>
-        ///  构造响应类
+        ///  响应实体
         /// </summary>
         /// <param name="sysRet">【系统/框架】 响应标识</param>
-        /// <param name="message">响应信息描述</param>
         /// <param name="ret">【业务】响应标识</param>
-        public Resp(SysRespTypes sysRet, string message = null, int ret = 0) : this(sysRet, message)
+        /// <param name="message">响应信息描述</param>
+        public Resp(int sysRet, int ret, string message)
         {
-            this.ret = ret;
+            this.sys_ret = sysRet;
+            this.ret    = ret;
+            this.msg =  message;
         }
 
 
@@ -87,7 +92,6 @@ namespace OSS.Common.Resp
             set => _ret = value;
         }
         private int _ret;
-
 
         /// <summary>
         ///  系统响应

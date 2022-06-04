@@ -27,8 +27,8 @@ namespace OSS.Common.Domain
         /// <typeparam name="TRes"></typeparam>
         /// <param name="req"></param>
         /// <returns></returns>
-        public static Task<TRes> ExecuteAsync<TReq, TRes>(this IDoaminReq<TReq, TRes> req)
-            where TReq : IDoaminReq<TReq, TRes>
+        public static Task<TRes> ExecuteAsync<TReq, TRes>(this IDomainReq<TReq, TRes> req)
+            where TReq : IDomainReq<TReq, TRes>
         {
             return DomainContainer<TReq,TRes>.GetExecutor().ExecuteAsync((TReq)req);
         }

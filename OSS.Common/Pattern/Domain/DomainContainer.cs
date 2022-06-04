@@ -8,7 +8,7 @@ namespace OSS.Common.Domain
     /// <typeparam name="TReq"></typeparam>
     /// <typeparam name="TRes"></typeparam>
     public static class DomainContainer<TReq, TRes>
-        where TReq : IDoaminReq<TReq, TRes>
+        where TReq : IDomainReq<TReq, TRes>
     {
         /// <summary>
         ///  获取 执行实例
