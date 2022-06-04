@@ -27,44 +27,44 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  异常
         /// </summary>
-        /// <param name="ret">【业务】错误码</param>
+        /// <param name="code">【业务】错误码</param>
         /// <param name="message">异常信息描述</param>
-        public RespException(int ret, string message):base(message)
+        public RespException(int code, string message):base(message)
         {
-            ErrorResp = new Resp(ret, message);
+            ErrorResp = new Resp(code, message);
         }
 
 
         /// <summary>
         ///  异常
         /// </summary>
-        /// <param name="ret">【业务】错误码</param>
+        /// <param name="code">【业务】错误码</param>
         /// <param name="message">异常信息描述</param>
-        public RespException(RespTypes ret, string message = null) : base(message)
+        public RespException(RespTypes code, string message = null) : base(message)
         {
-            ErrorResp = new Resp(ret, message);
+            ErrorResp = new Resp(code, message);
         }
 
 
         /// <summary>
         ///  异常
         /// </summary>
-        /// <param name="sysRet">【系统/框架】 错误码</param>
+        /// <param name="sysCode">【系统/框架】 错误码</param>
         /// <param name="message">异常信息描述</param>
-        public RespException(SysRespTypes sysRet, string message = null) : base(message)
+        public RespException(SysRespTypes sysCode, string message = null) : base(message)
         {
-            ErrorResp = new Resp(sysRet, message);
+            ErrorResp = new Resp(sysCode, message);
         }
 
         /// <summary>
         ///  异常
         /// </summary>
-        /// <param name="sysRet">【系统/框架】 错误码</param>
-        /// <param name="ret">【业务】错误码</param>
+        /// <param name="sysCode">【系统/框架】 错误码</param>
+        /// <param name="code">【业务】错误码</param>
         /// <param name="message">异常信息描述</param>
-        public RespException(int sysRet, int ret, string message) : base(message)
+        public RespException(int sysCode, int code, string message) : base(message)
         {
-            ErrorResp = new Resp(sysRet,ret, message);
+            ErrorResp = new Resp(sysCode,code, message);
         }
 
     }

@@ -31,7 +31,7 @@ namespace OSS.Common.Resp
     public interface IResp
     {
         /// <summary>
-        /// 【业务响应】
+        /// 【业务响应编码】
         /// 一般情况下：
         ///  0  成功
         ///  13xxx   参数相关错误 
@@ -40,15 +40,15 @@ namespace OSS.Common.Resp
         ///  16xxx(及其他)   系统级定制错误信息，如升级维护等
         /// 也可依据第三方自行定义数值
         /// </summary>
-        public int ret
+        public int code
         {
             get;
         }
 
         /// <summary>
-        ///  系统响应
+        ///  系统响应编码
         /// </summary>
-        public int sys_ret { get; }
+        public int sys_code { get; }
 
         /// <summary>
         /// 状态信息(错误描述等)

@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using OSS.Common.Extension;
 
 namespace OSS.Common.Resp
@@ -29,11 +30,11 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  响应实体
         /// </summary>
-        /// <param name="ret">【业务】响应标识</param>
+        /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(int ret, string message)
+        public Resp(int code, string message)
         {
-            this.ret = ret;
+            this.code = code;
             this.msg = message;
         }
 
@@ -41,24 +42,24 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  响应实体
         /// </summary>
-        /// <param name="ret">【业务】响应标识</param>
+        /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(RespTypes ret, string message = null)
+        public Resp(RespTypes code, string message = null)
         {
-            this.ret = (int) ret;
-            this.msg = ret != RespTypes.Success && string.IsNullOrEmpty(message) ? ret.GetDesp() : message;
+            this.code = (int) code;
+            this.msg = code != RespTypes.Success && string.IsNullOrEmpty(message) ? code.GetDesp() : message;
         }
 
 
         /// <summary>
         ///  响应实体
         /// </summary>
-        /// <param name="sysRet">【系统/框架】 响应标识</param>
+        /// <param name="sysCode">【系统/框架】 响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(SysRespTypes sysRet, string message = null)
+        public Resp(SysRespTypes sysCode, string message = null)
         {
-            this.sys_ret = (int) sysRet;
-            this.msg     = sysRet != SysRespTypes.Ok && string.IsNullOrEmpty(message) ? sysRet.GetDesp() : message;
+            this.sys_code = (int) sysCode;
+            this.msg     = sysCode != SysRespTypes.Ok && string.IsNullOrEmpty(message) ? sysCode.GetDesp() : message;
         }
 
 
@@ -66,13 +67,13 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  响应实体
         /// </summary>
-        /// <param name="sysRet">【系统/框架】 响应标识</param>
-        /// <param name="ret">【业务】响应标识</param>
+        /// <param name="sysCode">【系统/框架】 响应标识</param>
+        /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(int sysRet, int ret, string message)
+        public Resp(int sysCode, int code, string message)
         {
-            this.sys_ret = sysRet;
-            this.ret    = ret;
+            this.sys_code = sysCode;
+            this.code    = code;
             this.msg =  message;
         }
 
@@ -86,23 +87,34 @@ namespace OSS.Common.Resp
         ///  15xxx   应用处理错误
         /// 也可依据第三方自行定义数值
         /// </summary>
-        public int ret
+        public int code
         {
-            get => (sys_ret != 0 && _ret == 0) ? (int)RespTypes.OperateFailed : _ret;
-            set => _ret = value;
+            get => (sys_code != 0 && _code == 0) ? (int)RespTypes.OperateFailed : _code;
+            set => _code = value;
         }
-        private int _ret;
+        private int _code;
 
         /// <summary>
         ///  系统响应
         /// </summary>
-        public int sys_ret { get; set; }
+        public int sys_code { get; set; }
 
         /// <summary>
         /// 状态信息(错误描述等)
         /// </summary>
         public string msg { get; set; }
 
+
+
+        /// <summary>
+        /// 结果标识，请使用code代替
+        /// </summary>
+        [Obsolete]
+        public int ret
+        {
+            get => code;
+            set => code = value;
+        }
     }
 
     /// <summary>

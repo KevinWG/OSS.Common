@@ -17,7 +17,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <returns></returns>
         public static bool IsSuccess(this IResp res) =>
-            res.ret == 0;
+            res.code == 0;
 
         /// <summary>
         ///  【业务响应】是否成功或者数据不存在(但系统状态OK)
@@ -25,7 +25,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <returns></returns>
         public static bool IsSuccessOrDataNull<TType>(this IResp<TType> res) =>
-            res.ret == 0 || (res.IsSysOk() && res.ret == (int)RespTypes.OperateObjectNull);
+            res.code == 0 || (res.IsSysOk() && res.code == (int)RespTypes.OperateObjectNull);
 
         /// <summary>
         /// 【业务响应】是否是对应的类型
@@ -33,7 +33,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IResp res, RespTypes type) => res.ret == (int)type;
+        public static bool IsRespType(this IResp res, RespTypes type) => res.code == (int)type;
 
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="res"></param>
         /// <returns></returns>
-        public static bool IsSysOk(this IResp res) => res.sys_ret == 0;
+        public static bool IsSysOk(this IResp res) => res.sys_code == 0;
 
         /// <summary>
         /// 【系统响应】是否是对应的类型
@@ -49,7 +49,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IResp res, SysRespTypes type) => res.sys_ret == (int)type;
+        public static bool IsSysRespType(this IResp res, SysRespTypes type) => res.sys_code == (int)type;
 
         #endregion
 
@@ -61,15 +61,15 @@ namespace OSS.Common.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
         /// <param name="sysRet"></param>
-        /// <param name="ret"></param>
+        /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int sysRet, int ret, string msg)
+        public static TRes WithResp<TRes>(this TRes res, int sysRet, int code, string msg)
             where TRes : Resp
         {
             res.msg     = msg;
-            res.ret     = ret;
-            res.sys_ret = sysRet;
+            res.code     = code;
+            res.sys_code = sysRet;
             return res;
         }
 
@@ -78,14 +78,14 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="sysRet"></param>
-        /// <param name="ret"></param>
+        /// <param name="sysCode"></param>
+        /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, RespTypes ret, string msg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysCode, RespTypes code, string msg)
             where TRes : Resp
         {
-            return res.WithResp((int)sysRet, (int)ret, msg);
+            return res.WithResp((int)sysCode, (int)code, msg);
         }
 
         /// <summary>
@@ -93,13 +93,13 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="sysRet"></param>
+        /// <param name="sysCode"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysRet, string msg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysCode, string msg)
             where TRes : Resp
         {
-            res.sys_ret = (int)sysRet;
+            res.sys_code = (int)sysCode;
             res.msg     = msg;
             return res;
         }
@@ -109,13 +109,13 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="ret"></param>
+        /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int ret, string msg)
+        public static TRes WithResp<TRes>(this TRes res, int code, string msg)
             where TRes : Resp
         {
-            res.ret = ret;
+            res.code = code;
             res.msg = msg;
             return res;
         }
@@ -125,13 +125,13 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <typeparam name="TRes"></typeparam>
         /// <param name="res"></param>
-        /// <param name="ret"></param>
+        /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, RespTypes ret, string msg)
+        public static TRes WithResp<TRes>(this TRes res, RespTypes code, string msg)
             where TRes : Resp
         {
-            res.ret = (int)ret;
+            res.code = (int)code;
             res.msg = msg;
             return res;
         }
@@ -202,7 +202,7 @@ namespace OSS.Common.Resp
         public static TRes WithResp<TRes>(this TRes res, IResp tPara, string errMsg = null)
             where TRes : Resp
         {
-            res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
+            res.WithResp(tPara.sys_code, tPara.code, tPara.msg);
             return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
         }
 
@@ -221,7 +221,7 @@ namespace OSS.Common.Resp
             where TRes : Resp
             where TPara : Resp
         {
-            res.WithResp(tPara.sys_ret, tPara.ret, tPara.msg);
+            res.WithResp(tPara.sys_code, tPara.code, tPara.msg);
             if (tPara.IsSuccess())
             {
                 successFormatAction(tPara, res);
