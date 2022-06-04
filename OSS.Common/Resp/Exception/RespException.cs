@@ -24,6 +24,17 @@ namespace OSS.Common.Resp
         /// </summary>
         public Resp ErrorResp { get; }
 
+
+        /// <summary>
+        ///  异常
+        /// </summary>
+        /// <param name="message">异常信息描述</param>
+        public RespException(string message) : base(message)
+        {
+            ErrorResp = new Resp(SysRespTypes.AppError, message);
+        }
+        
+
         /// <summary>
         ///  异常
         /// </summary>
@@ -33,6 +44,7 @@ namespace OSS.Common.Resp
         {
             ErrorResp = new Resp(code, message);
         }
+
 
 
         /// <summary>
