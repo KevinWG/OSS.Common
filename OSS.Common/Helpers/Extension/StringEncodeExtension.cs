@@ -45,11 +45,18 @@ namespace OSS.Common.Extension
         /// <summary>
         /// Uri解码处理
         /// </summary>
+        public static string SafeUnescapeDataString(this string input)
+        {
+            return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
+        }
+
+
+        [Obsolete]
         public static string SafeUnescapeUriString(this string input)
         {
             return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
         }
-        
+
         #endregion
 
 
