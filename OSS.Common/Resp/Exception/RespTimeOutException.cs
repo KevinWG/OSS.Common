@@ -21,3 +21,25 @@ public class RespTimeOutException : RespException
     {
     }
 }
+
+/// <summary>
+///  拒绝请求异常
+/// </summary>
+public class RespNotAllowedException : RespException
+{
+
+    /// <summary>
+    ///  拒绝请求异常
+    /// </summary>
+    public RespNotAllowedException() : this(string.Empty)
+    {
+    }
+
+    /// <summary>
+    ///  超时异常
+    /// </summary>
+    /// <param name="msg"> 异常消息描述 </param>
+    public RespNotAllowedException(string msg) : base(SysRespTypes.NotAllowed, msg)
+    {
+    }
+}

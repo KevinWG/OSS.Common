@@ -33,17 +33,22 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  超时
         /// </summary>
-        [OSDescribe("已超时")] TimeOut = 200,
-
+        [OSDescribe("已超时")] TimeOut = 408,
+        
         /// <summary>
-        /// 未实现
+        /// 系统权限不足
         /// </summary>
-        [OSDescribe("未实现")] NotImplement = 400,
+        [OSDescribe("拒绝请求")] NotAllowed = 405,
 
         /// <summary>
         /// 应用异常
         /// </summary>
-        [OSDescribe("应用程序异常")] AppError = 500,
+        [OSDescribe("应用程序异常")] AppError = 500,    
+
+        /// <summary>
+        /// 未实现
+        /// </summary>
+        [OSDescribe("未实现")] NotImplement = 501,
     }
 
     /// <summary>
@@ -81,12 +86,21 @@ namespace OSS.Common.Resp
         /// <summary>
         /// 未登录
         /// </summary>
-        [OSDescribe("未登录")] UserUnLogin = 1420,
+        [OSDescribe("未登录")] UserUnLogin = 1401,
+
 
         /// <summary>
         /// 已拉黑
         /// </summary>
-        [OSDescribe("已拉黑")] UserBlocked = 1422,
+        [OSDescribe("已拉黑")] UserBlocked = 1403,
+
+
+        /// <summary>
+        /// 权限不足
+        /// </summary>
+        [OSDescribe("权限不足")] UserNoPermission = 1405,
+
+
 
         /// <summary>
         /// 账号未激活
@@ -103,10 +117,7 @@ namespace OSS.Common.Resp
         /// </summary>
         [OSDescribe("账号信息缺失")] UserIncomplete = 1428,
 
-        /// <summary>
-        /// 权限不足
-        /// </summary>
-        [OSDescribe("权限不足")] UserNoPermission = 1430,
+
 
 
 
