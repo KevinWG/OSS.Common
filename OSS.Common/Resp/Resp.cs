@@ -21,6 +21,11 @@ namespace OSS.Common.Resp
     public class Resp : IResp
     {
         /// <summary>
+        ///  默认成功实体
+        /// </summary>
+        public static readonly  IResp DefaultSuccess = new Resp();
+        
+        /// <summary>
         /// 响应实体
         /// </summary>
         public Resp()

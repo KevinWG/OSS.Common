@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSS.Common.Resp;
+using Newtonsoft.Json;
 using OSS.Common.Encrypt;
 
 namespace OSS.Common.Tests
 {
+    using OSS.Common.Resp;
+
     [TestClass]
     public class RespTests
     {
@@ -26,6 +28,14 @@ namespace OSS.Common.Tests
            var  res = new StrResp().WithResp(SysRespTypes.NetError, $"微信支付接口请求异常");
         }
 
+        [TestMethod]
+        public void RespJsonTest()
+        {
+            var res = new Resp();
+            var str = JsonConvert.SerializeObject(res);
+
+            var revertRes = JsonConvert.DeserializeObject<Resp>(str);
+        }
 
     }
 
