@@ -12,6 +12,7 @@
 #endregion
 
 using System;
+using OSS.Common.Resp;
 
 namespace OSS.Common
 {
@@ -60,7 +61,7 @@ namespace OSS.Common
                     return ins;
                 }
 
-                throw new NullReferenceException($"未能发现{typeof(T)}在容器中注入依赖的具体映射类型/实例");
+                throw new RespNotImplementException($"未能发现{typeof(T)}在容器中注入依赖的具体映射类型/实例");
             }
         }
 
@@ -70,7 +71,7 @@ namespace OSS.Common
         /// <param name="insCreater"></param>
         public static void Set(Func<T> insCreater)
         {
-            _insCreater = insCreater ?? throw new ArgumentNullException(nameof(insCreater), "参数不能为空！");
+            _insCreater = insCreater ?? throw new RespArgumentException(nameof(insCreater), "参数不能为空！");
         }
 
         /// <summary>
