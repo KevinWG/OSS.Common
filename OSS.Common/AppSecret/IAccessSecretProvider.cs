@@ -5,14 +5,14 @@ namespace OSS.Common;
 /// <summary>
 ///  访问秘钥提供者
 /// </summary>
-public interface IAccessSecretProvider: IAppSecretProvider<IAccessSecret>
+public interface IAccessSecretProvider: IAccessSecretProvider<IAccessSecret>
 {
 }
 
 /// <summary>
 ///  访问秘钥提供者
 /// </summary>
-public interface IAppSecretProvider<TSecret>
+public interface IAccessSecretProvider<TSecret>
     where TSecret : IAccessSecret
 {
     /// <summary>
