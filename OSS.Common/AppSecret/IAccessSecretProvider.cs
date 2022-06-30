@@ -1,5 +1,4 @@
-﻿using OSS.Common.Resp;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace OSS.Common;
 
@@ -20,5 +19,5 @@ public interface IAppSecretProvider<TSecret>
     /// 获取访问秘钥信息
     /// </summary>
     /// <returns></returns>
-    Task<IResp<TSecret>> GetAccessSecret();
+    Task<TSecret> GetAccessSecret();
 }
