@@ -18,7 +18,7 @@ namespace OSS.Common.BasicMos
     /// <summary>
     /// 通用应用账号配置信息  
     /// </summary>
-    [Obsolete("")]
+    [Obsolete("使用IAppSecret或者AppSecret")]
     public class AppConfig
     {
         /// <summary>
