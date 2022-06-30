@@ -26,6 +26,8 @@ namespace OSS.Common
         /// </summary>
         public static IServiceProvider Provider { get; set; }
     }
+
+
     
     /// <summary>
     ///   Ioc简单实例容器实现

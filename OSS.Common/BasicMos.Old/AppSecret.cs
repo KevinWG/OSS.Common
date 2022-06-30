@@ -5,7 +5,7 @@ namespace OSS.Common.BasicMos
     /// <summary>
     ///  应用信息id接口
     /// </summary>
-    [Obsolete("转移命名空间至（OSS.Common）")] 
+    [Obsolete("使用IAccessKey")] 
     public interface IAppId
     {
         /// <summary>
@@ -17,7 +17,7 @@ namespace OSS.Common.BasicMos
     /// <summary>
     ///  应用设置信息接口
     /// </summary>
-    [Obsolete("转移命名空间至（OSS.Common）")]
+    [Obsolete("使用IAccessSecret")]
     public interface IAppSecret: IAppId
     {
         /// <summary>
@@ -29,7 +29,7 @@ namespace OSS.Common.BasicMos
     /// <summary>
     ///  应用设置信息
     /// </summary>
-    [Obsolete("转移命名空间至（OSS.Common）")]
+    [Obsolete("使用AccessSecret")]
     public class AppSecret: IAppSecret
     {
         /// <summary>

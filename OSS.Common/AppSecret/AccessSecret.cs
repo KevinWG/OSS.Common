@@ -1,14 +1,14 @@
 ﻿namespace OSS.Common;
 
 /// <summary>
-///  应用设置信息
+///  访问秘钥实体
 /// </summary>
-public class AppSecret : IAppSecret
+public class AccessSecret : IAccessSecret
 {
     /// <summary>
     /// 构造函数
     /// </summary>
-    public AppSecret()
+    public AccessSecret()
     {
     }
 
@@ -17,16 +17,16 @@ public class AppSecret : IAppSecret
     /// </summary>
     /// <param name="appId"></param>
     /// <param name="appSecret"></param>
-    public AppSecret(string appId, string appSecret)
+    public AccessSecret(string appId, string appSecret)
     {
-        app_id     = appId;
-        app_secret = appSecret;
+        access_key     = appId;
+        access_secret = appSecret;
     }
 
     /// <inheritdoc />
-    public string app_id { get; set; }
+    public string access_key { get; set; }
 
     /// <inheritdoc />
-    public string app_secret { get; set; }
+    public string access_secret { get; set; }
 
 }
