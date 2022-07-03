@@ -11,18 +11,16 @@ public class AccessSecret : IAccessSecret
     public AccessSecret()
     {
     }
-
-
-
+    
     /// <summary>
     ///  构造函数
     /// </summary>
-    /// <param name="appId"></param>
-    /// <param name="appSecret"></param>
-    public AccessSecret(string appId, string appSecret)
+    /// <param name="accessKey"></param>
+    /// <param name="accessSecret"></param>
+    public AccessSecret(string accessKey, string accessSecret)
     {
-        access_key     = appId;
-        access_secret = appSecret;
+        access_key     = accessKey;
+        access_secret = accessSecret;
     }
 
     /// <inheritdoc />

@@ -32,15 +32,15 @@ namespace OSS.Common.Resp
         /// <param name="listRes"></param>
         /// <param name="tokenColumnName">关联的key列名称</param>
         /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
-        /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
+        /// <param name="valueTokenGenerator">对应 tokenKeyColumnName 列的 token 值处理</param>
         /// <returns></returns>
         public static TTokenList AddColumnToken<TTokenList, TResult>(this TTokenList listRes, string tokenColumnName,
-            Func<TResult, string> tokenKeySelector, Func<TResult, string> tokenValueTokenSelector)
+            Func<TResult, string> tokenKeySelector, Func<TResult, string> valueTokenGenerator)
             where TTokenList : ITokenList<TResult>
         {
-            if (string.IsNullOrEmpty(tokenColumnName) || tokenKeySelector == null || tokenValueTokenSelector == null)
+            if (string.IsNullOrEmpty(tokenColumnName) || tokenKeySelector == null || valueTokenGenerator == null)
                 throw new ArgumentNullException(
-                    $"{nameof(tokenColumnName)},{nameof(tokenKeySelector)},{nameof(tokenValueTokenSelector)}",
+                    $"{nameof(tokenColumnName)},{nameof(tokenKeySelector)},{nameof(valueTokenGenerator)}",
                     " 参数不能为空!");
 
             if (listRes.data != null)
@@ -51,7 +51,7 @@ namespace OSS.Common.Resp
                 }
 
                 listRes.pass_tokens[tokenColumnName] =
-                    GenerateColumnToken(listRes.data, tokenKeySelector, tokenValueTokenSelector);
+                    GenerateColumnToken(listRes.data, tokenKeySelector, valueTokenGenerator);
             }
 
             return listRes;
@@ -64,10 +64,10 @@ namespace OSS.Common.Resp
         /// <typeparam name="TResult"></typeparam>
         /// <param name="items"></param>
         /// <param name="keyValueSelector"></param>
-        /// <param name="keyValueTokenSelector"></param>
+        /// <param name="keyValueTokenGenerator"></param>
         /// <returns></returns>
         public static Dictionary<string, string> GenerateColumnToken<TResult>(this IList<TResult> items,
-            Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenSelector)
+            Func<TResult, string> keyValueSelector, Func<TResult, string> keyValueTokenGenerator)
         {
             var dics = new Dictionary<string, string>(items.Count);
             foreach (var dataItem in items)
@@ -75,7 +75,7 @@ namespace OSS.Common.Resp
                 var key = keyValueSelector(dataItem);
                 if (!string.IsNullOrEmpty(key))
                 {
-                    dics[key] = keyValueTokenSelector(dataItem);
+                    dics[key] = keyValueTokenGenerator(dataItem);
                 }
             }
             return dics;
