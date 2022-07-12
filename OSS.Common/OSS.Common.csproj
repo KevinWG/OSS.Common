@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>5.3.2.1</Version>
+    <Version>6.0.0.0</Version>
 	  <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
     <Product>OSS开源系列</Product>
@@ -18,7 +18,7 @@
 
     <PackageIcon>logo.png</PackageIcon>
 
-    <PackageReleaseNotes>优化基础实现</PackageReleaseNotes>
+    <PackageReleaseNotes>重构部分结构</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -18,7 +18,7 @@ namespace OSS.Common.Resp
     /// <summary>
     ///   系统响应类型
     /// </summary>
-    public enum SysRespTypes
+    public enum SysRespCodes
     {
         /// <summary>
         /// 运行正常
@@ -54,16 +54,14 @@ namespace OSS.Common.Resp
     /// <summary>
     ///   业务响应类型
     /// </summary>
-    public enum RespTypes
+    public enum RespCodes
     {
         /// <summary>
         /// 成功
         /// </summary>
         [OSDescribe("成功")] Success = 0,
 
-
-
-
+        
         /// <summary>
         /// 参数错误
         /// </summary>

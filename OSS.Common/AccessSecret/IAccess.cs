@@ -8,7 +8,6 @@ public interface IAccess
 {
 }
 
-
 /// <summary>
 ///  访问秘钥Secret接口
 /// </summary>

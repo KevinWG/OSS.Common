@@ -49,10 +49,10 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(RespTypes code, string message = null)
+        public Resp(RespCodes code, string message = null)
         {
             this.code = (int) code;
-            this.msg = code != RespTypes.Success && string.IsNullOrEmpty(message) ? code.GetDesp() : message;
+            this.msg = code != RespCodes.Success && string.IsNullOrEmpty(message) ? code.GetDesp() : message;
         }
 
 
@@ -61,10 +61,10 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="sysCode">【系统/框架】 响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(SysRespTypes sysCode, string message = null)
+        public Resp(SysRespCodes sysCode, string message = null)
         {
             this.sys_code = (int) sysCode;
-            this.msg     = sysCode != SysRespTypes.Ok && string.IsNullOrEmpty(message) ? sysCode.GetDesp() : message;
+            this.msg     = sysCode != SysRespCodes.Ok && string.IsNullOrEmpty(message) ? sysCode.GetDesp() : message;
         }
 
 
@@ -94,7 +94,7 @@ namespace OSS.Common.Resp
         /// </summary>
         public int code
         {
-            get => (sys_code != 0 && _code == 0) ? (int)RespTypes.OperateFailed : _code;
+            get => (sys_code != 0 && _code == 0) ? (int)RespCodes.OperateFailed : _code;
             set => _code = value;
         }
         private int _code;

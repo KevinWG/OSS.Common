@@ -16,7 +16,7 @@ public class RespNetworkException : RespException
     ///  网络异常
     /// </summary>
     /// <param name="msg"> 异常消息描述 </param>
-    public RespNetworkException(string msg) : base(SysRespTypes.NetError, msg)
+    public RespNetworkException(string msg) : base(SysRespCodes.NetError, msg)
     {
     }
 }

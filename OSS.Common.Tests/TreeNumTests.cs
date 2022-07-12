@@ -1,13 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSS.Common.Helpers;
-
 namespace OSS.Common.Tests
 {
     [TestClass]
     public class TreeNumTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GenerateTest()
         {
             var num = TreeNumHelper.GenerateSmallNum(0, 0);
             Assert.IsTrue(num==1000000000000000);
@@ -34,7 +32,7 @@ namespace OSS.Common.Tests
         public void FormatParentsTest()
         {
             var firParents = TreeNumHelper.FormatParents(1000000000000000);
-            Assert.IsTrue(firParents[0]==0);
+            Assert.IsTrue(firParents.Length == 0);
 
             var parents = TreeNumHelper.FormatParents(1010101011100000);
             Assert.IsTrue(parents.Length == 4);

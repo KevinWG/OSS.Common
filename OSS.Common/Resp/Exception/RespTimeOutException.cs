@@ -17,7 +17,7 @@ public class RespTimeOutException : RespException
     ///  超时异常
     /// </summary>
     /// <param name="msg"> 异常消息描述 </param>
-    public RespTimeOutException(string msg) : base(SysRespTypes.TimeOut, msg)
+    public RespTimeOutException(string msg) : base(SysRespCodes.TimeOut, msg)
     {
     }
 }
@@ -39,7 +39,7 @@ public class RespNotAllowedException : RespException
     ///  超时异常
     /// </summary>
     /// <param name="msg"> 异常消息描述 </param>
-    public RespNotAllowedException(string msg) : base(SysRespTypes.NotAllowed, msg)
+    public RespNotAllowedException(string msg) : base(SysRespCodes.NotAllowed, msg)
     {
     }
 }

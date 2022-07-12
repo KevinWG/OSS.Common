@@ -19,7 +19,7 @@ using System.Reflection;
 #endregion
 
 
-namespace OSS.Common.Extension.Validate
+namespace OSS.Common.Extension
 {
     /// <summary>
     /// 

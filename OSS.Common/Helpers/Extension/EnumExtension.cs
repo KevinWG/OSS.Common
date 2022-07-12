@@ -61,7 +61,7 @@ namespace OSS.Common.Extension
         {
 
             if (!enType.GetTypeInfo().IsEnum)
-                throw new RespException(RespTypes.ParaError,"获取枚举字典，参数必须是枚举类型！");
+                throw new RespException(RespCodes.ParaError,"获取枚举字典，参数必须是枚举类型！");
             
             var key = string.Concat(enType.FullName, isIntValue);
             enumDirs.TryGetValue(key, out var dirs);

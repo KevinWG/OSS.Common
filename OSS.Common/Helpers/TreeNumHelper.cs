@@ -13,7 +13,7 @@
 using OSS.Common.Extension;
 using System;
 
-namespace OSS.Common.Helpers
+namespace OSS.Common
 {
     /// <summary>
     ///  树形编码生成辅助类

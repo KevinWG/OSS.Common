@@ -25,7 +25,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <returns></returns>
         public static bool IsSuccessOrDataNull<TType>(this IResp<TType> res) =>
-            res.code == 0 || (res.IsSysOk() && res.code == (int)RespTypes.OperateObjectNull);
+            res.code == 0 || (res.IsSysOk() && res.code == (int)RespCodes.OperateObjectNull);
 
         /// <summary>
         /// 【业务响应】是否是对应的类型
@@ -33,7 +33,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IResp res, RespTypes type) => res.code == (int)type;
+        public static bool IsRespType(this IResp res, RespCodes type) => res.code == (int)type;
 
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IResp res, SysRespTypes type) => res.sys_code == (int)type;
+        public static bool IsSysRespType(this IResp res, SysRespCodes type) => res.sys_code == (int)type;
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace OSS.Common.Resp
         /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysCode, RespTypes code, string msg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, RespCodes code, string msg)
             where TRes : Resp
         {
             return res.WithResp((int)sysCode, (int)code, msg);
@@ -96,7 +96,7 @@ namespace OSS.Common.Resp
         /// <param name="sysCode"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespTypes sysCode, string msg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, string msg)
             where TRes : Resp
         {
             res.sys_code = (int)sysCode;
@@ -128,7 +128,7 @@ namespace OSS.Common.Resp
         /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, RespTypes code, string msg)
+        public static TRes WithResp<TRes>(this TRes res, RespCodes code, string msg)
             where TRes : Resp
         {
             res.code = (int)code;

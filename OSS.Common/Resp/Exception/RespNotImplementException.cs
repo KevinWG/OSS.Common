@@ -16,7 +16,7 @@ public class RespNotImplementException:RespException
     ///  未实现功能异常
     /// </summary>
     /// <param name="msg"> 异常消息描述 </param>
-    public RespNotImplementException(string msg) : base(SysRespTypes.NotImplement, msg)
+    public RespNotImplementException(string msg) : base(SysRespCodes.NotImplement, msg)
     {
     }
 }

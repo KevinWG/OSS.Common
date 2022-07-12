@@ -18,7 +18,7 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="name">参数名称</param>
         /// <param name="msg"> 异常消息描述 </param>
-        public RespArgumentException(string name,string msg) : base((int)SysRespTypes.AppError, (int)RespTypes.ParaError, string.IsNullOrEmpty(name)?msg:$"[{name}]:{msg}")
+        public RespArgumentException(string name,string msg) : base((int)SysRespCodes.AppError, (int)RespCodes.ParaError, string.IsNullOrEmpty(name)?msg:$"[{name}]:{msg}")
         {
         }
     }

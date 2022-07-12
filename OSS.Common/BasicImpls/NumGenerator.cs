@@ -13,7 +13,7 @@
 
 using System;
 
-namespace OSS.Common.BasicImpls
+namespace OSS.Common
 {
     /// <summary>
     /// 生成兼容js的编号（53bit）

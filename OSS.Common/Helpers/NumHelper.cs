@@ -13,18 +13,16 @@
 
 using System;
 using System.Text;
-using OSS.Common.BasicImpls;
 using OSS.Common.Extension;
 
-namespace OSS.Common.Helpers
+namespace OSS.Common
 {
     /// <summary>
     ///  唯一数字编码生成静态通用类
     /// </summary>
     public static class NumHelper
     {
-        private static readonly long _timeStartTicks = new DateTime(2019, 1, 1).ToUniversalTime().Ticks;
-        private static readonly Random _rnd = new Random(DateTime.Now.Millisecond);
+        private static readonly Random _rnd = new(DateTime.Now.Millisecond);
 
         /// <summary>
         /// 随机数字
@@ -64,11 +62,7 @@ namespace OSS.Common.Helpers
             return new SmallNumGenerator(workId);
         }
 
-
-
-
-
-
+        
         /// <summary>
         /// twitter 的snowflake算法 workid=0 的算法实例：
         /// 生成的Id(排除机器位)
@@ -113,11 +107,6 @@ namespace OSS.Common.Helpers
         }
 
 
-
-
-
-
-
         /// <summary>
         ///  时间戳（秒）+ 主编号的后四位 生成的数字编号
         /// </summary>
@@ -129,16 +118,5 @@ namespace OSS.Common.Helpers
             var suffixNum = mainNum % 10000;
             return string.Concat(DateTime.Now.ToUtcSeconds(), suffixNum).ToInt64();
         }
-        /// <summary>
-        ///  时间戳数字编号（精度 毫秒
-        /// </summary>
-        /// <returns></returns>
-
-        [Obsolete("请使用 DateTime.ToUtcMilliSeconds（OSS.Common.Extension）扩展方法")]
-        public static long TimeMilSecsNum()
-        {
-            return (DateTime.UtcNow.Ticks - _timeStartTicks) / 10000;
-        }
-
     }
 }
