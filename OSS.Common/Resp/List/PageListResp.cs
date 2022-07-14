@@ -17,7 +17,7 @@ namespace OSS.Common.Resp
     /// <summary>
     ///  分页实体
     /// </summary>
-    public class PageListResp<TModel> : ListResp<TModel>
+    public class PageListResp<TModel> : ListResp<TModel>,IPageList<TModel>
     {
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace OSS.Common.Resp
         /// 分页响应实体
         /// </summary>
         /// <param name="pList"></param>
-        public PageListResp(PageList<TModel> pList) :this(pList.total,pList.data)
+        public PageListResp(IPageList<TModel> pList) :this(pList.total,pList.data)
         {
         }
 
@@ -51,4 +51,8 @@ namespace OSS.Common.Resp
         public int total { get; set; }
 
     }
+
+
+
+ 
 }

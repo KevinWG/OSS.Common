@@ -14,7 +14,7 @@ public class PageTokenListResp<TModel> : PageListResp<TModel>, ITokenList<TModel
     }
 
     /// <inheritdoc />
-    public PageTokenListResp(PageList<TModel> pList) : base(pList.total, pList.data)
+    public PageTokenListResp(IPageList<TModel> pList) : base(pList.total, pList.data)
     {
     }
 
