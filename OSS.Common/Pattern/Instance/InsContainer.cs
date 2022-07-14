@@ -63,7 +63,7 @@ namespace OSS.Common
                     return ins;
                 }
 
-                throw new RespNotImplementException($"未能发现{typeof(T)}在容器中注入依赖的具体映射类型/实例");
+                throw new NotImplementedException($"未能发现{typeof(T)}在容器中注入依赖的具体映射类型/实例");
             }
         }
 
