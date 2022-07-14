@@ -32,7 +32,9 @@ public static class ListRespExtension
                                                           string tokenColumnName, Func<TData, string> tokenKeySelector,
                                                           Func<TData, string> tokenValueTokenSelector)
     {
-        return listRes.ToTokenList().AddColumnToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+        var res = listRes.ToTokenList();
+        res.AddColumnToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
+        return res;
     }
-    
+
 }

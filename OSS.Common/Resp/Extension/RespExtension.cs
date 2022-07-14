@@ -290,7 +290,7 @@ namespace OSS.Common.Resp
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
         public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IResp<TPara> tPara,
-            Func<TPara, TRes> convertFunc, string errMsg, bool isNullCheck = true)
+            Func<TPara, TRes> convertFunc, string errMsg=null, bool isNullCheck = true)
         {
             if ((isNullCheck && tPara.data != null)
                 || !isNullCheck)
@@ -298,39 +298,6 @@ namespace OSS.Common.Resp
                 res.data = convertFunc.Invoke(tPara.data);
             }
 
-            return res.WithResp(tPara, errMsg);
-        }
-
-        /// <summary>
-        /// 处理响应转化
-        /// </summary>
-        /// <param name="res"></param>
-        /// <param name="tPara"></param>
-        /// <param name="convertFunc"></param>
-        /// <param name="isNullCheck">调用方法（convertFunc）之前是否检查数据是否为空</param>
-        /// <typeparam name="TRes"></typeparam>
-        /// <typeparam name="TPara"></typeparam>
-        /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IResp<TPara> tPara,
-            Func<TPara, TRes> convertFunc, bool isNullCheck = true)
-        {
-            return res.WithResp(tPara, convertFunc, null, isNullCheck);
-        }
-
-        /// <summary>
-        /// 处理响应转化(循环List执行 convertFunc )
-        /// </summary>
-        /// <typeparam name="TRes"></typeparam>
-        /// <typeparam name="TPara"></typeparam>
-        /// <param name="res"></param>
-        /// <param name="tPara"></param>
-        /// <param name="convertFunc"></param>
-        /// <param name="errMsg">不成功时的消息内容，如果为空,消息内容取 tPara.msg</param>
-        /// <returns></returns>
-        public static ListResp<TRes> WithResp<TRes, TPara>(this ListResp<TRes> res, ListResp<TPara> tPara,
-            Func<TPara, TRes> convertFunc, string errMsg = null)
-        {
-            res.data = tPara.data?.Select(convertFunc).ToList();
             return res.WithResp(tPara, errMsg);
         }
 

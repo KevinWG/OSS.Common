@@ -31,8 +31,11 @@ public static class PageListRespExtension
                                                                   Func<TData, string> tokenKeySelector,
                                                                   Func<TData, string> valueTokenGenerator)
     {
-        return pageListResp.ToPageTokenResp()
-            .AddColumnToken(tokenColumnName, tokenKeySelector, valueTokenGenerator);
+        var res = pageListResp.ToPageTokenResp();
+
+        res.AddColumnToken(tokenColumnName, tokenKeySelector, valueTokenGenerator);
+
+        return res;
     }
 
 

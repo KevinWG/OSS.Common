@@ -12,27 +12,23 @@ public static class IListPassTokensExtension
     ///  处理列表token处理
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TTokenList"></typeparam>
     /// <param name="listRes"></param>
     /// <param name="tokenColumnName">关联的key列名称</param>
     /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
     /// <param name="valueTokenGenerator">对应 tokenKeyColumnName 列的 token 值处理</param>
     /// <returns></returns>
-    public static TTokenList AddColumnToken<TTokenList, TResult>(this TTokenList listRes, string tokenColumnName,
+    public static void AddColumnToken<TResult>(this ITokenList<TResult> listRes, string tokenColumnName,
                                                                  Func<TResult, string> tokenKeySelector, Func<TResult, string> valueTokenGenerator)
-        where TTokenList : ITokenList<TResult>
     {
         if (string.IsNullOrEmpty(tokenColumnName) || tokenKeySelector == null || valueTokenGenerator == null)
             throw new ArgumentNullException($"{nameof(tokenColumnName)},{nameof(tokenKeySelector)},{nameof(valueTokenGenerator)}",
                 " 参数不能为空!");
 
         if (listRes.data == null) 
-            return listRes;
+            return;
 
         listRes.pass_tokens ??= new Dictionary<string, Dictionary<string, string>>();
         listRes.pass_tokens[tokenColumnName] = GenerateColumnTokens(listRes.data, tokenKeySelector, valueTokenGenerator);
-
-        return listRes;
     }
 
 
