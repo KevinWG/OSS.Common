@@ -36,7 +36,7 @@ namespace OSS.Common
     public static class InsContainer<T>
         where T : class
     {
-        private static Func<T> _insCreater;
+        private static Func<T> _insCreator;
 
         /// <summary>
         ///  具体实例 
@@ -48,9 +48,9 @@ namespace OSS.Common
             {
                 T ins = default;
 
-                if (_insCreater != null)
+                if (_insCreator != null)
                 {
-                    ins = _insCreater();
+                    ins = _insCreator();
                 }
 
                 if (ins == null && ServiceProvider.Provider != null)
@@ -73,7 +73,7 @@ namespace OSS.Common
         /// <param name="insCreater"></param>
         public static void Set(Func<T> insCreater)
         {
-            _insCreater = insCreater ?? throw new RespArgumentException(nameof(insCreater), "参数不能为空！");
+            _insCreator = insCreater ?? throw new RespArgumentException(nameof(insCreater), "参数不能为空！");
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace OSS.Common
         public static void Set<TInstance>(TInstance ins)
             where TInstance : T
         {
-            _insCreater = () => ins;
+            _insCreator = () => ins;
         }
 
         private static          T      _instance;
@@ -100,11 +100,11 @@ namespace OSS.Common
         {
             if (!isSingle)
             {
-                _insCreater = () => new TInstance();
+                _insCreator = () => new TInstance();
                 return;
             }
 
-            _insCreater = () =>
+            _insCreator = () =>
             {
                 if (_instance == null)
                 {
