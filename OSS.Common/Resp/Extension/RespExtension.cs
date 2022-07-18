@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OSS.Common.Resp
@@ -20,6 +19,14 @@ namespace OSS.Common.Resp
             res.code == 0;
 
         /// <summary>
+        /// 【业务响应】是否是 OperateObjectNull
+        /// </summary>
+        /// <typeparam name="TType"></typeparam>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public static bool IsObjectNull<TType>(this IResp<TType> res) =>  res.code == (int)RespCodes.OperateObjectNull;
+
+        /// <summary>
         ///  【业务响应】是否成功或者数据不存在(但系统状态OK)
         /// </summary>
         /// <param name="res"></param>
@@ -33,7 +40,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsRespType(this IResp res, RespCodes type) => res.code == (int)type;
+        public static bool IsRespCode(this IResp res, RespCodes type) => res.code == (int)type;
 
 
         /// <summary>
@@ -49,7 +56,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool IsSysRespType(this IResp res, SysRespCodes type) => res.sys_code == (int)type;
+        public static bool IsSysRespCode(this IResp res, SysRespCodes type) => res.sys_code == (int)type;
 
         #endregion
 
