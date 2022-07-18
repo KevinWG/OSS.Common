@@ -135,7 +135,7 @@ namespace OSS.Common.Resp
         /// <summary>
         /// 对象已存在
         /// </summary>
-        [OSDescribe("已经存在")] OperateObjectExist = 1506,
+        [OSDescribe("已经存在")] OperateObjectExisted = 1506,
 
 
 
