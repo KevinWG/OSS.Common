@@ -19,7 +19,6 @@ namespace OSS.Common.Resp
     /// </summary>
     public class PageListResp<TModel> : ListResp<TModel>,IPageList<TModel>
     {
-
         /// <summary>
         ///    空构造函数  照顾  json序列化 
         /// </summary>

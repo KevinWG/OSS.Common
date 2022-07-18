@@ -20,8 +20,10 @@ namespace OSS.Common.Resp
             this.data = data;
         }
 
+        /// <inheritdoc />
         public int total { get; }
 
+        /// <inheritdoc />
         public IList<T> data { get; }
     }
 }
