@@ -17,7 +17,7 @@ namespace OSS.Common.Tests
             list.Add(new TestItemMo(){id   =1,age   =20});
             list.Add(new TestItemMo() { id = 2, age = 20 });
 
-            var pageList = new PageTokenListResp<TestItemMo>(2,list);
+            var pageList = new TokenPageListResp<TestItemMo>(2,list);
             pageList.AddColumnToken("age",x=>x.age.ToString(),x=> Md5.EncryptHexString( x.age.ToString()));
         }
 

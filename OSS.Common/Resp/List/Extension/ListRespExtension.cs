@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OSS.Common.Resp;
 
@@ -7,13 +9,48 @@ namespace OSS.Common.Resp;
 /// </summary>
 public static class ListRespExtension
 {
+
+
+
+
+
+
+
+    /// <summary>
+    ///  转化为通行token列表
+    /// </summary>
+    /// <returns></returns>
+    public static async Task<TokenListResp<TData>> ToTokenListResp<TData>(this Task<List<TData>> taskList)
+    {
+        return new TokenListResp<TData>(await taskList);
+    }
+    /// <summary>
+    ///  转化为通行token列表
+    /// </summary>
+    /// <returns></returns>
+    public static async Task<TokenListResp<TData>> ToTokenListResp<TData>(this Task<IList<TData>> taskList)
+    {
+        return new TokenListResp<TData>(await taskList);
+    }
+
+    /// <summary>
+    ///  转化为通行token列表
+    /// </summary>
+    /// <returns></returns>
+    public static TokenListResp<TData> ToTokenListResp<TData>(this IList<TData> list)
+    {
+        return new TokenListResp<TData>(list);
+    }
+
+
+
     /// <summary>
     ///  转化为通行token列表
     /// </summary>
     /// <typeparam name="TData"></typeparam>
     /// <param name="listRes"></param>
     /// <returns></returns>
-    public static TokenListResp<TData> ToTokenList<TData>(this ListResp<TData> listRes)
+    public static TokenListResp<TData> ToTokenListResp<TData>(this ListResp<TData> listRes)
     {
         return new TokenListResp<TData>(listRes.data).WithResp(listRes);
     }
@@ -28,11 +65,11 @@ public static class ListRespExtension
     /// <param name="tokenKeySelector">对应 tokenKeyColumnName 列的 token key 选择器</param>
     /// <param name="tokenValueTokenSelector">对应 tokenKeyColumnName 列的 token 值处理</param>
     /// <returns></returns>
-    public static TokenListResp<TData> ToTokenList<TData>(this ListResp<TData> listRes,
-                                                          string tokenColumnName, Func<TData, string> tokenKeySelector,
-                                                          Func<TData, string> tokenValueTokenSelector)
+    public static TokenListResp<TData> ToTokenListResp<TData>(this ListResp<TData> listRes,
+                                                              string tokenColumnName, Func<TData, string> tokenKeySelector,
+                                                              Func<TData, string> tokenValueTokenSelector)
     {
-        var res = listRes.ToTokenList();
+        var res = listRes.ToTokenListResp();
         res.AddColumnToken(tokenColumnName, tokenKeySelector, tokenValueTokenSelector);
         return res;
     }
