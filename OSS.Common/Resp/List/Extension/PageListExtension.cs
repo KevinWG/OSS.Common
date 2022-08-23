@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OSS.Common.Resp;
@@ -19,6 +20,7 @@ public static class PageListExtension
         return new PageListResp<TResult>(pageList);
     }
 
+  
     /// <summary>
     ///  转化为分页列表
     /// </summary>
@@ -27,6 +29,17 @@ public static class PageListExtension
     {
         return new PageListResp<TResult>(pageList);
     }
+
+
+    /// <summary>
+    ///  转化为分页列表
+    /// </summary>
+    /// <returns></returns>
+    public static PageListResp<TResult> ToPageResp<TPara,TResult>(this PageList<TPara> pageList,Func<TPara, TResult> convert)
+    {
+        return new PageListResp<TResult>(pageList.total, pageList.data.Select(convert).ToList());
+    }
+
 
     /// <summary>
     /// 转化为通行token分页列表
