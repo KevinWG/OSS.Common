@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace OSS.Common.Extension
+namespace OSS.Common
 {
     /// <summary>
     /// xml  转化扩展

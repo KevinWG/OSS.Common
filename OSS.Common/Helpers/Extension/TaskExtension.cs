@@ -19,7 +19,7 @@ namespace OSS.Common.Extension
     /// <summary>
     ///   任务等待扩展
     /// </summary>
-   [Obsolete] public static class TaskExtension
+   public static class TaskExtension
     {
         /// <summary>
         ///   等待异步执行结果

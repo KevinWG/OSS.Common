@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Text;
 using OSS.Common.Resp;
 
-namespace OSS.Common.Extension
-{
+namespace OSS.Common.Extension;
+
     /// <summary>
     /// 枚举扩展方法类
     /// </summary>
@@ -113,6 +113,3 @@ namespace OSS.Common.Extension
         /// </summary>
         public string Description { get; set; }
     }
-
-
-}

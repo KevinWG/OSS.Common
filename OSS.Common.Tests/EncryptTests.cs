@@ -19,7 +19,7 @@ namespace OSS.Common.Tests
         [TestMethod]
         public void EncryptTest()
         {
-            var timeUtc = DateTime.Now.ToUtcMilliSeconds();
+            var timeUtc = DateTime.Now.ToUtcMilliseconds();
             var result = Md5.EncryptHexString("1389085779854n35a5fdhawz56y24pjn3u9d5zp9r1nhpebrxyyu359cq0ddo");
             //var page = new PageListModel<AppAuthorizeInfo>(100, new List<AppAuthorizeInfo>(), new
             //        SearchModel() {});

@@ -1,7 +1,7 @@
 ﻿#region Copyright (C) 2014 OSS
 
 /*       
-　　	文件功能描述：验证属性attribute
+　　	文件功能描述：字典扩展
 
 　　	创建人:OSSCore
     创建人Email：1985088337@qq.com
@@ -11,72 +11,75 @@
 
 #endregion
 
-
 using System;
 using System.Collections.Generic;
 
-namespace OSS.Common.Extension
+namespace OSS.Common.Extension;
+
+/// <summary>
+///  字典扩展
+/// </summary>
+public static class DictionaryExtension
 {
     /// <summary>
-    ///  字典扩展
+    ///  有则修改，无则添加
     /// </summary>
-    public static class DictionaryExtension
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="dic"></param>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue value)
     {
-        /// <summary>
-        ///  有则修改，无则添加
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dic"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static bool AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue value) 
+        try
         {
-            try
+            if (dic.ContainsKey(key))
             {
-                if (dic.ContainsKey(key))
-                {
-                    dic[key] = value;
-                }
-                else
-                {
-                    dic.Add(key, value);
-                }
-                return true;
+                dic[key] = value;
             }
-            catch 
-            {              
+            else
+            {
+                dic.Add(key, value);
             }
-            return false;
+
+            return true;
+        }
+        catch
+        {
         }
 
-        /// <summary>
-        ///  转化字典值处理
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <typeparam name="TReturnValue"></typeparam>
-        /// <param name="dic"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static bool TryGetValue<TKey, TValue,TReturnValue>(this IDictionary<TKey, TValue> dic,TKey key, out TReturnValue value, Func<TValue,TReturnValue> converter)
+        return false;
+    }
+
+    /// <summary>
+    ///  转化字典值处理
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <typeparam name="TReturnValue"></typeparam>
+    /// <param name="dic"></param>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    /// <param name="converter"></param>
+    /// <returns></returns>
+    public static bool TryGetValue<TKey, TValue, TReturnValue>(this IDictionary<TKey, TValue> dic, TKey key,
+                                                               out TReturnValue value,
+                                                               Func<TValue, TReturnValue> converter)
+    {
+        try
         {
-            try
+            if (dic.TryGetValue(key, out var val))
             {
-                if (dic.TryGetValue(key, out TValue val)) 
-                {
-                    value = converter(val);
-                    return true;
-                }            
+                value = converter(val);
+                return true;
             }
-            catch
-            {
-            }
-            value = default;
-            return false;
         }
+        catch
+        {
+        }
+
+        value = default;
+        return false;
     }
 }

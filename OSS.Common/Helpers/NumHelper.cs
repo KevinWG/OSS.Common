@@ -11,9 +11,9 @@
 
 #endregion
 
+using OSS.Common.Extension;
 using System;
 using System.Text;
-using OSS.Common.Extension;
 
 namespace OSS.Common
 {
