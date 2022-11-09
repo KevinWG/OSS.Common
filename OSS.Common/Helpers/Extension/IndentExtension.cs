@@ -7,25 +7,24 @@ namespace System.Linq;
 /// </summary>
 public static class IndentExtension
 {
+   
     /// <summary>
-    /// 平级转化为递进结构
+    ///  平级转化为递进结构
     /// </summary>
     /// <typeparam name="TFlat"></typeparam>
     /// <typeparam name="TIndent"></typeparam>
+    /// <typeparam name="TKeyValue"></typeparam>
     /// <param name="sourceList"></param>
-    /// <param name="convert"></param>
-    /// <param name="getParentColumnValue"></param>
-    /// <param name="getIndentParentColumnValue"></param>
-    /// <param name="defaultParentValue"></param>
+    /// <param name="convert">参数：TFlat实体，子级TIndentList-可能为空，输出：TIndent实体</param>
+    /// <param name="defaultParentKeyValue">默认父级键值，如:0</param>
     /// <returns></returns>
-    public static IList<TIndent> ToIndent<TFlat, TIndent>(this IList<TFlat> sourceList,
-                                                          Func<TFlat, IList<TIndent>, TIndent> convert,
-                                                          Func<TFlat, string> getParentColumnValue,
-                                                          Func<TFlat, string> getIndentParentColumnValue,
-                                                          string defaultParentValue)
+    public static IList<TIndent> ToIndent<TFlat, TIndent, TKeyValue>(this IList<TFlat> sourceList,
+                                                                     Func<TFlat, IList<TIndent>, TIndent> convert,
+                                                                     TKeyValue defaultParentKeyValue)
+    where TFlat : IFlatWithParentId<TKeyValue>
     {
-        return sourceList.ToIndent<TFlat, TIndent, string>(convert, getParentColumnValue, getIndentParentColumnValue,
-            defaultParentValue);
+        return sourceList.ToIndent<TFlat, TIndent, TKeyValue>(convert,c=>c.parent_id, c=>c.id,
+            defaultParentKeyValue);
     }
 
     /// <summary>
@@ -33,27 +32,26 @@ public static class IndentExtension
     /// </summary>
     /// <typeparam name="TFlat"></typeparam>
     /// <typeparam name="TIndent"></typeparam>
-    /// <typeparam name="TParentVal"></typeparam>
+    /// <typeparam name="TKeyValue"></typeparam>
     /// <param name="sourceList"></param>
     /// <param name="convert">参数：TFlat实体，子级TIndentList-可能为空，输出：TIndent实体</param>
-    /// <param name="getParentCompareValue"></param>
-    /// <param name="getIndentParentColumnValue"></param>
-    /// <param name="defaultParentValue"></param>
+    /// <param name="getParentKeyValue">获取对象父键值，如：c=>c.parent_id</param>
+    /// <param name="getKeyValue">获取当前的键值，如： c=>c.id </param>
+    /// <param name="defaultParentKeyValue">默认父级键值，如:0</param>
     /// <returns></returns>
-    public static IList<TIndent> ToIndent<TFlat, TIndent, TParentVal>(this IList<TFlat> sourceList,
+    public static IList<TIndent> ToIndent<TFlat, TIndent, TKeyValue>(this IList<TFlat> sourceList,
                                                                       Func<TFlat, IList<TIndent>, TIndent> convert,
-                                                                      Func<TFlat, TParentVal> getParentCompareValue,
-                                                                      Func<TFlat, TParentVal>
-                                                                          getIndentParentColumnValue,
-                                                                      TParentVal defaultParentValue)
+                                                                      Func<TFlat, TKeyValue> getParentKeyValue,
+                                                                      Func<TFlat, TKeyValue> getKeyValue,
+                                                                      TKeyValue defaultParentKeyValue)
     {
         var indentList = new List<TIndent>();
         foreach (var item in sourceList)
         {
-            if (getParentCompareValue(item).Equals(defaultParentValue))
+            if (getParentKeyValue(item).Equals(defaultParentKeyValue))
             {
-                var children = sourceList.ToIndent(convert, getParentCompareValue, getIndentParentColumnValue,
-                    getIndentParentColumnValue(item));
+                var children = sourceList.ToIndent(convert, getParentKeyValue, getKeyValue,
+                    getKeyValue(item));
 
                 var indentItem = convert(item, children);
                 indentList.Add(indentItem);
@@ -62,6 +60,37 @@ public static class IndentExtension
 
         return indentList;
     }
+
+
+
+
+
+    /// <summary>
+    /// 平级转化为递进结构
+    /// </summary>
+    /// <typeparam name="TFlat"></typeparam>
+    /// <typeparam name="TIndent"></typeparam>
+    /// <param name="sourceList"></param>
+    /// <param name="convert">参数：TFlat实体，子级TIndentList-可能为空，输出：TIndent实体</param>
+    /// <param name="getParentKeyValue">获取对象父键值，如：c=>c.parent_id</param>
+    /// <param name="getKeyValue">获取当前的键值，如： c=>c.id </param>
+    /// <param name="defaultParentKeyValue">默认父级键值，如:0</param>
+    /// <returns></returns>
+    public static IList<TIndent> ToIndent<TFlat, TIndent>(this IList<TFlat> sourceList,
+                                                          Func<TFlat, IList<TIndent>, TIndent> convert,
+                                                          Func<TFlat, string> getParentKeyValue,
+                                                          Func<TFlat, string> getKeyValue,
+                                                          string defaultParentKeyValue)
+    {
+        return sourceList.ToIndent<TFlat, TIndent, string>(convert, getParentKeyValue, getKeyValue,
+            defaultParentKeyValue);
+    }
+
+
+
+
+
+
 
     /// <summary>
     /// 递进结构转化为平级结构
@@ -122,6 +151,17 @@ public static class IndentExtension
 
         return flatList;
     }
+}
+
+/// <summary>
+///  平级附带父级Id
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
+public interface IFlatWithParentId<TValue>
+{
+    public TValue id { get; set; }
+
+     public TValue parent_id { get; set; }
 }
 
 
