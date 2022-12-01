@@ -22,7 +22,7 @@ namespace OSS.Common.Resp
         /// <summary>
         /// 异常相应实体
         /// </summary>
-        public Resp ErrorResp { get; }
+        public IResp ErrorResp { get; }
 
 
         /// <summary>

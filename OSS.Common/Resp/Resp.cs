@@ -23,7 +23,7 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  默认成功实体
         /// </summary>
-        public static readonly  IResp DefaultSuccess = new Resp();
+        public static readonly  IResp DefaultSuccess = new DefaultSuccessResp();
         
         /// <summary>
         /// 响应实体

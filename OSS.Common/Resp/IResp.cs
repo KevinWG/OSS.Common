@@ -17,12 +17,12 @@ namespace OSS.Common.Resp
     ///  只读结果响应实体接口
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    public interface IResp<out TType> : IResp
+    public interface IResp<TType> : IResp
     {
         /// <summary>
         ///  响应类型数据
         /// </summary>
-        public TType data { get; }
+        public TType data { get; set; }
     }
 
     /// <summary>
@@ -42,17 +42,17 @@ namespace OSS.Common.Resp
         /// </summary>
         public int code
         {
-            get;
+            get; set;
         }
 
         /// <summary>
         ///  系统响应编码
         /// </summary>
-        public int sys_code { get; }
+        public int sys_code { get; set; }
 
         /// <summary>
         /// 状态信息(错误描述等)
         /// </summary>
-        public string msg { get; }
+        public string msg { get; set; }
     }
 }

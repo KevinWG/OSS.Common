@@ -72,7 +72,7 @@ namespace OSS.Common.Resp
         /// <param name="msg"></param>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, int sysRet, int code, string msg)
-            where TRes : Resp
+            where TRes : IResp
         {
             res.msg     = msg;
             res.code     = code;
@@ -90,7 +90,7 @@ namespace OSS.Common.Resp
         /// <param name="msg"></param>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, RespCodes code, string msg)
-            where TRes : Resp
+            where TRes : IResp
         {
             return res.WithResp((int)sysCode, (int)code, msg);
         }
@@ -104,7 +104,7 @@ namespace OSS.Common.Resp
         /// <param name="msg"></param>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, string msg)
-            where TRes : Resp
+            where TRes : IResp
         {
             res.sys_code = (int)sysCode;
             res.msg     = msg;
@@ -120,7 +120,7 @@ namespace OSS.Common.Resp
         /// <param name="msg"></param>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, int code, string msg)
-            where TRes : Resp
+            where TRes : IResp
         {
             res.code = code;
             res.msg = msg;
@@ -136,7 +136,7 @@ namespace OSS.Common.Resp
         /// <param name="msg"></param>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, RespCodes code, string msg)
-            where TRes : Resp
+            where TRes : IResp
         {
             res.code = (int)code;
             res.msg = msg;
@@ -151,7 +151,7 @@ namespace OSS.Common.Resp
         /// <param name="msg"> 新的消息内容 </param>
         /// <returns></returns>
         public static TRes WithMsg<TRes>(this TRes res, string msg)
-            where TRes : Resp
+            where TRes : IResp
         {
             res.msg = msg;
             return res;
@@ -165,7 +165,7 @@ namespace OSS.Common.Resp
         /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
         /// <returns></returns>
         public static TRes WithErrMsg<TRes>(this TRes res, string errMsg)
-            where TRes : Resp
+            where TRes : IResp
         {
             if (!res.IsSuccess())
             {
@@ -183,7 +183,7 @@ namespace OSS.Common.Resp
         /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
         /// <returns></returns>
         public static async Task<TRes> WithErrMsg<TRes>(this Task<TRes> tRes, string errMsg)
-            where TRes : Resp
+            where TRes : IResp
         {
             var res = await tRes;
             if (!res.IsSuccess())
@@ -207,7 +207,7 @@ namespace OSS.Common.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
         public static TRes WithResp<TRes>(this TRes res, IResp tPara, string errMsg = null)
-            where TRes : Resp
+            where TRes : IResp
         {
             res.WithResp(tPara.sys_code, tPara.code, tPara.msg);
             return string.IsNullOrEmpty(errMsg) ? res : res.WithErrMsg(errMsg);
@@ -225,8 +225,8 @@ namespace OSS.Common.Resp
         /// <returns></returns>
         public static TRes WithResp<TPara, TRes>(this TRes res, TPara tPara, Action<TPara, TRes> successFormatAction,
             string errMsg = null)
-            where TRes : Resp
-            where TPara : Resp
+            where TRes : IResp
+            where TPara : IResp
         {
             res.WithResp(tPara.sys_code, tPara.code, tPara.msg);
             if (tPara.IsSuccess())
@@ -246,7 +246,7 @@ namespace OSS.Common.Resp
         /// <param name="data"></param>
         /// <returns></returns>
         public static TRes WithData<TRes, TData>(this TRes res, TData data)
-            where TRes : Resp<TData>
+            where TRes : IResp<TData>
         {
             res.data = data;
             return res;
@@ -262,7 +262,7 @@ namespace OSS.Common.Resp
         /// <param name="res"></param>
         /// <returns></returns>
         public static Task<TRes> ToTaskResp<TRes>(this TRes res)
-            where TRes : Resp
+            where TRes : IResp
         {
             return Task.FromResult(res);
         }
@@ -273,8 +273,8 @@ namespace OSS.Common.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <param name="resTask"></param>
         /// <returns></returns>
-        public static async Task<Resp> ToTaskResp<TRes>(this Task<TRes> resTask)
-            where TRes : Resp
+        public static async Task<IResp> ToTaskResp<TRes>(this Task<TRes> resTask)
+            where TRes : IResp
         {
             return await resTask;
         }
@@ -296,8 +296,8 @@ namespace OSS.Common.Resp
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static Resp<TRes> WithResp<TRes, TPara>(this Resp<TRes> res, IResp<TPara> tPara,
-            Func<TPara, TRes> convertFunc, string errMsg=null, bool isNullCheck = true)
+        public static IResp<TRes> WithResp<TRes, TPara>(this IResp<TRes> res, IResp<TPara> tPara,
+                                                        Func<TPara, TRes> convertFunc, string errMsg=null, bool isNullCheck = true)
         {
             if ((isNullCheck && tPara.data != null)
                 || !isNullCheck)
