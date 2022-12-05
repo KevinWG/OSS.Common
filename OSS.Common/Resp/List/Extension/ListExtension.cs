@@ -32,8 +32,6 @@ namespace OSS.Common.Resp
             return new ListResp<TData>(list);
         }
 
-
-
         /// <summary>
         ///  转化为通行token列表
         /// </summary>
@@ -42,6 +40,7 @@ namespace OSS.Common.Resp
         {
             return new TokenListResp<TData>(await taskList);
         }
+
         /// <summary>
         ///  转化为通行token列表
         /// </summary>
@@ -59,5 +58,6 @@ namespace OSS.Common.Resp
         {
             return new TokenListResp<TData>(list);
         }
+
     }
 }

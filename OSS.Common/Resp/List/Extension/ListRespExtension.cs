@@ -9,41 +9,6 @@ namespace OSS.Common.Resp;
 /// </summary>
 public static class ListRespExtension
 {
-
-
-
-
-
-
-
-    /// <summary>
-    ///  转化为通行token列表
-    /// </summary>
-    /// <returns></returns>
-    public static async Task<TokenListResp<TData>> ToTokenListResp<TData>(this Task<List<TData>> taskList)
-    {
-        return new TokenListResp<TData>(await taskList);
-    }
-    /// <summary>
-    ///  转化为通行token列表
-    /// </summary>
-    /// <returns></returns>
-    public static async Task<TokenListResp<TData>> ToTokenListResp<TData>(this Task<IList<TData>> taskList)
-    {
-        return new TokenListResp<TData>(await taskList);
-    }
-
-    /// <summary>
-    ///  转化为通行token列表
-    /// </summary>
-    /// <returns></returns>
-    public static TokenListResp<TData> ToTokenListResp<TData>(this IList<TData> list)
-    {
-        return new TokenListResp<TData>(list);
-    }
-
-
-
     /// <summary>
     ///  转化为通行token列表
     /// </summary>
