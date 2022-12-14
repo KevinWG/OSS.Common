@@ -138,7 +138,7 @@ namespace OSS.Common
 
 
         /// <summary>
-        ///  获取子节点编号区域范围
+        ///  获取直接父级列表，[PLever0,PLever1,PLever2,....]
         /// </summary>
         /// <param name="treeNum"></param>
         /// <returns></returns>
