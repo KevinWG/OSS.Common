@@ -189,7 +189,7 @@ namespace OSS.Common
             return timeTicks;
         }
         
-        private static readonly long _timeStartTicks = new DateTime(2018, 1, 1).ToUniversalTime().Ticks;
+        private static readonly long _timeStartTicks = new DateTime(2020, 1, 1).ToUniversalTime().Ticks;
 
         /// <summary>
         ///  时间戳数字编号（精度 毫秒

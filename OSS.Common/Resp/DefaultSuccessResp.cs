@@ -1,5 +1,9 @@
 ﻿namespace OSS.Common.Resp;
 
+
+/// <summary>
+///  默认成功实体
+/// </summary>
 public class DefaultSuccessResp : IResp
 {
     /// <inheritdoc />

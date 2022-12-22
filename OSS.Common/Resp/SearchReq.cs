@@ -19,22 +19,24 @@ namespace OSS.Common
         ASC
     }
 
-
     /// <summary>
-    /// 搜索实体
+    ///  搜索请求基类
     /// </summary>
-    public class SearchReq<FType>
+    public class BaseSearchReq
     {
         /// <summary>
-        ///   构造函数
+        /// 搜索请求
         /// </summary>
-        public SearchReq()
+        public BaseSearchReq():this(20,1)
         {
-
         }
 
-        /// <inheritdoc />
-        public SearchReq(int size, int currentPage) : this()
+        /// <summary>
+        ///  搜索请求
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="currentPage"></param>
+        public BaseSearchReq(int size, int currentPage)
         {
             this.size = size;
             this.page = currentPage;
@@ -45,55 +47,51 @@ namespace OSS.Common
         /// <summary>
         /// 当前页
         /// </summary>
-        [Obsolete("请使用 page ")]
-        public int current
-        {
-            get => _curntPage <= 0 ? 1 : _curntPage;
-            set => _curntPage = value;
-        }
-
-        /// <summary>
-        /// 当前页
-        /// </summary>
         public int page
         {
             get => _curntPage <= 0 ? 1 : _curntPage;
             set => _curntPage = value;
         }
 
-        private int _pageSize = 20;
-
         /// <summary>
         /// 页面大小
         /// </summary>
-        public int size
-        {
-            get => _pageSize <= 0 ? 20 : _pageSize;
-            set => _pageSize = value;
-        }
+        public int size { get; set; }
 
         /// <summary>
         /// 是否请求获取数量
         /// </summary>
         public bool req_count { get; set; } = true;
-        private Dictionary<string, SortType> _orders;
-        /// <summary>
-        /// 排序集合      适用于多个查询条件
-        /// </summary>
-        public Dictionary<string, SortType> orders
-        {
-            get { return _orders == null ? _orders = new Dictionary<string, SortType>() : _orders; }
-        }
-
-        /// <summary>
-        /// 过滤器
-        /// </summary>
-        public FType filter { get; set; }
 
         /// <summary>
         ///    获取起始行
         /// </summary>
         public int GetStartRow() => (page - 1) * size;
+    }
+
+    /// <summary>
+    /// 搜索实体
+    /// </summary>
+    public class SearchReq<FType>: BaseSearchReq
+    {
+        /// <summary>
+        ///   构造函数
+        /// </summary>
+        public SearchReq()
+        {
+        }
+
+        private Dictionary<string, SortType> _orders;
+
+        /// <summary>
+        /// 排序集合      适用于多个查询条件
+        /// </summary>
+        public Dictionary<string, SortType> orders => _orders ??= new Dictionary<string, SortType>();
+
+        /// <summary>
+        /// 过滤器
+        /// </summary>
+        public FType filter { get; set; }
     }
 
     /// <inheritdoc />
@@ -104,12 +102,6 @@ namespace OSS.Common
         {
             filter = new Dictionary<string, string>();
         }
-
-        /// <summary>
-        /// 搜索关键字集合      适用于多个查询条件
-        /// </summary>
-        [Obsolete("请使用filter代替")]
-        public Dictionary<string, string> filters => filter;
     }
 
 
