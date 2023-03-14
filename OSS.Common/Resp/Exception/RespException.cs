@@ -24,7 +24,14 @@ namespace OSS.Common.Resp
         /// </summary>
         public IResp ErrorResp { get; }
 
-
+        /// <summary>
+        ///  异常
+        /// </summary>
+        /// <param name="resp">异常响应信息</param>
+        public RespException(IResp resp) : base(resp.msg)
+        {
+            ErrorResp = resp;
+        }
         /// <summary>
         ///  异常
         /// </summary>
