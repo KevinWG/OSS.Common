@@ -48,9 +48,8 @@ namespace OSS.Common.Extension
             return num.ToString();
         }
 
-
-        // 排除【0，O】I 4 这类
-        private const string _arrCodeStr = "12356789abcdefghjklmnpqrstuvwxyz";
+        // 排除【0，O,1, I】四个不易分辨字符
+        private const string _codeMaps = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
         /// <summary>
         /// 数字转化为短码
@@ -59,22 +58,22 @@ namespace OSS.Common.Extension
         /// <returns></returns>
         public static string ToCode(this int num)
         {
-            return ToCode(num, _arrCodeStr);
+            return ToCode(num, _codeMaps);
         }
 
         /// <summary>
         /// 数字转化为短码
         /// </summary>
         /// <param name="num"></param>
-        /// <param name="arrStrs">转换时映射字母，32位，不可重复</param>
+        /// <param name="codeMaps">转换时映射字母表(32位不重复字符)，默认使用内置映射表</param>
         /// <returns></returns>
-        public static string ToCode(this long num, string arrStrs=null)
+        public static string ToCode(this long num, string codeMaps = null)
         {
-            if (string.IsNullOrEmpty(arrStrs))
-                arrStrs = _arrCodeStr;
+            if (string.IsNullOrEmpty(codeMaps))
+                codeMaps = _codeMaps;
             
-            if (arrStrs.Length!=32)
-                throw new ArgumentOutOfRangeException(nameof(arrStrs), "映射字符必须是32位，且不能重复！");
+            if (codeMaps.Length!=32)
+                throw new ArgumentOutOfRangeException(nameof(codeMaps), "映射字符表为32位不重复字符串!");
 
             const long codeTemp = 0x1F;
             var code = new StringBuilder(13);
@@ -82,7 +81,7 @@ namespace OSS.Common.Extension
             while (num > 0)
             {
                 var index = num & codeTemp;
-                code.Append(arrStrs[(int) index]);
+                code.Append(codeMaps[(int) index]);
 
                 num >>= 5;
             }
@@ -93,29 +92,29 @@ namespace OSS.Common.Extension
         /// 根据短码反推数字
         /// </summary>
         /// <param name="code"></param>
-        /// <param name="arrStrs">转换时映射字母，32位，不可重复</param>
+        /// <param name="codeMaps">转换时映射字母表(32位不重复字符)，默认使用内置映射表</param>
         /// <returns></returns>
-        public static long ToCodeNum(this string code, string arrStrs=null)
+        public static long ToCodeNum(this string code, string codeMaps=null)
         {
-            if (string.IsNullOrEmpty(arrStrs))
-                arrStrs = _arrCodeStr;
+            if (string.IsNullOrEmpty(codeMaps))
+                codeMaps = _codeMaps;
 
-            if ( arrStrs.Length != 32)
-                throw new ArgumentOutOfRangeException(nameof(arrStrs), "映射字符必须是32位，且不能重复！");
+            if ( codeMaps.Length != 32)
+                throw new ArgumentOutOfRangeException(nameof(codeMaps), "映射字符表为32位不重复字符串!");
 
             if (string.IsNullOrEmpty(code))
                 return 0;
             var count = code.Length;
             if (count > 13)
-                throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
+                throw new ArgumentOutOfRangeException(nameof(code), "code无效，长度超出转码范围");
 
             long value = 0;
    
             for (var i = count - 1; i >= 0; i--)
             {
-                var num = arrStrs.IndexOf(code[i]);
+                var num = codeMaps.IndexOf(code[i]);
                 if (num < 0)
-                    throw new ArgumentOutOfRangeException("code", "the code is not from [ToCode] method !");
+                    throw new ArgumentOutOfRangeException(nameof(code), $"字符 {code[i]} 不存在映射字符表中，转码错误！");
 
                 value = (value << 5) ^ num;
             }

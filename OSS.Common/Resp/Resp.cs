@@ -84,7 +84,7 @@ namespace OSS.Common.Resp
 
 
         /// <summary>
-        /// 【业务响应】
+        /// 【业务响应状态码】
         /// 一般情况下：
         ///  0  成功
         ///  13xxx   参数相关错误 
@@ -100,7 +100,7 @@ namespace OSS.Common.Resp
         private int _code;
 
         /// <summary>
-        ///  系统响应
+        ///  系统响应状态码
         /// </summary>
         public int sys_code { get; set; }
 
@@ -108,18 +108,6 @@ namespace OSS.Common.Resp
         /// 状态信息(错误描述等)
         /// </summary>
         public string msg { get; set; }
-
-
-
-        /// <summary>
-        /// 结果标识，请使用code代替
-        /// </summary>
-        [Obsolete]
-        public int ret
-        {
-            get => code;
-            set => code = value;
-        }
     }
 
     /// <summary>
