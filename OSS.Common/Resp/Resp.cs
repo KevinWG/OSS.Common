@@ -21,11 +21,6 @@ namespace OSS.Common.Resp
     public class Resp : IResp
     {
         /// <summary>
-        ///  默认成功实体
-        /// </summary>
-        public static readonly  IResp DefaultSuccess = new DefaultSuccessResp();
-        
-        /// <summary>
         /// 响应实体
         /// </summary>
         public Resp()
@@ -42,8 +37,7 @@ namespace OSS.Common.Resp
             this.code = code;
             this.msg = message;
         }
-
-
+        
         /// <summary>
         ///  响应实体
         /// </summary>
@@ -51,7 +45,7 @@ namespace OSS.Common.Resp
         /// <param name="message">响应信息描述</param>
         public Resp(RespCodes code, string message = null)
         {
-            this.code = (int) code;
+            this.code = (int)code;
             this.msg = code != RespCodes.Success && string.IsNullOrEmpty(message) ? code.GetDesp() : message;
         }
 
@@ -63,12 +57,12 @@ namespace OSS.Common.Resp
         /// <param name="message">响应信息描述</param>
         public Resp(SysRespCodes sysCode, string message = null)
         {
-            this.sys_code = (int) sysCode;
-            this.msg     = sysCode != SysRespCodes.Ok && string.IsNullOrEmpty(message) ? sysCode.GetDesp() : message;
+            this.sys_code = (int)sysCode;
+            this.msg = sysCode != SysRespCodes.Ok && string.IsNullOrEmpty(message) ? sysCode.GetDesp() : message;
         }
 
 
-        
+
         /// <summary>
         ///  响应实体
         /// </summary>
@@ -78,8 +72,8 @@ namespace OSS.Common.Resp
         public Resp(int sysCode, int code, string message)
         {
             this.sys_code = sysCode;
-            this.code    = code;
-            this.msg =  message;
+            this.code = code;
+            this.msg = message;
         }
 
 
@@ -97,6 +91,7 @@ namespace OSS.Common.Resp
             get => (sys_code != 0 && _code == 0) ? (int)RespCodes.OperateFailed : _code;
             set => _code = value;
         }
+
         private int _code;
 
         /// <summary>
@@ -108,6 +103,22 @@ namespace OSS.Common.Resp
         /// 状态信息(错误描述等)
         /// </summary>
         public string msg { get; set; }
+
+
+        /// <summary>
+        ///  默认成功实体
+        /// </summary>
+        [Obsolete("此属性已过期(7.0 版本后不可用)，请使用 Success() 方法替代")]
+        public static readonly IResp DefaultSuccess = new DefaultSuccessResp();
+
+        /// <summary>
+        ///   获取成功响应实体
+        /// </summary>
+        /// <returns></returns>
+        public static Resp Success()
+        {
+            return new Resp();
+        }
     }
 
     /// <summary>
