@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace OSS.Common;
 
@@ -76,11 +78,47 @@ public class SearchReq
     /// <summary>
     /// 排序集合      适用于多个查询条件
     /// </summary>
-    public Dictionary<string, SortType> orders => _orders ??= new Dictionary<string, SortType>();
+    public Dictionary<string, SortType> order => _orders ??= new Dictionary<string, SortType>();
+
+
+    internal Dictionary<string, string> _extProperty=null;
+    /// <summary>
+    ///  设置搜索项的值
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    public void SetItemValue(string key, string value)
+    {
+        _extProperty ??= new Dictionary<string, string>();
+        _extProperty[key] = value;
+    }
+
+    /// <summary>
+    ///  获取索引项的值
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public string GetItemValue(string key)
+    {
+        if (_extProperty != null && _extProperty.TryGetValue(key, out var val))
+        {
+            return val;
+        }
+        return string.Empty;
+    }
+
+    /// <summary>
+    ///  获取搜索项Key值列表
+    /// </summary>
+    /// <returns></returns>
+    public string[] GetItemKeys()
+    {
+        return _extProperty == null ? Array.Empty<string>() : _extProperty.Keys.ToArray();
+    }
 }
 
 /// <summary>
-/// 搜索实体( filter属性为FType类型 
+/// 搜索实体 ( 含有自定义类型(FType) filter 属性
 /// </summary>
 public class SearchReq<FType> : SearchReq
 {
@@ -92,19 +130,28 @@ public class SearchReq<FType> : SearchReq
     }
 
     /// <summary>
-    /// 过滤器
+    /// 过滤器对象
     /// </summary>
     public FType filter { get; set; }
 }
 
 /// <summary>
-///  搜索实体（filter 类型为 Dictionary&lt;string, string&gt; ）
+///  搜索实体 ( 含有类型为Dictionary&lt;string, string&gt; 的 filter 属性
 /// </summary>
-public class DicFilterSearchReq : SearchReq<Dictionary<string, string>>
+public class DicFilterSearchReq : SearchReq
 {
     /// <inheritdoc />
     public DicFilterSearchReq()
     {
-        filter = new Dictionary<string, string>();
+        _extProperty = new Dictionary<string, string>();
+    }
+
+    /// <summary>
+    /// 过滤器对象
+    /// </summary>
+    public Dictionary<string,string> filter
+    {
+        get => _extProperty;
+        set => _extProperty = value;
     }
 }

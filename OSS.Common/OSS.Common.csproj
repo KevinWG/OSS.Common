@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>6.3</Version>
+    <Version>6.3.1</Version>
 	  <Authors>OSSCore</Authors>
     <Company>OSSCore</Company>
     <Product>OSS开源系列</Product>
@@ -18,7 +18,7 @@
 
     <PackageIcon>logo.png</PackageIcon>
 
-    <PackageReleaseNotes>优化扩展方法</PackageReleaseNotes>
+    <PackageReleaseNotes>优化扩展搜索实体</PackageReleaseNotes>
 
   </PropertyGroup>
 
