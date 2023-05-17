@@ -72,13 +72,11 @@ public class SearchReq
     ///    获取起始行
     /// </summary>
     public int GetStartRow() => (page - 1) * size;
-
-    private Dictionary<string, SortType> _orders;
-
+    
     /// <summary>
-    /// 排序集合      适用于多个查询条件
+    /// 排序字段集合
     /// </summary>
-    public Dictionary<string, SortType> orders => _orders ??= new Dictionary<string, SortType>();
+    public Dictionary<string, SortType> orders { get; set; }
 
     #region 扩展项
     
