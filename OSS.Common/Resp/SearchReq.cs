@@ -78,9 +78,10 @@ public class SearchReq
     /// <summary>
     /// 排序集合      适用于多个查询条件
     /// </summary>
-    public Dictionary<string, SortType> order => _orders ??= new Dictionary<string, SortType>();
+    public Dictionary<string, SortType> orders => _orders ??= new Dictionary<string, SortType>();
 
-
+    #region 扩展项
+    
     internal Dictionary<string, string> _extProperty=null;
     /// <summary>
     ///  设置搜索项的值
@@ -115,6 +116,8 @@ public class SearchReq
     {
         return _extProperty == null ? Array.Empty<string>() : _extProperty.Keys.ToArray();
     }
+
+    #endregion
 }
 
 /// <summary>
