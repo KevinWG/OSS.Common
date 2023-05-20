@@ -70,7 +70,7 @@ namespace OSS.Common
         /// </summary>
         protected int TimestampLeftShift { get; private set; }
 
-        private void InitailConfig(int seqBitLength, int worIdBitLength)
+        private void InitialConfig(int seqBitLength, int worIdBitLength)
         {
             _sequenceBitLength = seqBitLength;
             _maxSequence       = -1L ^ (-1L << _sequenceBitLength);
@@ -97,7 +97,7 @@ namespace OSS.Common
         /// </summary>
         protected BaseNumGenerator(int workId, int seqBitLength, int worIdBitLength)
         {
-            InitailConfig(seqBitLength, worIdBitLength);
+            InitialConfig(seqBitLength, worIdBitLength);
 
             if (workId > _maxWorkerId || workId < 0)
             {
@@ -128,6 +128,7 @@ namespace OSS.Common
         /// </summary>
         /// <param name="milliseconds"></param>
         /// <returns></returns>
+        [Obsolete]
         public (long min, long max) GetNumRange(long milliseconds)
         {
             var min = CombineNum(milliseconds, 0);
@@ -143,9 +144,7 @@ namespace OSS.Common
         /// <returns></returns>
         private long CombineNum(long timestamp, long sequence)
         {
-            return (timestamp << TimestampLeftShift)
-                         | (WorkId << WorkerLeftShift)
-                         | sequence;
+            return (timestamp << TimestampLeftShift) | (WorkId << WorkerLeftShift) | sequence;
         }
 
         private void SetTimestampAndSeq()
