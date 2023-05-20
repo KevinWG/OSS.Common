@@ -35,12 +35,13 @@ namespace OSS.Common
             {
                 num.Append(_rnd.Next(0, 9));
             }
+
             return num.ToString();
         }
 
 
 
-        private static readonly NumGenerator      _generator      = new NumGenerator(0);
+        private static readonly NumGenerator _generator = new NumGenerator(0);
         private static readonly SmallNumGenerator _smallGenerator = new SmallNumGenerator(0);
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace OSS.Common
         {
             return new NumGenerator(workId);
         }
-        
+
         /// <summary>
         ///  获取 twitter 的snowflake唯一Id算法实例(排除机器位)
         ///   id大小不超过 2^52次方-1
@@ -62,7 +63,7 @@ namespace OSS.Common
             return new SmallNumGenerator(workId);
         }
 
-        
+
         /// <summary>
         /// twitter 的snowflake算法 workid=0 的算法实例：
         /// 生成的Id(排除机器位)
@@ -79,6 +80,7 @@ namespace OSS.Common
         /// </summary>
         /// <param name="milliseconds"></param>
         /// <returns></returns>
+        [Obsolete]
         public static (long min, long max) GetSnowNumRange(long milliseconds)
         {
             return _generator.GetNumRange(milliseconds);
@@ -101,6 +103,7 @@ namespace OSS.Common
         /// </summary>
         /// <param name="milliseconds"></param>
         /// <returns></returns>
+        [Obsolete]
         public static (long min, long max) GetSmallSnowNumRange(long milliseconds)
         {
             return _smallGenerator.GetNumRange(milliseconds);

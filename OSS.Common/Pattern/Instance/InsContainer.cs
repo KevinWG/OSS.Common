@@ -70,10 +70,10 @@ namespace OSS.Common
         /// <summary>
         ///  设置容器内映射的实例创建方法
         /// </summary>
-        /// <param name="insCreater"></param>
-        public static void Set(Func<T> insCreater)
+        /// <param name="insCreator"></param>
+        public static void Set(Func<T> insCreator)
         {
-            _insCreator = insCreater ?? throw new RespArgumentException(nameof(insCreater), "参数不能为空！");
+            _insCreator = insCreator ?? throw new RespArgumentException(nameof(insCreator), "参数不能为空！");
         }
 
         /// <summary>
