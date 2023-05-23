@@ -20,8 +20,8 @@ namespace OSS.Common
     /// 单例基础实现
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SingleInstance<T>
-        where T : new()
+   public class SingleInstance<T>
+        where T : class
     {
         private static          T?     _instance;
         private static readonly object _objLock = new();
@@ -37,21 +37,22 @@ namespace OSS.Common
         {
             if (_instance != null)
                 return _instance;
+            
+            if (initialCreator==null && typeof(T).GetConstructor(Type.EmptyTypes) == null)
+            {
+                throw new ArgumentException($"委托创建方法为空，且{typeof(T).Name}不存在无参构造函数，无法创建实例！");
+            }
 
             lock (_objLock)
             {
                 if (_instance != null)
                     return _instance;
 
-                if (initialCreator == null)
-                    return _instance = new T();
-
-                _instance = initialCreator.Invoke();
+                _instance = initialCreator == null ? Activator.CreateInstance<T>() : initialCreator.Invoke();
                 if (_instance == null)
                 {
                     throw new ArgumentException("initialCreator 委托函数返回值为空，无法创建实例！");
                 }
-
                 return _instance;
             }
         }
@@ -61,4 +62,5 @@ namespace OSS.Common
         /// </summary>
         public static T Instance => GetInstance();
     }
+    
 }
