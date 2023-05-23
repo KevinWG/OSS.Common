@@ -12,6 +12,9 @@ namespace OSS.Common.Test
             //var r2 = SingleInstance<HaveConParaClass>.Instance;
             //Assert.IsTrue(r2 != null);
 
+            var r2 = SingleInstance<HaveConParaClass>.GetInstance(()=>new HaveConParaClass("test"));
+            Assert.IsTrue(r2 != null);
+
             var c2 = typeof(HaveConParaClass).GetConstructor(Type.EmptyTypes);
             Assert.IsTrue(c2==null);
         }
@@ -23,8 +26,11 @@ namespace OSS.Common.Test
 
     public class HaveConParaClass:NoConParaClass
     {
+        public string name { get; }
+
         public HaveConParaClass(string name)
         {
+            this.name = name;
         }
     }
 }
