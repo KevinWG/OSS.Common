@@ -8,7 +8,7 @@ public class AccessSecret : IAccessSecret
     /// <summary>
     /// 构造函数
     /// </summary>
-    public AccessSecret()
+    public AccessSecret():this(string.Empty,string.Empty)
     {
     }
     

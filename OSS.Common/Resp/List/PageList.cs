@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace OSS.Common.Resp
+﻿namespace OSS.Common.Resp
 {
     /// <summary>
     /// 分页列表信息

@@ -10,7 +10,6 @@
 
 #endregion
 
-using System;
 using OSS.Common.Extension;
 
 namespace OSS.Common.Resp
@@ -43,10 +42,10 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(RespCodes code, string message = null)
+        public Resp(RespCodes code, string? message = null)
         {
             this.code = (int)code;
-            this.msg = code != RespCodes.Success && string.IsNullOrEmpty(message) ? code.GetDesp() : message;
+            this.msg =code != RespCodes.Success && string.IsNullOrEmpty(message) ? code.GetDesp() : message;
         }
 
 
@@ -55,7 +54,7 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="sysCode">【系统/框架】 响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(SysRespCodes sysCode, string message = null)
+        public Resp(SysRespCodes sysCode, string? message = null)
         {
             this.sys_code = (int)sysCode;
             this.msg = sysCode != SysRespCodes.Ok && string.IsNullOrEmpty(message) ? sysCode.GetDesp() : message;
@@ -69,11 +68,11 @@ namespace OSS.Common.Resp
         /// <param name="sysCode">【系统/框架】 响应标识</param>
         /// <param name="code">【业务】响应标识</param>
         /// <param name="message">响应信息描述</param>
-        public Resp(int sysCode, int code, string message)
+        public Resp(int sysCode, int code, string? message)
         {
             this.sys_code = sysCode;
-            this.code = code;
-            this.msg = message;
+            this.code     = code;
+            this.msg      = message;
         }
 
 
@@ -102,14 +101,7 @@ namespace OSS.Common.Resp
         /// <summary>
         /// 状态信息(错误描述等)
         /// </summary>
-        public string msg { get; set; }
-
-
-        /// <summary>
-        ///  默认成功实体
-        /// </summary>
-        [Obsolete("此属性已过期(7.0 版本后不可用)，请使用 Success() 方法替代")]
-        public static readonly IResp DefaultSuccess = new DefaultSuccessResp();
+        public string? msg { get; set; }
 
         /// <summary>
         ///   获取成功响应实体
@@ -141,7 +133,7 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  响应类型数据
         /// </summary>
-        public TType data { get; set; }
+        public TType? data { get; set; }
     }
 
     /// <summary>

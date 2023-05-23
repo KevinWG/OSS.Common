@@ -11,7 +11,8 @@
 
 #endregion
 
-using System;
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace OSS.Common
 {
@@ -22,35 +23,37 @@ namespace OSS.Common
     public class SingleInstance<T>
         where T : new()
     {
-        private static T _instance;
-        private static readonly object _objLock = new object();
+        private static          T?     _instance;
+        private static readonly object _objLock = new();
 
         /// <summary>
         ///  获取单例实例
         /// </summary>
         /// <param name="initialCreator"></param>
         /// <returns></returns>
-        public static T GetInstance(Func<T> initialCreator = null)
+        [SuppressMessage("ReSharper", "PossibleMultipleWriteAccessInDoubleCheckLocking")]
+        [SuppressMessage("ReSharper", "ReadAccessInDoubleCheckLocking")]
+        public static T GetInstance(Func<T>? initialCreator = null)
         {
-            if (_instance == null)
+            if (_instance != null)
+                return _instance;
+
+            lock (_objLock)
             {
-                lock (_objLock)
-                {
-                    if (_instance != null) 
-                        return _instance;
-
-                    if (initialCreator == null)
-                        return _instance = new T();
-
-                    _instance = initialCreator.Invoke();
-                    if (_instance==null)
-                    {
-                        throw new ArgumentException("initialCreator 委托函数返回值为空，无法创建实例！");
-                    }
+                if (_instance != null)
                     return _instance;
+
+                if (initialCreator == null)
+                    return _instance = new T();
+
+                _instance = initialCreator.Invoke();
+                if (_instance == null)
+                {
+                    throw new ArgumentException("initialCreator 委托函数返回值为空，无法创建实例！");
                 }
+
+                return _instance;
             }
-            return _instance;
         }
 
         /// <summary>

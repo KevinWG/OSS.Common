@@ -10,7 +10,6 @@
 
 #endregion
 
-using System;
 using System.Text;
 
 namespace OSS.Common.Extension
@@ -67,7 +66,7 @@ namespace OSS.Common.Extension
         /// <param name="num"></param>
         /// <param name="codeMaps">转换时映射字母表(32位不重复字符)，默认使用内置映射表</param>
         /// <returns></returns>
-        public static string ToCode(this long num, string codeMaps = null)
+        public static string ToCode(this long num, string? codeMaps = null)
         {
             if (string.IsNullOrEmpty(codeMaps))
                 codeMaps = _codeMaps;
@@ -94,7 +93,7 @@ namespace OSS.Common.Extension
         /// <param name="code"></param>
         /// <param name="codeMaps">转换时映射字母表(32位不重复字符)，默认使用内置映射表</param>
         /// <returns></returns>
-        public static long ToCodeNum(this string code, string codeMaps=null)
+        public static long ToCodeNum(this string code, string? codeMaps=null)
         {
             if (string.IsNullOrEmpty(codeMaps))
                 codeMaps = _codeMaps;

@@ -9,7 +9,6 @@
 *****************************************************************************/
 
 #endregion
-using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -26,19 +25,18 @@ namespace OSS.Common.Encrypt
         /// <param name="input"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string Encrypt(string input, Encoding encoding = null)
+        public static string Encrypt(string input, Encoding? encoding = null)
         {
             if (string.IsNullOrEmpty(input))
                 throw new ArgumentNullException(nameof(input), "Sha1加密的字符串不能为空！");
 
-            if (encoding == null)
-                encoding = Encoding.UTF8;
+            encoding ??= Encoding.UTF8;
 
             var data = encoding.GetBytes(input);
-            var encryData = Encrypt(data);
+            var encryptData = Encrypt(data);
 
-            var sBuilder = new StringBuilder(encryData.Length*2);
-            foreach (var t in encryData)
+            var sBuilder = new StringBuilder(encryptData.Length*2);
+            foreach (var t in encryptData)
             {
                 sBuilder.Append(t.ToString("x2"));
             }

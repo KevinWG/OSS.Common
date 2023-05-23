@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 
 namespace OSS.Common;
 
@@ -76,11 +73,11 @@ public class SearchReq
     /// <summary>
     /// 排序字段集合
     /// </summary>
-    public Dictionary<string, SortType> orders { get; set; }
+    public Dictionary<string, SortType>? orders { get; set; }
 
     #region 扩展项
     
-    internal Dictionary<string, string> _extProperty=null;
+    internal Dictionary<string, string>? _extProperty;
     /// <summary>
     ///  设置搜索项的值
     /// </summary>
@@ -150,7 +147,7 @@ public class DicFilterSearchReq : SearchReq
     /// <summary>
     /// 过滤器对象
     /// </summary>
-    public Dictionary<string,string> filter
+    public Dictionary<string, string>? filter
     {
         get => _extProperty;
         set => _extProperty = value;

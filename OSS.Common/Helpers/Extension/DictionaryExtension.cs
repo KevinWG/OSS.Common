@@ -11,9 +11,6 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
-
 namespace OSS.Common.Extension;
 
 /// <summary>
@@ -47,6 +44,7 @@ public static class DictionaryExtension
         }
         catch
         {
+            // ignored
         }
 
         return false;
@@ -64,7 +62,7 @@ public static class DictionaryExtension
     /// <param name="converter"></param>
     /// <returns></returns>
     public static bool TryGetValue<TKey, TValue, TReturnValue>(this IDictionary<TKey, TValue> dic, TKey key,
-                                                               out TReturnValue value,
+                                                               out TReturnValue? value,
                                                                Func<TValue, TReturnValue> converter)
     {
         try
@@ -77,6 +75,7 @@ public static class DictionaryExtension
         }
         catch
         {
+            // ignored
         }
 
         value = default;

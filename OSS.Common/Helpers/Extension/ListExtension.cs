@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace System.Linq;
+﻿namespace System.Linq;
 
 /// <summary>
 ///  列表扩展方法
@@ -34,7 +32,7 @@ public static class ListExtension
     /// <typeparam name="T"></typeparam>
     /// <param name="target"></param>
     /// <returns></returns>
-    public static bool IsNullOrEmpty<T>(this IList<T> target)
+    public static bool IsNullOrEmpty<T>(this IList<T>? target)
     {
         return target == null || !target.Any();
     }

@@ -1,17 +1,14 @@
-﻿using System;
+﻿using OSS.Common.Resp;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using OSS.Common.Resp;
 
 namespace OSS.Common.Extension;
 
-    /// <summary>
-    /// 枚举扩展方法类
-    /// </summary>
-    public static class EnumExtension
+/// <summary>
+/// 枚举扩展方法类
+/// </summary>
+public static class EnumExtension
     {
 
         /// <summary>
@@ -44,12 +41,11 @@ namespace OSS.Common.Extension;
                 return strResult.ToString();
             }
 
-            var keypair = values.FirstOrDefault(e => e.Key == current.ToString());
-            return keypair.Key == null ? "不存在的枚举值" : keypair.Value;
+            var keyPair = values.FirstOrDefault(e => e.Key == current.ToString());
+            return keyPair.Value;
         }
         
-        private static ConcurrentDictionary<string, Dictionary<string, string>> enumDirs
-           =new ConcurrentDictionary<string, Dictionary<string, string>>();
+        private static readonly ConcurrentDictionary<string, Dictionary<string, string>> enumDirs = new();
 
         /// <summary>
         /// 获取枚举字典列表
@@ -77,9 +73,12 @@ namespace OSS.Common.Extension;
                 var name = Enum.GetName(enType, value);
                 var resultValue = isIntValue ? ((int) value).ToString() : value.ToString();
 
-                var attr = enType.GetTypeInfo().GetDeclaredField(name)?.GetCustomAttribute<OSDescribeAttribute>();
+                if (name != null)
+                {
+                    var attr = enType.GetTypeInfo().GetDeclaredField(name)?.GetCustomAttribute<OSDescribeAttribute>();
 
-                dirs.Add(resultValue, attr == null ? name : attr.Description);
+                    if (resultValue != null) dirs.Add(resultValue, attr == null ? name : attr.Description);
+                }
             }
             enumDirs.TryAdd(key, dirs);
             return dirs.Copy();

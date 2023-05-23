@@ -71,21 +71,21 @@ namespace OSS.Common
                 {
                     // 涉及进位处理
                     var lastNodeIndex = realNumStr.LastIndexOf('0') + 1;
-                    var lastNodeNum   = realNumStr.Substring(lastNodeIndex).ToInt64() + 2;
+                    var lastNodeNum   = realNumStr[lastNodeIndex..].ToInt64() + 2;
 
                     // 999+2=1001 特殊情况处理
                     var lastNodeNumStr = (lastNodeNum % 100 == 1)
                         ? lastNodeNum.ToString().Replace('0', '1')
                         : lastNodeNum.ToString();
 
-                    newNumStr = string.Concat(realNumStr.Substring(0, lastNodeIndex), lastNodeNumStr);
+                    newNumStr = string.Concat(realNumStr[..lastNodeIndex], lastNodeNumStr);
                 }
                 else
                 {
                     newNumStr = (realNumStr.ToInt64() + 1).ToString();
                 }
             }
-            else if (maxPreNum <= 0 && parentNum > 0)
+            else if (parentNum > 0)
             {
                 var parentRealNumStr = parentNum.ToString().TrimEnd('0');
                 if (parentRealNumStr.Length + 2 > numLength)
@@ -183,7 +183,7 @@ namespace OSS.Common
         /// </summary>
         /// <param name="smallShortTreeNum"> 小树形码 </param>
         /// <returns></returns>
-        public static long PaddingSamllTreeNum(long smallShortTreeNum)
+        public static long PaddingSmallTreeNum(long smallShortTreeNum)
         {
             return PaddingTreeNum(smallShortTreeNum, _numSmallLength);
         }
@@ -191,7 +191,12 @@ namespace OSS.Common
         private static long PaddingTreeNum(long bareTreeNum,int length)
         {
             var strTreeNum = bareTreeNum.ToString();
-            return string.Concat(strTreeNum, _paddingNumStr.Substring(0, length - strTreeNum.Length))
+            if (length<= strTreeNum.Length)
+            {
+                return bareTreeNum;
+            }
+
+            return string.Concat(strTreeNum, _paddingNumStr[..(length - strTreeNum.Length)])
                 .ToInt64();
         }
 

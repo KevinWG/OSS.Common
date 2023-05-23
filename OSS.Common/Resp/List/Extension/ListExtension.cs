@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace OSS.Common.Resp
+﻿namespace OSS.Common.Resp
 {
     public static class ListExtension
     {

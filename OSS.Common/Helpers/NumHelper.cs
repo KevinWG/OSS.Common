@@ -12,7 +12,6 @@
 #endregion
 
 using OSS.Common.Extension;
-using System;
 using System.Text;
 
 namespace OSS.Common
@@ -74,17 +73,6 @@ namespace OSS.Common
             return _generator.NewNum();
         }
 
-        /// <summary>
-        /// twitter 的snowflake算法 workid=0 的算法实例：
-        /// 根据指定时间戳，获取能够成的id范围
-        /// </summary>
-        /// <param name="milliseconds"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public static (long min, long max) GetSnowNumRange(long milliseconds)
-        {
-            return _generator.GetNumRange(milliseconds);
-        }
 
         /// <summary>
         /// twitter 的snowflake算法 workid=0 的算法实例：
@@ -94,32 +82,6 @@ namespace OSS.Common
         public static long SmallSnowNum()
         {
             return _smallGenerator.NewNum();
-        }
-
-
-        /// <summary>
-        /// twitter 的snowflake算法 workid=0 的算法实例：
-        /// 根据指定时间戳，获取能够成的id范围
-        /// </summary>
-        /// <param name="milliseconds"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public static (long min, long max) GetSmallSnowNumRange(long milliseconds)
-        {
-            return _smallGenerator.GetNumRange(milliseconds);
-        }
-
-
-        /// <summary>
-        ///  时间戳（秒）+ 主编号的后四位 生成的数字编号
-        /// </summary>
-        /// <param name="mainNum"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public static long SubTimeNum(long mainNum)
-        {
-            var suffixNum = mainNum % 10000;
-            return string.Concat(DateTime.Now.ToUtcSeconds(), suffixNum).ToInt64();
         }
     }
 }

@@ -10,7 +10,6 @@
 
 #endregion
 
-using System;
 using System.Text;
 
 namespace OSS.Common.Extension
@@ -23,19 +22,9 @@ namespace OSS.Common.Extension
         #region Url 编码处理
 
         /// <summary>
-        /// Uri编码处理（协议部分字符不会被编码）
-        /// </summary>
-        public static string SafeEscapeUriString(this string input)
-        {
-            return string.IsNullOrEmpty(input)
-                ? string.Empty
-                : Uri.EscapeUriString(input);
-        }
-
-        /// <summary>
         /// Uri数据编码处理(协议部分字符将被编码，如 http:// 会被转化)
         /// </summary>
-        public static string SafeEscapeUriDataString(this string input)
+        public static string SafeEscapeDataString(this string input)
         {
             return string.IsNullOrEmpty(input)
                 ? string.Empty
@@ -51,7 +40,28 @@ namespace OSS.Common.Extension
         }
 
 
-        [Obsolete]
+
+        /// <summary>
+        /// Uri编码处理（协议部分字符不会被编码）
+        /// </summary>
+        [Obsolete("请使用 SafeEscapeDataString 转化地址中的部分字段")]
+        public static string SafeEscapeUriString(this string input) => string.IsNullOrEmpty(input)
+            ? string.Empty
+            : Uri.EscapeUriString(input);
+
+        /// <summary>
+        /// Uri数据编码处理(协议部分字符将被编码，如 http:// 会被转化)
+        /// </summary>
+        [Obsolete("请使用 SafeEscapeDataString 方法")]
+        public static string SafeEscapeUriDataString(this string input)
+        {
+            return string.IsNullOrEmpty(input)
+                ? string.Empty
+                : Uri.EscapeDataString(input);
+        }
+
+
+        [Obsolete("请使用 SafeUnescapeDataString 方法 ")]
         public static string SafeUnescapeUriString(this string input)
         {
             return string.IsNullOrEmpty(input) ? string.Empty : Uri.UnescapeDataString(input);
@@ -68,17 +78,15 @@ namespace OSS.Common.Extension
         /// <param name="source"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string ToBase64(this string source, Encoding encoding = null)
+        public static string ToBase64(this string source, Encoding? encoding = null)
         {
             if (string.IsNullOrEmpty(source))
             {
                 throw new ArgumentNullException(nameof(source), "转化Base64字符串不能为空");
             }
 
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
+            encoding ??= Encoding.UTF8;
+
             var bytes = encoding.GetBytes(source);
             return Convert.ToBase64String(bytes);
         }
@@ -89,16 +97,14 @@ namespace OSS.Common.Extension
         /// <param name="baseString"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string FromBase64(this string baseString, Encoding encoding = null)
+        public static string FromBase64(this string baseString, Encoding? encoding = null)
         {
             if (string.IsNullOrEmpty(baseString))
             {
                 throw new ArgumentNullException(nameof(baseString), "解码Base64字符串不能为空");
             }
-            if (encoding == null)
-            {
-                encoding = Encoding.UTF8;
-            }
+            encoding ??= Encoding.UTF8;
+
             var bytes = Convert.FromBase64String(baseString);
             return encoding.GetString(bytes);
         }
@@ -110,7 +116,7 @@ namespace OSS.Common.Extension
         /// <param name="data"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string ToSafeUrlBase64(this string data, Encoding encoding = null)
+        public static string ToSafeUrlBase64(this string data, Encoding? encoding = null)
         {
             return data.ToBase64(encoding).ReplaceBase64ToUrlSafe();
         }
@@ -122,7 +128,7 @@ namespace OSS.Common.Extension
         /// <param name="safeBaseString"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string FromSafeUrlBase64(this string safeBaseString, Encoding encoding = null)
+        public static string FromSafeUrlBase64(this string safeBaseString, Encoding? encoding = null)
         {
             return safeBaseString.ReplaceBase64UrlSafeBack().FromBase64(encoding);
         }

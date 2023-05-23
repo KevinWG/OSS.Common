@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace OSS.Common;
+﻿namespace OSS.Common;
 
 /// <summary>
 ///  访问秘钥提供者

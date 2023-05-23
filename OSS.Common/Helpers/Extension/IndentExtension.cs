@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace System.Linq;
+﻿namespace System.Linq;
 
 /// <summary>
 /// 
@@ -159,8 +157,14 @@ public static class IndentExtension
 /// <typeparam name="TValue"></typeparam>
 public interface IFlatWithParentId<TValue>
 {
+    /// <summary>
+    /// id
+    /// </summary>
     public TValue id { get; set; }
 
+     /// <summary>
+     /// 父级id
+     /// </summary>
      public TValue parent_id { get; set; }
 }
 

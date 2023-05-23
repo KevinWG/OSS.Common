@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OSS.Common.Extension;
 using System.Xml;
 using System.Xml.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OSS.Common.Extension;
 
 namespace OSS.Common.Tests
 {

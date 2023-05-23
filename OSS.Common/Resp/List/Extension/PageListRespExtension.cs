@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace OSS.Common.Resp;
+﻿namespace OSS.Common.Resp;
 
 /// <summary>
 /// 分页实体扩展

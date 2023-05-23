@@ -10,87 +10,82 @@
 *****************************************************************************/
 
 #endregion
-using System;
-using System.IO;
 using System.Xml.Serialization;
 
-namespace OSS.Common
+namespace OSS.Common;
+
+/// <summary>
+/// xml  转化扩展
+/// </summary>
+public static class XmlConvertExtension
 {
     /// <summary>
-    /// xml  转化扩展
+    /// 对象序列化成xml字符串
     /// </summary>
-    public static class XmlConvertExtension
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static string SerializeToXml(this object t)
     {
-        /// <summary>
-        /// 对象序列化成xml字符串
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static string SerializeToXml(this object t)
+        MemoryStream? stream       = null;
+        StreamReader? streamReader = null;
+        try
         {
-            string result;
-            MemoryStream stream = null;
-            StreamReader streamReader = null;
-            try
-            {
-                var serializer = new XmlSerializer(t.GetType());
+            var serializer = new XmlSerializer(t.GetType());
 
-                stream = new MemoryStream();
-                serializer.Serialize(stream, t);
+            stream = new MemoryStream();
+            serializer.Serialize(stream, t);
 
-                stream.Position = 0;
-                streamReader = new StreamReader(stream);
-                result = streamReader.ReadToEnd();
-            }
-            finally
-            {
-                streamReader?.Dispose();
-                stream?.Dispose();
-            }
-            return result;
+            stream.Position = 0;
+
+            streamReader = new StreamReader(stream);
+            return streamReader.ReadToEnd();
         }
-
-        /// <summary>
-        /// xml字符串转化到对象
-        /// </summary>
-        /// <typeparam name="TT"></typeparam>
-        /// <param name="xml"></param>
-        /// <returns></returns>
-        public static TT DeserializeXml<TT>(this string xml)
-            where TT : class
+        finally
         {
-            return DeserializeXml(xml, typeof(TT)) as TT;
+            streamReader?.Dispose();
+            stream?.Dispose();
         }
+    }
 
-        /// <summary>
-        /// xml字符串转化到对象
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static object DeserializeXml(this string xml, Type type)
+    /// <summary>
+    /// xml字符串转化到对象
+    /// </summary>
+    /// <typeparam name="TT"></typeparam>
+    /// <param name="xml"></param>
+    /// <returns></returns>
+    public static TT? DeserializeXml<TT>(this string xml)
+        where TT : class
+    {
+        return DeserializeXml(xml, typeof(TT)) as TT;
+    }
+
+    /// <summary>
+    /// xml字符串转化到对象
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static object? DeserializeXml(this string xml, Type type)
+    {
+        MemoryStream? stream = null;
+        StreamWriter? writer = null;
+        try
         {
-            object result;
-            MemoryStream stream = null;
-            StreamWriter writer = null;
-            try
-            {
-                stream = new MemoryStream();
+            stream = new MemoryStream();
 
-                writer = new StreamWriter(stream);
-                writer.Write(xml);
-                writer.Flush();
+            writer = new StreamWriter(stream);
+            writer.Write(xml);
+            writer.Flush();
 
-                stream.Position = 0;
-                var deSer = new XmlSerializer(type);
-                result = deSer.Deserialize(stream);
-            }
-            finally
-            {
-                writer?.Dispose();
-                stream?.Dispose();
-            }
-            return result;
+            stream.Position = 0;
+
+            var deSer = new XmlSerializer(type);
+            return deSer.Deserialize(stream);
+        }
+        finally
+        {
+            writer?.Dispose();
+            stream?.Dispose();
         }
     }
 }

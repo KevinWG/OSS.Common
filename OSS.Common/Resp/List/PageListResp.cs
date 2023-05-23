@@ -10,14 +10,15 @@
 
 #endregion
 
-using System.Collections.Generic;
 
 namespace OSS.Common.Resp
 {
     /// <summary>
     ///  分页实体
     /// </summary>
-    public class PageListResp<TModel> : ListResp<TModel>,IPageList<TModel>
+#pragma warning disable CS8766
+    public class PageListResp<TModel> : ListResp<TModel>, IPageList<TModel>
+#pragma warning restore CS8766
     {
         /// <summary>
         ///    空构造函数  照顾  json序列化 

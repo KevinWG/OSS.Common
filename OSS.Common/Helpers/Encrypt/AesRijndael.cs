@@ -9,7 +9,6 @@
 *****************************************************************************/
 
 #endregion
-using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -27,7 +26,7 @@ namespace OSS.Common.Encrypt
         /// <param name="key"></param>
         /// <param name="encoding">加密编码方式    默认为   utf-8  </param>
         /// <returns></returns>
-        public static string Encrypt(string toEncrypt, string key, Encoding encoding = null)
+        public static string Encrypt(string toEncrypt, string key, Encoding? encoding = null)
         {
             var result = string.Empty;
 
@@ -37,8 +36,7 @@ namespace OSS.Common.Encrypt
             if (string.IsNullOrEmpty(toEncrypt))
                 return result;
 
-            if (encoding == null)
-                encoding = Encoding.UTF8;
+            encoding ??= Encoding.UTF8;
             
             var keyArray = encoding.GetBytes(key); // ToByte(key);
             var toEncryptArray = encoding.GetBytes(toEncrypt);
@@ -60,7 +58,7 @@ namespace OSS.Common.Encrypt
         /// <param name="cipherMode"></param>
         /// <param name="paddingMode"></param>
         /// <returns></returns>
-        public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray, byte[] iv = null, int keySize = 256, int blockSize = 128, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
+        public static byte[] Encrypt(byte[] keyArray, byte[] toEncryptArray, byte[]? iv = null, int keySize = 256, int blockSize = 128, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7)
         {
             using (var rDel = Aes.Create())
             {
@@ -90,18 +88,17 @@ namespace OSS.Common.Encrypt
         /// <param name="key"></param>
         /// <param name="encoding"> 编码方式 不传值默认为  utf-8 </param>
         /// <returns></returns>
-        public static string Decrypt(string toDecrypt, string key, Encoding encoding = null)
+        public static string Decrypt(string toDecrypt, string key, Encoding? encoding = null)
         {
             var result = string.Empty;
 
             if (string.IsNullOrEmpty(key))
-                throw new ArgumentNullException("key", "key值不能为空");
+                throw new ArgumentNullException(nameof(key), "key值不能为空");
 
             if (string.IsNullOrEmpty(toDecrypt))
                 return result;
 
-            if (encoding == null)
-                encoding = Encoding.UTF8;
+            encoding ??= Encoding.UTF8;
 
             var keyArray = encoding.GetBytes(key); // ToByte(key);
             var toEncryptArray = Convert.FromBase64String(toDecrypt); // ToByte(toDecrypt);
@@ -123,7 +120,7 @@ namespace OSS.Common.Encrypt
         /// <param name="cipherMode"></param>
         /// <param name="paddingMode"></param>
         /// <returns></returns>
-        public static byte[] Decrypt(byte[] keyArray, byte[] toEncryptArray,byte[] iv=null,int keySize=256,int blockSize=128, CipherMode cipherMode= CipherMode.ECB, PaddingMode paddingMode= PaddingMode.PKCS7)
+        public static byte[] Decrypt(byte[] keyArray, byte[] toEncryptArray,byte[]? iv=null,int keySize=256,int blockSize=128, CipherMode cipherMode= CipherMode.ECB, PaddingMode paddingMode= PaddingMode.PKCS7)
         {
             using (var rDel =Aes.Create())
             {

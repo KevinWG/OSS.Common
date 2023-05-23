@@ -11,7 +11,6 @@
 
 #endregion
 
-using System.Threading.Tasks;
 
 namespace OSS.Common.Domain
 {

@@ -1,49 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>6.3.3</Version>
-	  <Authors>OSSCore</Authors>
-    <Company>OSSCore</Company>
-    <Product>OSS开源系列</Product>
-    <Description>通用基础类库</Description>
-    <PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>7.0</Version>
+		<Authors>OSSCore</Authors>
+		<Company>OSSCore</Company>
+		<Product>OSS开源系列</Product>
+		<Description>通用基础类库</Description>
+		<PackageProjectUrl>https://github.com/KevinWG/OSS.Common</PackageProjectUrl>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryUrl>https://github.com/KevinWG/OSS.Common</RepositoryUrl>
+		<PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
 
+		<PackageReleaseNotes>优化扩展搜索实体</PackageReleaseNotes>
 
-	  <PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-    <LangVersion>latestmajor</LangVersion>
-
-    <PackageIcon>logo.png</PackageIcon>
-
-    <PackageReleaseNotes>优化扩展搜索实体</PackageReleaseNotes>
-
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard1.4\OSS.Common.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\OSS.Common.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
+	</PropertyGroup>
 
 </Project>

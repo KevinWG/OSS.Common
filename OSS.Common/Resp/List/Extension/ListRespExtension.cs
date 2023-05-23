@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OSS.Common.Resp;
+﻿namespace OSS.Common.Resp;
 
 /// <summary>
 /// 通行token列表扩展

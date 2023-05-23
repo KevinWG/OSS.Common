@@ -11,116 +11,111 @@
 
 #endregion
 
-using System;
 using OSS.Common.Resp;
+namespace OSS.Common;
 
-namespace OSS.Common
+/// <summary>
+/// 系统服务提供者
+/// </summary>
+public static class ServiceProvider
 {
     /// <summary>
-    /// 系统服务提供者
+    ///  全局服务提供者
     /// </summary>
-    public static class ServiceProvider
+    public static IServiceProvider? Provider { get; set; }
+}
+
+
+/// <summary>
+///   Ioc简单实例容器实现
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public static class InsContainer<T>
+    where T : class
+{
+    private static Func<T?>? _insCreator;
+
+    /// <summary>
+    ///  具体实例 
+    /// 根据设置时参数会返回具体单例还是新的实例
+    /// </summary>
+    public static T Instance
     {
-        /// <summary>
-        ///  全局服务提供者
-        /// </summary>
-        public static IServiceProvider Provider { get; set; }
+        get
+        {
+            T? ins = default;
+
+            if (_insCreator != null)
+            {
+                ins = _insCreator();
+            }
+
+            if (ins == null && ServiceProvider.Provider != null)
+            {
+                ins = ServiceProvider.Provider.GetService(typeof(T)) as T;
+            }
+
+            if (ins != null)
+            {
+                return ins;
+            }
+
+            throw new NotImplementedException($"未能发现{typeof(T)}在容器中注入依赖的具体映射类型/实例");
+        }
     }
 
-
-    
     /// <summary>
-    ///   Ioc简单实例容器实现
+    ///  设置容器内映射的实例创建方法
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public static class InsContainer<T>
-        where T : class
+    /// <param name="insCreator"></param>
+    public static void Set(Func<T?>? insCreator)
     {
-        private static Func<T> _insCreator;
+        _insCreator = insCreator ?? throw new RespArgumentException(nameof(insCreator), "参数不能为空！");
+    }
 
-        /// <summary>
-        ///  具体实例 
-        /// 根据设置时参数会返回具体单例还是新的实例
-        /// </summary>
-        public static T Instance
+    /// <summary>
+    ///  设置容器内映射的具体类型
+    /// </summary>
+    /// <typeparam name="TInstance"></typeparam>
+    /// <param name="ins"></param>
+    public static void Set<TInstance>(TInstance? ins)
+        where TInstance : T
+    {
+        _insCreator = () => ins;
+    }
+
+    private static          T?     _instance;
+    private static readonly object _objLock = new();
+
+    /// <summary>
+    /// 设置容器内映射的具体类型
+    /// </summary>
+    /// <typeparam name="TInstance"></typeparam>
+    /// <param name="isSingle"></param>
+    public static void Set<TInstance>(bool isSingle = true)
+        where TInstance : T, new()
+    {
+        if (!isSingle)
         {
-            get
-            {
-                T ins = default;
-
-                if (_insCreator != null)
-                {
-                    ins = _insCreator();
-                }
-
-                if (ins == null && ServiceProvider.Provider != null)
-                {
-                    ins = ServiceProvider.Provider.GetService(typeof(T)) as T;
-                }
-
-                if (ins!=null)
-                {
-                    return ins;
-                }
-
-                throw new NotImplementedException($"未能发现{typeof(T)}在容器中注入依赖的具体映射类型/实例");
-            }
+            _insCreator = () => new TInstance();
+            return;
         }
 
-        /// <summary>
-        ///  设置容器内映射的实例创建方法
-        /// </summary>
-        /// <param name="insCreator"></param>
-        public static void Set(Func<T> insCreator)
+        _insCreator = () =>
         {
-            _insCreator = insCreator ?? throw new RespArgumentException(nameof(insCreator), "参数不能为空！");
-        }
-
-        /// <summary>
-        ///  设置容器内映射的具体类型
-        /// </summary>
-        /// <typeparam name="TInstance"></typeparam>
-        /// <param name="ins"></param>
-        public static void Set<TInstance>(TInstance ins)
-            where TInstance : T
-        {
-            _insCreator = () => ins;
-        }
-
-        private static          T      _instance;
-        private static readonly object _objLock = new();
-
-        /// <summary>
-        /// 设置容器内映射的具体类型
-        /// </summary>
-        /// <typeparam name="TInstance"></typeparam>
-        /// <param name="isSingle"></param>
-        public static void Set<TInstance>(bool isSingle = true)
-            where TInstance : T, new()
-        {
-            if (!isSingle)
+            if (_instance == null)
             {
-                _insCreator = () => new TInstance();
-                return;
-            }
-
-            _insCreator = () =>
-            {
-                if (_instance == null)
+                lock (_objLock)
                 {
-                    lock (_objLock)
+                    if (_instance == null)
                     {
-                        if (_instance == null)
-                        {
-                            return _instance = new TInstance();
-                        }
+                        return _instance = new TInstance();
                     }
                 }
+            }
 
-                return _instance;
-            };
-        }
+            return _instance;
+        };
     }
-
-
 }
+    

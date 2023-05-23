@@ -9,7 +9,6 @@
 *****************************************************************************/
 
 #endregion
-using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -29,7 +28,7 @@ namespace OSS.Common.Encrypt
         {
             var result = EncryptHexString(input);
 
-            return !string.IsNullOrEmpty(result) ? result.Substring(0, 16) : result;
+            return !string.IsNullOrEmpty(result) ? result[..16] : result;
         }
 
 
@@ -39,21 +38,20 @@ namespace OSS.Common.Encrypt
         /// <param name="input"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string EncryptHexString(string input, Encoding encoding = null)
+        public static string EncryptHexString(string input, Encoding? encoding = null)
         {
             if (string.IsNullOrEmpty(input))
-                throw new ArgumentNullException("input", "MD5加密的字符串不能为空！");
+                throw new ArgumentNullException(nameof(input), "MD5加密的字符串不能为空！");
 
-            if (encoding == null)
-                encoding = Encoding.UTF8;
+            encoding ??= Encoding.UTF8;
 
             var data = encoding.GetBytes(input);
-            var encryData = Encrypt(data);
+            var encryptData = Encrypt(data);
 
-            var sBuilder = new StringBuilder(encryData.Length*2);
-            for (var i = 0; i < encryData.Length; i++)
+            var sBuilder = new StringBuilder(encryptData.Length*2);
+            foreach (var t in encryptData)
             {
-                sBuilder.Append(encryData[i].ToString("x2"));
+                sBuilder.Append(t.ToString("x2"));
             }
             
             return sBuilder.ToString();
@@ -69,16 +67,12 @@ namespace OSS.Common.Encrypt
         public static byte[] Encrypt(byte[] bytes)
         {
             if (bytes == null || bytes.Length == 0)
-                throw new ArgumentNullException("bytes","MD5加密的字节不能为空！");
+                throw new ArgumentNullException(nameof(bytes),"MD5加密的字节不能为空！");
             
             using (var md5Hash = MD5.Create())
             {
                 return md5Hash.ComputeHash(bytes);
             }
         }
-
-
-
-
     }
 }

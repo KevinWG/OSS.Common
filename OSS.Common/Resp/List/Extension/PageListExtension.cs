@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace OSS.Common.Resp;
+﻿namespace OSS.Common.Resp;
 
 /// <summary>
 /// 分页列表接口扩展

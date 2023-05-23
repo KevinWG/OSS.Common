@@ -11,7 +11,6 @@
 
 #endregion
 
-using System;
 
 namespace OSS.Common
 {
@@ -123,18 +122,6 @@ namespace OSS.Common
             return CombineNum(ts, seq);
         }
 
-        /// <summary>
-        ///  根据指定时间戳，获取能够成的id范围
-        /// </summary>
-        /// <param name="milliseconds"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public (long min, long max) GetNumRange(long milliseconds)
-        {
-            var min = CombineNum(milliseconds, 0);
-            var max = CombineNum(milliseconds, _maxSequence);
-            return (min, max);
-        }
 
         /// <summary>
         ///   组合数字ID

@@ -12,8 +12,6 @@
 
 #endregion
 
-using System;
-
 namespace OSS.Common.Extension;
 
 /// <summary>
