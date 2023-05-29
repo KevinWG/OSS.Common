@@ -68,7 +68,7 @@
         /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int sysRet, int code, string msg)
+        public static TRes WithResp<TRes>(this TRes res, int sysRet, int code, string? msg)
             where TRes : IResp
         {
             res.msg     = msg;
@@ -86,7 +86,7 @@
         /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, RespCodes code, string msg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, RespCodes code, string? msg)
             where TRes : IResp
         {
             return res.WithResp((int)sysCode, (int)code, msg);
@@ -100,7 +100,7 @@
         /// <param name="sysCode"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, string msg)
+        public static TRes WithResp<TRes>(this TRes res, SysRespCodes sysCode, string? msg)
             where TRes : IResp
         {
             res.sys_code = (int)sysCode;
@@ -116,7 +116,7 @@
         /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, int code, string msg)
+        public static TRes WithResp<TRes>(this TRes res, int code, string? msg)
             where TRes : IResp
         {
             res.code = code;
@@ -132,7 +132,7 @@
         /// <param name="code"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, RespCodes code, string msg)
+        public static TRes WithResp<TRes>(this TRes res, RespCodes code, string? msg)
             where TRes : IResp
         {
             res.code = (int)code;
@@ -147,7 +147,7 @@
         /// <param name="res"></param>
         /// <param name="msg"> 新的消息内容 </param>
         /// <returns></returns>
-        public static TRes WithMsg<TRes>(this TRes res, string msg)
+        public static TRes WithMsg<TRes>(this TRes res, string? msg)
             where TRes : IResp
         {
             res.msg = msg;
@@ -161,7 +161,7 @@
         /// <param name="res"></param>
         /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
         /// <returns></returns>
-        public static TRes WithErrMsg<TRes>(this TRes res, string errMsg)
+        public static TRes WithErrMsg<TRes>(this TRes res, string? errMsg)
             where TRes : IResp
         {
             if (!res.IsSuccess())
@@ -179,7 +179,7 @@
         /// <param name="tRes"></param>
         /// <param name="errMsg">如果 res.IsSuccess()=false，且errMsg不为空，取errMsg，否则不变 </param>
         /// <returns></returns>
-        public static async Task<TRes> WithErrMsg<TRes>(this Task<TRes> tRes, string errMsg)
+        public static async Task<TRes> WithErrMsg<TRes>(this Task<TRes> tRes, string? errMsg)
             where TRes : IResp
         {
             var res = await tRes;
@@ -203,7 +203,7 @@
         /// <param name="errMsg">如果 tPara.IsSuccess()=false，且errMsg不为空，取errMsg，否则取 tPara.msg </param>
         /// <typeparam name="TRes"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TRes>(this TRes res, IResp tPara, string errMsg = null)
+        public static TRes WithResp<TRes>(this TRes res, IResp tPara, string? errMsg = null)
             where TRes : IResp
         {
             res.WithResp(tPara.sys_code, tPara.code, tPara.msg);
@@ -294,7 +294,7 @@
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
         public static IResp<TRes> WithResp<TRes, TPara>(this IResp<TRes> res, IResp<TPara> tPara,
-                                                        Func<TPara, TRes> convertFunc, string errMsg=null, bool isNullCheck = true)
+                                                        Func<TPara, TRes> convertFunc, string? errMsg=null, bool isNullCheck = true)
         {
             if ((isNullCheck && tPara.data != null)
                 || !isNullCheck)
