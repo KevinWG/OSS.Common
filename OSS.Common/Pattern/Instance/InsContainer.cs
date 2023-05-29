@@ -33,7 +33,7 @@ public static class ServiceProvider
 public static class InsContainer<T>
     where T : class
 {
-    private static Func<T?>? _insCreator;
+    private static Func<T>? _insCreator;
 
     /// <summary>
     ///  具体实例 
@@ -68,7 +68,7 @@ public static class InsContainer<T>
     ///  设置容器内映射的实例创建方法
     /// </summary>
     /// <param name="insCreator"></param>
-    public static void Set(Func<T?>? insCreator)
+    public static void Set(Func<T> insCreator)
     {
         _insCreator = insCreator ?? throw new RespArgumentException(nameof(insCreator), "参数不能为空！");
     }
@@ -78,7 +78,7 @@ public static class InsContainer<T>
     /// </summary>
     /// <typeparam name="TInstance"></typeparam>
     /// <param name="ins"></param>
-    public static void Set<TInstance>(TInstance? ins)
+    public static void Set<TInstance>(TInstance ins)
         where TInstance : T
     {
         _insCreator = () => ins;
