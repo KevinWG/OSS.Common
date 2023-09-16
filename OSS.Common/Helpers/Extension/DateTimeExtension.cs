@@ -32,6 +32,8 @@ public static class DateTimeExtension
         return (localTime.ToUniversalTime().Ticks - startTicks) / 10000000;
     }
 
+
+
     /// <summary>
     /// 距离 1970-01-01（格林威治时间）的秒数转换为当前时间
     /// </summary>
@@ -40,7 +42,7 @@ public static class DateTimeExtension
     public static DateTime FromUtcSeconds(this long seconds)
     {
         return DateTimeOffset.FromUnixTimeSeconds(seconds)
-            .LocalDateTime; // new DateTime(1970, 1, 1).AddSeconds(seconds).ToLocalTime();
+            .LocalDateTime;
     }
 
 
@@ -95,5 +97,27 @@ public static class DateTimeExtension
     public static DateTime FromLocalSeconds(this long seconds)
     {
         return new DateTime(1970, 1, 1).AddSeconds(seconds);
+    }
+
+    /// <summary>
+    ///  获取日期所在天的最后时间
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public static DateTime ToDayEnd(this DateTime date)
+    {
+        return date.Date.AddDays(1).AddSeconds(-1);
+    }
+
+
+    /// <summary>
+    ///  获取日期所在月的最后时间
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public static DateTime ToMonthEnd(this DateTime date)
+    {
+        var monthDays = DateTime.DaysInMonth(date.DayOfYear, date.Month);
+        return date.Date.AddDays(monthDays + 1 - date.Day).AddSeconds(-1);
     }
 }
