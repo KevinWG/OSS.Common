@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>7.1.1</Version>
+		<Version>7.2</Version>
 		<Authors>OSSCore</Authors>
 		<Company>OSSCore</Company>
 		<Product>OSS开源系列</Product>
@@ -15,10 +15,19 @@
 		<PackageLicenseUrl>https://github.com/KevinWG/OSS.Common/blob/master/LICENSE</PackageLicenseUrl>
 		<PackageIconUrl>http://img1.osscore.cn/static/oss_net.png</PackageIconUrl>
 
-		<PackageReleaseNotes>优化单例实现</PackageReleaseNotes>
+		<PackageReleaseNotes></PackageReleaseNotes>
 
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
+		<PackageIcon>logo.png</PackageIcon>
+
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
