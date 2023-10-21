@@ -299,7 +299,7 @@
         /// <param name="codeWhenDataIsNull">如果Data为空，返回的响应类型</param>
         /// <param name="msgWhenDataIsNull">如果Data为空，返回的响应消息</param>
         /// <returns></returns>
-        public static TRes WithData<TRes, TData>(this TRes res, TData data, string msgWhenDataIsNull, RespCodes codeWhenDataIsNull = RespCodes.OperateObjectNull)
+        public static TRes WithData<TRes, TData>(this TRes res, TData? data, string msgWhenDataIsNull, RespCodes codeWhenDataIsNull = RespCodes.OperateObjectNull)
             where TRes : IResp<TData>
         {
             return res.WithData(data, msgWhenDataIsNull, (int)codeWhenDataIsNull);
@@ -316,7 +316,7 @@
         /// <param name="codeWhenDataIsNull">如果Data为空，返回的响应类型</param>
         /// <param name="msgWhenDataIsNull">如果Data为空，返回的响应消息</param>
         /// <returns></returns>
-        public static TRes WithData<TRes, TData>(this TRes res, TData data, string msgWhenDataIsNull, int codeWhenDataIsNull)
+        public static TRes WithData<TRes, TData>(this TRes res, TData? data, string msgWhenDataIsNull, int codeWhenDataIsNull)
             where TRes : IResp<TData>
         {
             res.data = data;
@@ -340,7 +340,7 @@
         /// <param name="codeWhenDataIsNull">如果Data为空，返回的响应类型</param>
         /// <param name="msgWhenDataIsNull">如果Data为空，返回的响应消息</param>
         /// <returns></returns>
-        public static Task<TRes> WithTaskData<TRes, TData>(this TRes res, Task<TData> taskData, string msgWhenDataIsNull, RespCodes codeWhenDataIsNull = RespCodes.OperateObjectNull)
+        public static Task<TRes> WithTaskData<TRes, TData>(this TRes res, Task<TData?> taskData, string msgWhenDataIsNull, RespCodes codeWhenDataIsNull = RespCodes.OperateObjectNull)
             where TRes : IResp<TData>
         {
             return res.WithTaskData(taskData, msgWhenDataIsNull,(int)codeWhenDataIsNull);
@@ -356,7 +356,7 @@
         /// <param name="codeWhenDataIsNull">如果Data为空，返回的响应类型</param>
         /// <param name="msgWhenDataIsNull">如果Data为空，返回的响应消息</param>
         /// <returns></returns>
-        public static async Task<TRes> WithTaskData<TRes, TData>(this TRes targetRes, Task<TData> taskData, string msgWhenDataIsNull, int codeWhenDataIsNull)
+        public static async Task<TRes> WithTaskData<TRes, TData>(this TRes targetRes, Task<TData?> taskData, string msgWhenDataIsNull, int codeWhenDataIsNull)
             where TRes : IResp<TData>
         {
             targetRes.data = await taskData;
