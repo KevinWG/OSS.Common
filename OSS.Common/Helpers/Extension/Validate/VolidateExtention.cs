@@ -85,7 +85,7 @@ namespace OSS.Common.Extension
                     where !result
                     select requireAttr)
                 {
-                    resultList.Add(requireAttr.ErrorMessage);
+                    resultList.Add(requireAttr.ErrorMessage??string.Empty);
                     break;
                 }
             }
@@ -110,7 +110,7 @@ namespace OSS.Common.Extension
         /// <returns></returns>
         public static object[] GetPropertyAttributes( PropertyInfo fd, Type attributeType)
         {
-            if (attrDirs.TryGetValue(fd, out object[] attrs))
+            if (attrDirs.TryGetValue(fd, out var attrs))
             {
                 return attrs;
             }
@@ -123,7 +123,7 @@ namespace OSS.Common.Extension
         /// <summary>
         /// 
         /// </summary>
-        private static ConcurrentDictionary<Type, PropertyInfo[]> proDictionaries =
+        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> proDictionaries =
             new();
 
         /// <summary>

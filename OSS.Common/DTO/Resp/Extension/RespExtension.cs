@@ -236,7 +236,7 @@
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static TRes WithResp<TPara, TRes>(this TRes res, TPara tPara, Action<TPara, TRes> successFormatAction, string errMsg = null)
+        public static TRes WithResp<TPara, TRes>(this TRes res, TPara tPara, Action<TPara, TRes> successFormatAction, string? errMsg = null)
             where TRes : IResp
             where TPara : IResp
         {

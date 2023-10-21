@@ -129,11 +129,11 @@ namespace OSS.Common.Resp
         {
             this.data = data;
         }
-        
+
         /// <summary>
         ///  响应类型数据
         /// </summary>
-        public TType? data { get; set; }
+        public TType data { get; set; } = default!;
     }
 
     /// <summary>

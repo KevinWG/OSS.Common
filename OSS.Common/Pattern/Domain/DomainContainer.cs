@@ -31,7 +31,7 @@
         ///  设置容器内映射的执行实例创建方法
         /// </summary>
         /// <param name="insCreator"></param>
-        public static void SetExecutor(Func<IDomainExecutor<TReq, TRes>?>? insCreator)
+        public static void SetExecutor(Func<IDomainExecutor<TReq, TRes>> insCreator)
         {
             InsContainer<IDomainExecutor<TReq, TRes>>.Set(insCreator);
         }
@@ -41,7 +41,7 @@
         /// </summary>
         /// <typeparam name="TExecutor"></typeparam>
         /// <param name="ins"></param>
-        public static void SetExecutor<TExecutor>(TExecutor? ins)
+        public static void SetExecutor<TExecutor>(TExecutor ins)
             where TExecutor : IDomainExecutor<TReq, TRes>, new()
         {
             InsContainer<IDomainExecutor<TReq, TRes>>.Set(ins);

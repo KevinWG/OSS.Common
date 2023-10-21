@@ -46,7 +46,7 @@ public static class IndentExtension
         var indentList = new List<TIndent>();
         foreach (var item in sourceList)
         {
-            if (getParentKeyValue(item).Equals(defaultParentKeyValue))
+            if (getParentKeyValue(item)?.Equals(defaultParentKeyValue)??false)
             {
                 var children = sourceList.ToIndent(convert, getParentKeyValue, getKeyValue,
                     getKeyValue(item));

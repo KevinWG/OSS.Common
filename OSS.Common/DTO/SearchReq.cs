@@ -118,19 +118,19 @@ public class SearchReq
 /// <summary>
 /// 搜索实体 ( 含有自定义类型(FType) filter 属性
 /// </summary>
-public class SearchReq<FType> : SearchReq
+public abstract class SearchReq<FType> : SearchReq
 {
     /// <summary>
     ///   构造函数
     /// </summary>
-    public SearchReq()
+    protected SearchReq()
     {
     }
 
     /// <summary>
     /// 过滤器对象
     /// </summary>
-    public FType filter { get; set; }
+    public FType filter { get; set; } = default!;
 }
 
 /// <summary>

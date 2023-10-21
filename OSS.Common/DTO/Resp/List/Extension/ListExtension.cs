@@ -1,5 +1,8 @@
 ﻿namespace OSS.Common.Resp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ListExtension
     {
         /// <summary>

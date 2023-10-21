@@ -9,6 +9,7 @@ public class TokenPageListResp<TModel> : PageListResp<TModel>, ITokenList<TModel
     /// <inheritdoc />
     public TokenPageListResp()
     {
+       
     }
 
 
@@ -23,5 +24,5 @@ public class TokenPageListResp<TModel> : PageListResp<TModel>, ITokenList<TModel
     }
 
     /// <inheritdoc />
-    public Dictionary<string, Dictionary<string, string>>? pass_tokens { get; set; }
+    public Dictionary<string, Dictionary<string, string>> pass_tokens { get; set; }  = new();
 }

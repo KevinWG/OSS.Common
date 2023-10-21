@@ -60,7 +60,11 @@ namespace OSS.Common.Extension
                 : Uri.EscapeDataString(input);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Obsolete("请使用 SafeUnescapeDataString 方法 ")]
         public static string SafeUnescapeUriString(this string input)
         {

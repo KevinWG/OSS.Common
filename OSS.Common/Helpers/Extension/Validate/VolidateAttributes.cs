@@ -26,18 +26,18 @@ namespace OSS.Common.Extension
         /// <summary>
         ///  错误消息
         /// </summary>
-        protected string errorMessage;
+        protected string? errorMessage;
 
         /// <summary>
         /// 验证
         /// </summary>
         /// <returns></returns>
-        public abstract bool Validate(string propertyName, object propertyValue);
+        public abstract bool Validate(string propertyName, object? propertyValue);
 
         /// <summary>
         /// 错误信息
         /// </summary>
-        public string ErrorMessage => errorMessage;
+        public string? ErrorMessage => errorMessage;
     }
 
     /// <summary>
@@ -49,13 +49,13 @@ namespace OSS.Common.Extension
         /// 
         /// </summary>
         /// <param name="_errorMessage"></param>
-        public OsRequiredAttribute(string _errorMessage = null)
+        public OsRequiredAttribute(string? _errorMessage = null)
         {
             errorMessage = _errorMessage;
         }
 
         /// <inheritdoc />
-        public override bool Validate(string propertyName, object propertyValue)
+        public override bool Validate(string propertyName, object? propertyValue)
         {
             var result = propertyValue != null && propertyValue.ToString() != string.Empty;
             if (!result)
@@ -81,7 +81,7 @@ namespace OSS.Common.Extension
         /// <param name="_min"></param>
         /// <param name="_max"></param>
         /// <param name="_errorMessage"></param>
-        public OsNumberAttribute(long _min = long.MinValue, long _max = long.MaxValue, string _errorMessage = null)
+        public OsNumberAttribute(long _min = long.MinValue, long _max = long.MaxValue, string? _errorMessage = null)
         {
             min          = _min;
             max          = _max;
@@ -90,11 +90,11 @@ namespace OSS.Common.Extension
 
 
         /// <inheritdoc />
-        public override bool Validate(string propertyName, object propertyValue)
+        public override bool Validate(string propertyName, object? propertyValue)
         {
             if (propertyValue == null)
             {
-                errorMessage = errorMessage ?? string.Format("{0} 的值 不能为空！", propertyName);
+                errorMessage ??= $"{propertyName} 的值 不能为空！";
                 return false;
             }
 
@@ -104,11 +104,11 @@ namespace OSS.Common.Extension
                 isOkay = min <= longValue && longValue <= max;
                 errorMessage = isOkay
                     ? string.Empty
-                    : (errorMessage ?? string.Format("{0} 的值 必须介于 {1}~{2} 的数值", propertyName, min, max));
+                    : (errorMessage ?? $"{propertyName} 的值 必须介于 {min}~{max} 的数值");
             }
             else
             {
-                errorMessage = (errorMessage ?? string.Format("{0} 的值 必须是数字类型", propertyName));
+                errorMessage = (errorMessage ?? $"{propertyName} 的值 必须是数字类型");
             }
 
             return isOkay;
