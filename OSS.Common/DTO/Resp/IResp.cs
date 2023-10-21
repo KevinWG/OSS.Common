@@ -22,7 +22,7 @@ namespace OSS.Common.Resp
         /// <summary>
         ///  响应类型数据
         /// </summary>
-        public TType data { get; set; }
+        public TType? data { get; set; }
     }
 
     /// <summary>

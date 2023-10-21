@@ -16,9 +16,7 @@ namespace OSS.Common.Resp
     /// <summary>
     ///  分页实体
     /// </summary>
-#pragma warning disable CS8766
     public class PageListResp<TModel> : ListResp<TModel>, IPageList<TModel>
-#pragma warning restore CS8766
     {
         /// <summary>
         ///    空构造函数  照顾  json序列化 
@@ -40,7 +38,7 @@ namespace OSS.Common.Resp
         /// </summary>
         /// <param name="list"></param>
         /// <param name="totalCount"></param>
-        public PageListResp(int totalCount, IList<TModel> list):base(list)
+        public PageListResp(int totalCount, IList<TModel>? list):base(list)
         {
             total = totalCount;
         }

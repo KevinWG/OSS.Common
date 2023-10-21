@@ -25,7 +25,7 @@ namespace OSS.Common.Resp
         }
 
         /// <inheritdoc />
-        public ListResp(IList<TType> data)
+        public ListResp(IList<TType>? data)
         {
             this.data = data;
         }

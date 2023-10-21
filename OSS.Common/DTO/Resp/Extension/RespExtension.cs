@@ -259,7 +259,7 @@
         /// <typeparam name="TRes"></typeparam>
         /// <typeparam name="TPara"></typeparam>
         /// <returns></returns>
-        public static IResp<TRes> WithResp<TRes, TPara>(this IResp<TRes> targetRes, IResp<TPara> sourcePara, Func<TPara, TRes> convertFunc, bool checkDataNullBeforeConvert = true)
+        public static IResp<TRes> WithResp<TRes, TPara>(this IResp<TRes> targetRes, IResp<TPara> sourcePara, Func<TPara?, TRes> convertFunc, bool checkDataNullBeforeConvert = true)
         {
             if ((checkDataNullBeforeConvert && sourcePara.data != null) || !checkDataNullBeforeConvert)
             {

@@ -14,5 +14,5 @@ public interface IPageList<T>
     /// <summary>
     ///  数据
     /// </summary>
-    IList<T> data { get; }
+    IList<T>? data { get; }
 }

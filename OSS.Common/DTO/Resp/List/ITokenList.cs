@@ -8,7 +8,7 @@
         /// <summary>
         ///  列表
         /// </summary>
-        IList<TType> data { get; }
+        IList<TType>? data { get; }
 
         /// <summary>
         ///  列表关联外部字段token字典
