@@ -19,7 +19,8 @@ namespace OSS.Common.Extension;
 /// </summary>
 public static class DateTimeExtension
 {
-    private static readonly long startTicks = new DateTime(1970, 1, 1).Ticks;
+    //private static readonly DateTime uniStartTime      = ;
+    private static readonly long uniStartTimeTicks = new DateTime(1970, 1, 1).ToUniversalTime().Ticks;
 
 
     /// <summary>
@@ -29,7 +30,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static long ToUtcSeconds(this DateTime localTime)
     {
-        return (localTime.ToUniversalTime().Ticks - startTicks) / 10000000;
+        return (localTime.ToUniversalTime().Ticks - uniStartTimeTicks) / 10000000;
     }
 
 
@@ -53,7 +54,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static long ToUtcMilliseconds(this DateTime localTime)
     {
-        return (localTime.ToUniversalTime().Ticks - startTicks) / 10000;
+        return (localTime.ToUniversalTime().Ticks - uniStartTimeTicks) / 10000;
     }
 
     /// <summary>
@@ -74,7 +75,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static long ToUtcTicks(this DateTime localTime)
     {
-        return localTime.ToUniversalTime().Ticks - startTicks;
+        return localTime.ToUniversalTime().Ticks - uniStartTimeTicks;
     }
 
 
@@ -86,7 +87,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static long ToLocalSeconds(this DateTime localTime)
     {
-        return (localTime.Ticks - startTicks) / 10000000;
+        return (localTime.Ticks - uniStartTimeTicks) / 10000000;
     }
 
     /// <summary>
@@ -106,7 +107,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static DateTime ToDayEnd(this DateTime date)
     {
-        return date.Date.AddDays(1).AddSeconds(-1);
+        return date == DateTime.MaxValue ? date : date.Date.AddDays(1).AddSeconds(-1);
     }
 
 
@@ -117,6 +118,10 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static DateTime ToMonthEnd(this DateTime date)
     {
+        if (date==DateTime.MaxValue)
+        {
+            return date;
+        }
         var monthDays = DateTime.DaysInMonth(date.DayOfYear, date.Month);
         return date.Date.AddDays(monthDays + 1 - date.Day).AddSeconds(-1);
     }
