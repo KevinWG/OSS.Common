@@ -21,7 +21,7 @@ public static class DateTimeExtension
 {
     //private static readonly DateTime uniStartTime      = ;
     private static readonly long uniStartTimeTicks = new DateTime(1970, 1, 1).ToUniversalTime().Ticks;
-
+    private const           int  _daySeconds       = 24 * 60 * 60;
 
     /// <summary>
     /// 获取距离 1970-01-01（格林威治时间）的秒数
@@ -100,6 +100,9 @@ public static class DateTimeExtension
         return new DateTime(1970, 1, 1).AddSeconds(seconds);
     }
 
+
+
+
     /// <summary>
     ///  获取日期所在天的最后时间
     /// </summary>
@@ -107,7 +110,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static DateTime ToDayEnd(this DateTime date)
     {
-        return date == DateTime.MaxValue ? date : date.Date.AddDays(1).AddSeconds(-1);
+        return  date.Date.AddSeconds(_daySeconds-1);
     }
 
 
@@ -118,11 +121,7 @@ public static class DateTimeExtension
     /// <returns></returns>
     public static DateTime ToMonthEnd(this DateTime date)
     {
-        if (date==DateTime.MaxValue)
-        {
-            return date;
-        }
         var monthDays = DateTime.DaysInMonth(date.DayOfYear, date.Month);
-        return date.Date.AddDays(monthDays + 1 - date.Day).AddSeconds(-1);
+        return date.Date.AddDays(monthDays - date.Day).AddSeconds(_daySeconds - 1);
     }
 }

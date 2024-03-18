@@ -9,8 +9,8 @@ namespace OSS.Common.Tests.Extension
         [TestMethod]
         public void TestMethod1()
         {
-            var date  = DateTime.Now.ToMonthEnd();
- 
+            var date  = DateTime.MaxValue.ToDayEnd();
+            date = DateTime.MaxValue.ToMonthEnd();
         }
 
     }
