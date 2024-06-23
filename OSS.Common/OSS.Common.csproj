@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>7.2.3.3</Version>
+		<Version>7.3.0.1</Version>
 		<Authors>OSSCore</Authors>
 		<Company>OSSCore</Company>
 		<Product>OSS开源系列</Product>
